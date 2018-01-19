@@ -31,7 +31,6 @@
                         </span>
                     @endif
                 </div>
-                @include('admin.components.forms.seo', ['allow' => true, 'meta_title' => null, 'meta_description' => null])
                 <div class="form-group">
                     <label>
                         <input type="checkbox" name="generateSlug"> Do you want to generate new slug based on category title?
@@ -41,26 +40,36 @@
                     <label for="categoryContent">Description</label>
                     <textarea id="categoryContent" name="description" class="form-control pc-cms-editor">{{ $category->description }}</textarea>
                 </div>
-                <div class="form-group clearfix pc-cms-image-preview-container" id="categoryThumbnailPreview">
-                    @if ($category->thumbnail)
-                        <a href="#" class="pc-cms-clear-files">Clear selected files</a>
-                        <div class="col-xs-6 col-md-4 pc-cms-single-preview-image">
-                            <img src="{{ Storage::url('blogCategories/' . $category->thumbnail) }}" class="img-responsive img-thumbnail">
-                        </div>
-                    @endif
-                    <input type="hidden" class="pc-cms-no-image" name="noImage" value="yes">
-                </div>
-                <div class="form-group{{ $errors->has('imageThumbnail') ? ' has-error' : '' }}">
+                {{--<div class="form-group clearfix pc-cms-image-preview-container" id="categoryThumbnailPreview">--}}
+                    {{--@if ($category->thumbnail)--}}
+                        {{--<a href="#" class="pc-cms-clear-files">Clear selected files</a>--}}
+                        {{--<div class="col-xs-6 col-md-4 pc-cms-single-preview-image">--}}
+                            {{--<img src="{{ Storage::url('blogCategories/' . $category->thumbnail) }}" class="img-responsive img-thumbnail">--}}
+                        {{--</div>--}}
+                    {{--@endif--}}
+                    {{--<input type="hidden" class="pc-cms-no-image" name="noImage" value="yes">--}}
+                {{--</div>--}}
+                {{--<div class="form-group{{ $errors->has('imageThumbnail') ? ' has-error' : '' }}">--}}
 
-                    <label for="categoryThumbnail">Thumbnail</label>
-                    <input name="imageThumbnail" type="file" class="form-control pc-cms-upload-files-input" id="categoryThumbnail" data-preview-container="#categoryThumbnailPreview">
+                    {{--<label for="categoryThumbnail">Thumbnail</label>--}}
+                    {{--<input name="imageThumbnail" type="file" class="form-control pc-cms-upload-files-input" id="categoryThumbnail" data-preview-container="#categoryThumbnailPreview">--}}
 
-                    @if ($errors->has('imageThumbnail'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('imageThumbnail') }}</strong>
-                        </span>
-                    @endif
-                </div>
+                    {{--@if ($errors->has('imageThumbnail'))--}}
+                        {{--<span class="help-block">--}}
+                            {{--<strong>{{ $errors->first('imageThumbnail') }}</strong>--}}
+                        {{--</span>--}}
+                    {{--@endif--}}
+                {{--</div>--}}
+                @include('admin.components.forms.uploadFile', [
+                    'filedName' => 'imageThumbnail',
+                    'id' => 'categoryThumbnail',
+                    'label' => 'Thumbnail',
+                    'previewContainerId' => 'categoryThumbnailPreview',
+                    'editState' => true,
+                    'image' => $category->thumbnail,
+                    'dir' => 'blogCategories',
+                    'noImageInputName' => 'noImage'
+                ])
                 <div class="form-group">
                     <label for="categoryParentId">Parent category</label>
                     <select id="categoryParentId" class="form-control pc-cms-select2-base" name="parent_id">

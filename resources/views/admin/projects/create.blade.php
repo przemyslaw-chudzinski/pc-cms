@@ -40,18 +40,25 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group clearfix pc-cms-image-preview-container" id="projectThumbnailPreview"></div>
-                <div class="form-group{{ $errors->has('imageThumbnail') ? ' has-error' : '' }}">
+                {{--<div class="form-group clearfix pc-cms-image-preview-container" id="projectThumbnailPreview"></div>--}}
+                {{--<div class="form-group{{ $errors->has('imageThumbnail') ? ' has-error' : '' }}">--}}
 
-                    <label for="projectThumbnail">Thumbnail</label>
-                    <input name="imageThumbnail" type="file" class="form-control pc-cms-upload-files-input" id="projectThumbnail" data-preview-container="#projectThumbnailPreview">
+                    {{--<label for="projectThumbnail">Thumbnail</label>--}}
+                    {{--<input name="imageThumbnail" type="file" class="form-control pc-cms-upload-files-input" id="projectThumbnail" data-preview-container="#projectThumbnailPreview">--}}
 
-                    @if ($errors->has('imageThumbnail'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('imageThumbnail') }}</strong>
-                        </span>
-                    @endif
-                </div>
+                    {{--@if ($errors->has('imageThumbnail'))--}}
+                        {{--<span class="help-block">--}}
+                            {{--<strong>{{ $errors->first('imageThumbnail') }}</strong>--}}
+                        {{--</span>--}}
+                    {{--@endif--}}
+                {{--</div>--}}
+                @include('admin.components.forms.uploadFile', [
+                    'filedName' => 'imageThumbnail',
+                    'id' => 'projectThumbnail',
+                    'label' => 'Thumbnail',
+                    'previewContainerId' => 'projectThumbnailPreview',
+                    'editState' => false
+                ])
                 <div class="form-group clearfix pc-cms-image-preview-container" id="projectImagesPreview"></div>
                 <div class="form-group{{ $errors->has('additionalImages') ? ' has-error' : '' }}">
 

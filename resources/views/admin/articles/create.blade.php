@@ -40,18 +40,25 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group clearfix pc-cms-image-preview-container" id="blogThumbnailPreview"></div>
-                <div class="form-group{{ $errors->has('imageThumbnail') ? ' has-error' : '' }}">
+                {{--<div class="form-group clearfix pc-cms-image-preview-container" id="blogThumbnailPreview"></div>--}}
+                {{--<div class="form-group{{ $errors->has('imageThumbnail') ? ' has-error' : '' }}">--}}
 
-                    <label for="articleThumbnail">Thumbnail</label>
-                    <input name="imageThumbnail" type="file" class="form-control pc-cms-upload-files-input" id="articleThumbnail" data-preview-container="#blogThumbnailPreview">
+                    {{--<label for="articleThumbnail">Thumbnail</label>--}}
+                    {{--<input name="imageThumbnail" type="file" class="form-control pc-cms-upload-files-input" id="articleThumbnail" data-preview-container="#blogThumbnailPreview">--}}
 
-                    @if ($errors->has('imageThumbnail'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('imageThumbnail') }}</strong>
-                        </span>
-                    @endif
-                </div>
+                    {{--@if ($errors->has('imageThumbnail'))--}}
+                        {{--<span class="help-block">--}}
+                            {{--<strong>{{ $errors->first('imageThumbnail') }}</strong>--}}
+                        {{--</span>--}}
+                    {{--@endif--}}
+                {{--</div>--}}
+                @include('admin.components.forms.uploadFile', [
+                    'filedName' => 'imageThumbnail',
+                    'id' => 'articleThumbnail',
+                    'label' => 'Thumbnail',
+                    'previewContainerId' => 'blogThumbnailPreview',
+                    'editState' => false
+                ])
                 <div class="form-group">
                     <label for="">Categories</label>
                     <select multiple name="category_ids[]" class="form-control pc-cms-select2-base">

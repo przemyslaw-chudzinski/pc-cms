@@ -40,26 +40,36 @@
                     <label for="projectCategoryDescription">Description</label>
                     <textarea id="projectCategoryDescription" name="description" class="form-control pc-cms-editor">{{ $category->description }}</textarea>
                 </div>
-                <div class="form-group clearfix pc-cms-image-preview-container" id="projectCategoryThumbnailPreview">
-                    @if ($category->thumbnail)
-                        <a href="#" class="pc-cms-clear-files">Clear selected files</a>
-                        <div class="col-xs-6 col-md-4 pc-cms-single-preview-image">
-                            <img src="{{ Storage::url('projectCategories/' . $category->thumbnail) }}" class="img-responsive img-thumbnail">
-                        </div>
-                    @endif
-                    <input type="hidden" class="pc-cms-no-image" name="noImage" value="yes">
-                </div>
-                <div class="form-group{{ $errors->has('imageThumbnail') ? ' has-error' : '' }}">
+                {{--<div class="form-group clearfix pc-cms-image-preview-container" id="projectCategoryThumbnailPreview">--}}
+                    {{--@if ($category->thumbnail)--}}
+                        {{--<a href="#" class="pc-cms-clear-files">Clear selected files</a>--}}
+                        {{--<div class="col-xs-6 col-md-4 pc-cms-single-preview-image">--}}
+                            {{--<img src="{{ Storage::url('projectCategories/' . $category->thumbnail) }}" class="img-responsive img-thumbnail">--}}
+                        {{--</div>--}}
+                    {{--@endif--}}
+                    {{--<input type="hidden" class="pc-cms-no-image" name="noImage" value="yes">--}}
+                {{--</div>--}}
+                {{--<div class="form-group{{ $errors->has('imageThumbnail') ? ' has-error' : '' }}">--}}
 
-                    <label for="projectCategoryThumbnail">Thumbnail</label>
-                    <input name="imageThumbnail" type="file" class="form-control pc-cms-upload-files-input" id="projectCategoryThumbnail" data-preview-container="#projectCategoryThumbnailPreview">
+                    {{--<label for="projectCategoryThumbnail">Thumbnail</label>--}}
+                    {{--<input name="imageThumbnail" type="file" class="form-control pc-cms-upload-files-input" id="projectCategoryThumbnail" data-preview-container="#projectCategoryThumbnailPreview">--}}
 
-                    @if ($errors->has('imageThumbnail'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('imageThumbnail') }}</strong>
-                        </span>
-                    @endif
-                </div>
+                    {{--@if ($errors->has('imageThumbnail'))--}}
+                        {{--<span class="help-block">--}}
+                            {{--<strong>{{ $errors->first('imageThumbnail') }}</strong>--}}
+                        {{--</span>--}}
+                    {{--@endif--}}
+                {{--</div>--}}
+                @include('admin.components.forms.uploadFile', [
+                    'filedName' => 'imageThumbnail',
+                    'id' => 'projectCategoryThumbnail',
+                    'label' => 'Thumbnail',
+                    'previewContainerId' => 'projectCategoryThumbnailPreview',
+                    'editState' => true,
+                    'image' => $category->thumbnail,
+                    'dir' => 'projectCategories',
+                    'noImageInputName' => 'noImage'
+                ])
                 <div class="form-group">
                     <label>
                         <input name="saveAndPublished" type="checkbox" @if($category->published) checked @endif> Save and publish
