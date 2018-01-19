@@ -1,0 +1,50 @@
+.pc-button-primary {
+  border-radius: 0px;
+  background-color: transparent;
+  position: relative;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  padding: .7rem 2rem;
+  span {
+    display: block;
+  }
+  &:after, &:before, span:after, span:before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    @include baseTransition;
+  }
+  &::before {
+    top: 0;
+    left: 0;
+    border-left: $button-border-width solid $button-primary-border-color;
+    border-top: $button-border-width solid $button-primary-border-color;
+  }
+  &:after {
+    left: 0;
+    bottom: 0;
+    border-left: $button-border-width solid $button-primary-border-color;
+    border-bottom: $button-border-width solid $button-primary-border-color;
+  }
+  span::before {
+    top: 0;
+    right: 0;
+    border-right: $button-border-width solid $button-primary-border-color;
+    border-top: $button-border-width solid $button-primary-border-color;
+  }
+  span::after {
+    bottom: 0;
+    right: 0;
+    border-bottom: $button-border-width solid $button-primary-border-color;
+    border-right: $button-border-width solid $button-primary-border-color;
+  }
+
+  &:hover {
+    &::before, &::after, span::after, span::before {
+      width: 15px;
+      height: 15px;
+    }
+  }
+}

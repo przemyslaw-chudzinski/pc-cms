@@ -1,0 +1,17 @@
+.pc-welcome-front-page {
+  // padding: 5rem 0;
+  .container {
+    position: relative;
+  }
+  .pc-section-header {
+    @include media-breakpoint-up(lg) {
+      right: 0;
+    }
+  }
+  .pc-about-front-page-content {
+    @include media-breakpoint-up(lg) {
+      padding-left: 2rem;
+      padding-right: 11.88rem;
+    }
+  }
+}

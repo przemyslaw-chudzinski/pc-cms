@@ -1,0 +1,50 @@
+.pc-contact-form-front-page {
+  background-color: $indygo-600;
+}
+
+.pc-button-contact-form {
+  color: $white;
+  font-size: .7rem !important;
+  &::before {
+    top: 0;
+    left: 0;
+    border-left: $button-border-width solid $white !important;
+    border-top: $button-border-width solid $white !important;
+  }
+  &:after {
+    left: 0;
+    bottom: 0;
+    border-left: $button-border-width solid $white !important;
+    border-bottom: $button-border-width solid $white !important;
+  }
+  span::before {
+    top: 0;
+    right: 0;
+    border-right: $button-border-width solid $white !important;
+    border-top: $button-border-width solid $white !important;
+  }
+  span::after {
+    bottom: 0;
+    right: 0;
+    border-bottom: $button-border-width solid $white !important;
+    border-right: $button-border-width solid $white !important;
+  }
+}
+
+.pc-contact-form {
+  input, textarea {
+    background-color: transparent;
+    border: 2px solid $white;
+    color: $white;
+    font-size: .7rem;
+  }
+  textarea {
+    @include baseTransition;
+    &:focus {
+      height: 200px;
+    }
+  }
+  input:active, textarea:active {
+    color: $black;
+  }
+}

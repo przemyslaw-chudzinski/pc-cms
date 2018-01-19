@@ -1,0 +1,59 @@
+/* Global styles */
+p {
+  font-size: 0.875rem;
+}
+
+/* Section header - ver 1 */
+.pc-section-header {
+  font-size: 2rem;
+  line-height: 1;
+  letter-spacing: $global-letter-spacing;
+  font-weight: 700;
+  position: relative;
+  top: 25px;
+  z-index: 99;
+  text-align: center;
+  @include media-breakpoint-up(md) {
+    font-size: 3.75rem;
+  };
+  @include media-breakpoint-up(lg) {
+    position: absolute;
+    top: 5rem;
+    z-index: 100;
+    max-width: 392px;
+    text-align: left;
+    &:after {
+      content: '';
+      display: block;
+      height: 4px;
+      background-color: $black;
+      width: 45%;
+      margin-top: 2rem;
+    }
+  }
+}
+
+.pc-section {
+  padding: 5rem 0;
+}
+
+.text-white {
+  color: $white !important;
+}
+
+/* Section header ver - 2 */
+.pc-section-header-2 {
+  font-weight: 700;
+}
+
+.pc-section-header-2-subheader {
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+  @include media-breakpoint-up(lg) {
+    margin-bottom: 0;
+  };
+}
+
+.pc-section-header-2-wrapper {
+  padding-bottom: 2rem;
+}

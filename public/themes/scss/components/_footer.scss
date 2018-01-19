@@ -1,0 +1,41 @@
+.pc-footer {
+  background-color: $indygo-900;
+  padding: 2rem 0;
+  font-size: 0.875rem;
+  color: $white;
+  position: relative;
+}
+
+.pc-footer-menu {
+  display: flex;
+  margin-bottom: 0;
+  li {
+    margin-left: 2rem;
+    a {
+      color: $white;
+    }
+  }
+}
+
+.pc-arrow-up-btn {
+  position: absolute;
+  top: -40px;
+  right: 30px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  text-decoration: none;
+  background-color: $white;
+  font-size: 2rem;
+  box-shadow: 0px 0px 16px -1px rgba($black,0.3);
+  @include baseTransition;
+  span.fa {
+    text-align: center;
+    line-height: 80px;
+    display: block;
+  }
+  &:hover {
+    box-shadow: 0px 0px 16px 3px rgba($black,0.3);
+    text-decoration: none;
+  }
+}
