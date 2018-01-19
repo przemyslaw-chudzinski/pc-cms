@@ -88,11 +88,11 @@
                     </select>
                 </div>
                 @include('admin.components.forms.seo', ['allow' => $project->allow_indexed, 'meta_title' => $project->meta_title, 'meta_description' => $project->meta_description])
-                <div class="form-group">
-                    <label>
-                        <input name="saveAndPublished" type="checkbox" @if($project->published) checked @endif> Save and publish
-                    </label>
-                </div>
+                @include('admin.components.forms.saveAndPublish', [
+                    'label' => 'Save and publish',
+                    'fieldName' => 'saveAndPublished',
+                    'checked' => $project->published
+                ])
                 <button class="btn btn-primary">Save</button>
             </form>
         </div>

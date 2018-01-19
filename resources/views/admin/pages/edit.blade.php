@@ -58,11 +58,11 @@
                     'noImageInputName' => 'noImage'
                 ])
                 @include('admin.components.forms.seo', ['allow' => $page->allow_indexed, 'meta_title' => $page->meta_title, 'meta_description' => $page->meta_description])
-                <div class="form-group">
-                    <label>
-                        <input name="saveAndPublished" type="checkbox" @if($page->published) checked @endif> Save and publish
-                    </label>
-                </div>
+                @include('admin.components.forms.saveAndPublish', [
+                    'label' => 'Save and publish',
+                    'fieldName' => 'saveAndPublished',
+                    'checked' => $page->published
+                ])
                 <button class="btn btn-primary">Save</button>
             </form>
         </div>

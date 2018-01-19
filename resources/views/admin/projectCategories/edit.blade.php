@@ -56,11 +56,11 @@
                     'dir' => 'projectCategories',
                     'noImageInputName' => 'noImage'
                 ])
-                <div class="form-group">
-                    <label>
-                        <input name="saveAndPublished" type="checkbox" @if($category->published) checked @endif> Save and publish
-                    </label>
-                </div>
+                @include('admin.components.forms.saveAndPublish', [
+                    'label' => 'Save and publish',
+                    'fieldName' => 'saveAndPublished',
+                    'checked' => $category->published
+                ])
                 <button type="submit" class="btn btn-primary">Save</button>
             </form>
         </div>

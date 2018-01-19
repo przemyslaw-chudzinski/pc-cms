@@ -46,11 +46,11 @@
                     'multiple' => false,
                     'editState' => false
                 ])
-                <div class="form-group">
-                    <label>
-                        <input name="saveAndPublished" type="checkbox" checked> Save and publish
-                    </label>
-                </div>
+                @include('admin.components.forms.saveAndPublish', [
+                    'label' => 'Save and publish',
+                    'fieldName' => 'saveAndPublished',
+                    'checked' => true
+                ])
                 <button type="submit" class="btn btn-primary">Save</button>
             </form>
         </div>
