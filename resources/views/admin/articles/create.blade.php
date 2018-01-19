@@ -48,16 +48,19 @@
                     'multiple' => false,
                     'editState' => false
                 ])
-                <div class="form-group">
-                    <label for="">Categories</label>
-                    <select multiple name="category_ids[]" class="form-control pc-cms-select2-base">
-                        @if (count($categories) > 0)
-                            @foreach($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                            @endforeach
-                        @endif
-                    </select>
-                </div>
+
+
+                @include('admin.components.forms.selection', [
+                    'label' => 'Categories',
+                    'multiple' => true,
+                    'fieldName' => 'category_ids',
+                    'id' => 'categoryIds',
+                    'editState' => false,
+                    'selections' => $categories,
+                    'selectionName' => 'name',
+                    'excludeIds' => []
+                ])
+
                 @include('admin.components.forms.seo', ['allow' => true, 'meta_title' => null, 'meta_description' => null])
 
                 @include('admin.components.forms.saveAndPublish', [

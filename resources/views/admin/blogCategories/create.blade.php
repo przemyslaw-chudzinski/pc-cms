@@ -46,17 +46,18 @@
                     'multiple' => false,
                     'editState' => false
                 ])
-                <div class="form-group">
-                    <label for="categoryParentId">Parent category</label>
-                    <select id="categoryParentId" class="form-control pc-cms-select2-base" name="parent_id">
-                        @if (count($categories) > 0)
-                            <option></option>
-                            @foreach($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                            @endforeach
-                        @endif
-                    </select>
-                </div>
+
+                @include('admin.components.forms.selection', [
+                    'label' => 'Parent category',
+                    'multiple' => false,
+                    'fieldName' => 'parent_id',
+                    'id' => 'categoryIds',
+                    'editState' => false,
+                    'selections' => $categories,
+                    'selectionName' => 'name',
+                    'excludeIds' => []
+                ])
+
                 @include('admin.components.forms.saveAndPublish', [
                     'label' => 'Save and publish',
                     'fieldName' => 'saveAndPublished',

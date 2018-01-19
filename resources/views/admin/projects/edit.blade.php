@@ -69,24 +69,20 @@
                     'dir' => 'projects',
                     'noImageInputName' => 'noImages'
                 ])
-                <div class="form-group">
-                    <label for="">Categories</label>
-                    <select multiple name="category_ids[]" class="form-control pc-cms-select2-base">
-                        @if (count($categories) > 0)
-                            @foreach($categories as $category)
-                                <option value="{{ $category->id }}"
-                                        @if (count($project->getCategoryIdsAttribute()) > 0)
-                                            @foreach($project->getCategoryIdsAttribute() as $id)
-                                                @if ($id === $category->id)
-                                                    selected
-                                                @endif
-                                            @endforeach
-                                        @endif
-                                >{{ $category->name }}</option>
-                            @endforeach
-                        @endif
-                    </select>
-                </div>
+
+                @include('admin.components.forms.selection', [
+                    'label' => 'Categories',
+                    'multiple' => true,
+                    'fieldName' => 'category_ids',
+                    'id' => 'projectCategoryIds',
+                    'editState' => true,
+                    'selections' => $categories,
+                    'selectionName' => 'name',
+                    'excludeIds' => [],
+                    'idsAttribute' => $project->getCategoryIdsAttribute()
+                ])
+
+
                 @include('admin.components.forms.seo', ['allow' => $project->allow_indexed, 'meta_title' => $project->meta_title, 'meta_description' => $project->meta_description])
                 @include('admin.components.forms.saveAndPublish', [
                     'label' => 'Save and publish',

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\BlogCategory;
 use App\Http\Controllers\Controller;
 
-class BlogCategories extends Controller
+class BlogCategoriesController extends Controller
 {
     public function index()
     {

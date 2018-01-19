@@ -55,12 +55,12 @@ Route::group(['prefix' => 'backend', 'namespace' => 'Admin'], function () {
 
         /* Blog Categories */
         Route::group(['prefix' => 'categories'], function () {
-            Route::get('/', 'BlogCategories@index')->name('admin.articles.categories.index');
-            Route::get('/create', 'BlogCategories@create')->name('admin.articles.categories.create');
-            Route::get('{blogCategory}/edit', 'BlogCategories@edit')->name('admin.articles.categories.edit');
-            Route::post('/', 'BlogCategories@store')->name('admin.articles.categories.store');
-            Route::put('{blogCategory}', 'BlogCategories@update')->name('admin.articles.categories.update');
-//            Route::delete('{article}', 'BlogCategories@destroy')->name('admin.articles.categories.destroy');
+            Route::get('/', 'BlogCategoriesController@index')->name('admin.articles.categories.index');
+            Route::get('/create', 'BlogCategoriesController@create')->name('admin.articles.categories.create');
+            Route::get('{blogCategory}/edit', 'BlogCategoriesController@edit')->name('admin.articles.categories.edit');
+            Route::post('/', 'BlogCategoriesController@store')->name('admin.articles.categories.store');
+            Route::put('{blogCategory}', 'BlogCategoriesController@update')->name('admin.articles.categories.update');
+//            Route::delete('{article}', 'BlogCategoriesController@destroy')->name('admin.articles.categories.destroy');
         });
     });
 

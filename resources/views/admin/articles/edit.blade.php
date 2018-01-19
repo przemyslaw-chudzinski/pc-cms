@@ -58,29 +58,26 @@
                     'dir' => 'blog',
                     'noImageInputName' => 'noImage'
                 ])
-                <div class="form-group">
-                    <label for="">Categories</label>
-                    <select multiple name="category_ids[]" class="form-control pc-cms-select2-base">
-                        @if (count($categories) > 0)
-                            @foreach($categories as $category)
-                                <option value="{{ $category->id }}"
-                                        @if (count($article->getCategoryIdsAttribute()) > 0)
-                                            @foreach($article->getCategoryIdsAttribute() as $id)
-                                                @if ($id === $category->id)
-                                                    selected
-                                                @endif
-                                            @endforeach
-                                        @endif
-                                >{{ $category->name }}</option>
-                            @endforeach
-                        @endif
-                    </select>
-                </div>
+
+
+                @include('admin.components.forms.selection', [
+                    'label' => 'Categories',
+                    'multiple' => true,
+                    'fieldName' => 'category_ids',
+                    'id' => 'categoryIds',
+                    'editState' => true,
+                    'selections' => $categories,
+                    'selectionName' => 'name',
+                    'idsAttribute' => $article->getCategoryIdsAttribute(),
+                    'excludeIds' => []
+                ])
+
                 @include('admin.components.forms.seo', [
                     'allow' => $article->allow_indexed,
                     'meta_title' => $article->meta_title,
                     'meta_description' => $article->meta_description
-                  ])
+                 ])
+
                 @include('admin.components.forms.saveAndPublish', [
                     'label' => 'Save and publish',
                     'fieldName' => 'saveAndPublished',

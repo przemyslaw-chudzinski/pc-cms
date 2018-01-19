@@ -33,7 +33,7 @@
                 </div>
                 <div class="form-group">
                     <label>
-                        <input type="checkbox" name="generateSlug"> Do you want to generate new slug based on category title?
+                        <input type="checkbox" name="generateSlug"> Do you want to generate new slug based on category name?
                     </label>
                 </div>
 
@@ -56,23 +56,25 @@
                     'dir' => 'blogCategories',
                     'noImageInputName' => 'noImage'
                 ])
-                <div class="form-group">
-                    <label for="categoryParentId">Parent category</label>
-                    <select id="categoryParentId" class="form-control pc-cms-select2-base" name="parent_id">
-                        @if (count($categories) > 0)
-                            <option></option>
-                            @foreach($categories as $blogCategory)
-                                @if ($blogCategory->id !== $category->id)
-                                    <option value="{{ $blogCategory->id }}" @if($category->parent_id === $blogCategory->id) selected @endif>{{ $blogCategory->name }}</option>
-                                @endif
-                            @endforeach
-                        @endif
-                    </select>
-                </div>
+
+
+                @include('admin.components.forms.selection', [
+                    'label' => 'Parent category',
+                    'multiple' => false,
+                    'fieldName' => 'parent_id',
+                    'id' => 'categoryIds',
+                    'editState' => true,
+                    'selections' => $categories,
+                    'selectionName' => 'name',
+                    'idsAttribute' => [$category->parent_id],
+                    'excludeIds' => [$category->id]
+                ])
+
+
                 @include('admin.components.forms.saveAndPublish', [
                     'label' => 'Save and publish',
                     'fieldName' => 'saveAndPublished',
-                    'checked' => $blogCategory->published
+                    'checked' => $category->published
                 ])
                 <button type="submit" class="btn btn-primary">Save</button>
             </form>
