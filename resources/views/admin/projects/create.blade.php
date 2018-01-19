@@ -31,15 +31,14 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group{{ $errors->has('content') ? ' has-error' : '' }}">
-                    <label for="projectContent">Project content</label>
-                    <textarea class="form-control pc-cms-editor" name="content" id="projectContent"></textarea>
-                    @if ($errors->has('content'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('content') }}</strong>
-                        </span>
-                    @endif
-                </div>
+
+                @include('admin.components.forms.richEditor', [
+                    'id' => 'projectContent',
+                    'fieldName' => 'content',
+                    'editState' => false,
+                    'label' => 'Project content'
+                ])
+
                 @include('admin.components.forms.uploadImage', [
                     'filedName' => 'imageThumbnail',
                     'id' => 'projectThumbnail',
@@ -48,18 +47,7 @@
                     'multiple' => false,
                     'editState' => false
                 ])
-                {{--<div class="form-group clearfix pc-cms-image-preview-container" id="projectImagesPreview"></div>--}}
-                {{--<div class="form-group{{ $errors->has('additionalImages') ? ' has-error' : '' }}">--}}
 
-                    {{--<label for="projectImages">Images</label>--}}
-                    {{--<input name="additionalImages[]" type="file" multiple class="form-control pc-cms-upload-files-input" id="projectImages" data-preview-container="#projectImagesPreview">--}}
-
-                    {{--@if ($errors->has('additionalImages'))--}}
-                        {{--<span class="help-block">--}}
-                            {{--<strong>{{ $errors->first('additionalImages') }}</strong>--}}
-                        {{--</span>--}}
-                    {{--@endif--}}
-                {{--</div>--}}
                 @include('admin.components.forms.uploadImage', [
                     'filedName' => 'additionalImages',
                     'id' => 'projectImages',

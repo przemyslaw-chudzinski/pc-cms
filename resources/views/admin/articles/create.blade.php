@@ -31,15 +31,14 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group{{ $errors->has('content') ? ' has-error' : '' }}">
-                    <label for="articleContent">Article content</label>
-                    <textarea class="form-control pc-cms-editor" name="content" id="articleContent"></textarea>
-                    @if ($errors->has('content'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('content') }}</strong>
-                        </span>
-                    @endif
-                </div>
+
+
+                @include('admin.components.forms.richEditor', [
+                    'id' => 'articleContent',
+                    'fieldName' => 'content',
+                    'editState' => false,
+                    'label' => 'Article content'
+                ])
 
                 @include('admin.components.forms.uploadImage', [
                     'filedName' => 'imageThumbnail',

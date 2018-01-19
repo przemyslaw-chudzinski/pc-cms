@@ -37,15 +37,15 @@
                         <input type="checkbox" name="generateSlug"> Do you want to generate new slug based on page title?
                     </label>
                 </div>
-                <div class="form-group{{ $errors->has('content') ? ' has-error' : '' }}">
-                    <label for="pageContent">Page content</label>
-                    <textarea class="form-control pc-cms-editor" name="content" id="pageContent">{{ $page->content }}</textarea>
-                    @if ($errors->has('content'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('content') }}</strong>
-                        </span>
-                    @endif
-                </div>
+
+                @include('admin.components.forms.richEditor', [
+                    'id' => 'pageContent',
+                    'fieldName' => 'content',
+                    'editState' => true,
+                    'label' => 'Page content',
+                    'value' => $page->content
+                ])
+
                 @include('admin.components.forms.uploadImage', [
                     'filedName' => 'imageThumbnail',
                     'id' => 'pageThumbnail',

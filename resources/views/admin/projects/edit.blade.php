@@ -37,15 +37,14 @@
                         <input type="checkbox" name="generateSlug"> Do you want to generate new slug based on project title?
                     </label>
                 </div>
-                <div class="form-group{{ $errors->has('content') ? ' has-error' : '' }}">
-                    <label for="projectContent">Project content</label>
-                    <textarea class="form-control pc-cms-editor" name="content" id="projectContent">{{ $project->content }}</textarea>
-                    @if ($errors->has('content'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('content') }}</strong>
-                        </span>
-                    @endif
-                </div>
+
+                @include('admin.components.forms.richEditor', [
+                    'id' => 'projectContent',
+                    'fieldName' => 'content',
+                    'editState' => true,
+                    'label' => 'Project content',
+                    'value' => $project->content
+                ])
 
                 @include('admin.components.forms.uploadImage', [
                     'filedName' => 'imageThumbnail',

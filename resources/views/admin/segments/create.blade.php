@@ -22,10 +22,14 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group">
-                    <label for="segmentContent">Content</label>
-                    <textarea id="segmentContent" name="content" class="form-control pc-cms-editor"></textarea>
-                </div>
+
+                @include('admin.components.forms.richEditor', [
+                    'id' => 'segmentContent',
+                    'fieldName' => 'content',
+                    'editState' => false,
+                    'label' => 'Content'
+                ])
+
                 <button type="submit" class="btn btn-primary">Save</button>
             </form>
         </div>

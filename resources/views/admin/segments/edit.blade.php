@@ -23,10 +23,16 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group">
-                    <label for="segmentContent">Content</label>
-                    <textarea id="segmentContent" name="content" class="form-control pc-cms-editor">{{ $segment->content }}</textarea>
-                </div>
+
+                @include('admin.components.forms.richEditor', [
+                    'id' => 'segmentContent',
+                    'fieldName' => 'content',
+                    'editState' => true,
+                    'label' => 'Content',
+                    'value' => $segment->content
+                ])
+
+
                 <button type="submit" class="btn btn-primary">Save</button>
             </form>
         </div>

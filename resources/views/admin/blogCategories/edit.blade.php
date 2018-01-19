@@ -36,10 +36,15 @@
                         <input type="checkbox" name="generateSlug"> Do you want to generate new slug based on category title?
                     </label>
                 </div>
-                <div class="form-group">
-                    <label for="categoryContent">Description</label>
-                    <textarea id="categoryContent" name="description" class="form-control pc-cms-editor">{{ $category->description }}</textarea>
-                </div>
+
+                @include('admin.components.forms.richEditor', [
+                    'id' => 'categoryContent',
+                    'fieldName' => 'description',
+                    'editState' => true,
+                    'label' => 'Description',
+                    'value' => $category->description
+                ])
+
                 @include('admin.components.forms.uploadImage', [
                     'filedName' => 'imageThumbnail',
                     'id' => 'categoryThumbnail',

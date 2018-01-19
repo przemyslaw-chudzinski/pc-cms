@@ -30,10 +30,14 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group">
-                    <label for="projectCategoryDescription">Description</label>
-                    <textarea id="projectCategoryDescription" name="description" class="form-control pc-cms-editor"></textarea>
-                </div>
+
+                @include('admin.components.forms.richEditor', [
+                    'id' => 'projectCategoryDescription',
+                    'fieldName' => 'description',
+                    'editState' => false,
+                    'label' => 'Description'
+                ])
+
                 @include('admin.components.forms.uploadImage', [
                     'filedName' => 'imageThumbnail',
                     'id' => 'projectCategoryThumbnail',
