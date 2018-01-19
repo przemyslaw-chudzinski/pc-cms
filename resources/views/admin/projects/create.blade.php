@@ -40,37 +40,34 @@
                         </span>
                     @endif
                 </div>
-                {{--<div class="form-group clearfix pc-cms-image-preview-container" id="projectThumbnailPreview"></div>--}}
-                {{--<div class="form-group{{ $errors->has('imageThumbnail') ? ' has-error' : '' }}">--}}
-
-                    {{--<label for="projectThumbnail">Thumbnail</label>--}}
-                    {{--<input name="imageThumbnail" type="file" class="form-control pc-cms-upload-files-input" id="projectThumbnail" data-preview-container="#projectThumbnailPreview">--}}
-
-                    {{--@if ($errors->has('imageThumbnail'))--}}
-                        {{--<span class="help-block">--}}
-                            {{--<strong>{{ $errors->first('imageThumbnail') }}</strong>--}}
-                        {{--</span>--}}
-                    {{--@endif--}}
-                {{--</div>--}}
-                @include('admin.components.forms.uploadFile', [
+                @include('admin.components.forms.uploadImage', [
                     'filedName' => 'imageThumbnail',
                     'id' => 'projectThumbnail',
                     'label' => 'Thumbnail',
                     'previewContainerId' => 'projectThumbnailPreview',
+                    'multiple' => false,
                     'editState' => false
                 ])
-                <div class="form-group clearfix pc-cms-image-preview-container" id="projectImagesPreview"></div>
-                <div class="form-group{{ $errors->has('additionalImages') ? ' has-error' : '' }}">
+                {{--<div class="form-group clearfix pc-cms-image-preview-container" id="projectImagesPreview"></div>--}}
+                {{--<div class="form-group{{ $errors->has('additionalImages') ? ' has-error' : '' }}">--}}
 
-                    <label for="projectImages">Images</label>
-                    <input name="additionalImages[]" type="file" multiple class="form-control pc-cms-upload-files-input" id="projectImages" data-preview-container="#projectImagesPreview">
+                    {{--<label for="projectImages">Images</label>--}}
+                    {{--<input name="additionalImages[]" type="file" multiple class="form-control pc-cms-upload-files-input" id="projectImages" data-preview-container="#projectImagesPreview">--}}
 
-                    @if ($errors->has('additionalImages'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('additionalImages') }}</strong>
-                        </span>
-                    @endif
-                </div>
+                    {{--@if ($errors->has('additionalImages'))--}}
+                        {{--<span class="help-block">--}}
+                            {{--<strong>{{ $errors->first('additionalImages') }}</strong>--}}
+                        {{--</span>--}}
+                    {{--@endif--}}
+                {{--</div>--}}
+                @include('admin.components.forms.uploadImage', [
+                    'filedName' => 'additionalImages',
+                    'id' => 'projectImages',
+                    'label' => 'Images',
+                    'previewContainerId' => 'projectImagesPreview',
+                    'multiple' => true,
+                    'editState' => false
+                ])
                 <div class="form-group">
                     <label for="">Categories</label>
                     <select multiple name="category_ids[]" class="form-control pc-cms-select2-base">

@@ -46,58 +46,30 @@
                         </span>
                     @endif
                 </div>
-                {{--<div class="form-group clearfix pc-cms-image-preview-container" id="projectThumbnailPreview">--}}
-                    {{--@if ($project->thumbnail)--}}
-                        {{--<a href="#" class="pc-cms-clear-files">Clear selected files</a>--}}
-                        {{--<div class="col-xs-6 col-md-4 pc-cms-single-preview-image">--}}
-                            {{--<img src="{{ Storage::url('projects/' . $project->thumbnail) }}" class="img-responsive img-thumbnail">--}}
-                        {{--</div>--}}
-                    {{--@endif--}}
-                    {{--<input type="hidden" class="pc-cms-no-image" name="noImage" value="yes">--}}
-                {{--</div>--}}
-                {{--<div class="form-group{{ $errors->has('imageThumbnail') ? ' has-error' : '' }}">--}}
 
-                    {{--<label for="projectThumbnail">Thumbnail</label>--}}
-                    {{--<input name="imageThumbnail" type="file" class="form-control pc-cms-upload-files-input" id="projectThumbnail" data-preview-container="#projectThumbnailPreview">--}}
-
-                    {{--@if ($errors->has('imageThumbnail'))--}}
-                        {{--<span class="help-block">--}}
-                            {{--<strong>{{ $errors->first('imageThumbnail') }}</strong>--}}
-                        {{--</span>--}}
-                    {{--@endif--}}
-                {{--</div>--}}
-                @include('admin.components.forms.uploadFile', [
+                @include('admin.components.forms.uploadImage', [
                     'filedName' => 'imageThumbnail',
                     'id' => 'projectThumbnail',
                     'label' => 'Thumbnail',
                     'previewContainerId' => 'projectThumbnailPreview',
+                    'multiple' => false,
                     'editState' => true,
                     'image' => $project->thumbnail,
                     'dir' => 'projects',
                     'noImageInputName' => 'noImage'
                 ])
-                <div class="form-group clearfix pc-cms-image-preview-container" id="projectImagesPreview">
-                    @if ($project->images)
-                        <a href="#" class="pc-cms-clear-files">Clear selected files</a>
-                        @foreach(unserialize($project->images) as $image)
-                            <div class="col-xs-6 col-md-4 pc-cms-single-preview-image">
-                                <img src="{{ Storage::url('projects/' . $image) }}" class="img-responsive img-thumbnail">
-                            </div>
-                        @endforeach
-                    @endif
-                    <input type="hidden" class="pc-cms-no-image" name="noImages" value="yes">
-                </div>
-                <div class="form-group{{ $errors->has('additionalImages') ? ' has-error' : '' }}">
 
-                    <label for="projectImages">Images</label>
-                    <input name="additionalImages[]" type="file" multiple class="form-control pc-cms-upload-files-input" id="projectImages" data-preview-container="#projectImagesPreview">
-
-                    @if ($errors->has('additionalImages'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('additionalImages') }}</strong>
-                        </span>
-                    @endif
-                </div>
+                @include('admin.components.forms.uploadImage', [
+                    'filedName' => 'additionalImages',
+                    'id' => 'projectImages',
+                    'label' => 'Images',
+                    'previewContainerId' => 'projectImagesPreview',
+                    'multiple' => true,
+                    'editState' => true,
+                    'image' => $project->images,
+                    'dir' => 'projects',
+                    'noImageInputName' => 'noImages'
+                ])
                 <div class="form-group">
                     <label for="">Categories</label>
                     <select multiple name="category_ids[]" class="form-control pc-cms-select2-base">

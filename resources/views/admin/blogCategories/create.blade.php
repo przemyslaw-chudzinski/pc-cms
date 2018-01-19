@@ -34,23 +34,12 @@
                     <label for="categoryContent">Description</label>
                     <textarea id="categoryContent" name="description" class="form-control pc-cms-editor"></textarea>
                 </div>
-                {{--<div class="form-group clearfix pc-cms-image-preview-container" id="categoryThumbnailPreview"></div>--}}
-                {{--<div class="form-group{{ $errors->has('imageThumbnail') ? ' has-error' : '' }}">--}}
-
-                    {{--<label for="categoryThumbnail">Thumbnail</label>--}}
-                    {{--<input name="imageThumbnail" type="file" class="form-control pc-cms-upload-files-input" id="categoryThumbnail" data-preview-container="#categoryThumbnailPreview">--}}
-
-                    {{--@if ($errors->has('imageThumbnail'))--}}
-                        {{--<span class="help-block">--}}
-                            {{--<strong>{{ $errors->first('imageThumbnail') }}</strong>--}}
-                        {{--</span>--}}
-                    {{--@endif--}}
-                {{--</div>--}}
-                @include('admin.components.forms.uploadFile', [
+                @include('admin.components.forms.uploadImage', [
                     'filedName' => 'imageThumbnail',
                     'id' => 'categoryThumbnail',
                     'label' => 'Thumbnail',
                     'previewContainerId' => 'categoryThumbnailPreview',
+                    'multiple' => false,
                     'editState' => false
                 ])
                 <div class="form-group">

@@ -46,31 +46,12 @@
                         </span>
                     @endif
                 </div>
-                {{--<div class="form-group clearfix pc-cms-image-preview-container" id="pageThumbnailPreview">--}}
-                    {{--@if ($page->thumbnail)--}}
-                        {{--<a href="#" class="pc-cms-clear-files">Clear selected files</a>--}}
-                        {{--<div class="col-xs-6 col-md-4 pc-cms-single-preview-image">--}}
-                            {{--<img src="{{ Storage::url('pages/' . $page->thumbnail) }}" class="img-responsive img-thumbnail">--}}
-                        {{--</div>--}}
-                    {{--@endif--}}
-                    {{--<input type="hidden" class="pc-cms-no-image" name="noImage" value="yes">--}}
-                {{--</div>--}}
-                {{--<div class="form-group{{ $errors->has('imageThumbnail') ? ' has-error' : '' }}">--}}
-
-                    {{--<label for="pageThumbnail">Thumbnail</label>--}}
-                    {{--<input name="imageThumbnail" type="file" class="form-control pc-cms-upload-files-input" id="pageThumbnail" data-preview-container="#pageThumbnailPreview">--}}
-
-                    {{--@if ($errors->has('imageThumbnail'))--}}
-                        {{--<span class="help-block">--}}
-                            {{--<strong>{{ $errors->first('imageThumbnail') }}</strong>--}}
-                        {{--</span>--}}
-                    {{--@endif--}}
-                {{--</div>--}}
-                @include('admin.components.forms.uploadFile', [
+                @include('admin.components.forms.uploadImage', [
                     'filedName' => 'imageThumbnail',
                     'id' => 'pageThumbnail',
                     'label' => 'Thumbnail',
                     'previewContainerId' => 'pageThumbnailPreview',
+                    'multiple' => false,
                     'editState' => true,
                     'image' => $page->thumbnail,
                     'dir' => 'pages',
