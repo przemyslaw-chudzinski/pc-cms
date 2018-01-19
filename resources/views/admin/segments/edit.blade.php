@@ -2,10 +2,9 @@
 
 @section('content')
 
-    <div class="pc-cms-header">
-        <h2>Edit segment - {{ $segment->name }}</h2>
-        <hr>
-    </div>
+    @include('admin.components.headers.pageHeader', [
+        'title' => 'Edit segment - ' . $segment->name
+    ])
 
     @include('admin.components.alert')
 

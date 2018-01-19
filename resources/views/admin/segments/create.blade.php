@@ -2,10 +2,9 @@
 
 @section('content')
 
-    <div class="pc-cms-header">
-        <h2>Create new segment</h2>
-        <hr>
-    </div>
+    @include('admin.components.headers.pageHeader', [
+        'title' => 'Create new segment'
+    ])
 
     @include('admin.components.alert')
 

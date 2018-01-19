@@ -1,10 +1,10 @@
 @extends('admin.layout')
 
 @section('content')
-    <div class="pc-cms-header">
-        <h2>Create new project category</h2>
-        <hr>
-    </div>
+
+    @include('admin.components.headers.pageHeader', [
+        'title' => 'Create new project category'
+    ])
 
     @include('admin.components.alert')
 
