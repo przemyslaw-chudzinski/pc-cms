@@ -169,6 +169,7 @@ return [
          */
 
         Intervention\Image\ImageServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -230,6 +231,8 @@ return [
         'Segment' => App\Facades\Segments::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Blog' => App\Facades\Blog::class,
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
 
     ],
 

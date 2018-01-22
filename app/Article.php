@@ -160,7 +160,7 @@ class Article extends Model
         $res = $this->toggleStatus();
         return response()->json([
            'types' => 'success',
-           'message' => 'Status has been updated successfully',
+           'message' => __('messages.update_status'),
            'newStatus' => $res['data']['published']
         ]);
     }

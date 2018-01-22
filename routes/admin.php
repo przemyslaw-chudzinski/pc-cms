@@ -64,4 +64,12 @@ Route::group(['prefix' => 'backend', 'namespace' => 'Admin'], function () {
         });
     });
 
+    /* Settings */
+    Route::group(['prefix' => 'settings'], function () {
+        Route::get('/', 'SettingsController@index')->name('admin.settings.index');
+        Route::post('/', 'SettingsController@store')->name('admin.settings.store');
+        Route::put('{setting}', 'SettingsController@update')->name('admin.settings.update');
+        Route::delete('{setting}', 'SettingsController@destroy')->name('admin.settings.destroy');
+    });
+
 });

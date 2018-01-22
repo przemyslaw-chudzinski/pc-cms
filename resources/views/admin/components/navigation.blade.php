@@ -49,7 +49,7 @@
                         <li><a href="{{ url(config('admin.admin_path') . '/pages/create') }}">New page</a></li>
                     </ul>
                 </li>
-                <li><a href="#">Settings</a></li>
+                <li><a href="{{ url(config('admin.admin_path') . '/settings') }}">Settings</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
