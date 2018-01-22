@@ -42,6 +42,7 @@
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu">
+                                            <li><a href="{{ url(config('admin.admin_path') . '/menus/' . $menu->id . '/builder' ) }}">Menu builder</a></li>
                                             <li><a href="{{ url(config('admin.admin_path') . '/menus/' . $menu->id . '/edit') }}">Edit</a></li>
                                             <li>
                                                 <form action="{{ url(config('admin.admin_path') . '/menus/' . $menu->id) }}" id="menuRemoveForm-{{$menu->id}}" method="post">

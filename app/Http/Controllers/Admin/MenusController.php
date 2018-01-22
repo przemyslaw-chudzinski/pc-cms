@@ -23,6 +23,11 @@ class MenusController extends Controller
         return view('admin.menus.edit', ['menu' => $menu]);
     }
 
+    public function menuBuilder(Menu $menu)
+    {
+        return view('admin.menus.menuBuilder', ['menu' => $menu]);
+    }
+
     public function update(Menu $menu)
     {
         return $menu->updateMenu();
