@@ -78,6 +78,10 @@ return [
                     'description' => 'Google analaytics tracking code'
                 ]
             ]
-        ]
+        ],
+
+        'menus' => [
+            'upload_dir' => 'menus'
+        ],
     ],
 ];

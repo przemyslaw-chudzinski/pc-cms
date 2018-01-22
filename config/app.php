@@ -233,6 +233,7 @@ return [
         'Blog' => App\Facades\Blog::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Theme' => App\Facades\Theme::class,
 
     ],
 

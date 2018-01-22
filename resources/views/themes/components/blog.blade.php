@@ -13,66 +13,25 @@
     </div>
     <div class="container-fluid">
         <div class="row pc-blog-front-page-row">
-            <div class="col-md-6 col-lg-3 pc-blog-single">
-                <div class="pc-blog-single-inner">
-                    <a href="#">
-                        <img class="img-fluid" src="images/blog-thumb.jpg" alt="">
-                        <div class="pc-blog-single-inner-overlay">
-                            <div class="d-flex justify-content-center align-items-center text-center pc-blog-single-inner-overlay-inner">
-                                <div>
-                                    <h4>Lorem ipsum dolor sit</h4>
-                                    <time>10-01-2018</time>
+            @if (count($articles) > 0)
+                @foreach($articles as $article)
+                    <div class="col-md-6 col-lg-3 pc-blog-single">
+                        <div class="pc-blog-single-inner">
+                            <a href="#">
+                                <img class="img-fluid" src="{{ Storage::url('blog/' . $article->thumbnail) }}" alt="">
+                                <div class="pc-blog-single-inner-overlay">
+                                    <div class="d-flex justify-content-center align-items-center text-center pc-blog-single-inner-overlay-inner">
+                                        <div>
+                                            <h4>{{ $article->title }}</h4>
+                                            <time>{{ $article->created_at }}</time>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 pc-blog-single">
-                <div class="pc-blog-single-inner">
-                    <a href="#">
-                        <img class="img-fluid" src="images/blog-thumb.jpg" alt="">
-                        <div class="pc-blog-single-inner-overlay">
-                            <div class="d-flex justify-content-center align-items-center text-center pc-blog-single-inner-overlay-inner">
-                                <div>
-                                    <h4>Lorem ipsum dolor sit</h4>
-                                    <time>10-01-2018</time>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 pc-blog-single">
-                <div class="pc-blog-single-inner">
-                    <a href="#">
-                        <img class="img-fluid" src="images/blog-thumb.jpg" alt="">
-                        <div class="pc-blog-single-inner-overlay">
-                            <div class="d-flex justify-content-center align-items-center text-center pc-blog-single-inner-overlay-inner">
-                                <div>
-                                    <h4>Lorem ipsum dolor sit</h4>
-                                    <time>10-01-2018</time>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 pc-blog-single">
-                <div class="pc-blog-single-inner">
-                    <a href="#">
-                        <img class="img-fluid" src="images/blog-thumb.jpg" alt="">
-                        <div class="pc-blog-single-inner-overlay">
-                            <div class="d-flex justify-content-center align-items-center text-center pc-blog-single-inner-overlay-inner">
-                                <div>
-                                    <h4>Lorem ipsum dolor sit</h4>
-                                    <time>10-01-2018</time>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
+                    </div>
+                @endforeach
+            @endif
         </div>
     </div>
 </section>

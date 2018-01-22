@@ -32,11 +32,12 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group">
-                    <label>
-                        <input type="checkbox" name="generateSlug"> Do you want to generate new slug based on article title?
-                    </label>
-                </div>
+
+                @include('admin.components.forms.checkbox', [
+                    'label' => 'Do you want to generate new slug based on article title?',
+                    'fieldName' => 'generateSlug',
+                    'checked' => false
+                ])
 
 
                 @include('admin.components.forms.richEditor', [
@@ -78,7 +79,7 @@
                     'meta_description' => $article->meta_description
                  ])
 
-                @include('admin.components.forms.saveAndPublish', [
+                @include('admin.components.forms.checkbox', [
                     'label' => 'Save and publish',
                     'fieldName' => 'saveAndPublished',
                     'checked' => $article->published

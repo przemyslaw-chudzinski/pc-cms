@@ -84,7 +84,7 @@
 
 
                 @include('admin.components.forms.seo', ['allow' => $project->allow_indexed, 'meta_title' => $project->meta_title, 'meta_description' => $project->meta_description])
-                @include('admin.components.forms.saveAndPublish', [
+                @include('admin.components.forms.checkbox', [
                     'label' => 'Save and publish',
                     'fieldName' => 'saveAndPublished',
                     'checked' => $project->published

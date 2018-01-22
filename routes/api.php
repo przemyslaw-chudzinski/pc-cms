@@ -26,6 +26,8 @@ Route::group(['namespace' => 'API'], function () {
 
     Route::post('pages/{page}/togglePublished', 'PagesController@togglePublished'); // potrzebna autoryzacja
 
+    Route::post('menus/{menu}/togglePublished', 'MenusController@togglePublished'); // potrzebna autoryzacja
+
     Route::group(['prefix' => 'projects'], function () {
         Route::post('{project}/togglePublished', 'ProjectsController@togglePublished'); // potrzeba autoryzacji
         Route::post('categories/{projectCategory}/togglePublished', 'ProjectCategoriesController@togglePublished'); // potrzebna autoryzacja

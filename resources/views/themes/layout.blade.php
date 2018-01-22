@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Przemysław Chudziński | Portfolio</title>
+    {{--<title>Przemysław Chudziński | Portfolio</title>--}}
+    {!! Theme::getMetaTitle() !!}
+    {!! Theme::getMetaDescription() !!}
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('themes/css/main.min.css') }}">
+    @stack('head')
 </head>
 <body>
 @include('themes.components.navigation')
@@ -20,5 +23,6 @@
 
 <!-- Scripts -->
 <script src="{{ asset('themes/js/dist/app.js') }}"></script>
+@stack('footer')
 </body>
 </html>

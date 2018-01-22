@@ -63,7 +63,7 @@
 
                 @include('admin.components.forms.seo', ['allow' => true, 'meta_title' => null, 'meta_description' => null])
 
-                @include('admin.components.forms.saveAndPublish', [
+                @include('admin.components.forms.checkbox', [
                     'label' => 'Save and publish',
                     'fieldName' => 'saveAndPublished',
                     'checked' => true

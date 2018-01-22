@@ -2,8 +2,12 @@
 
 namespace App\Facades;
 
+use Illuminate\Support\Facades\Facade;
 
-class Theme
+class Theme extends Facade
 {
-
+    protected static function getFacadeAccessor()
+    {
+        return 'admin.theme';
+    }
 }

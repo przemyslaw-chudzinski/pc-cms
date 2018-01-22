@@ -58,7 +58,7 @@
                     'noImageInputName' => 'noImage'
                 ])
                 @include('admin.components.forms.seo', ['allow' => $page->allow_indexed, 'meta_title' => $page->meta_title, 'meta_description' => $page->meta_description])
-                @include('admin.components.forms.saveAndPublish', [
+                @include('admin.components.forms.checkbox', [
                     'label' => 'Save and publish',
                     'fieldName' => 'saveAndPublished',
                     'checked' => $page->published

@@ -72,4 +72,14 @@ Route::group(['prefix' => 'backend', 'namespace' => 'Admin'], function () {
         Route::delete('{setting}', 'SettingsController@destroy')->name('admin.settings.destroy');
     });
 
+    /* Menus */
+    Route::group(['prefix' => 'menus'], function () {
+        Route::get('/', 'MenusController@index')->name('admin.menus.index');
+        Route::get('/{menu}/edit', 'MenusController@edit')->name('admin.menus.edit');
+        Route::put('{menu}', 'MenusController@update')->name('admin.menus.update');
+        Route::delete('{menu}', 'MenusController@destroy')->name('admin.menus.destroy');
+        Route::post('/', 'MenusController@store')->name('admin.menus.store');
+        Route::get('/create', 'MenusController@create')->name('admin.menus.create');
+    });
+
 });

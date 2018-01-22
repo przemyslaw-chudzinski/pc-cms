@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Core\Blog\Blog;
+use App\Core\Theme\Theme;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\Core\Segments\Segments;
@@ -32,6 +33,10 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind('admin.blog', function () {
             return new Blog();
+        });
+
+        $this->app->bind('admin.theme', function () {
+           return new Theme();
         });
     }
 }

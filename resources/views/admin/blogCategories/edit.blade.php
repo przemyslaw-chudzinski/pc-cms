@@ -71,7 +71,7 @@
                 ])
 
 
-                @include('admin.components.forms.saveAndPublish', [
+                @include('admin.components.forms.checkbox', [
                     'label' => 'Save and publish',
                     'fieldName' => 'saveAndPublished',
                     'checked' => $category->published
