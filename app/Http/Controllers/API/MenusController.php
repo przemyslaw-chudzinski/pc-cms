@@ -11,4 +11,9 @@ class MenusController extends Controller
     {
         return $menu->toggleStatusAjax();
     }
+
+    public function getItems(Menu $menu)
+    {
+        return $menu->getItemsAjax();
+    }
 }

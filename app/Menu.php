@@ -10,6 +10,16 @@ class Menu extends Model
 {
     protected $fillable = ['name', 'slug', 'description', 'published'];
 
+    public function items()
+    {
+        return $this->hasMany(MenuItem::class, 'menu_id');
+    }
+
+    public function parentItems()
+    {
+        return $this->hasMany(MenuItem::class)->whereNull('parent_id');
+    }
+
     public static function getMenusWithPagination()
     {
         return self::paginate(10);
@@ -96,9 +106,19 @@ class Menu extends Model
     {
         $res = $this->toggleStatus();
         return response()->json([
-            'types' => 'success',
+            '7' => 'success',
             'message' => __('messages.update_status'),
             'newStatus' => $res['data']['published']
         ]);
+    }
+
+    public function getItems()
+    {
+        return $this->parentItems()->with('children')->get();
+    }
+
+    public function getItemsAjax()
+    {
+        return $this->getItems();
     }
 }
