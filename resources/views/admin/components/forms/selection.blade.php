@@ -11,7 +11,7 @@
             @endif
             id="{{ $id }}"
             class="form-control pc-cms-select2-base">
-        @if (count($categories) > 0)
+        @if (count($selections) > 0)
             @if(!$multiple)
                 <option></option>
             @endif

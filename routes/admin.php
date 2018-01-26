@@ -81,6 +81,38 @@ Route::group(['prefix' => 'backend', 'namespace' => 'Admin'], function () {
         Route::delete('{menu}', 'MenusController@destroy')->name('admin.menus.destroy');
         Route::post('/', 'MenusController@store')->name('admin.menus.store');
         Route::get('/create', 'MenusController@create')->name('admin.menus.create');
+
+        /* Menu items */
+        Route::post('/{menu}/items/create', 'MenuItemsController@store')->name('admin.menus.items.create');
+        Route::delete('/items/{menuItem}', 'MenuItemsController@destroy')->name('admin.menus.items.destroy');
+
+    });
+
+    /* Roles */
+    Route::group(['prefix' => 'users'], function () {
+//        Route::get('/', 'RolesController@index')->name('admin.roles.index');
+//        Route::get('/{menu}/edit', 'RolesController@edit')->name('admin.roles.edit');
+//        Route::get('/{menu}/builder', 'RolesController@menuBuilder')->name('admin.roles.builder');
+//        Route::put('{menu}', 'RolesController@update')->name('admin.roles.update');
+//        Route::delete('{menu}', 'RolesController@destroy')->name('admin.roles.destroy');
+//        Route::post('/', 'RolesController@store')->name('admin.roles.store');
+//        Route::get('/create', 'RolesController@create')->name('admin.roles.create');
+
+        Route::group(['prefix' => 'roles'], function () {
+            Route::get('/', 'RolesController@index')->name('admin.users.roles.index');
+            Route::post('/', 'RolesController@store')->name('admin.users.roles.store');
+            Route::get('create', 'RolesController@create')->name('admin.users.roles.create');
+            Route::put('{role}', 'RolesController@update')->name('admin.users.roles.update');
+            Route::get('{role}/edit', 'RolesController@edit')->name('admin.users.roles.edit');
+            Route::delete('{role}', 'RolesController@destroy')->name('admin.users.roles.destroy');
+
+            Route::group(['permissions'], function () {
+                Route::get('/', 'PermissionsController@index')->name('admin.users.roles.permissions.index');
+            });
+
+        });
+
+
     });
 
 });

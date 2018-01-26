@@ -11701,7 +11701,7 @@ module.exports = "/fonts/tinymce-small.eot?12d26c285b71d790f4b0c94423ef1f99";
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(17);
-module.exports = __webpack_require__(76);
+module.exports = __webpack_require__(75);
 
 
 /***/ }),
@@ -11723,7 +11723,7 @@ __webpack_require__(18);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-__webpack_require__(68);
+__webpack_require__(66);
 
 /***/ }),
 /* 18 */
@@ -11780,7 +11780,7 @@ __webpack_require__(61);
 
 __webpack_require__(63);
 
-__webpack_require__(85);
+__webpack_require__(65);
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
@@ -43855,755 +43855,7 @@ exports.push([module.i, ".toast-title {\n  font-weight: bold; }\n\n.toast-messag
 
 
 /***/ }),
-/* 65 */,
-/* 66 */,
-/* 67 */,
-/* 68 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(69);
-__webpack_require__(70);
-__webpack_require__(71);
-__webpack_require__(72);
-__webpack_require__(75);
-
-/***/ }),
-/* 69 */
-/***/ (function(module, exports) {
-
-(function () {
-    /* TinyMce editor init */
-    tinymce.init({
-        selector: '.pc-cms-editor',
-        plugins: 'code media',
-        toolbar: "code undo redo | styleselect | bold italic | link image | alignleft aligncenter alignright alignjustify alignnone | strikethrough blockquote openlink | media"
-    });
-
-    /* Select2 init */
-    $('.pc-cms-select2-base').select2({
-        allowClear: true
-    });
-})();
-
-/***/ }),
-/* 70 */
-/***/ (function(module, exports) {
-
-/* Remove item plugin */
-(function () {
-
-    var $removeBtn = $('.pc-cms-remove-item');
-
-    $removeBtn.on('click', onRemove);
-
-    function onRemove(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        var $form = $($(e.target).data('form'));
-        if (!$form.length) {
-            throw new Error('Brak targetu - nie mogę usunąć elementu');
-        }
-        var agreement = confirm('Are you sure to remove this item?');
-        if (agreement) {
-            $form.submit();
-        }
-        return false;
-    }
-})();
-
-/***/ }),
-/* 71 */
-/***/ (function(module, exports) {
-
-/* Preview image before upload files */
-(function () {
-
-    var $uploadFilesInput = $('.pc-cms-upload-files-input');
-    var $clearFilesBtns = $('.pc-cms-clear-files');
-    var $noImageInputs = $('.pc-cms-no-image');
-
-    $noImageInputs.val('no');
-
-    if ($clearFilesBtns.length) {
-        $clearFilesBtns.on('click', function (e) {
-            onClickClearFilesInit(e, $(this));
-        });
-    }
-
-    $uploadFilesInput.on('change', onChangeUploadFilesInput);
-
-    function onChangeUploadFilesInput(e) {
-
-        var $uploadInput = $(e.target);
-        var $previewContainerId = $uploadInput.data('preview-container');
-        var $previewContainer = $($previewContainerId);
-        var $currentPreviewImages = $previewContainer.find('.pc-cms-single-preview-image');
-        var $clearFilesBtn = $('<a href="#" class="pc-cms-clear-files">Clear selected files</a>');
-        var $currentClearFilesBtn = $previewContainer.find('.pc-cms-clear-files');
-        var $noImageInput = $previewContainer.find('.pc-cms-no-image');
-
-        $noImageInput.val('no');
-
-        if (!$currentClearFilesBtn.length) {
-            $previewContainer.append($clearFilesBtn);
-        } else {
-            $currentClearFilesBtn.on('click', function (e) {
-                onClickClearFilesBtn(e, $uploadInput, $(this), $previewContainer, $noImageInput);
-            });
-        }
-
-        $clearFilesBtn.on('click', function (e) {
-            onClickClearFilesBtn(e, $uploadInput, $(this), $previewContainer, $noImageInput);
-        });
-
-        if ($currentPreviewImages.length) {
-            $currentPreviewImages.remove();
-        }
-
-        if ($uploadInput[0].files.length) {
-            [].forEach.call($uploadInput[0].files, function (file) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    createPreviewThumbnail(e, $previewContainer);
-                };
-                reader.readAsDataURL(file);
-            });
-        }
-    }
-
-    function createPreviewThumbnail(e, $previewContainer) {
-        var $imageWrapper = $('<div class="col-xs-6 col-md-4 pc-cms-single-preview-image"></div>');
-        var $img = $('<img class="img-responsive img-thumbnail">');
-        $img.attr('src', e.target.result);
-        $imageWrapper.append($img);
-        $previewContainer.append($imageWrapper);
-    }
-
-    function onClickClearFilesBtn(e, $uploadInput, $clearFilesBtn, $previewContainer, $noImageInput) {
-        e.preventDefault();
-        e.stopPropagation();
-        $uploadInput.val('');
-        var $currentPreviewImages = $previewContainer.find('.pc-cms-single-preview-image');
-        $currentPreviewImages.remove();
-        $clearFilesBtn.remove();
-        $noImageInput.val('yes');
-    }
-
-    function onClickClearFilesInit(e, $clearBtn) {
-        e.preventDefault();
-        e.stopPropagation();
-        var $previewContainer = $clearBtn.parent();
-        var $currentPreviewImages = $previewContainer.find('.pc-cms-single-preview-image');
-        var $noImageInput = $previewContainer.find('.pc-cms-no-image');
-        $noImageInput.val('yes');
-        $currentPreviewImages.remove();
-        $clearBtn.remove();
-    }
-})();
-
-/***/ }),
-/* 72 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_toastr__ = __webpack_require__(73);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_toastr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_toastr__);
-/* Change async status plugin */
-
-
-(function () {
-    var $changeStatusBtn = $('.pc-cms-toggle-status-btn');
-
-    $changeStatusBtn.on('click', function (e) {
-        onClickToggleStatusBtn(e, $(this));
-    });
-
-    function onClickToggleStatusBtn(e, $btn) {
-        e.preventDefault();
-        var url = $btn.data('url');
-        var trueLabel = $btn.data('true-label');
-        var falseLabel = $btn.data('false-label');
-        sendRequest(url, null, 'post', function (response) {
-            prepareBtn($btn, response, trueLabel, falseLabel);
-            __WEBPACK_IMPORTED_MODULE_0_toastr___default.a.success(response.message);
-        }, function () {
-            __WEBPACK_IMPORTED_MODULE_0_toastr___default.a.error('Something went wrong!');
-        });
-    }
-
-    function sendRequest(url, data) {
-        var method = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'post';
-        var success = arguments[3];
-        var error = arguments[4];
-
-        success = success || function () {};
-        error = error || function () {};
-        $.ajax({
-            method: method,
-            url: url,
-            success: success,
-            error: error
-        });
-    }
-
-    function prepareBtn($btn, response) {
-        var trueLabel = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'Published';
-        var falseLabel = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'Draft';
-
-        var trueClassess = 'btn btn-success btn-xs pc-cms-status-btn pc-cms-toggle-status-btn';
-        var falseClassess = 'btn btn-warning btn-xs pc-cms-status-btn pc-cms-toggle-status-btn';
-        $btn.removeClass();
-        if (!response.newStatus) {
-            $btn.addClass(falseClassess);
-            $btn.text(falseLabel);
-        } else {
-            $btn.addClass(trueClassess);
-            $btn.text(trueLabel);
-        }
-    }
-})();
-
-/***/ }),
-/* 73 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
- * Toastr
- * Copyright 2012-2015
- * Authors: John Papa, Hans Fjällemark, and Tim Ferrell.
- * All Rights Reserved.
- * Use, reproduction, distribution, and modification of this code is subject to the terms and
- * conditions of the MIT license, available at http://www.opensource.org/licenses/mit-license.php
- *
- * ARIA Support: Greta Krafsig
- *
- * Project: https://github.com/CodeSeven/toastr
- */
-/* global define */
-(function (define) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(3)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-        return (function () {
-            var $container;
-            var listener;
-            var toastId = 0;
-            var toastType = {
-                error: 'error',
-                info: 'info',
-                success: 'success',
-                warning: 'warning'
-            };
-
-            var toastr = {
-                clear: clear,
-                remove: remove,
-                error: error,
-                getContainer: getContainer,
-                info: info,
-                options: {},
-                subscribe: subscribe,
-                success: success,
-                version: '2.1.4',
-                warning: warning
-            };
-
-            var previousToast;
-
-            return toastr;
-
-            ////////////////
-
-            function error(message, title, optionsOverride) {
-                return notify({
-                    type: toastType.error,
-                    iconClass: getOptions().iconClasses.error,
-                    message: message,
-                    optionsOverride: optionsOverride,
-                    title: title
-                });
-            }
-
-            function getContainer(options, create) {
-                if (!options) { options = getOptions(); }
-                $container = $('#' + options.containerId);
-                if ($container.length) {
-                    return $container;
-                }
-                if (create) {
-                    $container = createContainer(options);
-                }
-                return $container;
-            }
-
-            function info(message, title, optionsOverride) {
-                return notify({
-                    type: toastType.info,
-                    iconClass: getOptions().iconClasses.info,
-                    message: message,
-                    optionsOverride: optionsOverride,
-                    title: title
-                });
-            }
-
-            function subscribe(callback) {
-                listener = callback;
-            }
-
-            function success(message, title, optionsOverride) {
-                return notify({
-                    type: toastType.success,
-                    iconClass: getOptions().iconClasses.success,
-                    message: message,
-                    optionsOverride: optionsOverride,
-                    title: title
-                });
-            }
-
-            function warning(message, title, optionsOverride) {
-                return notify({
-                    type: toastType.warning,
-                    iconClass: getOptions().iconClasses.warning,
-                    message: message,
-                    optionsOverride: optionsOverride,
-                    title: title
-                });
-            }
-
-            function clear($toastElement, clearOptions) {
-                var options = getOptions();
-                if (!$container) { getContainer(options); }
-                if (!clearToast($toastElement, options, clearOptions)) {
-                    clearContainer(options);
-                }
-            }
-
-            function remove($toastElement) {
-                var options = getOptions();
-                if (!$container) { getContainer(options); }
-                if ($toastElement && $(':focus', $toastElement).length === 0) {
-                    removeToast($toastElement);
-                    return;
-                }
-                if ($container.children().length) {
-                    $container.remove();
-                }
-            }
-
-            // internal functions
-
-            function clearContainer (options) {
-                var toastsToClear = $container.children();
-                for (var i = toastsToClear.length - 1; i >= 0; i--) {
-                    clearToast($(toastsToClear[i]), options);
-                }
-            }
-
-            function clearToast ($toastElement, options, clearOptions) {
-                var force = clearOptions && clearOptions.force ? clearOptions.force : false;
-                if ($toastElement && (force || $(':focus', $toastElement).length === 0)) {
-                    $toastElement[options.hideMethod]({
-                        duration: options.hideDuration,
-                        easing: options.hideEasing,
-                        complete: function () { removeToast($toastElement); }
-                    });
-                    return true;
-                }
-                return false;
-            }
-
-            function createContainer(options) {
-                $container = $('<div/>')
-                    .attr('id', options.containerId)
-                    .addClass(options.positionClass);
-
-                $container.appendTo($(options.target));
-                return $container;
-            }
-
-            function getDefaults() {
-                return {
-                    tapToDismiss: true,
-                    toastClass: 'toast',
-                    containerId: 'toast-container',
-                    debug: false,
-
-                    showMethod: 'fadeIn', //fadeIn, slideDown, and show are built into jQuery
-                    showDuration: 300,
-                    showEasing: 'swing', //swing and linear are built into jQuery
-                    onShown: undefined,
-                    hideMethod: 'fadeOut',
-                    hideDuration: 1000,
-                    hideEasing: 'swing',
-                    onHidden: undefined,
-                    closeMethod: false,
-                    closeDuration: false,
-                    closeEasing: false,
-                    closeOnHover: true,
-
-                    extendedTimeOut: 1000,
-                    iconClasses: {
-                        error: 'toast-error',
-                        info: 'toast-info',
-                        success: 'toast-success',
-                        warning: 'toast-warning'
-                    },
-                    iconClass: 'toast-info',
-                    positionClass: 'toast-top-right',
-                    timeOut: 5000, // Set timeOut and extendedTimeOut to 0 to make it sticky
-                    titleClass: 'toast-title',
-                    messageClass: 'toast-message',
-                    escapeHtml: false,
-                    target: 'body',
-                    closeHtml: '<button type="button">&times;</button>',
-                    closeClass: 'toast-close-button',
-                    newestOnTop: true,
-                    preventDuplicates: false,
-                    progressBar: false,
-                    progressClass: 'toast-progress',
-                    rtl: false
-                };
-            }
-
-            function publish(args) {
-                if (!listener) { return; }
-                listener(args);
-            }
-
-            function notify(map) {
-                var options = getOptions();
-                var iconClass = map.iconClass || options.iconClass;
-
-                if (typeof (map.optionsOverride) !== 'undefined') {
-                    options = $.extend(options, map.optionsOverride);
-                    iconClass = map.optionsOverride.iconClass || iconClass;
-                }
-
-                if (shouldExit(options, map)) { return; }
-
-                toastId++;
-
-                $container = getContainer(options, true);
-
-                var intervalId = null;
-                var $toastElement = $('<div/>');
-                var $titleElement = $('<div/>');
-                var $messageElement = $('<div/>');
-                var $progressElement = $('<div/>');
-                var $closeElement = $(options.closeHtml);
-                var progressBar = {
-                    intervalId: null,
-                    hideEta: null,
-                    maxHideTime: null
-                };
-                var response = {
-                    toastId: toastId,
-                    state: 'visible',
-                    startTime: new Date(),
-                    options: options,
-                    map: map
-                };
-
-                personalizeToast();
-
-                displayToast();
-
-                handleEvents();
-
-                publish(response);
-
-                if (options.debug && console) {
-                    console.log(response);
-                }
-
-                return $toastElement;
-
-                function escapeHtml(source) {
-                    if (source == null) {
-                        source = '';
-                    }
-
-                    return source
-                        .replace(/&/g, '&amp;')
-                        .replace(/"/g, '&quot;')
-                        .replace(/'/g, '&#39;')
-                        .replace(/</g, '&lt;')
-                        .replace(/>/g, '&gt;');
-                }
-
-                function personalizeToast() {
-                    setIcon();
-                    setTitle();
-                    setMessage();
-                    setCloseButton();
-                    setProgressBar();
-                    setRTL();
-                    setSequence();
-                    setAria();
-                }
-
-                function setAria() {
-                    var ariaValue = '';
-                    switch (map.iconClass) {
-                        case 'toast-success':
-                        case 'toast-info':
-                            ariaValue =  'polite';
-                            break;
-                        default:
-                            ariaValue = 'assertive';
-                    }
-                    $toastElement.attr('aria-live', ariaValue);
-                }
-
-                function handleEvents() {
-                    if (options.closeOnHover) {
-                        $toastElement.hover(stickAround, delayedHideToast);
-                    }
-
-                    if (!options.onclick && options.tapToDismiss) {
-                        $toastElement.click(hideToast);
-                    }
-
-                    if (options.closeButton && $closeElement) {
-                        $closeElement.click(function (event) {
-                            if (event.stopPropagation) {
-                                event.stopPropagation();
-                            } else if (event.cancelBubble !== undefined && event.cancelBubble !== true) {
-                                event.cancelBubble = true;
-                            }
-
-                            if (options.onCloseClick) {
-                                options.onCloseClick(event);
-                            }
-
-                            hideToast(true);
-                        });
-                    }
-
-                    if (options.onclick) {
-                        $toastElement.click(function (event) {
-                            options.onclick(event);
-                            hideToast();
-                        });
-                    }
-                }
-
-                function displayToast() {
-                    $toastElement.hide();
-
-                    $toastElement[options.showMethod](
-                        {duration: options.showDuration, easing: options.showEasing, complete: options.onShown}
-                    );
-
-                    if (options.timeOut > 0) {
-                        intervalId = setTimeout(hideToast, options.timeOut);
-                        progressBar.maxHideTime = parseFloat(options.timeOut);
-                        progressBar.hideEta = new Date().getTime() + progressBar.maxHideTime;
-                        if (options.progressBar) {
-                            progressBar.intervalId = setInterval(updateProgress, 10);
-                        }
-                    }
-                }
-
-                function setIcon() {
-                    if (map.iconClass) {
-                        $toastElement.addClass(options.toastClass).addClass(iconClass);
-                    }
-                }
-
-                function setSequence() {
-                    if (options.newestOnTop) {
-                        $container.prepend($toastElement);
-                    } else {
-                        $container.append($toastElement);
-                    }
-                }
-
-                function setTitle() {
-                    if (map.title) {
-                        var suffix = map.title;
-                        if (options.escapeHtml) {
-                            suffix = escapeHtml(map.title);
-                        }
-                        $titleElement.append(suffix).addClass(options.titleClass);
-                        $toastElement.append($titleElement);
-                    }
-                }
-
-                function setMessage() {
-                    if (map.message) {
-                        var suffix = map.message;
-                        if (options.escapeHtml) {
-                            suffix = escapeHtml(map.message);
-                        }
-                        $messageElement.append(suffix).addClass(options.messageClass);
-                        $toastElement.append($messageElement);
-                    }
-                }
-
-                function setCloseButton() {
-                    if (options.closeButton) {
-                        $closeElement.addClass(options.closeClass).attr('role', 'button');
-                        $toastElement.prepend($closeElement);
-                    }
-                }
-
-                function setProgressBar() {
-                    if (options.progressBar) {
-                        $progressElement.addClass(options.progressClass);
-                        $toastElement.prepend($progressElement);
-                    }
-                }
-
-                function setRTL() {
-                    if (options.rtl) {
-                        $toastElement.addClass('rtl');
-                    }
-                }
-
-                function shouldExit(options, map) {
-                    if (options.preventDuplicates) {
-                        if (map.message === previousToast) {
-                            return true;
-                        } else {
-                            previousToast = map.message;
-                        }
-                    }
-                    return false;
-                }
-
-                function hideToast(override) {
-                    var method = override && options.closeMethod !== false ? options.closeMethod : options.hideMethod;
-                    var duration = override && options.closeDuration !== false ?
-                        options.closeDuration : options.hideDuration;
-                    var easing = override && options.closeEasing !== false ? options.closeEasing : options.hideEasing;
-                    if ($(':focus', $toastElement).length && !override) {
-                        return;
-                    }
-                    clearTimeout(progressBar.intervalId);
-                    return $toastElement[method]({
-                        duration: duration,
-                        easing: easing,
-                        complete: function () {
-                            removeToast($toastElement);
-                            clearTimeout(intervalId);
-                            if (options.onHidden && response.state !== 'hidden') {
-                                options.onHidden();
-                            }
-                            response.state = 'hidden';
-                            response.endTime = new Date();
-                            publish(response);
-                        }
-                    });
-                }
-
-                function delayedHideToast() {
-                    if (options.timeOut > 0 || options.extendedTimeOut > 0) {
-                        intervalId = setTimeout(hideToast, options.extendedTimeOut);
-                        progressBar.maxHideTime = parseFloat(options.extendedTimeOut);
-                        progressBar.hideEta = new Date().getTime() + progressBar.maxHideTime;
-                    }
-                }
-
-                function stickAround() {
-                    clearTimeout(intervalId);
-                    progressBar.hideEta = 0;
-                    $toastElement.stop(true, true)[options.showMethod](
-                        {duration: options.showDuration, easing: options.showEasing}
-                    );
-                }
-
-                function updateProgress() {
-                    var percentage = ((progressBar.hideEta - (new Date().getTime())) / progressBar.maxHideTime) * 100;
-                    $progressElement.width(percentage + '%');
-                }
-            }
-
-            function getOptions() {
-                return $.extend({}, getDefaults(), toastr.options);
-            }
-
-            function removeToast($toastElement) {
-                if (!$container) { $container = getContainer(); }
-                if ($toastElement.is(':visible')) {
-                    return;
-                }
-                $toastElement.remove();
-                $toastElement = null;
-                if ($container.children().length === 0) {
-                    $container.remove();
-                    previousToast = undefined;
-                }
-            }
-
-        })();
-    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-}(__webpack_require__(74)));
-
-
-/***/ }),
-/* 74 */
-/***/ (function(module, exports) {
-
-module.exports = function() {
-	throw new Error("define cannot be used indirect");
-};
-
-
-/***/ }),
-/* 75 */
-/***/ (function(module, exports) {
-
-(function () {
-
-    function getMenuItems() {
-        return new Promise(function (resolve, reject) {
-            // const data = '[{"id":11,"title":"Another list","http":"","superselect":"2","customSelect":"select something...","children":[{"id":10,"title":"News","http":"","superselect":"1","customSelect":"select something...","__domenu_params":{}},{"id":9,"title":"Categories","http":"","superselect":"1","customSelect":"2","__domenu_params":{}}],"__domenu_params":{}},{"title":"Check","customSelect":"select something...","id":12,"__domenu_params":{}},{"title":"New","customSelect":"select something...","id":13,"__domenu_params":{}}]';
-            $.ajax({
-                url: '/api/menus/1/items',
-                method: 'get',
-                success: function success(response) {
-                    resolve(JSON.stringify(response));
-                }
-            });
-        });
-    }
-
-    function onItemDropCallback($item) {
-        console.log('onItemDropCallback', $item);
-    }
-
-    function onItemRemovedCallback($item) {
-        console.log('onItemRemovedCallback', $item);
-    }
-
-    getMenuItems().then(function (data) {
-        $('#menuBuilderTree').domenu({
-            data: data,
-            event: {
-                onItemDrop: [onItemDropCallback],
-                onItemRemove: [onItemRemovedCallback]
-            }
-        }).parseJson();
-    });
-})();
-
-/***/ }),
-/* 76 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 77 */,
-/* 78 */,
-/* 79 */,
-/* 80 */,
-/* 81 */,
-/* 82 */,
-/* 83 */,
-/* 84 */,
-/* 85 */
+/* 65 */
 /***/ (function(module, exports) {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -46310,6 +45562,765 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     return pPlugin || plugin;
   };
 })(window.jQuery || window.Zepto, window, document);
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(67);
+__webpack_require__(68);
+__webpack_require__(69);
+__webpack_require__(70);
+__webpack_require__(73);
+__webpack_require__(74);
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports) {
+
+(function () {
+    /* TinyMce editor init */
+    tinymce.init({
+        selector: '.pc-cms-editor',
+        plugins: 'code media',
+        toolbar: "code undo redo | styleselect | bold italic | link image | alignleft aligncenter alignright alignjustify alignnone | strikethrough blockquote openlink | media"
+    });
+
+    /* Select2 init */
+    $('.pc-cms-select2-base').select2({
+        allowClear: true
+    });
+})();
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports) {
+
+/* Remove item plugin */
+(function () {
+
+    var $removeBtn = $('.pc-cms-remove-item');
+
+    $removeBtn.on('click', onRemove);
+
+    function onRemove(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $form = $($(e.target).data('form'));
+        if (!$form.length) {
+            throw new Error('Brak targetu - nie mogę usunąć elementu');
+        }
+        var agreement = confirm('Are you sure to remove this item?');
+        if (agreement) {
+            $form.submit();
+        }
+        return false;
+    }
+})();
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports) {
+
+/* Preview image before upload files */
+(function () {
+
+    var $uploadFilesInput = $('.pc-cms-upload-files-input');
+    var $clearFilesBtns = $('.pc-cms-clear-files');
+    var $noImageInputs = $('.pc-cms-no-image');
+
+    $noImageInputs.val('no');
+
+    if ($clearFilesBtns.length) {
+        $clearFilesBtns.on('click', function (e) {
+            onClickClearFilesInit(e, $(this));
+        });
+    }
+
+    $uploadFilesInput.on('change', onChangeUploadFilesInput);
+
+    function onChangeUploadFilesInput(e) {
+
+        var $uploadInput = $(e.target);
+        var $previewContainerId = $uploadInput.data('preview-container');
+        var $previewContainer = $($previewContainerId);
+        var $currentPreviewImages = $previewContainer.find('.pc-cms-single-preview-image');
+        var $clearFilesBtn = $('<a href="#" class="pc-cms-clear-files">Clear selected files</a>');
+        var $currentClearFilesBtn = $previewContainer.find('.pc-cms-clear-files');
+        var $noImageInput = $previewContainer.find('.pc-cms-no-image');
+
+        $noImageInput.val('no');
+
+        if (!$currentClearFilesBtn.length) {
+            $previewContainer.append($clearFilesBtn);
+        } else {
+            $currentClearFilesBtn.on('click', function (e) {
+                onClickClearFilesBtn(e, $uploadInput, $(this), $previewContainer, $noImageInput);
+            });
+        }
+
+        $clearFilesBtn.on('click', function (e) {
+            onClickClearFilesBtn(e, $uploadInput, $(this), $previewContainer, $noImageInput);
+        });
+
+        if ($currentPreviewImages.length) {
+            $currentPreviewImages.remove();
+        }
+
+        if ($uploadInput[0].files.length) {
+            [].forEach.call($uploadInput[0].files, function (file) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    createPreviewThumbnail(e, $previewContainer);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+    }
+
+    function createPreviewThumbnail(e, $previewContainer) {
+        var $imageWrapper = $('<div class="col-xs-6 col-md-4 pc-cms-single-preview-image"></div>');
+        var $img = $('<img class="img-responsive img-thumbnail">');
+        $img.attr('src', e.target.result);
+        $imageWrapper.append($img);
+        $previewContainer.append($imageWrapper);
+    }
+
+    function onClickClearFilesBtn(e, $uploadInput, $clearFilesBtn, $previewContainer, $noImageInput) {
+        e.preventDefault();
+        e.stopPropagation();
+        $uploadInput.val('');
+        var $currentPreviewImages = $previewContainer.find('.pc-cms-single-preview-image');
+        $currentPreviewImages.remove();
+        $clearFilesBtn.remove();
+        $noImageInput.val('yes');
+    }
+
+    function onClickClearFilesInit(e, $clearBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $previewContainer = $clearBtn.parent();
+        var $currentPreviewImages = $previewContainer.find('.pc-cms-single-preview-image');
+        var $noImageInput = $previewContainer.find('.pc-cms-no-image');
+        $noImageInput.val('yes');
+        $currentPreviewImages.remove();
+        $clearBtn.remove();
+    }
+})();
+
+/***/ }),
+/* 70 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_toastr__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_toastr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_toastr__);
+/* Change async status plugin */
+
+
+(function () {
+    var $changeStatusBtn = $('.pc-cms-toggle-status-btn');
+
+    $changeStatusBtn.on('click', function (e) {
+        onClickToggleStatusBtn(e, $(this));
+    });
+
+    function onClickToggleStatusBtn(e, $btn) {
+        e.preventDefault();
+        var url = $btn.data('url');
+        var trueLabel = $btn.data('true-label');
+        var falseLabel = $btn.data('false-label');
+        sendRequest(url, null, 'post', function (response) {
+            prepareBtn($btn, response, trueLabel, falseLabel);
+            __WEBPACK_IMPORTED_MODULE_0_toastr___default.a.success(response.message);
+        }, function () {
+            __WEBPACK_IMPORTED_MODULE_0_toastr___default.a.error('Something went wrong!');
+        });
+    }
+
+    function sendRequest(url, data) {
+        var method = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'post';
+        var success = arguments[3];
+        var error = arguments[4];
+
+        success = success || function () {};
+        error = error || function () {};
+        $.ajax({
+            method: method,
+            url: url,
+            success: success,
+            error: error
+        });
+    }
+
+    function prepareBtn($btn, response) {
+        var trueLabel = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'Published';
+        var falseLabel = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'Draft';
+
+        var trueClassess = 'btn btn-success btn-xs pc-cms-status-btn pc-cms-toggle-status-btn';
+        var falseClassess = 'btn btn-warning btn-xs pc-cms-status-btn pc-cms-toggle-status-btn';
+        $btn.removeClass();
+        if (!response.newStatus) {
+            $btn.addClass(falseClassess);
+            $btn.text(falseLabel);
+        } else {
+            $btn.addClass(trueClassess);
+            $btn.text(trueLabel);
+        }
+    }
+})();
+
+/***/ }),
+/* 71 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
+ * Toastr
+ * Copyright 2012-2015
+ * Authors: John Papa, Hans Fjällemark, and Tim Ferrell.
+ * All Rights Reserved.
+ * Use, reproduction, distribution, and modification of this code is subject to the terms and
+ * conditions of the MIT license, available at http://www.opensource.org/licenses/mit-license.php
+ *
+ * ARIA Support: Greta Krafsig
+ *
+ * Project: https://github.com/CodeSeven/toastr
+ */
+/* global define */
+(function (define) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(3)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
+        return (function () {
+            var $container;
+            var listener;
+            var toastId = 0;
+            var toastType = {
+                error: 'error',
+                info: 'info',
+                success: 'success',
+                warning: 'warning'
+            };
+
+            var toastr = {
+                clear: clear,
+                remove: remove,
+                error: error,
+                getContainer: getContainer,
+                info: info,
+                options: {},
+                subscribe: subscribe,
+                success: success,
+                version: '2.1.4',
+                warning: warning
+            };
+
+            var previousToast;
+
+            return toastr;
+
+            ////////////////
+
+            function error(message, title, optionsOverride) {
+                return notify({
+                    type: toastType.error,
+                    iconClass: getOptions().iconClasses.error,
+                    message: message,
+                    optionsOverride: optionsOverride,
+                    title: title
+                });
+            }
+
+            function getContainer(options, create) {
+                if (!options) { options = getOptions(); }
+                $container = $('#' + options.containerId);
+                if ($container.length) {
+                    return $container;
+                }
+                if (create) {
+                    $container = createContainer(options);
+                }
+                return $container;
+            }
+
+            function info(message, title, optionsOverride) {
+                return notify({
+                    type: toastType.info,
+                    iconClass: getOptions().iconClasses.info,
+                    message: message,
+                    optionsOverride: optionsOverride,
+                    title: title
+                });
+            }
+
+            function subscribe(callback) {
+                listener = callback;
+            }
+
+            function success(message, title, optionsOverride) {
+                return notify({
+                    type: toastType.success,
+                    iconClass: getOptions().iconClasses.success,
+                    message: message,
+                    optionsOverride: optionsOverride,
+                    title: title
+                });
+            }
+
+            function warning(message, title, optionsOverride) {
+                return notify({
+                    type: toastType.warning,
+                    iconClass: getOptions().iconClasses.warning,
+                    message: message,
+                    optionsOverride: optionsOverride,
+                    title: title
+                });
+            }
+
+            function clear($toastElement, clearOptions) {
+                var options = getOptions();
+                if (!$container) { getContainer(options); }
+                if (!clearToast($toastElement, options, clearOptions)) {
+                    clearContainer(options);
+                }
+            }
+
+            function remove($toastElement) {
+                var options = getOptions();
+                if (!$container) { getContainer(options); }
+                if ($toastElement && $(':focus', $toastElement).length === 0) {
+                    removeToast($toastElement);
+                    return;
+                }
+                if ($container.children().length) {
+                    $container.remove();
+                }
+            }
+
+            // internal functions
+
+            function clearContainer (options) {
+                var toastsToClear = $container.children();
+                for (var i = toastsToClear.length - 1; i >= 0; i--) {
+                    clearToast($(toastsToClear[i]), options);
+                }
+            }
+
+            function clearToast ($toastElement, options, clearOptions) {
+                var force = clearOptions && clearOptions.force ? clearOptions.force : false;
+                if ($toastElement && (force || $(':focus', $toastElement).length === 0)) {
+                    $toastElement[options.hideMethod]({
+                        duration: options.hideDuration,
+                        easing: options.hideEasing,
+                        complete: function () { removeToast($toastElement); }
+                    });
+                    return true;
+                }
+                return false;
+            }
+
+            function createContainer(options) {
+                $container = $('<div/>')
+                    .attr('id', options.containerId)
+                    .addClass(options.positionClass);
+
+                $container.appendTo($(options.target));
+                return $container;
+            }
+
+            function getDefaults() {
+                return {
+                    tapToDismiss: true,
+                    toastClass: 'toast',
+                    containerId: 'toast-container',
+                    debug: false,
+
+                    showMethod: 'fadeIn', //fadeIn, slideDown, and show are built into jQuery
+                    showDuration: 300,
+                    showEasing: 'swing', //swing and linear are built into jQuery
+                    onShown: undefined,
+                    hideMethod: 'fadeOut',
+                    hideDuration: 1000,
+                    hideEasing: 'swing',
+                    onHidden: undefined,
+                    closeMethod: false,
+                    closeDuration: false,
+                    closeEasing: false,
+                    closeOnHover: true,
+
+                    extendedTimeOut: 1000,
+                    iconClasses: {
+                        error: 'toast-error',
+                        info: 'toast-info',
+                        success: 'toast-success',
+                        warning: 'toast-warning'
+                    },
+                    iconClass: 'toast-info',
+                    positionClass: 'toast-top-right',
+                    timeOut: 5000, // Set timeOut and extendedTimeOut to 0 to make it sticky
+                    titleClass: 'toast-title',
+                    messageClass: 'toast-message',
+                    escapeHtml: false,
+                    target: 'body',
+                    closeHtml: '<button type="button">&times;</button>',
+                    closeClass: 'toast-close-button',
+                    newestOnTop: true,
+                    preventDuplicates: false,
+                    progressBar: false,
+                    progressClass: 'toast-progress',
+                    rtl: false
+                };
+            }
+
+            function publish(args) {
+                if (!listener) { return; }
+                listener(args);
+            }
+
+            function notify(map) {
+                var options = getOptions();
+                var iconClass = map.iconClass || options.iconClass;
+
+                if (typeof (map.optionsOverride) !== 'undefined') {
+                    options = $.extend(options, map.optionsOverride);
+                    iconClass = map.optionsOverride.iconClass || iconClass;
+                }
+
+                if (shouldExit(options, map)) { return; }
+
+                toastId++;
+
+                $container = getContainer(options, true);
+
+                var intervalId = null;
+                var $toastElement = $('<div/>');
+                var $titleElement = $('<div/>');
+                var $messageElement = $('<div/>');
+                var $progressElement = $('<div/>');
+                var $closeElement = $(options.closeHtml);
+                var progressBar = {
+                    intervalId: null,
+                    hideEta: null,
+                    maxHideTime: null
+                };
+                var response = {
+                    toastId: toastId,
+                    state: 'visible',
+                    startTime: new Date(),
+                    options: options,
+                    map: map
+                };
+
+                personalizeToast();
+
+                displayToast();
+
+                handleEvents();
+
+                publish(response);
+
+                if (options.debug && console) {
+                    console.log(response);
+                }
+
+                return $toastElement;
+
+                function escapeHtml(source) {
+                    if (source == null) {
+                        source = '';
+                    }
+
+                    return source
+                        .replace(/&/g, '&amp;')
+                        .replace(/"/g, '&quot;')
+                        .replace(/'/g, '&#39;')
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;');
+                }
+
+                function personalizeToast() {
+                    setIcon();
+                    setTitle();
+                    setMessage();
+                    setCloseButton();
+                    setProgressBar();
+                    setRTL();
+                    setSequence();
+                    setAria();
+                }
+
+                function setAria() {
+                    var ariaValue = '';
+                    switch (map.iconClass) {
+                        case 'toast-success':
+                        case 'toast-info':
+                            ariaValue =  'polite';
+                            break;
+                        default:
+                            ariaValue = 'assertive';
+                    }
+                    $toastElement.attr('aria-live', ariaValue);
+                }
+
+                function handleEvents() {
+                    if (options.closeOnHover) {
+                        $toastElement.hover(stickAround, delayedHideToast);
+                    }
+
+                    if (!options.onclick && options.tapToDismiss) {
+                        $toastElement.click(hideToast);
+                    }
+
+                    if (options.closeButton && $closeElement) {
+                        $closeElement.click(function (event) {
+                            if (event.stopPropagation) {
+                                event.stopPropagation();
+                            } else if (event.cancelBubble !== undefined && event.cancelBubble !== true) {
+                                event.cancelBubble = true;
+                            }
+
+                            if (options.onCloseClick) {
+                                options.onCloseClick(event);
+                            }
+
+                            hideToast(true);
+                        });
+                    }
+
+                    if (options.onclick) {
+                        $toastElement.click(function (event) {
+                            options.onclick(event);
+                            hideToast();
+                        });
+                    }
+                }
+
+                function displayToast() {
+                    $toastElement.hide();
+
+                    $toastElement[options.showMethod](
+                        {duration: options.showDuration, easing: options.showEasing, complete: options.onShown}
+                    );
+
+                    if (options.timeOut > 0) {
+                        intervalId = setTimeout(hideToast, options.timeOut);
+                        progressBar.maxHideTime = parseFloat(options.timeOut);
+                        progressBar.hideEta = new Date().getTime() + progressBar.maxHideTime;
+                        if (options.progressBar) {
+                            progressBar.intervalId = setInterval(updateProgress, 10);
+                        }
+                    }
+                }
+
+                function setIcon() {
+                    if (map.iconClass) {
+                        $toastElement.addClass(options.toastClass).addClass(iconClass);
+                    }
+                }
+
+                function setSequence() {
+                    if (options.newestOnTop) {
+                        $container.prepend($toastElement);
+                    } else {
+                        $container.append($toastElement);
+                    }
+                }
+
+                function setTitle() {
+                    if (map.title) {
+                        var suffix = map.title;
+                        if (options.escapeHtml) {
+                            suffix = escapeHtml(map.title);
+                        }
+                        $titleElement.append(suffix).addClass(options.titleClass);
+                        $toastElement.append($titleElement);
+                    }
+                }
+
+                function setMessage() {
+                    if (map.message) {
+                        var suffix = map.message;
+                        if (options.escapeHtml) {
+                            suffix = escapeHtml(map.message);
+                        }
+                        $messageElement.append(suffix).addClass(options.messageClass);
+                        $toastElement.append($messageElement);
+                    }
+                }
+
+                function setCloseButton() {
+                    if (options.closeButton) {
+                        $closeElement.addClass(options.closeClass).attr('role', 'button');
+                        $toastElement.prepend($closeElement);
+                    }
+                }
+
+                function setProgressBar() {
+                    if (options.progressBar) {
+                        $progressElement.addClass(options.progressClass);
+                        $toastElement.prepend($progressElement);
+                    }
+                }
+
+                function setRTL() {
+                    if (options.rtl) {
+                        $toastElement.addClass('rtl');
+                    }
+                }
+
+                function shouldExit(options, map) {
+                    if (options.preventDuplicates) {
+                        if (map.message === previousToast) {
+                            return true;
+                        } else {
+                            previousToast = map.message;
+                        }
+                    }
+                    return false;
+                }
+
+                function hideToast(override) {
+                    var method = override && options.closeMethod !== false ? options.closeMethod : options.hideMethod;
+                    var duration = override && options.closeDuration !== false ?
+                        options.closeDuration : options.hideDuration;
+                    var easing = override && options.closeEasing !== false ? options.closeEasing : options.hideEasing;
+                    if ($(':focus', $toastElement).length && !override) {
+                        return;
+                    }
+                    clearTimeout(progressBar.intervalId);
+                    return $toastElement[method]({
+                        duration: duration,
+                        easing: easing,
+                        complete: function () {
+                            removeToast($toastElement);
+                            clearTimeout(intervalId);
+                            if (options.onHidden && response.state !== 'hidden') {
+                                options.onHidden();
+                            }
+                            response.state = 'hidden';
+                            response.endTime = new Date();
+                            publish(response);
+                        }
+                    });
+                }
+
+                function delayedHideToast() {
+                    if (options.timeOut > 0 || options.extendedTimeOut > 0) {
+                        intervalId = setTimeout(hideToast, options.extendedTimeOut);
+                        progressBar.maxHideTime = parseFloat(options.extendedTimeOut);
+                        progressBar.hideEta = new Date().getTime() + progressBar.maxHideTime;
+                    }
+                }
+
+                function stickAround() {
+                    clearTimeout(intervalId);
+                    progressBar.hideEta = 0;
+                    $toastElement.stop(true, true)[options.showMethod](
+                        {duration: options.showDuration, easing: options.showEasing}
+                    );
+                }
+
+                function updateProgress() {
+                    var percentage = ((progressBar.hideEta - (new Date().getTime())) / progressBar.maxHideTime) * 100;
+                    $progressElement.width(percentage + '%');
+                }
+            }
+
+            function getOptions() {
+                return $.extend({}, getDefaults(), toastr.options);
+            }
+
+            function removeToast($toastElement) {
+                if (!$container) { $container = getContainer(); }
+                if ($toastElement.is(':visible')) {
+                    return;
+                }
+                $toastElement.remove();
+                $toastElement = null;
+                if ($container.children().length === 0) {
+                    $container.remove();
+                    previousToast = undefined;
+                }
+            }
+
+        })();
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+}(__webpack_require__(72)));
+
+
+/***/ }),
+/* 72 */
+/***/ (function(module, exports) {
+
+module.exports = function() {
+	throw new Error("define cannot be used indirect");
+};
+
+
+/***/ }),
+/* 73 */
+/***/ (function(module, exports) {
+
+(function () {
+
+    var $menuBuilderTree = $('#menuBuilderTree');
+
+    function getMenuItems() {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                url: '/api/menus/1/items',
+                method: 'get',
+                success: function success(response) {
+                    resolve(JSON.stringify(response));
+                }
+            });
+        });
+    }
+
+    function onItemDropCallback($item) {
+        console.log('onItemDropCallback', $item);
+    }
+
+    function onItemRemovedCallback($item) {
+        console.log('onItemRemovedCallback', $item);
+    }
+
+    if ($menuBuilderTree.length) {
+        getMenuItems().then(function (data) {
+            $menuBuilderTree.domenu({
+                data: data,
+                event: {
+                    onItemDrop: [onItemDropCallback],
+                    onItemRemoved: [onItemRemovedCallback]
+                }
+            }).parseJson();
+        });
+    }
+})();
+
+/***/ }),
+/* 74 */
+/***/ (function(module, exports) {
+
+(function () {
+
+    var $btn = $('.pc-cms-send-form');
+
+    $btn.on('click', function (e) {
+        e.preventDefault();
+        var formId = $(this).data('form');
+        var $form = $(formId);
+        if ($form.length) {
+            $form.submit();
+        }
+    });
+})();
+
+/***/ }),
+/* 75 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

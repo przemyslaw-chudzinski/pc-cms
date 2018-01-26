@@ -81,7 +81,15 @@ return [
         ],
 
         'menus' => [
-            'upload_dir' => 'menus'
+            'upload_dir' => 'menus',
+            'link_targets' => [
+                '_self' => 'The same window',
+                '_blank' => 'Open in new card'
+            ]
+        ],
+
+        'roles' => [
+
         ],
     ],
 ];

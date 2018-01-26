@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Menu;
+use App\MenuItem;
 
 class MenusController extends Controller
 {
@@ -16,4 +17,10 @@ class MenusController extends Controller
     {
         return $menu->getItemsAjax();
     }
+
+    public function destroy(MenuItem $menuItem)
+    {
+        return $menuItem->removeItem();
+    }
+
 }
