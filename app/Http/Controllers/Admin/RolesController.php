@@ -23,6 +23,11 @@ class RolesController extends Controller
         return view('admin.roles.edit', ['role' => $role]);
     }
 
+    public function setPermissions(Role $role)
+    {
+        return view('admin.roles.setPermissions', ['role' => $role]);
+    }
+
     public function store()
     {
         return Role::createNewRole();
@@ -31,6 +36,11 @@ class RolesController extends Controller
     public function update(Role $role)
     {
         return $role->updateRole();
+    }
+
+    public function updatePermissions(Role $role)
+    {
+        return $role->updatePermissions();
     }
 
     public function destroy(Role $role)

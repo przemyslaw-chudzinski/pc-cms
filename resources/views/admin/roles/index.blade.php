@@ -23,7 +23,7 @@
                     @if (count($roles) > 0)
                         @foreach($roles as $role)
                             <tr>
-                                <td>{{ $role->name }}</td>
+                                <td>{{ $role->display_name }}</td>
                                 <td>{{ $role->created_at }}</td>
                                 <td>{{ $role->updated_at }}</td>
                                 <td>
@@ -33,7 +33,7 @@
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a href="#">Set permissions</a></li>
+                                            <li><a href="{{ route('admin.users.roles.setPermissions', ['role' => $role->id]) }}">Set permissions</a></li>
                                             <li><a href="{{ url(config('admin.admin_path') . '/users/roles/' . $role->id . '/edit') }}">Edit</a></li>
                                             <li>
                                                     {!! Form::open(['method' => 'delete', 'route' => ['admin.users.roles.destroy', $role->id], 'id' => 'roleRemoveForm-' . $role->id, 'style' => 'position: absolute']) !!}

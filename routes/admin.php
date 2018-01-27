@@ -105,10 +105,8 @@ Route::group(['prefix' => 'backend', 'namespace' => 'Admin'], function () {
             Route::put('{role}', 'RolesController@update')->name('admin.users.roles.update');
             Route::get('{role}/edit', 'RolesController@edit')->name('admin.users.roles.edit');
             Route::delete('{role}', 'RolesController@destroy')->name('admin.users.roles.destroy');
-
-            Route::group(['permissions'], function () {
-                Route::get('/', 'PermissionsController@index')->name('admin.users.roles.permissions.index');
-            });
+            Route::get('{role}/set-permissions', 'RolesController@setPermissions')->name('admin.users.roles.setPermissions');
+            Route::put('{role}/update-permissions', 'RolesController@updatePermissions')->name('admin.users.roles.updatePermissions');
 
         });
 

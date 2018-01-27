@@ -11701,7 +11701,7 @@ module.exports = "/fonts/tinymce-small.eot?12d26c285b71d790f4b0c94423ef1f99";
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(17);
-module.exports = __webpack_require__(75);
+module.exports = __webpack_require__(76);
 
 
 /***/ }),
@@ -45573,6 +45573,7 @@ __webpack_require__(69);
 __webpack_require__(70);
 __webpack_require__(73);
 __webpack_require__(74);
+__webpack_require__(75);
 
 /***/ }),
 /* 67 */
@@ -46318,6 +46319,71 @@ module.exports = function() {
 
 /***/ }),
 /* 75 */
+/***/ (function(module, exports) {
+
+(function () {
+
+    var $permissionCheckbox = $('.pc-cms-permission-checkbox');
+    var $permissionsInput = $('.pc-cms-permissions');
+    var permissions = {};
+
+    if ($permissionsInput.length) {
+        permissions = $permissionsInput.val() !== "" ? JSON.parse($permissionsInput.val()) : {};
+    }
+
+    $permissionCheckbox.on('change', setValueOnChange);
+
+    setInitialValues();
+
+    function setValueOnChange(e) {
+        e.preventDefault();
+        var $checkbox = $(e.target);
+        var moduleName = $checkbox.data('module-name');
+        var route = $checkbox.data('route');
+        var permission = {
+            route: route,
+            allow: $checkbox.filter(':checked').length > 0
+        };
+        if (typeof permissions[moduleName] !== 'undefined') {
+
+            var modulePermissions = permissions[moduleName].permissions;
+            var indexToUpdate = modulePermissions.findIndex(function (_permission) {
+                return _permission.route === permission.route;
+            });
+            if (indexToUpdate !== -1) {
+                permissions[moduleName].permissions[indexToUpdate] = permission;
+            } else {
+                permissions[moduleName].permissions.push(permission);
+            }
+        } else {
+            permissions[moduleName] = {};
+            permissions[moduleName].permissions = [];
+            permissions[moduleName].permissions.push(permission);
+        }
+
+        $permissionsInput.val(JSON.stringify(permissions));
+    }
+
+    function setInitialValues() {
+        $permissionCheckbox.each(function (index, checkbox) {
+            var $checkbox = $(checkbox);
+            for (var moduleName in permissions) {
+                if ($checkbox.data('module-name') === moduleName) {
+                    if (permissions[moduleName].permissions && permissions[moduleName].permissions.length) {
+                        permissions[moduleName].permissions.forEach(function (per) {
+                            if ($checkbox.data('route') == per.route && per.allow) {
+                                $checkbox.attr('checked', true);
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    }
+})();
+
+/***/ }),
+/* 76 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

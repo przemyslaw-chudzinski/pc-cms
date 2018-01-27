@@ -5,7 +5,7 @@
         @case('input_text')
         <div class="form-group">
             <label>{{ $setting->description }}</label>
-            {!! Form::text('value', $setting->value, ['class' => 'form-control']) !!}
+            {!! Form::text('value', $setting->value, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
         </div>
         @break
 

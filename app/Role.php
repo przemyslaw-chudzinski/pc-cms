@@ -8,7 +8,7 @@ use Validator;
 
 class Role extends Model
 {
-    protected $fillable = ['name', 'display_name', 'description'];
+    protected $fillable = ['name', 'display_name', 'description', 'permissions'];
 
     public static function getRolesWithPagination()
     {
@@ -61,6 +61,16 @@ class Role extends Model
         return back()->with('alert', [
             'type' => 'success',
             'message' => 'Role has been updated successfully'
+        ]);
+    }
+
+    public function updatePermissions()
+    {
+        $data = request()->all();
+        $this->update($data);
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => 'Permissions has been saved'
         ]);
     }
 }

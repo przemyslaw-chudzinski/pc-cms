@@ -4,3 +4,4 @@ require('./plugins/previewImageBeforeUpload');
 require('./plugins/toggleAsyncStatusPlugin');
 require('./plugins/menuBuilderTreePlugin');
 require('./plugins/sendFormPlugin');
+require('./plugins/permissionPlugin');
