@@ -356,6 +356,33 @@ return [
                     'route_name' => 'admin.segments.destroy'
                 ]
             ]
+        ],
+
+        'users' => [
+            'upload_dir' => 'users',
+            'name' => 'Users',
+            'actions' => [
+                'index' => [
+                    'display_name' => 'Show users list view',
+                    'route_name' => 'admin.users.index'
+                ],
+                'edit' => [
+                    'display_name' => 'Show users edit form view',
+                    'route_name' => 'admin.users.edit'
+                ],
+                'update' => [
+                    'display_name' => 'Update user action',
+                    'route_name' => 'admin.users.update'
+                ],
+                'create' => [
+                    'display_name' => 'Show users create form view',
+                    'route_name' => 'admin.users.create'
+                ],
+                'store' => [
+                    'display_name' => 'Create new user action',
+                    'route_name' => 'admin.users.store'
+                ]
+            ]
         ]
     ],
 ];

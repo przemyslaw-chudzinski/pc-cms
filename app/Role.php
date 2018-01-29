@@ -15,6 +15,11 @@ class Role extends Model
         return self::paginate(10);
     }
 
+    public static function getRoles()
+    {
+        return self::get();
+    }
+
     public static function createNewRole()
     {
         $data = request()->all();

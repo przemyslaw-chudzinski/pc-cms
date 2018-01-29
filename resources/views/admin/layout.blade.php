@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="generator" content="PC.CMS - 1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="robots" content="noindex, nofollow">
     <title>PC.CMS - 1.0</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    {{--<script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script> --}}{{-- Tmp --}}
 </head>
 <body>
 

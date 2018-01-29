@@ -4,6 +4,9 @@ Route::group(['prefix' => 'backend', 'namespace' => 'Admin'], function () {
 
     Route::get('/', 'BackendController@index')->name('admin.backend.index');
 
+    Route::get('/login', 'AuthController@showLoginForm')->name('admin.show_login_form');
+    Route::post('/login', 'AuthController@login')->name('admin.login');
+
     /* Segments */
     Route::group(['prefix' => 'segments'], function () {
         Route::get('/', 'SegmentsController@index')->name('admin.segments.index');
@@ -90,13 +93,12 @@ Route::group(['prefix' => 'backend', 'namespace' => 'Admin'], function () {
 
     /* Roles */
     Route::group(['prefix' => 'users'], function () {
-//        Route::get('/', 'RolesController@index')->name('admin.roles.index');
-//        Route::get('/{menu}/edit', 'RolesController@edit')->name('admin.roles.edit');
-//        Route::get('/{menu}/builder', 'RolesController@menuBuilder')->name('admin.roles.builder');
-//        Route::put('{menu}', 'RolesController@update')->name('admin.roles.update');
+        Route::get('/', 'UsersController@index')->name('admin.users.index');
+        Route::get('/{user}/edit', 'UsersController@edit')->name('admin.users.edit');
+        Route::put('{user}', 'UsersController@update')->name('admin.users.update');
 //        Route::delete('{menu}', 'RolesController@destroy')->name('admin.roles.destroy');
-//        Route::post('/', 'RolesController@store')->name('admin.roles.store');
-//        Route::get('/create', 'RolesController@create')->name('admin.roles.create');
+        Route::post('/', 'UsersController@store')->name('admin.users.store');
+        Route::get('/create', 'UsersController@create')->name('admin.users.create');
 
         Route::group(['prefix' => 'roles'], function () {
             Route::get('/', 'RolesController@index')->name('admin.users.roles.index');

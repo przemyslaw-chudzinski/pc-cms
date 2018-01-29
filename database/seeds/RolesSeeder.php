@@ -41,7 +41,7 @@ class RolesSeeder extends Seeder
         }
         $data2 = [
             'name' => 'user',
-            'display_name' => 'user',
+            'display_name' => 'User',
             'permissions' => json_encode($permissions_user)
         ];
         \App\Role::create($data2);
