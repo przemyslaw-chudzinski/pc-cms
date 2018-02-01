@@ -6,5 +6,5 @@
 
 @section('content')
     <h2>Dashboard</h2>
-    @include('admin.components.alert')
+    @include('admin.material_theme.components.alert')
 @endsection

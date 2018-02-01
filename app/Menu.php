@@ -33,7 +33,7 @@ class Menu extends Model
         } else {
             $data['slug'] = str_slug($data['name']);
         }
-        if ($data['published'] == 'on') {
+        if ($data['saveAndPublish'] == 'on') {
             $data['published'] = true;
         } else {
             $data['published'] = false;

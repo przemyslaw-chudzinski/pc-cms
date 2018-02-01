@@ -40,4 +40,9 @@ class UsersController extends Controller
     {
         return $user->removeUser();
     }
+
+    public function resetPassword(User $user)
+    {
+        return $user->resetPassword();
+    }
 }

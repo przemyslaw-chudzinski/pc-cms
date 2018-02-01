@@ -26,7 +26,7 @@ class VerifyAdminAccess
                         if ($action['allow']) {
                             return $next($request);
                         } else {
-                            return redirect(route(config('admin.modules.dashboard.actions.index.route_name')))->with('alert', [
+                            return back()->with('alert', [
                                 'type' => 'warning',
                                 'message' => 'You haven\'t permissions to this source'
                             ]);
@@ -34,6 +34,7 @@ class VerifyAdminAccess
                     }
                 }
             }
+            return $next($request);
         }
         return redirect(route('admin.login'));
     }

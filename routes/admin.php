@@ -93,15 +93,22 @@ Route::group([
         Route::get('/create', 'MenusController@create')->name('admin.menus.create');
 
         /* Menu items */
-        Route::post('/{menu}/items/create', 'MenuItemsController@store')->name('admin.menus.items.create');
+        Route::post('/{menu}/items/create', 'MenuItemsController@store')->name('admin.menus.items.store');
         Route::delete('/items/{menuItem}', 'MenuItemsController@destroy')->name('admin.menus.items.destroy');
 
     });
 
-    /* Roles */
+    /* Account settings */
+    Route::group(['prefix' => 'account-settings'], function () {
+        Route::get('/', 'AccountSettingsController@index')->name('admin.account_settings.index');
+        Route::put('/', 'AccountSettingsController@update')->name('admin.account_settings.update');
+    });
+
+    /* Users */
     Route::group(['prefix' => 'users'], function () {
         Route::get('/', 'UsersController@index')->name('admin.users.index');
         Route::get('/{user}/edit', 'UsersController@edit')->name('admin.users.edit');
+        Route::put('{user}/reset-password', 'UsersController@resetPassword')->name(config('admin.modules.users.actions.reset_password.route_name'));
         Route::put('{user}', 'UsersController@update')->name('admin.users.update');
         Route::delete('{user}', 'UsersController@destroy')->name('admin.users.destroy');
         Route::post('/', 'UsersController@store')->name('admin.users.store');
@@ -118,8 +125,6 @@ Route::group([
             Route::put('{role}/update-permissions', 'RolesController@updatePermissions')->name('admin.users.roles.updatePermissions');
 
         });
-
-
     });
 
 });

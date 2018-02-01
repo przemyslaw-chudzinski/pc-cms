@@ -53,6 +53,30 @@
                 </div>
             </div>
         </div>
+        <div class="col-xs-12 col-md-6">
+            <div class="card">
+                <header class="card-heading">
+                    <h2 class="card-title">Reset password</h2>
+                </header>
+                <div class="card-body">
+                    {!! Form::open([
+                        'method' => 'put',
+                        'id' => 'userResetPasswordForm',
+                        'route' => [config('admin.modules.users.actions.reset_password.route_name'), $user->id]
+                    ]) !!}
+                        <div class="form-group">
+                            {!! Form::label(null, 'New password') !!}
+                            {!! Form::password('password', ['class' => 'form-control', 'autocomplete' => 'off', 'id' => 'password']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label(null, 'Repeat password') !!}
+                            {!! Form::password('repeatedPassword', ['class' => 'form-control', 'autocomplete' => 'off']) !!}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    {!! Form::close() !!}
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -78,6 +102,21 @@
             });
 
             $('#editUserForm').validate();
+
+            $('#userResetPasswordForm').validate({
+                rules: {
+                    password: {
+                        required: true,
+                        minlength: 6
+                    },
+                    repeatedPassword: {
+                        required: true,
+                        minlength: 6,
+                        equalTo: '#password'
+                    }
+                }
+            });
+
         })();
     </script>
 

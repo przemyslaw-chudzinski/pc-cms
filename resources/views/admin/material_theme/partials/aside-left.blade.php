@@ -12,13 +12,7 @@
                 </header>
                 <ul class="submenu">
                     <li>
-                        <a href="page-profile.html"><i class="zmdi zmdi-account"></i> Profile</a>
-                    </li>
-                    <li>
-                        <a href="app-mail.html"><i class="zmdi zmdi-email"></i> Messages</a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)"><i class="zmdi zmdi-settings"></i> Account Settings</a>
+                        <a href="{{ route('admin.account_settings.index') }}"><i class="zmdi zmdi-settings"></i> Account Settings</a>
                     </li>
                     <li>
                         <a href="{{ route('admin.logout') }}"><i class="zmdi zmdi-sign-in"></i> Sign Out</a>
@@ -56,6 +50,21 @@
                         <li><a href="{{ route(config('admin.modules.projects.actions.create.route_name')) }}">New project</a></li>
                         <li><a href="{{ route(config('admin.modules.project_categories.actions.index.route_name')) }}">All categories</a></li>
                         <li><a href="{{ route(config('admin.modules.project_categories.actions.create.route_name')) }}">New category</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{{ route(config('admin.modules.settings.actions.index.route_name')) }}"><i class="zmdi zmdi-widgets"></i>Settings</a>
+                </li>
+                <li class="nav-dropdown"><a href="#"><i class="zmdi zmdi-widgets"></i>Menus</a>
+                    <ul class="nav-sub">
+                        <li><a href="{{ route(config('admin.modules.menus.actions.index.route_name')) }}">All menus</a></li>
+                        <li><a href="{{ route(config('admin.modules.menus.actions.create.route_name')) }}">New menu</a></li>
+                    </ul>
+                </li>
+                <li class="nav-dropdown"><a href="#"><i class="zmdi zmdi-widgets"></i>Pages</a>
+                    <ul class="nav-sub">
+                        <li><a href="{{ route(config('admin.modules.pages.actions.index.route_name')) }}">All pages</a></li>
+                        <li><a href="{{ route(config('admin.modules.pages.actions.create.route_name')) }}">New page</a></li>
                     </ul>
                 </li>
             </ul>

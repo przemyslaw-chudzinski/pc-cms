@@ -49,7 +49,7 @@ if (token) {
 //
 require('toastr/toastr.scss');
 //
-// require('./libs/jquery.domenu-0.100.77');
+require('./libs/jquery.domenu-0.100.77');
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

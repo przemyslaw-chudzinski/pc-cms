@@ -273,13 +273,17 @@ return [
                     'display_name' => 'Delete menu action',
                     'route_name' => 'admin.menus.destroy'
                 ],
-                'item_create' => [
-                    'display_name' => 'Show create new item form view',
-                    'route_name' => 'admin.menus.items.create'
-                ],
                 'item_store' => [
                     'display_name' => 'Create new item action',
                     'route_name' => 'admin.menus.items.store'
+                ],
+                'item_destroy' => [
+                    'display_name' => 'Delete menu item action',
+                    'route_name' => 'admin.menus.items.destroy'
+                ],
+                'set_permissions' => [
+                    'display_name' => 'Set permissions view',
+                    'route_name' => 'admin.menus.builder'
                 ]
             ],
             'link_targets' => [
@@ -385,6 +389,10 @@ return [
                 'destroy' => [
                     'display_name' => 'Delete user action',
                     'route_name' => 'admin.users.destroy'
+                ],
+                'reset_password' => [
+                    'display_name' => 'Reset user password',
+                    'route_name' => 'admin.users.reset_password'
                 ]
             ]
         ]
