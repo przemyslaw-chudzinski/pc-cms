@@ -85,4 +85,13 @@ class User extends Authenticatable
             'message' => 'User has been updated successfully'
         ]);
     }
+
+    public function removeUser()
+    {
+        $this->delete();
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => 'User has been deleted successfully'
+        ]);
+    }
 }

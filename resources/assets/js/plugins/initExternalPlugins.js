@@ -7,8 +7,8 @@
     });
 
     /* Select2 init */
-    $('.pc-cms-select2-base').select2({
-        allowClear: true
-    });
+    // $('.pc-cms-select2-base').select2({
+    //     allowClear: true
+    // });
 
 })();

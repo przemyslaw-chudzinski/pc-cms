@@ -10,7 +10,7 @@ window._ = require('lodash');
 try {
     window.$ = window.jQuery = require('jquery');
 
-    require('bootstrap-sass');
+    // require('bootstrap-sass');
 } catch (e) {}
 
 /**
@@ -37,19 +37,19 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
-require('./libs/tinymce/js/tinymce/tinymce');
-require('./libs/tinymce/js/tinymce/themes/modern/theme.min');
-require('./libs/tinymce/js/tinymce/skins/lightgray/content.min.css');
-require('./libs/tinymce/js/tinymce/skins/lightgray/skin.min.css');
-require('./libs/tinymce/js/tinymce/plugins/code/plugin');
-require('./libs/tinymce/js/tinymce/plugins/media/plugin');
-
-require('select2/dist/js/select2.full');
-require('select2/dist/css/select2.css');
-
+// require('./libs/tinymce/js/tinymce/tinymce');
+// require('./libs/tinymce/js/tinymce/themes/modern/theme.min');
+// require('./libs/tinymce/js/tinymce/skins/lightgray/content.min.css');
+// require('./libs/tinymce/js/tinymce/skins/lightgray/skin.min.css');
+// require('./libs/tinymce/js/tinymce/plugins/code/plugin');
+// require('./libs/tinymce/js/tinymce/plugins/media/plugin');
+//
+// require('select2/dist/js/select2.full');
+// require('select2/dist/css/select2.css');
+//
 require('toastr/toastr.scss');
-
-require('./libs/jquery.domenu-0.100.77');
+//
+// require('./libs/jquery.domenu-0.100.77');
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

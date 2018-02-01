@@ -28,7 +28,7 @@ class Page extends Model
     public static function createNewPage()
     {
         $data = request()->all();
-        if (!isset($data['saveAndPublished'])) {
+        if (!isset($data['saveAndPublish'])) {
             $data['published'] = false;
         } else {
             $data['published'] = true;
@@ -68,7 +68,7 @@ class Page extends Model
     public function updatePage()
     {
         $data = request()->all();
-        if (!isset($data['saveAndPublished'])) {
+        if (!isset($data['saveAndPublish'])) {
             $data['published'] = false;
         } else {
             $data['published'] = true;

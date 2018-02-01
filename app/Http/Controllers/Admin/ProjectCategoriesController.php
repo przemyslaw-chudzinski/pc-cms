@@ -10,12 +10,12 @@ class ProjectCategoriesController extends Controller
     public function index()
     {
         $categories = ProjectCategory::getCategoriesWithPagination();
-        return view('admin.projectCategories.index', ['categories' => $categories]);
+        return view('admin.material_theme.projectCategories.index', ['categories' => $categories]);
     }
 
     public function create()
     {
-        return view('admin.projectCategories.create');
+        return view('admin.material_theme.projectCategories.create');
     }
 
     public function store()
@@ -25,7 +25,7 @@ class ProjectCategoriesController extends Controller
 
     public function edit(ProjectCategory $projectCategory)
     {
-        return view('admin.projectCategories.edit', ['category' => $projectCategory]);
+        return view('admin.material_theme.projectCategories.edit', ['category' => $projectCategory]);
     }
 
     public function update(ProjectCategory $projectCategory)

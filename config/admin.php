@@ -294,35 +294,35 @@ return [
             'actions' => [
                 'index' => [
                     'display_name' => 'Show lists of roles view',
-                    'route_name' => 'admin.roles.index'
+                    'route_name' => 'admin.users.roles.index'
                 ],
                 'create' => [
                     'display_name' => 'Show create new role form view',
-                    'route_name' => 'admin.roles.create'
+                    'route_name' => 'admin.users.roles.create'
                 ],
                 'edit' => [
                     'display_name' => 'Show role edit form view',
-                    'route_name' => 'admin.roles.edit'
+                    'route_name' => 'admin.users.roles.edit'
                 ],
                 'store' => [
                     'display_name' => 'Create new role action',
-                    'route_name' => 'admin.roles.store'
+                    'route_name' => 'admin.users.roles.store'
                 ],
                 'update' => [
                     'display_name' => 'Update role action',
-                    'route_name' => 'admin.roles.update'
+                    'route_name' => 'admin.users.roles.update'
                 ],
                 'destroy' => [
                     'display_name' => 'Delete role action',
-                    'route_name' => 'admin.roles.destroy'
+                    'route_name' => 'admin.users.roles.destroy'
                 ],
                 'permission_set_permission' => [
                     'display_name' => 'Create new permission view',
-                    'route_name' => 'admin.roles.permissions.setPermission'
+                    'route_name' => 'admin.users.roles.setPermissions'
                 ],
                 'permission_update_permission' => [
                     'display_name' => 'Update permissions action',
-                    'route_name' => 'admin.roles.permission.updatePermission'
+                    'route_name' => 'admin.users.roles.updatePermissions'
                 ]
             ]
         ],
@@ -381,6 +381,10 @@ return [
                 'store' => [
                     'display_name' => 'Create new user action',
                     'route_name' => 'admin.users.store'
+                ],
+                'destroy' => [
+                    'display_name' => 'Delete user action',
+                    'route_name' => 'admin.users.destroy'
                 ]
             ]
         ]

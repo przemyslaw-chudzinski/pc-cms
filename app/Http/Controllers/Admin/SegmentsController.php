@@ -10,17 +10,17 @@ class SegmentsController extends Controller
     public function index()
     {
         $segments = Segment::getSegmentsWithPagination();
-        return view('admin.segments.index', ['segments' => $segments]);
+        return view('admin.material_theme.segments.index', ['segments' => $segments]);
     }
 
     public function create()
     {
-        return view('admin.segments.create');
+        return view('admin.material_theme.segments.create');
     }
 
     public function edit(Segment $segment)
     {
-        return view('admin.segments.edit', ['segment' => $segment]);
+        return view('admin.material_theme.segments.edit', ['segment' => $segment]);
     }
 
     public function store()
@@ -31,20 +31,11 @@ class SegmentsController extends Controller
     public function update(Segment $segment)
     {
 
-        $segment->updateSegment();
-
-        return back()->with('alert', [
-            'type' => 'success',
-            'message' => 'Segment has been updated successfully'
-        ]);
+        return $segment->updateSegment();
     }
 
     public function destroy(Segment $segment)
     {
-        $segment->removeSegment();
-        return back()->with('alert' , [
-            'type' => 'success',
-            'message' => 'Segment has been deleted successfully'
-        ]);
+        return $segment->removeSegment();
     }
 }

@@ -10,19 +10,19 @@ class BlogCategoriesController extends Controller
     public function index()
     {
         $categories = BlogCategory::getCategoriesWithPagination();
-        return view('admin.blogCategories.index', ['categories' => $categories]);
+        return view('admin.material_theme.blogCategories.index', ['categories' => $categories]);
     }
 
     public function create()
     {
         $categories = BlogCategory::getAllCategories();
-        return view('admin.blogCategories.create', ['categories' => $categories]);
+        return view('admin.material_theme.blogCategories.create', ['categories' => $categories]);
     }
 
     public function edit(BlogCategory $blogCategory)
     {
         $categories = BlogCategory::getAllCategories();
-        return view('admin.blogCategories.edit', ['category' => $blogCategory, 'categories' => $categories]);
+        return view('admin.material_theme.blogCategories.edit', ['category' => $blogCategory, 'categories' => $categories]);
     }
 
     public function store()

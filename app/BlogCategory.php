@@ -24,7 +24,7 @@ class BlogCategory extends Model
     public static function createNewCategory()
     {
         $data = request()->all();
-        if (!isset($data['saveAndPublished'])) {
+        if (!isset($data['saveAndPublish'])) {
             $data['published'] = false;
         } else {
             $data['published'] = true;
@@ -58,7 +58,7 @@ class BlogCategory extends Model
     public function updateCategory()
     {
         $data = request()->all();
-        if (!isset($data['saveAndPublished'])) {
+        if (!isset($data['saveAndPublish'])) {
             $data['published'] = false;
         } else {
             $data['published'] = true;

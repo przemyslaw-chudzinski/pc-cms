@@ -1,30 +1,37 @@
 <?php
 
-Route::group(['prefix' => 'backend', 'namespace' => 'Admin'], function () {
-
-    Route::get('/', 'BackendController@index')->name('admin.backend.index');
-
+Route::group(['prefix' => config('admin.admin_path'), 'namespace' => 'Admin'], function () {
     Route::get('/login', 'AuthController@showLoginForm')->name('admin.show_login_form');
     Route::post('/login', 'AuthController@login')->name('admin.login');
+    Route::get('/logout', 'AuthController@logout')->name('admin.logout');
+});
+
+Route::group([
+    'prefix' => config('admin.admin_path'),
+    'namespace' => 'Admin',
+    'middleware' => ['auth.admin']
+], function () {
+
+    Route::get('/', 'BackendController@index')->name(config('admin.modules.dashboard.actions.index.route_name'));
 
     /* Segments */
     Route::group(['prefix' => 'segments'], function () {
-        Route::get('/', 'SegmentsController@index')->name('admin.segments.index');
-        Route::get('/{segment}/edit', 'SegmentsController@edit')->name('admin.segments.edit');
-        Route::put('{segment}', 'SegmentsController@update')->name('admin.segments.update');
-        Route::delete('{segment}', 'SegmentsController@destroy')->name('admin.segments.destroy');
-        Route::post('/', 'SegmentsController@store')->name('admin.segments.store');
-        Route::get('/create', 'SegmentsController@create')->name('admin.segments.create');
+        Route::get('/', 'SegmentsController@index')->name(config('admin.modules.segments.actions.index.route_name'));
+        Route::get('/{segment}/edit', 'SegmentsController@edit')->name(config('admin.modules.segments.actions.edit.route_name'));
+        Route::put('{segment}', 'SegmentsController@update')->name(config('admin.modules.segments.actions.update.route_name'));
+        Route::delete('{segment}', 'SegmentsController@destroy')->name(config('admin.modules.segments.actions.destroy.route_name'));
+        Route::post('/', 'SegmentsController@store')->name(config('admin.modules.segments.actions.store.route_name'));
+        Route::get('/create', 'SegmentsController@create')->name(config('admin.modules.segments.actions.create.route_name'));
     });
 
     /* Pages */
     Route::group(['prefix' => 'pages'], function () {
-        Route::get('/', 'PagesController@index')->name('admin.pages.index');
-        Route::get('/{page}/edit', 'PagesController@edit')->name('admin.pages.edit');
-        Route::put('{page}', 'PagesController@update')->name('admin.pages.update');
-        Route::delete('{page}', 'PagesController@destroy')->name('admin.pages.destroy');
-        Route::post('/', 'PagesController@store')->name('admin.pages.store');
-        Route::get('/create', 'PagesController@create')->name('admin.pages.create');
+        Route::get('/', 'PagesController@index')->name(config('admin.modules.pages.actions.index.route_name'));
+        Route::get('/{page}/edit', 'PagesController@edit')->name(config('admin.modules.pages.actions.edit.route_name'));
+        Route::put('{page}', 'PagesController@update')->name(config('admin.modules.pages.actions.update.route_name'));
+        Route::delete('{page}', 'PagesController@destroy')->name(config('admin.modules.pages.actions.destroy.route_name'));
+        Route::post('/', 'PagesController@store')->name(config('admin.modules.pages.actions.store.route_name'));
+        Route::get('/create', 'PagesController@create')->name(config('admin.modules.pages.actions.create.route_name'));
     });
 
     /* Projects */
@@ -63,7 +70,7 @@ Route::group(['prefix' => 'backend', 'namespace' => 'Admin'], function () {
             Route::get('{blogCategory}/edit', 'BlogCategoriesController@edit')->name('admin.articles.categories.edit');
             Route::post('/', 'BlogCategoriesController@store')->name('admin.articles.categories.store');
             Route::put('{blogCategory}', 'BlogCategoriesController@update')->name('admin.articles.categories.update');
-//            Route::delete('{article}', 'BlogCategoriesController@destroy')->name('admin.articles.categories.destroy');
+            Route::delete('{blogCategory}', 'BlogCategoriesController@destroy')->name('admin.articles.categories.destroy');
         });
     });
 
@@ -96,7 +103,7 @@ Route::group(['prefix' => 'backend', 'namespace' => 'Admin'], function () {
         Route::get('/', 'UsersController@index')->name('admin.users.index');
         Route::get('/{user}/edit', 'UsersController@edit')->name('admin.users.edit');
         Route::put('{user}', 'UsersController@update')->name('admin.users.update');
-//        Route::delete('{menu}', 'RolesController@destroy')->name('admin.roles.destroy');
+        Route::delete('{user}', 'UsersController@destroy')->name('admin.users.destroy');
         Route::post('/', 'UsersController@store')->name('admin.users.store');
         Route::get('/create', 'UsersController@create')->name('admin.users.create');
 

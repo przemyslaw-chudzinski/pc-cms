@@ -46,11 +46,20 @@ class Segment extends Model
             return back()->withErrors($validator);
         }
 
-        return $this->update($data);
+        $this->update($data);
+
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => 'Segment has been updated successfully'
+        ]);
     }
 
     public function removeSegment()
     {
-        return $this->delete();
+        $this->delete();
+        return back()->with('alert' , [
+            'type' => 'success',
+            'message' => 'Segment has been deleted successfully'
+        ]);
     }
 }

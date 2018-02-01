@@ -41,7 +41,7 @@ class Project extends Model
     public static function createNewProject()
     {
         $data = request()->all();
-        if (!isset($data['saveAndPublished'])) {
+        if (!isset($data['saveAndPublish'])) {
             $data['published'] = false;
         } else {
             $data['published'] = true;
@@ -92,7 +92,7 @@ class Project extends Model
     public function updateProject()
     {
         $data = request()->all();
-        if (!isset($data['saveAndPublished'])) {
+        if (!isset($data['saveAndPublish'])) {
             $data['published'] = false;
         } else {
             $data['published'] = true;

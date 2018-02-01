@@ -1,0 +1,73 @@
+#contact_us_wrapper {
+	#info_right {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		height: 100%;
+		background-color: #2196F3;
+		background-image: url("../img/headers/dog.png");
+		background-repeat: no-repeat;
+		background-position: right bottom;
+
+		h2,
+		ul li {
+			color: rgba(255,255,255,.8);
+		}
+
+		ul li a {
+			color: rgba(255,255,255,1);
+
+			&:hover {
+				color: rgba(255,255,255,.7);
+			}
+		}
+
+		ul.contact-list li {
+			padding: 20px 0;
+
+			i {
+				font-size: 25px;
+				margin: 0 20px 0 0;
+				vertical-align: middle;
+			}
+		}
+	}
+
+	.social {
+		padding: 0;
+		margin: 0;
+		position: absolute;
+		bottom: 35px;
+		left: 53px;
+
+		li {
+			display: inline-block;
+			font-size: 23px;
+			margin: 0 20px 0 0;
+
+			.btn-dribbble,
+			.btn-facebook,
+			.btn-twitter {
+				background: #fff!important;
+			}
+
+			.btn-twitter {
+				color: #55acee;
+			}
+
+			.btn-facebook {
+				color: #3b5998;
+			}
+
+			.btn-dribbble {
+				color: #ea4c89;
+			}
+
+			i {
+				padding: 5px 9px;
+				vertical-align: baseline;
+			}
+		}
+	}
+}

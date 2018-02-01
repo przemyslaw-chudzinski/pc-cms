@@ -34,7 +34,7 @@ class Article extends Model
     public static function createNewArticle()
     {
         $data = request()->all();
-        if (!isset($data['saveAndPublished'])) {
+        if (!isset($data['saveAndPublish'])) {
             $data['published'] = false;
         }
         if (!isset($data['slug']) || $data['slug'] === '' || empty($data['slug'])) {
@@ -79,7 +79,7 @@ class Article extends Model
     public function updateArticle()
     {
         $data = request()->all();
-        if (!isset($data['saveAndPublished'])) {
+        if (!isset($data['saveAndPublish'])) {
             $data['published'] = false;
         } else {
             $data['published'] = true;

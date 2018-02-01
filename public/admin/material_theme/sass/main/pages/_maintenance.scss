@@ -1,0 +1,99 @@
+
+#maintenance_page {
+	background-image: url("../img/backgrounds/bg-4.jpg");
+	background-size: cover;
+	background-position: center center;
+	background-attachment: fixed;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	position: fixed;
+	
+	&:after {
+		background-color: rgba(47,25,217,.4);
+		content: ' ';
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		z-index: -1;
+	}
+	
+	#error_wrapper {
+		max-width: 50%;
+		margin: 6% auto;
+		z-index: 10;
+		text-align: center;
+		
+		h1 {
+			font-size: 3em;
+			color: #fff;
+			font-family: "Source Sans Pro",sans-serif;
+		}
+		
+		p {
+			color: #fff;
+			font-size: 2em;
+			line-height: 1.5em;
+			color: #fff;
+		}
+	}
+	
+	svg {
+		-webkit-animation-name: spin;
+		-webkit-animation-duration: 7000ms;
+		-webkit-animation-iteration-count: infinite;
+		-webkit-animation-timing-function: linear;
+		-moz-animation-name: spin;
+		-moz-animation-duration: 7000ms;
+		-moz-animation-iteration-count: infinite;
+		-moz-animation-timing-function: linear;
+		-ms-animation-name: spin;
+		-ms-animation-duration: 7000ms;
+		-ms-animation-iteration-count: infinite;
+		-ms-animation-timing-function: linear;
+		animation-name: spin;
+		animation-duration: 7000ms;
+		animation-iteration-count: infinite;
+		animation-timing-function: linear;
+	}
+	@-ms-keyframes spin {
+		from {
+			-ms-transform: rotate(0deg);
+		}
+		
+		to {
+			-ms-transform: rotate(360deg);
+		}
+	}
+	@-moz-keyframes spin {
+		from {
+			-moz-transform: rotate(0deg);
+		}
+		
+		to {
+			-moz-transform: rotate(360deg);
+		}
+	}
+	@-webkit-keyframes spin {
+		from {
+			-webkit-transform: rotate(0deg);
+		}
+		
+		to {
+			-webkit-transform: rotate(360deg);
+		}
+	}
+	@keyframes spin {
+		from {
+			transform: rotate(0deg);
+		}
+		
+		to {
+			transform: rotate(360deg);
+		}
+	}
+}
