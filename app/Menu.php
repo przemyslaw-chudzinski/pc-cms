@@ -5,9 +5,13 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Rule;
 use Validator;
+use App\Traits\ModelTrait;
 
 class Menu extends Model
 {
+
+    use ModelTrait;
+
     protected $fillable = ['name', 'slug', 'description', 'published'];
 
     public function items()
@@ -28,24 +32,22 @@ class Menu extends Model
     public static function createMenu()
     {
         $data = request()->all();
-        if (isset($data['slug'])) {
-            $data['slug'] = str_slug($data['slug']);
-        } else {
-            $data['slug'] = str_slug($data['name']);
-        }
-        if ($data['saveAndPublish'] == 'on') {
-            $data['published'] = true;
-        } else {
-            $data['published'] = false;
-        }
+
+        $data['slug'] = self::createSlug($data, 'name');
+
+        $data['published'] = self::toggleValue($data, 'saveAndPublish');
+
         $validator = Validator::make($data, [
             'name' => 'required',
             'slug' => 'unique:menus'
         ]);
+
         if ($validator->fails()) {
             return back()->withErrors($validator);
         }
+
         self::create($data);
+
         return back()->with('alert', [
             'type' => 'success',
             'message' => 'Menu has been created successfully'
@@ -55,20 +57,10 @@ class Menu extends Model
     public function updateMenu()
     {
         $data = request()->all();
-        if (!isset($data['saveAndPublish'])) {
-            $data['published'] = false;
-        } else {
-            $data['published'] = true;
-        }
-        if (isset($data['generateSlug'])) {
-            $data['slug'] = str_slug($data['name']);
-        } else {
-            if (!isset($data['slug'])) {
-                $data['slug'] = str_slug($data['name']);
-            } else {
-                $data['slug'] = str_slug($data['slug']);
-            }
-        }
+
+        $data['published'] = self::toggleValue($data, 'saveAndPublish');
+
+        $data['slug'] = self::generateSlugBasedOn($data, 'name');
 
         $validator = Validator::make($data, [
             'name' => 'required',
@@ -77,6 +69,7 @@ class Menu extends Model
                 Rule::unique('menus')->ignore($this->slug, 'slug')
             ],
         ]);
+
         if ($validator->fails()) {
             return back()->withErrors($validator);
         }
@@ -92,10 +85,13 @@ class Menu extends Model
     private function toggleStatus()
     {
         $data['published'] = false;
+
         if (!$this->published) {
             $data['published'] = true;
         }
+
         $result = $this->update($data);
+
         return [
             'result' => $result,
             'data' => $data
@@ -105,6 +101,7 @@ class Menu extends Model
     public function toggleStatusAjax()
     {
         $res = $this->toggleStatus();
+
         return response()->json([
             '7' => 'success',
             'message' => __('messages.update_status'),

@@ -13,6 +13,16 @@
             <div class="card">
                 <header class="card-heading">
                     <h2 class="card-title">Blog categories list</h2>
+                    <ul class="card-actions icons right-top">
+                        <li class="dropdown">
+                            <a href="javascript:void(0)" data-toggle="dropdown" aria-expanded="false">
+                                <i class="zmdi zmdi-more-vert"></i>
+                            </a>
+                            <ul class="dropdown-menu btn-primary dropdown-menu-right">
+                                <li><a href="{{ route(config('admin.modules.blog_categories.actions.create.route_name')) }}">Create new</a></li>
+                            </ul>
+                        </li>
+                    </ul>
                 </header>
                 <div class="card-body">
                     <table class="table">

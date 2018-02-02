@@ -6,7 +6,7 @@
 
 @section('content')
 
-    @include('admin.components.alert')
+    @include('admin.material_theme.components.alert')
 
     @include('admin.material_theme.components.forms.validation')
 

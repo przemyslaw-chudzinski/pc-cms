@@ -7,7 +7,14 @@ use Validator;
 
 class MenuItem extends Model
 {
-    protected $fillable = ['menu_id', 'title', 'url', 'target', 'parent_id', 'order'];
+    protected $fillable = [
+        'menu_id',
+        'title',
+        'url',
+        'target',
+        'parent_id',
+        'order'
+    ];
 
 
     public function children()
@@ -23,16 +30,20 @@ class MenuItem extends Model
     public static function createItem(Menu $menu)
     {
         $data = request()->all();
+
         $validator = Validator::make($data, [
            'title' => 'required'
         ]);
+
         if ($validator->fails()) {
             return back()->with('alert', [
                 'type' => 'danger',
                 'message' => 'The title field is required'
             ]);
         }
+
         $menu->items()->create($data);
+
         return back()->with('alert', [
            'type' => 'success',
            'message' => 'Menu item has been created successfully'
@@ -42,6 +53,7 @@ class MenuItem extends Model
     public function removeItem()
     {
         $this->delete();
+
         return back()->with('alert', [
             'type' => 'success',
             'message' => 'Menu item has been deleted successfully'

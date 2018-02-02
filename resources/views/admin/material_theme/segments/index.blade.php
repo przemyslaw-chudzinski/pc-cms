@@ -20,15 +20,7 @@
                                 <i class="zmdi zmdi-more-vert"></i>
                             </a>
                             <ul class="dropdown-menu btn-primary dropdown-menu-right">
-                                <li>
-                                    <a href="javascript:void(0)">Option One</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">Option Two</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">Option Three</a>
-                                </li>
+                                <li><a href="{{ route(config('admin.modules.segments.actions.create.route_name')) }}">Create new</a></li>
                             </ul>
                         </li>
                     </ul>

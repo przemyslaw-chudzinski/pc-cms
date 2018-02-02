@@ -23,20 +23,21 @@ class Role extends Model
     public static function createNewRole()
     {
         $data = request()->all();
-        $data['name'] = trim(strtolower($data['name']));
-        if (isset($data['description'])) {
-            $data['description'] = trim($data['description']);
-        }
+
         $validator = Validator::make($data, [
             'name' => 'required|unique:roles'
         ]);
+
         if ($validator->fails()) {
             return back()->withErrors($validator);
         }
+
         if (!isset($data['display_name'])) {
             $data['display_name'] = ucfirst($data['name']);
         }
+
         self::create($data);
+
         return back()->with('alert', [
             'type' => 'success',
             'message' => 'Role has been created successfully'
@@ -46,23 +47,25 @@ class Role extends Model
     public function updateRole()
     {
         $data = request()->all();
-        $data['name'] = trim(strtolower($data['name']));
-        if (isset($data['description'])) {
-            $data['description'] = trim($data['description']);
-        }
+
+        $data['name'] = strtolower($data['name']);
+
         $validator = Validator::make($data, [
             'name' => [
                 'required',
                 Rule::unique('roles')->ignore($this->name, 'name')
             ]
         ]);
+
         if ($validator->fails()) {
             return back()->withErrors($validator);
         }
         if (!isset($data['display_name'])) {
             $data['display_name'] = ucfirst($data['name']);
         }
+
         $this->update($data);
+
         return back()->with('alert', [
             'type' => 'success',
             'message' => 'Role has been updated successfully'
@@ -72,7 +75,9 @@ class Role extends Model
     public function updatePermissions()
     {
         $data = request()->all();
+
         $this->update($data);
+
         return back()->with('alert', [
             'type' => 'success',
             'message' => 'Permissions has been saved'

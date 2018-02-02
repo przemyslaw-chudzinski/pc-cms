@@ -12,6 +12,9 @@ let mix = require('laravel-mix');
  */
 
 /* For base theme */
-mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+// mix.js('resources/assets/js/app.js', 'public/js')
+//    .sass('resources/assets/sass/app.scss', 'public/css');
 
+/* For material_theme */
+mix.js('resources/views/admin/material_theme/assets/js/app.js', 'public/js')
+    .sass('resources/views/admin/material_theme/assets/sass/app.scss', 'public/css');

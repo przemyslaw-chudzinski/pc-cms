@@ -8,7 +8,10 @@ use Illuminate\Validation\Rule;
 
 class Segment extends Model
 {
-    protected $fillable = ['name', 'content'];
+    protected $fillable = [
+        'name',
+        'content'
+    ];
 
     public static function getSegmentsWithPagination()
     {
@@ -18,14 +21,19 @@ class Segment extends Model
     public static function createNewSegment()
     {
         $data = request()->all();
+
         $data['name'] = str_slug($data['name']);
+
         $validator = Validator::make($data, [
             'name' => 'required|unique:segments'
         ]);
+
         if ($validator->fails()) {
             return back()->withErrors($validator);
         }
+
         self::create($data);
+
         return back()->with('alert', [
             'type' => 'success',
             'message' => 'Segment has been created successfully'
@@ -35,6 +43,7 @@ class Segment extends Model
     public function updateSegment()
     {
         $data = request()->all();
+
         $validator = Validator::make($data, [
             'name' => [
                 'required',
@@ -57,6 +66,7 @@ class Segment extends Model
     public function removeSegment()
     {
         $this->delete();
+
         return back()->with('alert' , [
             'type' => 'success',
             'message' => 'Segment has been deleted successfully'

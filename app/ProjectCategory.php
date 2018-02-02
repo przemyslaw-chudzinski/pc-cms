@@ -5,11 +5,21 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Rule;
 use Validator;
-use App\Core\Services\Image;
+use App\Traits\FilesTrait;
+use App\Traits\ModelTrait;
 
 class ProjectCategory extends Model
 {
-    protected $fillable = ['name', 'slug', 'description', 'published', 'thumbnail'];
+
+    use FilesTrait, ModelTrait;
+
+    protected $fillable = [
+        'name',
+        'slug',
+        'description',
+        'published',
+        'thumbnail'
+    ];
 
     public static function getCategoriesWithPagination()
     {
@@ -24,31 +34,25 @@ class ProjectCategory extends Model
     public static function createNewCategory()
     {
         $data = request()->all();
-        if (!isset($data['saveAndPublish'])) {
-            $data['published'] = false;
-        } else {
-            $data['published'] = true;
-        }
-        if (!isset($data['slug']) || $data['slug'] === '' || empty($data['slug'])) {
-            $data['slug'] = str_slug($data['name']);
-        } else {
-            $data['slug'] = str_slug($data['slug']);
-        }
+
+        $data['published'] = self::toggleValue($data, 'saveAndPublish');
+
+        $data['slug'] = self::createSlug($data, 'name');
+
         $validator = Validator::make($data, [
             'name' => 'required',
             'slug' => 'unique:project_categories',
             'imageThumbnail' => 'image|max:2048'
         ]);
+
         if ($validator->fails()) {
             return back()->withErrors($validator);
         }
-        if (request()->hasFile('imageThumbnail')) {
-            $file = request()->file('imageThumbnail');
-            $img = new Image($file, config('admin.modules.project_categories.upload_dir'));
-            $img->upload();
-            $data['thumbnail'] = $file->getClientOriginalName();
-        }
+
+        $data['thumbnail'] = self::uploadImage($data, 'imageThumbnail', config('admin.modules.project_categories.upload_dir'));
+
         self::create($data);
+
         return back()->with('alert', [
             'type' => 'success',
             'message' => 'Category has been created successfully'
@@ -58,20 +62,11 @@ class ProjectCategory extends Model
     public function updateCategory()
     {
         $data = request()->all();
-        if (!isset($data['saveAndPublish'])) {
-            $data['published'] = false;
-        } else {
-            $data['published'] = true;
-        }
-        if (isset($data['generateSlug'])) {
-            $data['slug'] = str_slug($data['name']);
-        } else {
-            if (!isset($data['slug'])) {
-                $data['slug'] = str_slug($data['name']);
-            } else {
-                $data['slug'] = str_slug($data['slug']);
-            }
-        }
+
+        $data['published'] = self::toggleValue($data, 'saveAndPublish');
+
+        $data['slug'] = self::generateSlugBasedOn($data, 'name');
+
         $validator = Validator::make($data, [
             'name' => 'required',
             'slug' => [
@@ -83,18 +78,17 @@ class ProjectCategory extends Model
         if ($validator->fails()) {
             return back()->withErrors($validator);
         }
-        if (request()->hasFile('imageThumbnail')) {
-            $file = request()->file('imageThumbnail');
-            $img = new Image($file, config('admin.modules.project_categories.upload_dir'));
-            $img->upload();
-            $data['thumbnail'] = $file->getClientOriginalName();
+
+        if (isset($data['imageThumbnail'])) {
+            $data['thumbnail'] = self::uploadImage($data, 'imageThumbnail', config('admin.modules.project_categories.upload_dir'));
         }
 
-        if ($data['noImage'] === 'yes') {
-            $data['thumbnail'] = '';
+        if (isset($data['noImage']) && $data['noImage'] === 'yes') {
+            $data['thumbnail'] = null;
         }
 
         $this->update($data);
+
         return back()->with('alert', [
             'type' => 'success',
             'message' => 'Category has been updated successfully'
@@ -104,6 +98,7 @@ class ProjectCategory extends Model
     public function removeCategory()
     {
         $this->delete();
+
         return back()->with('alert', [
             'type' => 'success',
             'message' => 'Category has been updated successfully'
@@ -113,10 +108,13 @@ class ProjectCategory extends Model
     private function toggleStatus()
     {
         $data['published'] = false;
+
         if (!$this->published) {
             $data['published'] = true;
         }
+
         $result = $this->update($data);
+
         return [
             'result' => $result,
             'data' => $data
@@ -126,6 +124,7 @@ class ProjectCategory extends Model
     public function toggleStatusAjax()
     {
         $res = $this->toggleStatus();
+
         return response()->json([
             'types' => 'success',
             'message' => 'Status has been updated successfully',

@@ -4,7 +4,7 @@
      ]) !!}
 
 <div class="form-group">
-    <label>{{ $setting->description }} <code>{{ $setting->key }}</code></label>
+    <label><code>{{ $setting->key }}</code></label>
     @switch($setting->type)
 
 
@@ -24,7 +24,6 @@
 
 {!! Form::hidden('key', $setting->key) !!}
     <button type="submit" class="btn btn-primary">Save</button>
-    <button type="button" class="btn btn-danger pc-cms-remove-item" data-form="#removeSetting-{{ $setting->id }}">Remove</button>
 {!! Form::close() !!}
 
 {!! Form::open([

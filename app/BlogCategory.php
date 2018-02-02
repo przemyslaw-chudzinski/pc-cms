@@ -5,11 +5,22 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Rule;
 use Validator;
-use App\Core\Services\Image;
+use App\Traits\ModelTrait;
+use App\Traits\FilesTrait;
 
 class BlogCategory extends Model
 {
-    protected $fillable = ['name', 'slug', 'description', 'published', 'thumbnail', 'parent_id'];
+
+    use ModelTrait, FilesTrait;
+
+    protected $fillable = [
+        'name',
+        'slug',
+        'description',
+        'published',
+        'thumbnail',
+        'parent_id'
+    ];
 
     public static function getAllCategories()
     {
@@ -24,31 +35,25 @@ class BlogCategory extends Model
     public static function createNewCategory()
     {
         $data = request()->all();
-        if (!isset($data['saveAndPublish'])) {
-            $data['published'] = false;
-        } else {
-            $data['published'] = true;
-        }
-        if (!isset($data['slug']) || $data['slug'] === '' || empty($data['slug'])) {
-            $data['slug'] = str_slug($data['name']);
-        } else {
-            $data['slug'] = str_slug($data['slug']);
-        }
+
+        $data['published'] = self::toggleValue($data, 'saveAndPublish');
+
+        $data['slug'] = self::createSlug($data, 'name');
+
         $validator = Validator::make($data, [
             'name' => 'required',
             'slug' => 'unique:blog_categories',
             'imageThumbnail' => 'image|max:2048'
         ]);
+
         if ($validator->fails()) {
             return back()->withErrors($validator);
         }
-        if (request()->hasFile('imageThumbnail')) {
-            $file = request()->file('imageThumbnail');
-            $img = new Image($file, config('admin.modules.blog_categories.upload_dir'));
-            $img->upload();
-            $data['thumbnail'] = $file->getClientOriginalName();
-        }
+
+        $data['thumbnail'] = self::uploadImage($data, 'imageThumbnail', config('admin.modules.blog_categories.upload_dir'));
+
         self::create($data);
+
         return back()->with('alert', [
             'type' => 'success',
             'message' => 'Category has been created successfully'
@@ -58,20 +63,11 @@ class BlogCategory extends Model
     public function updateCategory()
     {
         $data = request()->all();
-        if (!isset($data['saveAndPublish'])) {
-            $data['published'] = false;
-        } else {
-            $data['published'] = true;
-        }
-        if (isset($data['generateSlug'])) {
-            $data['slug'] = str_slug($data['name']);
-        } else {
-            if (!isset($data['slug'])) {
-                $data['slug'] = str_slug($data['name']);
-            } else {
-                $data['slug'] = str_slug($data['slug']);
-            }
-        }
+
+        $data['published'] = self::toggleValue($data, 'saveAndPublish');
+
+        $data['slug'] = self::generateSlugBasedOn($data, 'name');
+
         $validator = Validator::make($data, [
             'name' => 'required',
             'slug' => [
@@ -80,21 +76,21 @@ class BlogCategory extends Model
             ],
             'imageThumbnail' => 'image|max:2048'
         ]);
-        if ($validator->fails()) {
+        if (
+            $validator->fails()) {
             return back()->withErrors($validator);
         }
-        if (request()->hasFile('imageThumbnail')) {
-            $file = request()->file('imageThumbnail');
-            $img = new Image($file, config('admin.modules.blog_categories.upload_dir'));
-            $img->upload();
-            $data['thumbnail'] = $file->getClientOriginalName();
+
+        if (isset($data['imageThumbnail'])) {
+            $data['thumbnail'] = self::uploadImage($data, 'imageThumbnail', config('admin.modules.blog_categories.upload_dir'));
         }
 
-        if ($data['noImage'] === 'yes') {
-            $data['thumbnail'] = '';
+        if (isset($data['noImage']) && $data['noImage'] === 'yes') {
+            $data['thumbnail'] = null;
         }
 
         $this->update($data);
+
         return back()->with('alert', [
             'type' => 'success',
             'message' => 'Category has been updated successfully'

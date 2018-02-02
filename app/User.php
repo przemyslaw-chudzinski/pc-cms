@@ -44,8 +44,7 @@ class User extends Authenticatable
     public static function createNewUser()
     {
         $data = request()->all();
-        $data['name'] = trim($data['name']);
-        $data['email'] = trim($data['email']);
+
         $validator = Validator::make($data, [
            'name' => 'required',
            'email' => 'required|unique:users',
@@ -55,9 +54,11 @@ class User extends Authenticatable
         if ($validator->fails()) {
             return back()->withErrors($validator);
         }
-        $data['password'] = trim($data['password']);
+
         $data['password'] = Hash::make($data['password']);
+
         self::create($data);
+
         return back()->with('alert', [
             'type' => 'success',
             'message' => 'User has been created successfully'
@@ -67,8 +68,7 @@ class User extends Authenticatable
     public function updateUser()
     {
         $data = request()->all();
-        $data['name'] = trim($data['name']);
-        $data['email'] = trim($data['email']);
+
         $validator = Validator::make($data, [
             'name' => 'required',
             'email' => [
@@ -77,10 +77,12 @@ class User extends Authenticatable
             ],
             'role_id' => 'required'
         ]);
+
         if ($validator->fails()) {
             return back()->withErrors($validator);
         }
         $this->update($data);
+
         return back()->with('alert', [
             'type' => 'success',
             'message' => 'User has been updated successfully'
@@ -90,6 +92,7 @@ class User extends Authenticatable
     public function removeUser()
     {
         $this->delete();
+
         return back()->with('alert', [
             'type' => 'success',
             'message' => 'User has been deleted successfully'
@@ -99,6 +102,7 @@ class User extends Authenticatable
     public function resetPassword()
     {
         $data = request()->all();
+
         $validator = Validator::make($data, [
             'password' => 'required|min:6',
             'repeatedPassword' => 'required'
@@ -106,13 +110,16 @@ class User extends Authenticatable
         if ($validator->fails()) {
             return back()->withErrors($validator);
         }
+
         if ($data['password'] !== $data['repeatedPassword']) {
             return back()->with('alert', [
                 'type' => 'danger',
                 'message' => 'Passwords must be the same'
             ]);
         }
+
         $this->update(['password' => Hash::make($data['password'])]);
+
         return back()->with('alert', [
             'type' => 'success',
             'message' => 'Password has been updated successfully'
@@ -122,8 +129,7 @@ class User extends Authenticatable
     public static function updateLoggedUserSettings()
     {
         $data = request()->all();
-        $data['name'] = trim($data['name']);
-        $data['email'] = trim($data['email']);
+
         $validator = Validator::make($data, [
             'name' => 'required',
             'email' => [
@@ -132,10 +138,13 @@ class User extends Authenticatable
             ],
             'role_id' => 'required'
         ]);
+
         if ($validator->fails()) {
             return back()->withErrors($validator);
         }
+
         Auth::user()->update($data);
+
         return back()->with('alert', [
             'type' => 'success',
             'message' => 'Settings has been updated successfully'
