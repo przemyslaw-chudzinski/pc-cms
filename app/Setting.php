@@ -3,11 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Validation\Rule;
 use Validator;
+use App\Traits\ModelTrait;
 
 class Setting extends Model
 {
+
+    use ModelTrait;
+
     protected $fillable = [
         'key',
         'value',
@@ -56,6 +59,10 @@ class Setting extends Model
     public function updateSetting()
     {
         $data = request()->all();
+
+        if ($data['field_type'] === 'checkbox') {
+            $data['value'] = self::toggleValue($data, 'value');
+        }
 
         $this->update($data);
 

@@ -25,7 +25,7 @@
                     </ul>
                 </header>
                 <div class="card-body">
-                    <table class="table table-hover">
+                    <table class="table table-hover pc-cms-table">
                         <thead>
                         <tr>
                             <th><div class="checkbox"><label><input type="checkbox"></label></div></th>

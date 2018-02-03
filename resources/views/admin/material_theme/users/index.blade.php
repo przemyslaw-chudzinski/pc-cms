@@ -25,11 +25,13 @@
                     </ul>
                 </header>
                 <div class="card-body">
-                    <table class="table table-hover">
+                    <table class="table table-hover pc-cms-table">
                         <thead>
                         <tr>
                             <th><div class="checkbox"><label><input type="checkbox"></label></div></th>
-                            <th>Users name</th>
+                            <th>First name</th>
+                            <th>Last name</th>
+                            <th>Email</th>
                             <th>Role</th>
                             <th>Created at</th>
                             <th>Updated at</th>
@@ -42,7 +44,9 @@
                                 @if (Auth::id() !== $user->id)
                                     <tr>
                                         <td><div class="checkbox"><label><input type="checkbox"></label></div></td>
-                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->first_name }}</td>
+                                        <td>{{ $user->last_name }}</td>
+                                        <td>{{ $user->email }}</td>
                                         <td>{{ $user->role->display_name }}</td>
                                         <td>{{ $user->created_at }}</td>
                                         <td>{{ $user->updated_at }}</td>
@@ -55,7 +59,7 @@
                                                 <ul class="dropdown-menu">
                                                     <li><a href="{{ url(config('admin.admin_path') . '/users/' . $user->id . '/edit') }}">Edit</a></li>
                                                     <li>
-                                                        {!! Form::open(['method' => 'delete', 'route' => [config('admin.modules.users.actions.destroy.route_name'), $user->id], 'id' => 'userRemoveForm-' . $user->id]) !!}
+                                                        {!! Form::open(['method' => 'delete', 'route' => [getRouteName('users', 'destroy'), $user->id], 'id' => 'userRemoveForm-' . $user->id]) !!}
                                                         {!! Form::close() !!}
                                                         <a href="#" class="pc-cms-remove-item" data-form="#userRemoveForm-{{$user->id}}">Remove</a>
                                                     </li>

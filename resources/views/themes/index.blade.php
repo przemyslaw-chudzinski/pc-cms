@@ -1,5 +1,17 @@
 @extends('themes.layout')
 
+@section('meta_title')
+    {!! Theme::getMetaTitle() !!}
+@endsection
+
+@section('meta_description')
+    {!! Theme::getMetaDescription() !!}
+@endsection
+
+@section('meta_robots')
+    {!! Theme::getMetaRobots() !!}
+@endsection
+
 @section('content')
     @include('themes.components.banner')
     <!-- Welcome section -->

@@ -12,14 +12,16 @@ class UsersSeeder extends Seeder
     public function run()
     {
         $admin = [
-            'name' => 'Admin',
+            'first_name' => 'Przemysław',
+            'last_name' => 'Chudziński',
             'email' => 'admin@admin.com',
             'password' => \Illuminate\Support\Facades\Hash::make('admin'),
             'role_id' => 1
         ];
 
         $user = [
-            'name' => 'User',
+            'first_name' => 'Jan',
+            'last_name' => 'Kowalski',
             'email' => 'user@user.com',
             'password' => \Illuminate\Support\Facades\Hash::make('user'),
             'role_id' => 2

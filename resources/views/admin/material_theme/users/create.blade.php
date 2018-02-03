@@ -25,7 +25,12 @@
                      ]) !!}
                     <div class="form-group">
                         {!! Form::label(null, 'User name') !!}
-                        {!! Form::text('name', null, ['class' => 'form-control', 'autocomplete' => 'off', 'required']) !!}
+                        {!! Form::text('first_name', null, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
+                    </div>
+
+                    <div class="form-group">
+                        {!! Form::label(null, 'User name') !!}
+                        {!! Form::text('last_name', null, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
                     </div>
 
                     <div class="form-group">

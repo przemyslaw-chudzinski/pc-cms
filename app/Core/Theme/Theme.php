@@ -38,6 +38,20 @@ class Theme
         ]);
     }
 
+    public function getMetaRobots($allow_indexed = true)
+    {
+        if ($allow_indexed) {
+            return view('admin.material_theme.components.theme.meta', [
+                'name' => 'robots',
+                'content' => 'index, follow'
+            ]);
+        }
+        return view('admin.material_theme.components.theme.meta', [
+            'name' => 'robots',
+            'content' => 'noindex, nofollow'
+        ]);
+    }
+
     /**
      * @param $key
      * @return mixed

@@ -14,7 +14,7 @@
         <div class="col-xs-12 col-md-6">
             <div class="card">
                 <header class="card-heading">
-                    <h2 class="card-title">Edit - {{ $user->name }}</h2>
+                    <h2 class="card-title">Edit - {{ $user->first_name }} {{ $user->last_name }}</h2>
                 </header>
                 <div class="card-body">
                     {!! Form::open([
@@ -25,7 +25,12 @@
                      ]) !!}
                     <div class="form-group">
                         {!! Form::label(null, 'User name') !!}
-                        {!! Form::text('name', $user->name, ['class' => 'form-control', 'autocomplete' => 'off', 'required']) !!}
+                        {!! Form::text('first_name', $user->first_name, ['class' => 'form-control', 'autocomplete' => 'off', 'required']) !!}
+                    </div>
+
+                    <div class="form-group">
+                        {!! Form::label(null, 'User name') !!}
+                        {!! Form::text('last_name', $user->first_name, ['class' => 'form-control', 'autocomplete' => 'off', 'required']) !!}
                     </div>
 
                     <div class="form-group">

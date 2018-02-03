@@ -5,6 +5,11 @@
 @endsection
 
 @section('content')
-    <h2>Dashboard</h2>
+
     @include('admin.material_theme.components.alert')
+
+    <div class="row">
+
+    </div>
+
 @endsection

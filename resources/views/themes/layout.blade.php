@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     {{--<title>Przemysław Chudziński | Portfolio</title>--}}
-    {!! Theme::getMetaTitle() !!}
-    {!! Theme::getMetaDescription() !!}
+    @yield('meta_title')
+    @yield('meta_description')
+    @yield('meta_robots')
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('themes/css/main.min.css') }}">
     @stack('head')

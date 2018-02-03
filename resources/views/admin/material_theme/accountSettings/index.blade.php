@@ -24,8 +24,13 @@
                         'method' => 'put'
                     ]) !!}
                     <div class="form-group">
-                        {!! Form::label(null, 'User name') !!}
-                        {!! Form::text('name', Auth::user()->name, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
+                        {!! Form::label(null, 'First name') !!}
+                        {!! Form::text('first_name', Auth::user()->first_name, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
+                    </div>
+
+                    <div class="form-group">
+                        {!! Form::label(null, 'Last name') !!}
+                        {!! Form::text('last_name', Auth::user()->last_name, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
                     </div>
 
                     <div class="form-group">
@@ -62,7 +67,7 @@
                     {!! Form::open([
                         'method' => 'put',
                         'id' => 'userResetPasswordForm',
-                        'route' => [config('admin.modules.users.actions.reset_password.route_name'), Auth::id()]
+                        'route' => [getRouteName('users', 'reset_password'), Auth::id()]
                     ]) !!}
                     <div class="form-group">
                         {!! Form::label(null, 'New password') !!}

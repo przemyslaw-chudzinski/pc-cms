@@ -15,8 +15,8 @@ return [
         /* Themes thumbnails */
         [
             'name' => 'blog_thumbnail',
-            'width' => 300,
-            'height' => 200
+            'width' => 800,
+            'height' => 600
         ],
     ],
 
@@ -29,6 +29,10 @@ return [
         [
             'type' => 'textarea',
             'name' => 'Textarea field'
+        ],
+        [
+            'type' => 'checkbox',
+            'name' => 'Checkbox'
         ]
     ],
 
@@ -241,6 +245,12 @@ return [
                     'value' => '',
                     'type' => 'textarea',
                     'description' => 'Google analaytics tracking code'
+                ],
+                [
+                    'key' => 'maintenance_mode',
+                    'value' => false,
+                    'type' => 'checkbox',
+                    'description' => 'Maintenance mode'
                 ]
             ]
         ],

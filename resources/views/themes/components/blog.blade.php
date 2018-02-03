@@ -18,7 +18,7 @@
                     <div class="col-md-6 col-lg-3 pc-blog-single">
                         <div class="pc-blog-single-inner">
                             <a href="#">
-                                <img class="img-fluid" src="{{ Storage::url('blog/' . $article->thumbnail) }}" alt="">
+                                <img class="img-fluid" src="{{ getImageUrl(json_decode($article->thumbnail, true), 'blog_thumbnail') }}" alt="">
                                 <div class="pc-blog-single-inner-overlay">
                                     <div class="d-flex justify-content-center align-items-center text-center pc-blog-single-inner-overlay-inner">
                                         <div>

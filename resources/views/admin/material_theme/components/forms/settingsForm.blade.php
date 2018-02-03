@@ -3,6 +3,8 @@
      'route' => [config('admin.modules.settings.actions.update.route_name'), $setting->id]
      ]) !!}
 
+{!! Form::hidden('field_type', $setting->type) !!}
+
 <div class="form-group">
     <label><code>{{ $setting->key }}</code></label>
     @switch($setting->type)
@@ -15,6 +17,14 @@
 
         @case('textarea')
             {!! Form::textarea('value', $setting->value, ['class' => 'form-control', 'rows' => 5]) !!}
+        @break
+
+        @case('checkbox')
+            <div class="checkbox">
+                <label>
+                    <input name="value" type="checkbox" @if ($setting->value) checked @endif> {{ $setting->description }}
+                </label>
+            </div>
         @break
 
 

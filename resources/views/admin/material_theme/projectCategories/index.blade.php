@@ -25,9 +25,10 @@
                     </ul>
                 </header>
                 <div class="card-body">
-                    <table class="table">
+                    <table class="table table-hover pc-cms-table">
                         <thead>
                         <tr>
+                            <th><div class="checkbox"><label><input type="checkbox"></label></div></th>
                             <th>Category name</th>
                             <th>Status</th>
                             <th>Created at</th>
@@ -39,6 +40,7 @@
                         @if (count($categories) > 0)
                             @foreach($categories as $category)
                                 <tr>
+                                    <td><div class="checkbox"><label><input type="checkbox"></label></div></td>
                                     <td>{{ $category->name }}</td>
                                     <td>
                                         @if ($category->published)

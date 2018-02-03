@@ -79,6 +79,17 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label>Choose page template</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         {!! Form::close() !!}
     </div>

@@ -9,7 +9,7 @@ class ThemeController extends Controller
 {
     public function index()
     {
-        $articles = Article::limit(4)->get();
+        $articles = Article::where('published', true)->latest()->limit(4)->get();
         return view('themes.index', ['articles' => $articles]);
     }
 }

@@ -19,7 +19,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'role_id'
+        'first_name',
+        'last_name',
+        'email',
+        'password',
+        'role_id'
     ];
 
     /**
@@ -46,7 +50,6 @@ class User extends Authenticatable
         $data = request()->all();
 
         $validator = Validator::make($data, [
-           'name' => 'required',
            'email' => 'required|unique:users',
            'password' => 'required|min:6',
            'role_id'  => 'required'
@@ -70,7 +73,6 @@ class User extends Authenticatable
         $data = request()->all();
 
         $validator = Validator::make($data, [
-            'name' => 'required',
             'email' => [
                 'required',
                 Rule::unique('users')->ignore($this->email, 'email')
@@ -132,7 +134,6 @@ class User extends Authenticatable
         $data = request()->all();
 
         $validator = Validator::make($data, [
-            'name' => 'required',
             'email' => [
                 'required',
                 Rule::unique('users')->ignore(Auth::user()->email, 'email')

@@ -50,21 +50,20 @@ class Article extends Model
             'slug' => 'unique:articles',
             'imageThumbnail' => 'image|max:2048'
         ]);
+
         if ($validator->fails()) {
             return back()->withErrors($validator);
         }
 
         $data['thumbnail'] = json_encode(self::uploadImage($data, 'imageThumbnail', config('admin.modules.blog.upload_dir')));
 
-//        dd(self::uploadImage($data, 'imageThumbnail', config('admin.modules.blog.upload_dir')));
-
         $article = self::create($data);
-//
+
         if (!empty($data['category_ids'])) {
             $article->categories()->sync($data['category_ids']);
         }
 
-        return back()->with('alert', [
+        return redirect(route(getRouteName('blog', 'index')))->with('alert', [
             'type' => 'success',
             'message' => 'Article has been created successfully'
         ]);
@@ -93,6 +92,7 @@ class Article extends Model
                 Rule::unique('articles')->ignore($this->slug, 'slug')
             ],
         ]);
+
         if ($validator->fails()) {
             return back()->withErrors($validator);
         }

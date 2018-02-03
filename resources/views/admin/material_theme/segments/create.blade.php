@@ -19,15 +19,15 @@
                 </header>
                 <div class="card-body">
                     {!! Form::open([
-                     'route' => config('admin.modules.segments.actions.store.route_name'),
+                     'route' => getRouteName('segments', 'store'),
                      'method' => 'post',
-                     'novalidate' => 'novalidate',
-                     'id' => 'createNewSegmentForm'
+                     'id' => 'createNewSegmentForm',
+                     'novalidate' => 'novalidate'
                      ]) !!}
 
                         <div class="form-group">
                             {!! Form::label(null, 'Segment name') !!}
-                            {!! Form::text('name', null, ['class' => 'form-control', 'autocomplete' => 'off', 'required', 'contenteditable' => true]) !!}
+                            {!! Form::text('name', null, ['class' => 'form-control', 'autocomplete' => 'off', 'required']) !!}
                         </div>
 
                         <div class="form-group">
