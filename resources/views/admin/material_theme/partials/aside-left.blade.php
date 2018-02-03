@@ -7,7 +7,7 @@
                         <header class="card-heading card-background" id="card_img_02">
 {{--                            <img src="{{ asset('admin/material_theme/dist/img/profiles/18.jpg') }}" alt="" class="img-circle max-w-75 mCS_img_loaded">--}}
                         </header>
-                        <a href="javascript:void(0)" class="info" data-profile="open-menu"><span>{{ Auth::user()->email }}</span></a>
+                        <a href="javascript:void(0)" class="info" data-profile="open-menu"><span>{{ $user->email }}</span></a>
                     </div>
                 </header>
                 <ul class="submenu" style="display: {{ setActiveClass(['admin.account_settings.index'], 'block') }}">

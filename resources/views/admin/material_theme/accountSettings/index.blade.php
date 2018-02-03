@@ -25,17 +25,17 @@
                     ]) !!}
                     <div class="form-group">
                         {!! Form::label(null, 'First name') !!}
-                        {!! Form::text('first_name', Auth::user()->first_name, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
+                        {!! Form::text('first_name', $user->first_name, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
                     </div>
 
                     <div class="form-group">
                         {!! Form::label(null, 'Last name') !!}
-                        {!! Form::text('last_name', Auth::user()->last_name, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
+                        {!! Form::text('last_name', $user->last_name, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
                     </div>
 
                     <div class="form-group">
                         {!! Form::label(null, 'Email') !!}
-                        {!! Form::email('email', Auth::user()->email, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
+                        {!! Form::email('email', $user->email, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
                     </div>
 
                     <div class="form-group">
@@ -44,7 +44,7 @@
                                 @foreach($roles as $role)
                                     <option
                                             value="{{ $role->id }}"
-                                            @if (Auth::user()->role_id === $role->id)
+                                            @if ($user->role_id === $role->id)
                                             selected
                                             @endif
                                     >{{ $role->display_name }}</option>
@@ -67,7 +67,7 @@
                     {!! Form::open([
                         'method' => 'put',
                         'id' => 'userResetPasswordForm',
-                        'route' => [getRouteName('users', 'reset_password'), Auth::id()]
+                        'route' => [getRouteName('users', 'reset_password'), $user->id]
                     ]) !!}
                     <div class="form-group">
                         {!! Form::label(null, 'New password') !!}

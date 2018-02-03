@@ -9,7 +9,7 @@
     @include('admin.material_theme.components.alert')
 
     <div class="row">
-
+        @include('admin.material_theme.components.widgets.hello-wgt')
     </div>
 
 @endsection
