@@ -27,12 +27,12 @@
 
                         <div class="form-group">
                             {!! Form::label(null, 'Segment name') !!}
-                            {!! Form::text('name', null, ['class' => 'form-control', 'autocomplete' => 'off', 'required']) !!}
+                            {!! Form::text('name', null, ['class' => 'form-control', 'autocomplete' => 'off', 'required', 'contenteditable' => true]) !!}
                         </div>
 
                         <div class="form-group">
                             {!! Form::label(null, 'Segment content') !!}
-                            {!! Form::textarea('content', null, ['class' => 'form-control']) !!}
+                            {!! Form::textarea('content', null, ['class' => 'form-control pc-cms-editor']) !!}
                         </div>
 
                         <button type="submit" class="btn btn-primary">Save</button>

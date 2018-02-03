@@ -36,7 +36,7 @@
 
                     <div class="form-group">
                         {!! Form::label(null, 'Description') !!}
-                        {!! Form::textarea('description', $category->description, ['class' => 'form-control']) !!}
+                        {!! Form::textarea('description', $category->description, ['class' => 'form-control pc-cms-editor']) !!}
                     </div>
                 </div>
             </div>

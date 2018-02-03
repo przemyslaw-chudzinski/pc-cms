@@ -25,9 +25,10 @@
                     </ul>
                 </header>
                 <div class="card-body">
-                    <table class="table">
+                    <table class="table table-hover">
                         <thead>
                         <tr>
+                            <th><div class="checkbox"><label><input type="checkbox"></label></div></th>
                             <th>Page title</th>
                             <th>Status</th>
                             <th>Created at</th>
@@ -39,6 +40,7 @@
                         @if (count($pages) > 0)
                             @foreach($pages as $page)
                                 <tr>
+                                    <td><div class="checkbox"><label><input type="checkbox"></label></div></td>
                                     <td>{{ $page->title }}</td>
                                     <td>
                                         @if ($page->published)
@@ -74,7 +76,7 @@
                         @endif
                         </tbody>
                     </table>
-                    {{ $pages->links() }}
+                    {{ $pages->links('admin.material_theme.partials.pagination') }}
                 </div>
             </div>
         </div>

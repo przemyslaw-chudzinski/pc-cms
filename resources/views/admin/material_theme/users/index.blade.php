@@ -25,9 +25,10 @@
                     </ul>
                 </header>
                 <div class="card-body">
-                    <table class="table">
+                    <table class="table table-hover">
                         <thead>
                         <tr>
+                            <th><div class="checkbox"><label><input type="checkbox"></label></div></th>
                             <th>Users name</th>
                             <th>Role</th>
                             <th>Created at</th>
@@ -40,6 +41,7 @@
                             @foreach($users as $user)
                                 @if (Auth::id() !== $user->id)
                                     <tr>
+                                        <td><div class="checkbox"><label><input type="checkbox"></label></div></td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->role->display_name }}</td>
                                         <td>{{ $user->created_at }}</td>
@@ -66,7 +68,7 @@
                         @endif
                         </tbody>
                     </table>
-                    {{ $users->links() }}
+                    {{ $users->links('admin.material_theme.partials.pagination') }}
                 </div>
             </div>
         </div>

@@ -8,6 +8,8 @@
 
     @include('admin.material_theme.components.alert')
 
+    @include('admin.material_theme.components.forms.validation')
+
     <div class="row">
         {!! Form::open([
           'method' => 'put',
@@ -42,7 +44,7 @@
 
                     <div class="form-group">
                         {!! Form::label(null, 'Article content') !!}
-                        {!! Form::textarea('content', $article->content, ['class' => 'form-control']) !!}
+                        {!! Form::textarea('content', $article->content, ['class' => 'form-control pc-cms-editor']) !!}
                     </div>
 
                     <div class="form-group">

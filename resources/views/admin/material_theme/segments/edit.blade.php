@@ -31,7 +31,7 @@
 
                     <div class="form-group">
                         {!! Form::label(null, 'Segment content') !!}
-                        {!! Form::textarea('content', $segment->content, ['class' => 'form-control']) !!}
+                        {!! Form::textarea('content', $segment->content, ['class' => 'form-control pc-cms-editor']) !!}
                     </div>
 
                     <button type="submit" class="btn btn-primary">Save</button>

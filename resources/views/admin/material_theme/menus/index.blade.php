@@ -25,10 +25,12 @@
                     </ul>
                 </header>
                 <div class="card-body">
-                    <table class="table">
+                    <table class="table table-hover">
                         <thead>
                         <tr>
+                            <th><div class="checkbox"><label><input type="checkbox"></label></div></th>
                             <th>Menu name</th>
+                            <th>Description</th>
                             <th>Status</th>
                             <th>Created at</th>
                             <th>Updated at</th>
@@ -39,7 +41,9 @@
                         @if (count($menus) > 0)
                             @foreach($menus as $menu)
                                 <tr>
+                                    <td><div class="checkbox"><label><input type="checkbox"></label></div></td>
                                     <td>{{ $menu->name }}</td>
+                                    <td>{{ $menu->description }}</td>
                                     <td>
                                         @if ($menu->published)
                                             <button class="btn btn-success btn-xs pc-cms-status-btn pc-cms-toggle-status-btn" data-url="{{ url('api/menus/' .$menu->id. '/togglePublished') }}">Published</button>
@@ -75,7 +79,7 @@
                         @endif
                         </tbody>
                     </table>
-                    {{ $menus->links() }}
+                    {{ $menus->links('admin.material_theme.partials.pagination') }}
                 </div>
             </div>
         </div>

@@ -37,7 +37,7 @@
 
                     <div class="form-group">
                         {!! Form::label(null, 'Project content') !!}
-                        {!! Form::textarea('content', null, ['class' => 'form-control']) !!}
+                        {!! Form::textarea('content', null, ['class' => 'form-control pc-cms-editor']) !!}
                     </div>
 
                     <div class="form-group">

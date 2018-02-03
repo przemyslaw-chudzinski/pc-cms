@@ -44,7 +44,7 @@
 
                     <div class="form-group">
                         {!! Form::label(null, 'Project content') !!}
-                        {!! Form::textarea('content', $project->content, ['class' => 'form-control']) !!}
+                        {!! Form::textarea('content', $project->content, ['class' => 'form-control pc-cms-editor']) !!}
                     </div>
 
                     <div class="form-group">
