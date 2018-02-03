@@ -1,7 +1,7 @@
 <aside id="app_sidebar-left">
     <nav id="app_main-menu-wrapper" class="scrollbar">
         <div class="sidebar-inner sidebar-push">
-            <div class="card profile-menu" id="profile-menu">
+            <div class="card profile-menu {{ setActiveClass(['admin.account_settings.index'], 'open') }}" id="profile-menu">
                 <header class="card-heading card-img alt-heading">
                     <div class="profile">
                         <header class="card-heading card-background" id="card_img_02">
@@ -10,8 +10,8 @@
                         <a href="javascript:void(0)" class="info" data-profile="open-menu"><span>{{ Auth::user()->email }}</span></a>
                     </div>
                 </header>
-                <ul class="submenu">
-                    <li>
+                <ul class="submenu" style="display: {{ setActiveClass(['admin.account_settings.index'], 'block') }}">
+                    <li class="{{ setActiveClass(['admin.account_settings.index'], 'active') }}">
                         <a href="{{ route('admin.account_settings.index') }}"><i class="zmdi zmdi-settings"></i> Account Settings</a>
                     </li>
                     <li>
@@ -21,50 +21,48 @@
             </div>
             <ul class="nav nav-pills nav-stacked">
                 <li class="sidebar-header">NAVIGATION</li>
-                <li class="active"><a href="{{ route(config('admin.modules.dashboard.actions.index.route_name')) }}"><i class="zmdi zmdi-view-dashboard"></i>Dashboard</a></li>
-                <li class="nav-dropdown"><a href="#"><i class="zmdi zmdi-widgets"></i>Segments</a>
+                <li class="{{ setActiveClass([getRouteName('dashboard', 'index')], 'active') }}"><a href="{{ route(getRouteName('dashboard', 'index')) }}"><i class="zmdi zmdi-view-dashboard"></i>Dashboard</a></li>
+                <li class="nav-dropdown {{ setActiveClassByActions([getModuleActions('segments')], 'active open') }}"><a href="#"><i class="zmdi zmdi-widgets"></i>Segments</a>
                     <ul class="nav-sub">
-                        <li><a href="{{ route(config('admin.modules.segments.actions.index.route_name')) }}">All segments</a></li>
-                        <li><a href="{{ route(config('admin.modules.segments.actions.create.route_name')) }}">New segment</a></li>
+                        <li class="{{ setActiveClass([getRouteName('segments', 'index')], 'active') }}"><a href="{{ route(getRouteName('segments', 'index')) }}">All segments</a></li>
+                        <li class="{{ setActiveClass([getRouteName('segments', 'create')], 'active') }}"><a href="{{ route(getRouteName('segments', 'create')) }}">New segment</a></li>
                     </ul>
                 </li>
-                <li class="nav-dropdown"><a href="#"><i class="zmdi zmdi-widgets"></i>Users</a>
+                <li class="nav-dropdown {{ setActiveClassByActions([getModuleActions('users'), getModuleActions('roles')], 'active open') }}"><a href="#"><i class="zmdi zmdi-widgets"></i>Users</a>
                     <ul class="nav-sub">
-                        <li><a href="{{ route(config('admin.modules.users.actions.index.route_name')) }}">All users</a></li>
-                        <li><a href="{{ route(config('admin.modules.users.actions.create.route_name')) }}">New user</a></li>
-                        <li><a href="{{ route(config('admin.modules.roles.actions.index.route_name')) }}">All roles</a></li>
-                        <li><a href="{{ route(config('admin.modules.roles.actions.create.route_name')) }}">New role</a></li>
+                        <li class="{{ setActiveClass([getRouteName('users', 'index')], 'active') }}"><a href="{{ route(getRouteName('users', 'index')) }}">All users</a></li>
+                        <li class="{{ setActiveClass([getRouteName('users', 'create')], 'active') }}"><a href="{{ route(getRouteName('users', 'create')) }}">New user</a></li>
+                        <li class="{{ setActiveClass([getRouteName('roles', 'index')], 'active') }}"><a href="{{ route(getRouteName('roles', 'index')) }}">All roles</a></li>
+                        <li class="{{ setActiveClass([getRouteName('roles', 'create')], 'active') }}"><a href="{{ route(getRouteName('roles', 'create')) }}">New role</a></li>
                     </ul>
                 </li>
-                <li class="nav-dropdown"><a href="#"><i class="zmdi zmdi-widgets"></i>Articles</a>
+                <li class="nav-dropdown {{ setActiveClassByActions([getModuleActions('blog'), getModuleActions('blog_categories')], 'active open') }}"><a href="#"><i class="zmdi zmdi-widgets"></i>Articles</a>
                     <ul class="nav-sub">
-                        <li><a href="{{ route(config('admin.modules.blog.actions.index.route_name')) }}">All articles</a></li>
-                        <li><a href="{{ route(config('admin.modules.blog.actions.create.route_name')) }}">New article</a></li>
-                        <li><a href="{{ route(config('admin.modules.blog_categories.actions.index.route_name')) }}">All categories</a></li>
-                        <li><a href="{{ route(config('admin.modules.blog_categories.actions.create.route_name')) }}">New category</a></li>
+                        <li class="{{ setActiveClass([getRouteName('blog', 'index')], 'active') }}"><a href="{{ route(getRouteName('blog', 'index')) }}">All articles</a></li>
+                        <li class="{{ setActiveClass([getRouteName('blog', 'create')], 'active') }}"><a href="{{ route(getRouteName('blog', 'create')) }}">New article</a></li>
+                        <li class="{{ setActiveClass([getRouteName('blog_categories', 'index')], 'active') }}"><a href="{{ route(getRouteName('blog_categories', 'index')) }}">All categories</a></li>
+                        <li class="{{ setActiveClass([getRouteName('blog_categories', 'create')], 'active') }}"><a href="{{ route(getRouteName('blog_categories', 'create')) }}">New category</a></li>
                     </ul>
                 </li>
-                <li class="nav-dropdown"><a href="#"><i class="zmdi zmdi-widgets"></i>Projects</a>
+                <li class="nav-dropdown {{ setActiveClassByActions([getModuleActions('projects'), getModuleActions('project_categories')], 'active open') }}"><a href="#"><i class="zmdi zmdi-widgets"></i>Projects</a>
                     <ul class="nav-sub">
-                        <li><a href="{{ route(config('admin.modules.projects.actions.index.route_name')) }}">All projects</a></li>
-                        <li><a href="{{ route(config('admin.modules.projects.actions.create.route_name')) }}">New project</a></li>
-                        <li><a href="{{ route(config('admin.modules.project_categories.actions.index.route_name')) }}">All categories</a></li>
-                        <li><a href="{{ route(config('admin.modules.project_categories.actions.create.route_name')) }}">New category</a></li>
+                        <li class="{{ setActiveClass([getRouteName('projects', 'index')], 'active') }}"><a href="{{ route(getRouteName('projects', 'index')) }}">All projects</a></li>
+                        <li class="{{ setActiveClass([getRouteName('projects', 'create')], 'active') }}"><a href="{{ route(getRouteName('projects', 'create')) }}">New project</a></li>
+                        <li class="{{ setActiveClass([getRouteName('project_categories', 'index')], 'active') }}"><a href="{{ route(getRouteName('project_categories', 'index')) }}">All categories</a></li>
+                        <li class="{{ setActiveClass([getRouteName('project_categories', 'create')]) }}"><a href="{{ route(getRouteName('project_categories', 'create')) }}">New category</a></li>
                     </ul>
                 </li>
-                <li>
-                    <a href="{{ route(config('admin.modules.settings.actions.index.route_name')) }}"><i class="zmdi zmdi-widgets"></i>Settings</a>
-                </li>
-                <li class="nav-dropdown"><a href="#"><i class="zmdi zmdi-widgets"></i>Menus</a>
+                <li class="{{ setActiveClassByActions([getModuleActions('settings')], 'active') }}"><a href="{{ route(getRouteName('settings', 'index')) }}"><i class="zmdi zmdi-widgets"></i>Settings</a></li>
+                <li class="nav-dropdown {{ setActiveClassByActions([getModuleActions('menus')], 'active open') }}"><a href="#"><i class="zmdi zmdi-widgets"></i>Menus</a>
                     <ul class="nav-sub">
-                        <li><a href="{{ route(config('admin.modules.menus.actions.index.route_name')) }}">All menus</a></li>
-                        <li><a href="{{ route(config('admin.modules.menus.actions.create.route_name')) }}">New menu</a></li>
+                        <li class="{{ setActiveClass([getRouteName('menus', 'index')], 'active') }}"><a href="{{ route(getRouteName('menus', 'index')) }}">All menus</a></li>
+                        <li class="{{ setActiveClass([getRouteName('menus', 'create')], 'active') }}"><a href="{{ route(getRouteName('menus', 'create')) }}">New menu</a></li>
                     </ul>
                 </li>
-                <li class="nav-dropdown"><a href="#"><i class="zmdi zmdi-widgets"></i>Pages</a>
+                <li class="nav-dropdown {{ setActiveClassByActions([getModuleActions('pages')], 'active open') }}"><a href="#"><i class="zmdi zmdi-widgets"></i>Pages</a>
                     <ul class="nav-sub">
-                        <li><a href="{{ route(config('admin.modules.pages.actions.index.route_name')) }}">All pages</a></li>
-                        <li><a href="{{ route(config('admin.modules.pages.actions.create.route_name')) }}">New page</a></li>
+                        <li class="{{ setActiveClass([getRouteName('pages', 'index')], 'active') }}"><a href="{{ route(getRouteName('pages', 'index')) }}">All pages</a></li>
+                        <li class="{{ setActiveClass([getRouteName('pages', 'create')], 'active') }}"><a href="{{ route(getRouteName('pages', 'create')) }}">New page</a></li>
                     </ul>
                 </li>
             </ul>

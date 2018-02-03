@@ -38,5 +38,14 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind('admin.theme', function () {
            return new Theme();
         });
+
+        $this->loadHelpers();
+    }
+
+    protected function loadHelpers()
+    {
+        foreach (glob(app_path().'/Helpers/*.php') as $filename) {
+            require_once $filename;
+        }
     }
 }

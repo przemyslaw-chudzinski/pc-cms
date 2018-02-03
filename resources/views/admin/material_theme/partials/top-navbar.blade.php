@@ -4,7 +4,7 @@
             <div id="logo_wrapper" class="nav navbar-nav">
                 <ul>
                     <li class="logo-icon">
-                        <a href="index.html">
+                        <a href="{{ route(config('admin.modules.dashboard.actions.index.route_name')) }}">
                             <div class="logo">
                                 <img src="{{ asset('admin/material_theme/dist/img/logo/logo-icon.png') }}" alt="Logo">
                             </div>
