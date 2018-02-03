@@ -31,20 +31,24 @@ class Image
     private function makeOtherImages()
     {
         $definedThumbnails = config('admin.thumbnails');
+        $images = [];
         if (count($definedThumbnails) > 0) {
             foreach ($definedThumbnails as $definedThumbnail) {
                 $img = InterventionImage::make(public_path('storage/' . $this->uploadDir . '/' . $this->file->getClientOriginalName()));
-                $img->resize($definedThumbnail['width'], $definedThumbnail['height'])->save('storage/' . $this->uploadDir . '/' . time() . '_' . $definedThumbnail['name'] . '_' . $this->file->getClientOriginalName(), $this->resizeQuality);
+                $images[$definedThumbnail['name']] = $this->uploadDir . '/' . time() . '_' . $definedThumbnail['name'] . '_' . $this->file->getClientOriginalName();
+                $img->resize($definedThumbnail['width'], $definedThumbnail['height'])->save('storage/' . $images[$definedThumbnail['name']], $this->resizeQuality);
             }
         }
+
+        return $images;
     }
 
     public function upload()
     {
         $this->saveOriginalImage();
-        $this->makeOtherImages();
+        $res = $this->makeOtherImages();
 
-        return $this;
+        return $res;
     }
 
     public function setFile($file)

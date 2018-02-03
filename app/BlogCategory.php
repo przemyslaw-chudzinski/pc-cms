@@ -50,7 +50,7 @@ class BlogCategory extends Model
             return back()->withErrors($validator);
         }
 
-        $data['thumbnail'] = self::uploadImage($data, 'imageThumbnail', getModuleUploadDir('blog_categories'));
+        $data['thumbnail'] = json_encode(self::uploadImage($data, 'imageThumbnail', getModuleUploadDir('blog_categories')));
 
         self::create($data);
 
@@ -82,7 +82,7 @@ class BlogCategory extends Model
         }
 
         if (isset($data['imageThumbnail'])) {
-            $data['thumbnail'] = self::uploadImage($data, 'imageThumbnail', getModuleUploadDir('blog_categories'));
+            $data['thumbnail'] = json_encode(self::uploadImage($data, 'imageThumbnail', getModuleUploadDir('blog_categories')));
         }
 
         if (isset($data['noImage']) && $data['noImage'] === 'yes') {

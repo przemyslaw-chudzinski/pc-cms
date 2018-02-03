@@ -18,7 +18,7 @@ class CreateBlogCategoriesTable extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('description')->nullable()->default(null);
-            $table->string('thumbnail')->nullable()->default(null);
+            $table->longText('thumbnail')->nullable()->default(null);
             $table->boolean('published')->default(true);
             $table->integer('parent_id')->unsigned()->nullable()->default(null);
             $table->timestamps();

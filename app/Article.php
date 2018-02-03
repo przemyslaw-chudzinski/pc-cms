@@ -54,10 +54,12 @@ class Article extends Model
             return back()->withErrors($validator);
         }
 
-        $data['thumbnail'] = self::uploadImage($data, 'imageThumbnail', config('admin.modules.blog.upload_dir'));
+        $data['thumbnail'] = json_encode(self::uploadImage($data, 'imageThumbnail', config('admin.modules.blog.upload_dir')));
+
+//        dd(self::uploadImage($data, 'imageThumbnail', config('admin.modules.blog.upload_dir')));
 
         $article = self::create($data);
-
+//
         if (!empty($data['category_ids'])) {
             $article->categories()->sync($data['category_ids']);
         }
@@ -96,7 +98,7 @@ class Article extends Model
         }
 
         if (isset($data['imageThumbnail'])) {
-            $data['thumbnail'] = self::uploadImage($data, 'imageThumbnail', config('admin.modules.blog.upload_dir'));
+            $data['thumbnail'] = json_encode(self::uploadImage($data, 'imageThumbnail', config('admin.modules.blog.upload_dir')));
         }
 
         if (isset($data['noImage']) && $data['noImage'] === 'yes') {

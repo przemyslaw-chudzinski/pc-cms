@@ -19,7 +19,7 @@ class CreateProjectCategoriesTable extends Migration
             $table->string('slug')->unique();
             $table->text('description')->nullable()->default(null);
             $table->boolean('published')->default(true);
-            $table->string('thumbnail')->nullable()->default(null);
+            $table->longText('thumbnail')->nullable()->default(null);
             $table->timestamps();
         });
     }

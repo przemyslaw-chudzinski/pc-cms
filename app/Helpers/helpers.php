@@ -78,3 +78,19 @@ if (!function_exists('getModuleUploadDir')) {
         return config('admin.modules.' . $moduleName . '.upload_dir');
     }
 }
+
+if (!function_exists('getImageUrl')) {
+    /**
+     * @param array $image
+     * @param string $sizeName
+     * @return mixed
+     */
+    function getImageUrl(array $image, string $sizeName)
+    {
+        $res = $image['sizes'][$sizeName];
+        if (!isset($res) || $res === null || empty($res)) {
+            return \Illuminate\Support\Facades\Storage::url($image['original']);
+        }
+        return \Illuminate\Support\Facades\Storage::url($res);
+    }
+}

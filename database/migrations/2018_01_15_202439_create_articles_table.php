@@ -19,7 +19,7 @@ class CreateArticlesTable extends Migration
             $table->string('slug')->unique();
             $table->longText('content')->nullable()->default(null);
             $table->boolean('published')->default(true);
-            $table->string('thumbnail')->nullable()->default(null);
+            $table->longText('thumbnail')->nullable()->default(null);
             $table->boolean('allow_comments')->default(true);
             $table->string('meta_title')->nullable()->default(null);
             $table->string('meta_description')->nullable()->default(null);

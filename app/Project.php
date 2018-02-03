@@ -63,9 +63,9 @@ class Project extends Model
             return back()->withErrors($validator);
         }
 
-        $data['thumbnail'] = self::uploadImage($data, 'imageThumbnail', getModuleUploadDir('projects'));
+        $data['thumbnail'] = json_encode(self::uploadImage($data, 'imageThumbnail', getModuleUploadDir('projects')));
 
-        $data['images'] = self::uploadImages($data, 'additionalImages', getModuleUploadDir('projects'));
+        $data['images'] = json_encode(self::uploadImages($data, 'additionalImages', getModuleUploadDir('projects')));
 
         $project = self::create($data);
 
@@ -104,7 +104,7 @@ class Project extends Model
         }
 
         if (isset($data['imageThumbnail'])) {
-            $data['thumbnail'] = self::uploadImage($data, 'imageThumbnail', getModuleUploadDir('projects'));
+            $data['thumbnail'] = json_encode(self::uploadImage($data, 'imageThumbnail', getModuleUploadDir('projects')));
         }
 
         if (isset($data['noImage']) && $data['noImage'] === 'yes') {
@@ -112,7 +112,7 @@ class Project extends Model
         }
 
         if (isset($data['additionalImages'])) {
-            $data['images'] = self::uploadImages($data, 'additionalImages', getModuleUploadDir('projects'));
+            $data['images'] = json_encode(self::uploadImages($data, 'additionalImages', getModuleUploadDir('projects')));
         }
 
 

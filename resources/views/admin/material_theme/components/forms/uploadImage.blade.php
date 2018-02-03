@@ -3,14 +3,14 @@
         @if ($image)
             <a href="#" class="pc-cms-clear-files">Clear selected files</a>
             @if($multiple)
-                @foreach(unserialize($image) as $img)
+                @foreach(json_decode($image, true) as $img)
                     <div class="col-xs-6 col-md-4 pc-cms-single-preview-image">
-                        <img src="{{ Storage::url($dir . '/' . $img) }}" class="img-responsive img-thumbnail">
+                        <img src="{{ getImageUrl($img, 'admin_prev_medium') }}" class="img-responsive img-thumbnail">
                     </div>
                 @endforeach
             @else
                 <div class="col-xs-6 col-md-4 pc-cms-single-preview-image">
-                    <img src="{{ Storage::url($dir . '/' . $image) }}" class="img-responsive img-thumbnail">
+                    <img src="{{ getImageUrl(json_decode($image, true), 'admin_prev_medium') }}" class="img-responsive img-thumbnail">
                 </div>
             @endif
         @endif
