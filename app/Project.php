@@ -63,9 +63,9 @@ class Project extends Model
             return back()->withErrors($validator);
         }
 
-        $data['thumbnail'] = self::uploadImage($data, 'imageThumbnail', config('admin.modules.projects.upload_dir'));
+        $data['thumbnail'] = self::uploadImage($data, 'imageThumbnail', getModuleUploadDir('projects'));
 
-        $data['images'] = self::uploadImages($data, 'additionalImages', config('admin.modules.projects.upload_dir'));
+        $data['images'] = self::uploadImages($data, 'additionalImages', getModuleUploadDir('projects'));
 
         $project = self::create($data);
 
@@ -104,7 +104,7 @@ class Project extends Model
         }
 
         if (isset($data['imageThumbnail'])) {
-            $data['thumbnail'] = self::uploadImage($data, 'imageThumbnail', config('admin.modules.projects.upload_dir'));
+            $data['thumbnail'] = self::uploadImage($data, 'imageThumbnail', getModuleUploadDir('projects'));
         }
 
         if (isset($data['noImage']) && $data['noImage'] === 'yes') {
@@ -112,7 +112,7 @@ class Project extends Model
         }
 
         if (isset($data['additionalImages'])) {
-            $data['images'] = self::uploadImages($data, 'additionalImages', config('admin.modules.projects.upload_dir'));
+            $data['images'] = self::uploadImages($data, 'additionalImages', getModuleUploadDir('projects'));
         }
 
 

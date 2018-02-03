@@ -50,7 +50,7 @@ class Page extends Model
             return back()->withErrors($validator);
         }
 
-        $data['thumbnail'] = self::uploadImage($data, 'imageThumbnail', config('admin.modules.pages.upload_dir'));
+        $data['thumbnail'] = self::uploadImage($data, 'imageThumbnail', getModuleUploadDir('pages'));
 
         self::create($data);
 
@@ -84,7 +84,7 @@ class Page extends Model
         }
 
         if (isset($data['imageThumbnail'])) {
-            $data['thumbnail'] = self::uploadImage($data, 'imageThumbnail', config('admin.modules.pages.upload_dir'));
+            $data['thumbnail'] = self::uploadImage($data, 'imageThumbnail', getModuleUploadDir('pages'));
         }
 
         if (isset($data['noImage']) && $data['noImage'] === 'yes') {

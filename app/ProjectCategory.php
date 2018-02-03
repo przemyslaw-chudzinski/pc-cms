@@ -49,7 +49,7 @@ class ProjectCategory extends Model
             return back()->withErrors($validator);
         }
 
-        $data['thumbnail'] = self::uploadImage($data, 'imageThumbnail', config('admin.modules.project_categories.upload_dir'));
+        $data['thumbnail'] = self::uploadImage($data, 'imageThumbnail', getModuleUploadDir('project_categories'));
 
         self::create($data);
 
@@ -80,7 +80,7 @@ class ProjectCategory extends Model
         }
 
         if (isset($data['imageThumbnail'])) {
-            $data['thumbnail'] = self::uploadImage($data, 'imageThumbnail', config('admin.modules.project_categories.upload_dir'));
+            $data['thumbnail'] = self::uploadImage($data, 'imageThumbnail', getModuleUploadDir('project_categories'));
         }
 
         if (isset($data['noImage']) && $data['noImage'] === 'yes') {

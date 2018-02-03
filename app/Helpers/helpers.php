@@ -67,3 +67,14 @@ if (!function_exists('getModuleActions')) {
         return config('admin.modules.' . $moduleName . '.actions' );
     }
 }
+
+if (!function_exists('getModuleUploadDir')) {
+    /**
+     * @param string $moduleName
+     * @return \Illuminate\Config\Repository|mixed
+     */
+    function getModuleUploadDir(string $moduleName)
+    {
+        return config('admin.modules.' . $moduleName . '.upload_dir');
+    }
+}

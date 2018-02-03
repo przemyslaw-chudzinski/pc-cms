@@ -107,6 +107,7 @@ class User extends Authenticatable
             'password' => 'required|min:6',
             'repeatedPassword' => 'required'
         ]);
+
         if ($validator->fails()) {
             return back()->withErrors($validator);
         }
