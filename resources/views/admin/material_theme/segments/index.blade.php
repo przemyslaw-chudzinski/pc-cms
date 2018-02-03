@@ -27,10 +27,13 @@
                 </header>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table">
+                        <table class="table table-hover">
                             <thead>
                             <tr>
-                                <th>Segment name</th>
+                                <th>
+                                    <div class="checkbox"><label><input type="checkbox"></label></div>
+                                </th>
+                                <th class="sorting_asc">Segment name</th>
                                 <th>Created at</th>
                                 <th>Updated at</th>
                                 <th></th>
@@ -40,6 +43,7 @@
                             @if (count($segments) > 0)
                                 @foreach($segments as $segment)
                                     <tr>
+                                        <td><div class="checkbox"><label><input type="checkbox"></label></div></td>
                                         <td>{{ $segment->name }}</td>
                                         <td>{{ $segment->created_at }}</td>
                                         <td>{{ $segment->updated_at }}</td>
@@ -66,7 +70,7 @@
                             @endif
                             </tbody>
                         </table>
-                        {{ $segments->links() }}
+                        {{ $segments->links('admin.material_theme.partials.pagination') }}
                     </div>
                 </div>
             </div>

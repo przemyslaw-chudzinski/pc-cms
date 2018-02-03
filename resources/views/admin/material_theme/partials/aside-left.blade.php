@@ -28,7 +28,7 @@
                         <li class="{{ setActiveClass([getRouteName('segments', 'create')], 'active') }}"><a href="{{ route(getRouteName('segments', 'create')) }}">New segment</a></li>
                     </ul>
                 </li>
-                <li class="nav-dropdown {{ setActiveClassByActions([getModuleActions('users'), getModuleActions('roles')], 'active open') }}"><a href="#"><i class="zmdi zmdi-widgets"></i>Users</a>
+                <li class="nav-dropdown {{ setActiveClassByActions([getModuleActions('users'), getModuleActions('roles')], 'active open') }}"><a href="#"><i class="zmdi zmdi-accounts"></i>Users</a>
                     <ul class="nav-sub">
                         <li class="{{ setActiveClass([getRouteName('users', 'index')], 'active') }}"><a href="{{ route(getRouteName('users', 'index')) }}">All users</a></li>
                         <li class="{{ setActiveClass([getRouteName('users', 'create')], 'active') }}"><a href="{{ route(getRouteName('users', 'create')) }}">New user</a></li>
@@ -36,7 +36,7 @@
                         <li class="{{ setActiveClass([getRouteName('roles', 'create')], 'active') }}"><a href="{{ route(getRouteName('roles', 'create')) }}">New role</a></li>
                     </ul>
                 </li>
-                <li class="nav-dropdown {{ setActiveClassByActions([getModuleActions('blog'), getModuleActions('blog_categories')], 'active open') }}"><a href="#"><i class="zmdi zmdi-widgets"></i>Articles</a>
+                <li class="nav-dropdown {{ setActiveClassByActions([getModuleActions('blog'), getModuleActions('blog_categories')], 'active open') }}"><a href="#"><i class="zmdi zmdi-labels"></i>Articles</a>
                     <ul class="nav-sub">
                         <li class="{{ setActiveClass([getRouteName('blog', 'index')], 'active') }}"><a href="{{ route(getRouteName('blog', 'index')) }}">All articles</a></li>
                         <li class="{{ setActiveClass([getRouteName('blog', 'create')], 'active') }}"><a href="{{ route(getRouteName('blog', 'create')) }}">New article</a></li>
@@ -52,14 +52,14 @@
                         <li class="{{ setActiveClass([getRouteName('project_categories', 'create')]) }}"><a href="{{ route(getRouteName('project_categories', 'create')) }}">New category</a></li>
                     </ul>
                 </li>
-                <li class="{{ setActiveClassByActions([getModuleActions('settings')], 'active') }}"><a href="{{ route(getRouteName('settings', 'index')) }}"><i class="zmdi zmdi-widgets"></i>Settings</a></li>
-                <li class="nav-dropdown {{ setActiveClassByActions([getModuleActions('menus')], 'active open') }}"><a href="#"><i class="zmdi zmdi-widgets"></i>Menus</a>
+                <li class="{{ setActiveClassByActions([getModuleActions('settings')], 'active') }}"><a href="{{ route(getRouteName('settings', 'index')) }}"><i class="zmdi zmdi-settings"></i>Settings</a></li>
+                <li class="nav-dropdown {{ setActiveClassByActions([getModuleActions('menus')], 'active open') }}"><a href="#"><i class="zmdi zmdi-menu"></i>Menus</a>
                     <ul class="nav-sub">
                         <li class="{{ setActiveClass([getRouteName('menus', 'index')], 'active') }}"><a href="{{ route(getRouteName('menus', 'index')) }}">All menus</a></li>
                         <li class="{{ setActiveClass([getRouteName('menus', 'create')], 'active') }}"><a href="{{ route(getRouteName('menus', 'create')) }}">New menu</a></li>
                     </ul>
                 </li>
-                <li class="nav-dropdown {{ setActiveClassByActions([getModuleActions('pages')], 'active open') }}"><a href="#"><i class="zmdi zmdi-widgets"></i>Pages</a>
+                <li class="nav-dropdown {{ setActiveClassByActions([getModuleActions('pages')], 'active open') }}"><a href="#"><i class="zmdi zmdi-file"></i>   Pages</a>
                     <ul class="nav-sub">
                         <li class="{{ setActiveClass([getRouteName('pages', 'index')], 'active') }}"><a href="{{ route(getRouteName('pages', 'index')) }}">All pages</a></li>
                         <li class="{{ setActiveClass([getRouteName('pages', 'create')], 'active') }}"><a href="{{ route(getRouteName('pages', 'create')) }}">New page</a></li>
