@@ -15,7 +15,7 @@ class Segment extends Model
 
     public static function getSegmentsWithPagination()
     {
-        return self::paginate(10);
+        return self::latest()->paginate(10);
     }
 
     public static function createNewSegment()
@@ -34,7 +34,7 @@ class Segment extends Model
 
         self::create($data);
 
-        return back()->with('alert', [
+        return redirect(route(getRouteName('segments', 'index')))->with('alert', [
             'type' => 'success',
             'message' => 'Segment has been created successfully'
         ]);

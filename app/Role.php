@@ -12,7 +12,7 @@ class Role extends Model
 
     public static function getRolesWithPagination()
     {
-        return self::paginate(10);
+        return self::latest()->paginate(10);
     }
 
     public static function getRoles()
@@ -38,7 +38,7 @@ class Role extends Model
 
         self::create($data);
 
-        return back()->with('alert', [
+        return redirect(route(getRouteName('roles', 'index')))->with('alert', [
             'type' => 'success',
             'message' => 'Role has been created successfully'
         ]);

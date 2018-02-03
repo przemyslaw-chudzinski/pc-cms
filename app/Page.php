@@ -27,7 +27,7 @@ class Page extends Model
 
     public static function getPagesWithPagination()
     {
-        return self::Paginate(10);
+        return self::latest()->paginate(10);
     }
 
     public static function createNewPage()
@@ -54,7 +54,7 @@ class Page extends Model
 
         self::create($data);
 
-        return back()->with('alert', [
+        return redirect(route(getRouteName('pages', 'index')))->with('alert', [
             'type' => 'success',
             'message' => 'Page has been created successfully'
         ]);

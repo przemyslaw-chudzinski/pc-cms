@@ -40,7 +40,7 @@ class Project extends Model
 
     public static function getProjectsWithPagination()
     {
-        return self::paginate(10);
+        return self::latest()->paginate(10);
     }
 
     public static function createNewProject()
@@ -73,7 +73,7 @@ class Project extends Model
             $project->categories()->sync($data['category_ids']);
         }
 
-        return back()->with('alert', [
+        return redirect(route(getRouteName('projects', 'index')))->with('alert', [
             'type' => 'success',
             'message' => 'Project has been created successfully'
         ]);

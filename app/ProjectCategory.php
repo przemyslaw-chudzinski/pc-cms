@@ -23,7 +23,7 @@ class ProjectCategory extends Model
 
     public static function getCategoriesWithPagination()
     {
-        return self::paginate(10);
+        return self::latest()->paginate(10);
     }
 
     public static function getCategories()
@@ -53,7 +53,7 @@ class ProjectCategory extends Model
 
         self::create($data);
 
-        return back()->with('alert', [
+        return redirect(route(getRouteName('project_categories', 'index')))->with('alert', [
             'type' => 'success',
             'message' => 'Category has been created successfully'
         ]);

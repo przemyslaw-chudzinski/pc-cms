@@ -12,7 +12,12 @@ class Menu extends Model
 
     use ModelTrait;
 
-    protected $fillable = ['name', 'slug', 'description', 'published'];
+    protected $fillable = [
+        'name',
+        'slug',
+        'description',
+        'published'
+    ];
 
     public function items()
     {
@@ -26,7 +31,7 @@ class Menu extends Model
 
     public static function getMenusWithPagination()
     {
-        return self::paginate(10);
+        return self::latest()->paginate(10);
     }
 
     public static function createMenu()
@@ -48,7 +53,7 @@ class Menu extends Model
 
         self::create($data);
 
-        return back()->with('alert', [
+        return redirect(route(getRouteName('menus', 'index')))->with('alert', [
             'type' => 'success',
             'message' => 'Menu has been created successfully'
         ]);

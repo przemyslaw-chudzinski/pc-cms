@@ -38,7 +38,7 @@ class User extends Authenticatable
 
     public static function getUsersWithPagination()
     {
-        return self::with('role')->paginate(10);
+        return self::with('role')->latest()->paginate(10);
     }
 
     public static function createNewUser()
@@ -59,7 +59,7 @@ class User extends Authenticatable
 
         self::create($data);
 
-        return back()->with('alert', [
+        return redirect(route(getRouteName('users', 'index')))->with('alert', [
             'type' => 'success',
             'message' => 'User has been created successfully'
         ]);
