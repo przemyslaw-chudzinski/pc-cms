@@ -8,7 +8,7 @@
             <div class="modal-body">
                 {!! Form::open([
                     'method' => 'post',
-                    'route' => config('admin.modules.settings.actions.store.route_name'),
+                    'route' => getRouteName('settings', 'store'),
                     'id' => 'createNewSettingForm'
                 ]) !!}
                 <div class="form-group">
@@ -37,7 +37,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary pc-cms-send-form" data-form="#createNewSettingForm">Save</button>
+                <button type="button" class="btn btn-primary pc-cms-send-form pc-cms-loader-btn" data-form="#createNewSettingForm">Save</button>
             </div>
         </div>
     </div>

@@ -409,6 +409,6 @@ return [
                     'route_name' => 'admin.users.role_update'
                 ]
             ]
-        ]
+        ],
     ],
 ];

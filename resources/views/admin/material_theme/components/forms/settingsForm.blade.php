@@ -1,6 +1,7 @@
 {!! Form::open([
      'method' => 'put',
-     'route' => [config('admin.modules.settings.actions.update.route_name'), $setting->id]
+     'route' => [config('admin.modules.settings.actions.update.route_name'), $setting->id],
+     'id' => 'saveSettingForm-' . $setting->id
      ]) !!}
 
 {!! Form::hidden('field_type', $setting->type) !!}
@@ -33,7 +34,7 @@
 </div>
 
 {!! Form::hidden('key', $setting->key) !!}
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit" class="btn btn-primary pc-cms-loader-btn" data-form="#saveSettingForm-{{ $setting->id }}">Save</button>
 {!! Form::close() !!}
 
 {!! Form::open([

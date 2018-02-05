@@ -45,7 +45,7 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary pc-cms-loader-btn" data-form="#createNewMenuForm">Save</button>
                     {!! Form::close() !!}
                 </div>
             </div>

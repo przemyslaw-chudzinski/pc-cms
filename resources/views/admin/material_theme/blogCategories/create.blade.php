@@ -54,7 +54,7 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="submit" class="btn btn-primary pc-cms-loader-btn" data-form="#createBlogCategoryForm">Save</button>
                         </div>
                     </div>
                 </div>
