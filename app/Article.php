@@ -55,7 +55,7 @@ class Article extends Model
             return back()->withErrors($validator);
         }
 
-        $data['thumbnail'] = json_encode(self::uploadImage($data, 'imageThumbnail', config('admin.modules.blog.upload_dir')));
+        $data['thumbnail'] = json_encode(self::uploadImage($data, 'imageThumbnail', getModuleUploadDir('blog')));
 
         $article = self::create($data);
 
@@ -98,7 +98,7 @@ class Article extends Model
         }
 
         if (isset($data['imageThumbnail'])) {
-            $data['thumbnail'] = json_encode(self::uploadImage($data, 'imageThumbnail', config('admin.modules.blog.upload_dir')));
+            $data['thumbnail'] = json_encode(self::uploadImage($data, 'imageThumbnail', getModuleUploadDir('blog')));
         }
 
         if (isset($data['noImage']) && $data['noImage'] === 'yes') {

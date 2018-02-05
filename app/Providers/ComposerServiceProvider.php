@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Auth;
 use App\Role;
+use App\User;
 
 class ComposerServiceProvider extends ServiceProvider
 {
@@ -33,6 +34,12 @@ class ComposerServiceProvider extends ServiceProvider
         ], function ($view) {
             $roles = Role::getRoles();
             $view->with('roles', $roles);
+        });
+
+        View::composer([
+            'admin.material_theme.components.widgets.last-registered-users-wgt'
+        ], function ($view) {
+            $view->with('users', User::getLastRegisteredUsers());
         });
     }
 

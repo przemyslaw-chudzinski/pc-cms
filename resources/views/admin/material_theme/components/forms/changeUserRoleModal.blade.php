@@ -32,7 +32,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary pc-cms-send-form" data-form="#changeUserRoleForm-{{ $user->id }}">Save</button>
+                <button type="button" class="btn btn-primary pc-cms-send-form pc-cms-loader-btn" data-form="#changeUserRoleForm-{{ $user->id }}">Save</button>
             </div>
         </div>
     </div>

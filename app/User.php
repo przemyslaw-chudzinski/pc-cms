@@ -178,4 +178,9 @@ class User extends Authenticatable
             'message' => 'User role has been updated successfully'
         ]);
     }
+
+    public static function getLastRegisteredUsers($limit = 5)
+    {
+        return self::latest()->limit($limit)->get();
+    }
 }
