@@ -403,6 +403,10 @@ return [
                 'reset_password' => [
                     'display_name' => 'Reset user password',
                     'route_name' => 'admin.users.reset_password'
+                ],
+                'role_update' => [
+                    'display_name' => 'Quick user role update',
+                    'route_name' => 'admin.users.role_update'
                 ]
             ]
         ]

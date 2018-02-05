@@ -110,10 +110,12 @@ Route::group([
         Route::get('/{user}/edit', 'UsersController@edit')->name('admin.users.edit');
         Route::put('{user}/reset-password', 'UsersController@resetPassword')->name(config('admin.modules.users.actions.reset_password.route_name'));
         Route::put('{user}', 'UsersController@update')->name('admin.users.update');
+        Route::put('{user}/role-update', 'UsersController@updateUserRole')->name(getRouteName('users', 'role_update'));
         Route::delete('{user}', 'UsersController@destroy')->name('admin.users.destroy');
         Route::post('/', 'UsersController@store')->name('admin.users.store');
         Route::get('/create', 'UsersController@create')->name('admin.users.create');
 
+        /* Roles */
         Route::group(['prefix' => 'roles'], function () {
             Route::get('/', 'RolesController@index')->name('admin.users.roles.index');
             Route::post('/', 'RolesController@store')->name('admin.users.roles.store');

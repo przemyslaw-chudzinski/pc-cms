@@ -8,6 +8,8 @@
 
     @include('admin.material_theme.components.alert')
 
+    @include('admin.material_theme.components.loader-async')
+
 
     <div class="row">
         <div class="col-xs-12">
@@ -20,7 +22,7 @@
                                 <i class="zmdi zmdi-more-vert"></i>
                             </a>
                             <ul class="dropdown-menu btn-primary dropdown-menu-right">
-                                <li><a href="{{ route(config('admin.modules.blog.actions.create.route_name')) }}">Create new</a></li>
+                                <li><a href="{{ route(getRouteName('blog', 'create')) }}">Create new</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -61,10 +63,12 @@
                                             <ul class="dropdown-menu">
                                                 <li><a href="{{ url(config('admin.admin_path') . '/articles/' . $article->id . '/edit') }}">Edit</a></li>
                                                 <li>
-                                                    <form action="{{ url(config('admin.admin_path') . '/articles/' . $article->id) }}" id="articleRemoveForm-{{$article->id}}" method="post">
-                                                        {{ csrf_field() }}
-                                                        {{ method_field('delete') }}
-                                                    </form>
+                                                    {!! Form::open([
+                                                        'method' => 'delete',
+                                                        'route' => [getRouteName('blog', 'destroy'), $article->id],
+                                                        'id' => 'articleRemoveForm-' . $article->id
+                                                    ]) !!}
+                                                    {!! Form::close() !!}
                                                     <a href="#" class="pc-cms-remove-item" data-form="#articleRemoveForm-{{$article->id}}">Remove</a>
                                                 </li>
                                             </ul>

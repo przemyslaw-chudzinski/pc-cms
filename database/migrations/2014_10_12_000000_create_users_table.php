@@ -19,6 +19,9 @@ class CreateUsersTable extends Migration
             $table->string('last_name')->nullale()->default(null);
             $table->string('email')->unique();
             $table->string('password');
+            $table->dateTime('last_login')->nullable()->default(null);
+            $table->ipAddress('IP')->nullable()->default(null);
+            $table->string('USER_AGENT')->nullable()->default(null);
             $table->rememberToken();
             $table->timestamps();
         });

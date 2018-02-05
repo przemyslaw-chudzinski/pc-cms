@@ -46688,6 +46688,7 @@ __webpack_require__(63);
 __webpack_require__(66);
 __webpack_require__(67);
 __webpack_require__(68);
+__webpack_require__(72);
 
 /***/ }),
 /* 60 */
@@ -46839,7 +46840,9 @@ __webpack_require__(68);
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_toastr__ = __webpack_require__(64);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_toastr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_toastr__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__loaderAsyncPlugin__ = __webpack_require__(73);
 /* Change async status plugin */
+
 
 
 (function () {
@@ -46851,14 +46854,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     function onClickToggleStatusBtn(e, $btn) {
         e.preventDefault();
+        __WEBPACK_IMPORTED_MODULE_1__loaderAsyncPlugin__["a" /* default */].show({
+            title: 'Data processing is in progress'
+        });
         var url = $btn.data('url');
         var trueLabel = $btn.data('true-label');
         var falseLabel = $btn.data('false-label');
         sendRequest(url, null, 'post', function (response) {
             prepareBtn($btn, response, trueLabel, falseLabel);
             __WEBPACK_IMPORTED_MODULE_0_toastr___default.a.success(response.message);
+            __WEBPACK_IMPORTED_MODULE_1__loaderAsyncPlugin__["a" /* default */].hide();
         }, function () {
             __WEBPACK_IMPORTED_MODULE_0_toastr___default.a.error('Something went wrong!');
+            __WEBPACK_IMPORTED_MODULE_1__loaderAsyncPlugin__["a" /* default */].hide();
         });
     }
 
@@ -47509,6 +47517,66 @@ module.exports = function() {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 70 */,
+/* 71 */,
+/* 72 */
+/***/ (function(module, exports) {
+
+(function () {
+
+    var $btn = $('.pc-cms-loader-btn');
+
+    $btn.on('click', function () {
+
+        var formId = $(this).data('form');
+        var $form = $(formId);
+        var defaultLabel = $(this).text();
+        var that = $(this);
+
+        that.text('Loading...');
+
+        if ($form.length) {
+            $form.on('invalid-form', function () {
+                that.text(defaultLabel);
+            });
+        }
+    });
+})();
+
+/***/ }),
+/* 73 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var loaderAsync = {
+
+    $loader: $('.loader-async'),
+
+    config: {
+        title: 'Loading...',
+        subtitle: ''
+    },
+
+    show: function show() {
+        var userConfig = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+        var config = Object.assign({}, this.config, userConfig);
+        this.$loader.find('.loader-async-title').text(config.title);
+        this.$loader.find('.loader-async-subtitle').text(config.subtitle);
+        this.$loader.addClass('visible');
+    },
+    hide: function hide() {
+        var _this = this;
+
+        setTimeout(function () {
+            _this.$loader.removeClass('visible');
+        }, 1000);
+    }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (loaderAsync);
 
 /***/ })
 /******/ ]);

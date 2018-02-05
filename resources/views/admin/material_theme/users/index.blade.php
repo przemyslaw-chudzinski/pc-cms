@@ -47,7 +47,16 @@
                                         <td>{{ $user->first_name }}</td>
                                         <td>{{ $user->last_name }}</td>
                                         <td>{{ $user->email }}</td>
-                                        <td>{{ $user->role->display_name }}</td>
+                                        <td>
+                                            @if ($user->role_id)
+                                                <button class="btn btn-xs btn-primary" data-toggle="modal" data-target="#changeUserRole-{{ $user->id }}">{{ $user->role->display_name }}</button>
+                                            @else
+                                                <button class="btn btn-warning btn-xs" data-toggle="modal" data-target="#changeUserRole-{{ $user->id }}">User has not any role</button>
+                                            @endif
+
+                                            @include('admin.material_theme.components.forms.changeUserRoleModal')
+
+                                        </td>
                                         <td>{{ $user->created_at }}</td>
                                         <td>{{ $user->updated_at }}</td>
                                         <td>
@@ -77,4 +86,6 @@
             </div>
         </div>
     </div>
+
+
 @endsection

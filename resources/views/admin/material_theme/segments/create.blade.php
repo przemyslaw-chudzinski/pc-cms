@@ -35,7 +35,7 @@
                             {!! Form::textarea('content', null, ['class' => 'form-control pc-cms-editor']) !!}
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary pc-cms-loader-btn" data-form="#createNewSegmentForm">Save</button>
                     {!! Form::close() !!}
                 </div>
             </div>

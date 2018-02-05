@@ -414,3 +414,24 @@ table.pc-cms-table td {
   vertical-align: middle !important;
 }
 
+.loader-async .card {
+  height: 0px;
+  max-height: 0px;
+  overflow: hidden;
+  -webkit-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+  margin-bottom: 0;
+}
+
+.loader-async.visible .card {
+  height: 100%;
+  margin-bottom: 30px;
+  max-height: 181px;
+}
+
+.loader-async.invisible .card {
+  height: 0;
+  margin-bottom: 0;
+  max-height: 181px;
+}
+

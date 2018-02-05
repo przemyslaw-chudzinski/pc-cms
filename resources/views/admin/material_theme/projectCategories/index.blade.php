@@ -8,6 +8,8 @@
 
     @include('admin.material_theme.components.alert')
 
+    @include('admin.material_theme.components.loader-async')
+
     <div class="row">
         <div class="col-xs-12">
             <div class="card">
@@ -19,7 +21,7 @@
                                 <i class="zmdi zmdi-more-vert"></i>
                             </a>
                             <ul class="dropdown-menu btn-primary dropdown-menu-right">
-                                <li><a href="{{ route(config('admin.modules.project_categories.actions.create.route_name')) }}">Create new</a></li>
+                                <li><a href="{{ route(getRouteName('project_categories', 'create')) }}">Create new</a></li>
                             </ul>
                         </li>
                     </ul>

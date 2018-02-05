@@ -1,5 +1,6 @@
 /* Change async status plugin */
 import toastr from "toastr";
+import loaderAsync from './loaderAsyncPlugin';
 
 (function () {
     const $changeStatusBtn = $('.pc-cms-toggle-status-btn');
@@ -10,14 +11,19 @@ import toastr from "toastr";
 
     function onClickToggleStatusBtn(e, $btn) {
         e.preventDefault();
+        loaderAsync.show({
+            title: 'Data processing is in progress',
+        });
         const url = $btn.data('url');
         const trueLabel = $btn.data('true-label');
         const falseLabel = $btn.data('false-label');
         sendRequest(url, null, 'post', function (response) {
             prepareBtn($btn, response, trueLabel, falseLabel);
             toastr.success(response.message);
+            loaderAsync.hide();
         }, function () {
             toastr.error('Something went wrong!');
+            loaderAsync.hide();
         });
     }
 

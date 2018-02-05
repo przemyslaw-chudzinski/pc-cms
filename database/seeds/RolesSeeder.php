@@ -24,9 +24,10 @@ class RolesSeeder extends Seeder
             }
         }
         $data = [
-          'name' => 'admin',
-          'display_name' => 'Admin',
-          'permissions' => json_encode($permissions_admin)
+           'name' => 'admin',
+           'display_name' => 'Administrator',
+           'permissions' => json_encode($permissions_admin),
+           'allow_remove' => false
         ];
         \App\Role::create($data);
 
@@ -41,7 +42,7 @@ class RolesSeeder extends Seeder
         }
         $data2 = [
             'name' => 'user',
-            'display_name' => 'User',
+            'display_name' => 'Użytkownik',
             'permissions' => json_encode($permissions_user)
         ];
         \App\Role::create($data2);

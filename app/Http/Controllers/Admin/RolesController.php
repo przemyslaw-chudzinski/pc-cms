@@ -45,6 +45,6 @@ class RolesController extends Controller
 
     public function destroy(Role $role)
     {
-        return 'delete';
+        return $role->removeRole();
     }
 }

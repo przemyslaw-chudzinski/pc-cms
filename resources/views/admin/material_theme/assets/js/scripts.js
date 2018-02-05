@@ -5,3 +5,4 @@ require('./plugins/toggleAsyncStatusPlugin');
 require('./plugins/menuBuilderTreePlugin');
 require('./plugins/sendFormPlugin');
 require('./plugins/permissionPlugin');
+require('./plugins/loaderButtonPlugin');

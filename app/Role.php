@@ -8,7 +8,13 @@ use Validator;
 
 class Role extends Model
 {
-    protected $fillable = ['name', 'display_name', 'description', 'permissions'];
+    protected $fillable = [
+        'name',
+        'display_name',
+        'description',
+        'permissions',
+        'allow_remove'
+    ];
 
     public static function getRolesWithPagination()
     {
@@ -82,5 +88,20 @@ class Role extends Model
             'type' => 'success',
             'message' => 'Permissions has been saved'
         ]);
+    }
+
+    public function removeRole()
+    {
+        if ($this->allow_remove) {
+
+            $this->delete();
+
+            return back()->with('alert', [
+                'type' => 'success',
+                'message' => 'Role has been deleted successfully'
+            ]);
+        }
+
+        return back();
     }
 }

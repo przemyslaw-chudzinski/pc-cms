@@ -23,7 +23,10 @@ class User extends Authenticatable
         'last_name',
         'email',
         'password',
-        'role_id'
+        'role_id',
+        'last_login',
+        'IP',
+        'USER_AGENT'
     ];
 
     /**
@@ -150,6 +153,29 @@ class User extends Authenticatable
         return back()->with('alert', [
             'type' => 'success',
             'message' => 'Settings has been updated successfully'
+        ]);
+    }
+
+    public function updateUserAfterLogin()
+    {
+        $this->update([
+            'last_login' => now()->toDateTimeString(),
+            'IP' => request()->server('REMOTE_ADDR'),
+            'USER_AGENT' => request()->server('HTTP_USER_AGENT')
+        ]);
+    }
+
+    public function updateUserRole()
+    {
+        $data = request()->all();
+
+        $this->update([
+            'role_id' => $data['role_id']
+        ]);
+
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => 'User role has been updated successfully'
         ]);
     }
 }

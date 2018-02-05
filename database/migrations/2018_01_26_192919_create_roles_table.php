@@ -19,13 +19,14 @@ class CreateRolesTable extends Migration
             $table->string('display_name')->nullalbe()->default(null);
             $table->text('description')->nullable()->default(null);
             $table->longText('permissions')->nullable()->default(null);
+            $table->boolean('allow_remove')->default(true);
             $table->timestamps();
         });
 
 
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('role_id')->unsigned();
-            $table->foreign('role_id')->references('id')->on('roles');
+            $table->integer('role_id')->unsigned()->nullable()->default(null);
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('set null');
         });
 
     }

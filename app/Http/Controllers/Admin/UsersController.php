@@ -45,4 +45,9 @@ class UsersController extends Controller
     {
         return $user->resetPassword();
     }
+
+    public function updateUserRole(User $user)
+    {
+        return $user->updateUserRole();
+    }
 }
