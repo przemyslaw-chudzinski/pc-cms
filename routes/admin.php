@@ -129,4 +129,10 @@ Route::group([
         });
     });
 
+    /* Themes */
+    Route::group(['prefix' => 'themes'], function () {
+       Route::get('/', 'ThemesController@index')->name(getRouteName('themes', 'index'));
+       Route::put('/', 'ThemesController@update')->name(getRouteName('themes', 'update'));
+    });
+
 });

@@ -84,7 +84,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label>Choose page template</label>
+                                    {!! Form::label(null, 'Choose page template') !!}
+                                    <select class="form-control select"></select>
                                 </div>
                             </div>
                         </div>

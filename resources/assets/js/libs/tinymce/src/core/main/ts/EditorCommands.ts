@@ -89,7 +89,7 @@ export default function (editor) {
       return state;
     }
 
-    // Theme commands
+    // ThemeService commands
     if (editor.theme && editor.theme.execCommand && editor.theme.execCommand(command, ui, value)) {
       editor.fire('ExecCommand', { command, ui, value });
       return true;

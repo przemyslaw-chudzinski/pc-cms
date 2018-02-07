@@ -49,7 +49,9 @@ class ProjectCategory extends Model
             return back()->withErrors($validator);
         }
 
-        $data['thumbnail'] = json_encode(self::uploadImage($data, 'imageThumbnail', getModuleUploadDir('project_categories')));
+        if (isset($data['imageThumbnail'])) {
+            $data['thumbnail'] = json_encode(self::uploadImage($data, 'imageThumbnail', getModuleUploadDir('project_categories')));
+        }
 
         self::create($data);
 

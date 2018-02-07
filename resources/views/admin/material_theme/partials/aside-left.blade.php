@@ -59,12 +59,13 @@
                         <li class="{{ setActiveClass([getRouteName('menus', 'create')], 'active') }}"><a href="{{ route(getRouteName('menus', 'create')) }}">New menu</a></li>
                     </ul>
                 </li>
-                <li class="nav-dropdown {{ setActiveClassByActions([getModuleActions('pages')], 'active open') }}"><a href="#"><i class="zmdi zmdi-file"></i>   Pages</a>
+                <li class="nav-dropdown {{ setActiveClassByActions([getModuleActions('pages')], 'active open') }}"><a href="#"><i class="zmdi zmdi-file"></i>Pages</a>
                     <ul class="nav-sub">
                         <li class="{{ setActiveClass([getRouteName('pages', 'index')], 'active') }}"><a href="{{ route(getRouteName('pages', 'index')) }}">All pages</a></li>
                         <li class="{{ setActiveClass([getRouteName('pages', 'create')], 'active') }}"><a href="{{ route(getRouteName('pages', 'create')) }}">New page</a></li>
                     </ul>
                 </li>
+                <li class="{{ setActiveClassByActions([getModuleActions('themes')], 'active open') }}"><a href="{{ route(getRouteName('themes', 'index')) }}"><i class="zmdi zmdi-file"></i>Themes</a></li>
             </ul>
         </div>
     </nav>

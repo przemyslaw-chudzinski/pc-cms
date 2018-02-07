@@ -71,7 +71,7 @@ const initTheme = function (editor) {
       editor.theme.init(editor, ThemeManager.urls[theme] || editor.documentBaseUrl.replace(/\/$/, ''), editor.$);
     }
   } else {
-    // Theme set to false or null doesn't produce a theme api
+    // ThemeService set to false or null doesn't produce a theme api
     editor.theme = {};
   }
 };

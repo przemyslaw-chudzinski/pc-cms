@@ -50,7 +50,9 @@ class Page extends Model
             return back()->withErrors($validator);
         }
 
-        $data['thumbnail'] = json_encode(self::uploadImage($data, 'imageThumbnail', getModuleUploadDir('pages')));
+        if (isset($data['imageThumbnail'])) {
+            $data['thumbnail'] = json_encode(self::uploadImage($data, 'imageThumbnail', getModuleUploadDir('blog_categories')));
+        }
 
         self::create($data);
 

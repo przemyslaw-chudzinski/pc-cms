@@ -14,7 +14,7 @@
 // import { TinyDom } from '@ephox/mcagar';
 // import TablePlugin from 'tinymce/plugins/table/Plugin';
 // import ColorPickerPlugin from 'tinymce/plugins/colorpicker/Plugin';
-// import Theme from 'tinymce/themes/modern/Theme';
+// import ThemeService from 'tinymce/themes/modern/ThemeService';
 import { UnitTest } from '@ephox/bedrock';
 
 UnitTest.asynctest('browser.tinymce.plugins.table.ColorPickerTest', function () {
@@ -23,7 +23,7 @@ UnitTest.asynctest('browser.tinymce.plugins.table.ColorPickerTest', function () 
 
       TablePlugin();
       ColorPickerPlugin();
-      Theme();
+      ThemeService();
 
       var cReset = ApiChains.cSetContent('<table><tr><td>X</td></tr></table>');
 

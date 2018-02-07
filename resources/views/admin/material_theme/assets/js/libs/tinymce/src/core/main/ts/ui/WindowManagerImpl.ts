@@ -10,7 +10,7 @@
 
 export default function () {
   const unimplemented = function () {
-    throw new Error('Theme did not provide a WindowManager implementation.');
+    throw new Error('ThemeService did not provide a WindowManager implementation.');
   };
 
   return {

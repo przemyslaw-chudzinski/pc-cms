@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers\Themes;
 
-use App\Article;
 use App\Http\Controllers\Controller;
+use App\Core\Services\ThemeService;
 
 class ThemeController extends Controller
 {
     public function index()
     {
-        $articles = Article::where('published', true)->latest()->limit(4)->get();
-        return view('themes.index', ['articles' => $articles]);
+        return view('themes.PortfolioTheme.index');
+    }
+
+    public function showPage($slug)
+    {
+        return ThemeService::getView($slug);
     }
 }

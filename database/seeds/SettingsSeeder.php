@@ -15,5 +15,10 @@ class SettingsSeeder extends Seeder
         foreach (config('admin.modules.settings.defaults') as $defaultSetting) {
             Setting::create($defaultSetting);
         }
+
+        Setting::create([
+            'key' => 'theme',
+            'value' => null
+        ]);
     }
 }

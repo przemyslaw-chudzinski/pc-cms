@@ -63,9 +63,13 @@ class Project extends Model
             return back()->withErrors($validator);
         }
 
-        $data['thumbnail'] = json_encode(self::uploadImage($data, 'imageThumbnail', getModuleUploadDir('projects')));
+        if (isset($data['imageThumbnail'])) {
+            $data['thumbnail'] = json_encode(self::uploadImage($data, 'imageThumbnail', getModuleUploadDir('projects')));
+        }
 
-        $data['images'] = json_encode(self::uploadImages($data, 'additionalImages', getModuleUploadDir('projects')));
+        if (isset($data['additionalImages'])) {
+            $data['images'] = json_encode(self::uploadImages($data, 'additionalImages', getModuleUploadDir('projects')));
+        }
 
         $project = self::create($data);
 

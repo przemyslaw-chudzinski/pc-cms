@@ -1,11 +1,11 @@
 @charset "UTF-8";
 /*
  *
- *   MaterialLab - Bootstrap + Material Design Admin Theme
+ *   MaterialLab - Bootstrap + Material Design Admin ThemeService
 */
 /*
  *
- *   MaterialLab - Bootstrap + Material Design Admin Theme
+ *   MaterialLab - Bootstrap + Material Design Admin ThemeService
 */
 /* ANIMATION */
 /* SHADOWS */
@@ -16292,7 +16292,7 @@ html.backdrop-open {
   padding: 10px 20px;
   width: 100%; }
 
-/* Theme */
+/* ThemeService */
 .dropdownjs > input[readonly] {
   cursor: pointer;
   outline: none;

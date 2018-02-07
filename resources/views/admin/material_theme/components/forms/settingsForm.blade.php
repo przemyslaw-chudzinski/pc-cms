@@ -43,4 +43,3 @@
      'id' => 'removeSetting-' . $setting->id]
      ) !!}
 {!! Form::close() !!}
-<hr>

@@ -10,10 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-require 'themes.php';
 
 require 'admin.php';
 
-Auth::routes();
+require 'themes.php';
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Auth::routes();
+

@@ -82,11 +82,14 @@ if (!function_exists('getModuleUploadDir')) {
 if (!function_exists('getImageUrl')) {
     /**
      * @param array $image
-     * @param string $sizeName
+     * @param string|null $sizeName
      * @return mixed
      */
-    function getImageUrl(array $image, string $sizeName)
+    function getImageUrl(array $image, $sizeName)
     {
+        if ($sizeName === null) {
+            return \Illuminate\Support\Facades\Storage::url($image['original']);
+        }
         $res = $image['sizes'][$sizeName];
         if (!isset($res) || $res === null || empty($res)) {
             return \Illuminate\Support\Facades\Storage::url($image['original']);

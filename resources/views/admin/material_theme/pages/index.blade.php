@@ -32,6 +32,7 @@
                         <tr>
                             <th><div class="checkbox"><label><input type="checkbox"></label></div></th>
                             <th>Page title</th>
+                            <th>Slug</th>
                             <th>Status</th>
                             <th>Created at</th>
                             <th>Updated at</th>
@@ -44,6 +45,7 @@
                                 <tr>
                                     <td><div class="checkbox"><label><input type="checkbox"></label></div></td>
                                     <td>{{ $page->title }}</td>
+                                    <td>{{ $page->slug }}</td>
                                     <td>
                                         @if ($page->published)
                                             <button class="btn btn-success btn-xs pc-cms-status-btn pc-cms-toggle-status-btn" data-url="{{ url('api/pages/' .$page->id. '/togglePublished') }}">Published</button>

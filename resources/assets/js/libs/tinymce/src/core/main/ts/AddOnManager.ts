@@ -95,7 +95,7 @@ AddOnManager.prototype = {
    *
    * @method get
    * @param {String} name Add-on to look for.
-   * @return {tinymce.Theme/tinymce.Plugin} Theme or plugin add-on instance or undefined.
+   * @return {tinymce.Theme/tinymce.Plugin} ThemeService or plugin add-on instance or undefined.
    */
   get (name) {
     if (this.lookup[name]) {
@@ -146,7 +146,7 @@ AddOnManager.prototype = {
    *
    * @method add
    * @param {String} id Short name/id for the add-on.
-   * @param {tinymce.Theme/tinymce.Plugin} addOn Theme or plugin to add.
+   * @param {tinymce.Theme/tinymce.Plugin} addOn ThemeService or plugin to add.
    * @return {tinymce.Theme/tinymce.Plugin} The same theme or plugin instance that got passed in.
    * @example
    * // Create a simple plugin

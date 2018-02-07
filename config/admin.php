@@ -410,5 +410,20 @@ return [
                 ]
             ]
         ],
+
+        'themes' => [
+            'upload_dir' => 'themes',
+            'name' => 'Themes',
+            'actions' => [
+                'index' => [
+                    'display_name' => 'Show themes list view',
+                    'route_name' => 'admin.themes.index'
+                ],
+                'update' => [
+                    'display_name' => 'Update current theme action',
+                    'route_name' => 'admin.themes.update'
+                ]
+            ]
+        ]
     ],
 ];
