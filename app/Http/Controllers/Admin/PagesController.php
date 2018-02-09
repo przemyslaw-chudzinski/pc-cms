@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Core\Services\ThemeService;
 use App\Http\Controllers\Controller;
 use App\Page;
 

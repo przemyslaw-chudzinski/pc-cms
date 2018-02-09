@@ -75,4 +75,17 @@ class ThemeService
            'message' => 'Theme has been set successfully'
         ]);
     }
+
+    public static function getPageTemplates()
+    {
+        $pageTemplatesDir = base_path('resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'themes' . DIRECTORY_SEPARATOR . self::getTheme() . DIRECTORY_SEPARATOR . 'page-templates');
+        $pageTemplatesFiles = File::allFiles($pageTemplatesDir);
+        $templates = [];
+        if (count($pageTemplatesFiles) > 0) {
+            foreach ($pageTemplatesFiles as $pageTemplatesFile) {
+                $templates[] = array_first(explode('.', $pageTemplatesFile->getFileName()));
+            }
+        }
+        return $templates;
+    }
 }

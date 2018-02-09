@@ -22,7 +22,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary pc-cms-send-form" data-form="#pc-cms-menubuilder-create-item-form">Save</button>
+                <button type="submit" class="btn btn-primary pc-cms-send-form pc-cms-loader-btn" data-form="#pc-cms-menubuilder-create-item-form">Save</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

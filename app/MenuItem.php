@@ -53,10 +53,15 @@ class MenuItem extends Model
     public function removeItem()
     {
         $this->delete();
+    }
 
-        return back()->with('alert', [
+    public function removeItemAjax()
+    {
+        $this->removeItem();
+
+        return response()->json([
             'type' => 'success',
-            'message' => 'Menu item has been deleted successfully'
+            'message' => 'Item has been deleted successfully'
         ]);
     }
 

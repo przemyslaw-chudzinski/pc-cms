@@ -53,3 +53,32 @@
     </div>
 
 @endsection
+
+@push('admin.footer')
+
+    <script>
+        (function () {
+
+            $.validator.setDefaults({
+                errorClass: 'help-block',
+                highlight: function (elem) {
+                    $(elem)
+                        .closest('.form-group')
+                        .addClass('has-error');
+                },
+                unhighlight: function (elem) {
+                    $(elem)
+                        .closest('.form-group')
+                        .removeClass('has-error')
+                }
+            });
+
+            $('#createNewMenuForm').validate({
+                rules: {
+                    name: "required"
+                }
+            });
+        })();
+    </script>
+
+@endpush

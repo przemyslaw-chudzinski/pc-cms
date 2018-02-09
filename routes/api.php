@@ -30,7 +30,9 @@ Route::group(['namespace' => 'API'], function () {
 
     /* Menus */
     Route::post('menus/{menu}/togglePublished', 'MenusController@togglePublished'); // potrzebna autoryzacja
-    Route::get('menus/{menu}/items', 'MenusController@getItems');
+    Route::get('menus/{menu}/items', 'MenusController@getItems'); // potrzebna autoryzacja
+    Route::put('menus/{menu}/updateTree', 'MenusController@updateTree'); // potrzebna autoryzacja
+    Route::delete('menus/{menu}/items/{menuItem}', 'MenuItemsController@destroy'); // potrzebna autoryzacja
 
     /* Projects */
     Route::group(['prefix' => 'projects'], function () {

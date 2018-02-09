@@ -37,4 +37,9 @@ class MenusController extends Controller
     {
         return Menu::createMenu();
     }
+
+    public function destroy(Menu $menu)
+    {
+        return $menu->removeMenu();
+    }
 }

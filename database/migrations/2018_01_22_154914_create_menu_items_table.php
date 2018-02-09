@@ -16,13 +16,13 @@ class CreateMenuItemsTable extends Migration
         Schema::create('menu_items', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('menu_id')->unsigned();
-            $table->foreign('menu_id')->references('id')->on('menus');
+            $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
             $table->string('title');
             $table->text('description')->nullable()->default(null);
             $table->string('url')->nullable()->default(null);
             $table->string('target')->default('_self');
             $table->integer('parent_id')->unsigned()->nullable()->default(null);
-            $table->integer('order')->unsigend()->nullable()->default(null);
+            $table->integer('order')->unsigend()->nullable()->default(1);
             $table->timestamps();
         });
     }

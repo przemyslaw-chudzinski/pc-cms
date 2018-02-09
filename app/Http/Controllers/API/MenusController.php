@@ -18,9 +18,8 @@ class MenusController extends Controller
         return $menu->getItemsAjax();
     }
 
-    public function destroy(MenuItem $menuItem)
+    public function updateTree(Menu $menu)
     {
-        return $menuItem->removeItem();
+        return $menu->updateTreeAjax();
     }
-
 }

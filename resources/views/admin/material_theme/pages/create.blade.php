@@ -85,7 +85,16 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     {!! Form::label(null, 'Choose page template') !!}
-                                    <select class="form-control select"></select>
+                                    <select name="template" class="form-control select">
+                                        @if (count($pageTemplates) > 0)
+                                            <option></option>
+                                            @foreach($pageTemplates as $template)
+                                                @if ($template !== 'default')
+                                                    <option value="{{ $template }}">{{ $template }}</option>
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    </select>
                                 </div>
                             </div>
                         </div>

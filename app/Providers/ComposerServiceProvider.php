@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Core\Services\ThemeService;
+use function foo\func;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Auth;
@@ -40,6 +42,14 @@ class ComposerServiceProvider extends ServiceProvider
             'admin.material_theme.components.widgets.last-registered-users-wgt'
         ], function ($view) {
             $view->with('users', User::getLastRegisteredUsers());
+        });
+
+        View::composer([
+            'admin.material_theme.pages.create',
+            'admin.material_theme.pages.edit',
+        ], function ($view) {
+            $pageTemplates = ThemeService::getPageTemplates();
+            $view->with('pageTemplates', $pageTemplates);
         });
     }
 

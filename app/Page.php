@@ -22,7 +22,8 @@ class Page extends Model
         'thumbnail',
         'allow_indexed',
         'meta_title',
-        'meta_description'
+        'meta_description',
+        'template'
     ];
 
     public static function getPagesWithPagination()

@@ -116,11 +116,50 @@ class Menu extends Model
 
     public function getItems()
     {
-        return $this->parentItems()->with('children')->get();
+        return $this
+            ->parentItems()
+            ->with('children')
+            ->get();
     }
 
-    public function getItemsAjax()
+    public function updateTree()
     {
-        return $this->getItems();
+        $data = request()->all();
+        $items = json_decode($data['items']);
+        $this->orderMenu($items, null);
+    }
+
+    private function orderMenu(array $menuItems, $parentId)
+    {
+        foreach ($menuItems as $index => $menuItem) {
+            $item = MenuItem::findOrFail($menuItem->id);
+            $item->order = $index + 1;
+            $item->parent_id = $parentId;
+            $item->save();
+
+            if (isset($menuItem->children)) {
+                $this->orderMenu($menuItem->children, $item->id);
+            }
+        }
+    }
+
+    public function updateTreeAjax()
+    {
+        $this->updateTree();
+
+        return response()->json([
+            'type' => 'success',
+            'message' => 'Menu has been updated successfully'
+        ]);
+    }
+
+    public function removeMenu()
+    {
+        $this->delete();
+
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => 'Menu has been deleted successfully'
+        ]);
     }
 }
