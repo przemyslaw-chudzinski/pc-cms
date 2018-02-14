@@ -9,11 +9,13 @@
                     <span class="item-name">{{ $item->title }}</span>
                     <div class="dd-button-container">
                         <button class="item-remove" data-confirm-class="item-remove-confirm">&times;</button>
+                        <button type="button" data-toggle="modal" data-target=".pc-cms-menubuilder-edit-item-{{ $item->id }}">Edit</button>
                     </div>
                 </div>
                 @if(!$item->children->isEmpty())
                     @include('admin.material_theme.components.menu.menuBuilderMenu', ['items' => $item->children])
                 @endif
+                @include('admin.material_theme.components.forms.menuBuilderEditItemModal')
             </li>
         @endforeach
     </ol>

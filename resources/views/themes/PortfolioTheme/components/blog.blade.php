@@ -17,7 +17,7 @@
                 @foreach($articles as $article)
                     <div class="col-md-6 col-lg-3 pc-blog-single">
                         <div class="pc-blog-single-inner">
-                            <a href="#">
+                            <a href="{{ url('blog/' . $article->slug) }}">
                                 @if ($article->thumbnail)
                                     <img class="img-fluid" src="{{ getImageUrl(json_decode($article->thumbnail, true), 'blog_thumbnail') }}" alt="">
                                 @endif

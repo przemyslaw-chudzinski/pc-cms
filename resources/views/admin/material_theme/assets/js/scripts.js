@@ -6,3 +6,4 @@ require('./plugins/menuBuilderTreePlugin');
 require('./plugins/sendFormPlugin');
 require('./plugins/permissionPlugin');
 require('./plugins/loaderButtonPlugin');
+require('./plugins/menuBuilderModalPlugin');

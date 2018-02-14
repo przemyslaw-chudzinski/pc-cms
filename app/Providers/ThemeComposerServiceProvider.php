@@ -22,6 +22,13 @@ class ThemeComposerServiceProvider extends ServiceProvider
             $articles = Article::where('published', true)->latest()->limit(4)->get();
             $view->with('articles', $articles);
         });
+
+        View::composer([
+            'themes.PortfolioTheme.page-templates.blog'
+        ], function ($view) {
+            $articles = Article::where('published', true)->latest()->paginate(10);
+            $view->with('articles', $articles);
+        });
     }
 
     /**

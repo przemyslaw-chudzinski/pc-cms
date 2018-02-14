@@ -16,4 +16,9 @@ class ThemeController extends Controller
     {
         return ThemeService::getView($slug);
     }
+
+    public function showSingleArticle($slug)
+    {
+        return ThemeService::getSingleArticleView($slug);
+    }
 }

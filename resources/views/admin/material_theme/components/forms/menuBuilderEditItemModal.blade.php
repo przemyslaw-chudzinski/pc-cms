@@ -1,38 +1,38 @@
-<div class="modal fade pc-cms-menubuilder-add-item" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+<div class="modal fade pc-cms-menubuilder-edit-item-{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="gridSystemModalLabel">Add new item</h4>
+                <h4 class="modal-title" id="gridSystemModalLabel">Edit - {{ $item->title }}</h4>
             </div>
             <div class="modal-body">
                 {!! Form::open([
-                 'method' => 'post',
-                 'id' => 'pc-cms-menubuilder-create-item-form',
-                 'route' => [config('admin.modules.menus.actions.item_store.route_name'), $menu->id]
+                 'method' => 'put',
+                 'id' => 'pc-cms-menubuilder-edit-item-form-' . $item->id,
+                 'route' => [getRouteName('menus', 'item_update'), $item->id]
                  ]) !!}
                 <div class="form-group">
                     {!! Form::label(null, 'Item name') !!}
-                    {!! Form::text('title', null, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
+                    {!! Form::text('title', $item->title, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
                 </div>
                 <div class="form-group">
-                    {!! Form::select('target', config('admin.modules.menus.link_targets'), null, ['class' => 'form-control select']) !!}
+                    {!! Form::select('target', config('admin.modules.menus.link_targets'), $item->target, ['class' => 'form-control select']) !!}
                 </div>
 
                 <div class="form-group">
                     {!! Form::label(null, 'Url') !!}
-                    {{ Form::text('url', null, ['class' => 'form-control']) }}
+                    {{ Form::text('url', $item->url, ['class' => 'form-control']) }}
                 </div>
 
                 <div class="form-group">
                     {!! Form::label(null,'Hook') !!}
-                    {!! Form::text('hook', null, ['class' => 'form-control']) !!}
+                    {!! Form::text('hook', $item->hook, ['class' => 'form-control']) !!}
                 </div>
                 {!! Form::close() !!}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary pc-cms-send-form pc-cms-loader-btn" data-form="#pc-cms-menubuilder-create-item-form">Save</button>
+                <button type="submit" class="btn btn-primary pc-cms-send-form pc-cms-loader-btn" data-form="#pc-cms-menubuilder-edit-item-form-{{ $item->id }}">Save</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

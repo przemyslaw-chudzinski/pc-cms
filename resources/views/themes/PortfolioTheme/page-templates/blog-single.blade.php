@@ -13,11 +13,11 @@
 @endsection
 
 @section('content')
-    @include('themes.PortfolioTheme.components.page-banner')
+    @include('themes.PortfolioTheme.components.page-banner', ['page' => $article])
 
     <section class="pc-section pc-contact-page">
         <div class="container">
-            {!! $page->content !!}
+            {!! $article->content !!}
         </div>
     </section>
 

@@ -13,6 +13,11 @@ class MenuItemsController extends Controller
         return MenuItem::createItem($menu);
     }
 
+    public function update(MenuItem $menuItem)
+    {
+        return $menuItem->updateItem();
+    }
+
     public function destroy(MenuItem $menuItem)
     {
         return $menuItem->removeItem();

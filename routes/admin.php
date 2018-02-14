@@ -6,6 +6,12 @@ Route::group(['prefix' => config('admin.admin_path'), 'namespace' => 'Admin'], f
     Route::get('/logout', 'AuthController@logout')->name('admin.logout');
 });
 
+/* Account settings */
+Route::group(['prefix' => 'account-settings', 'namespace' => 'Admin', 'middleware' => ['web']], function () {
+    Route::get('/', 'AccountSettingsController@index')->name('admin.account_settings.index');
+    Route::put('/', 'AccountSettingsController@update')->name('admin.account_settings.update');
+});
+
 Route::group([
     'prefix' => config('admin.admin_path'),
     'namespace' => 'Admin',
@@ -95,13 +101,8 @@ Route::group([
         /* Menu items */
         Route::post('/{menu}/items/create', 'MenuItemsController@store')->name('admin.menus.items.store');
         Route::delete('/items/{menuItem}', 'MenuItemsController@destroy')->name('admin.menus.items.destroy');
+        Route::put('/items/{menuItem}', 'MenuItemsController@update')->name(getRouteName('menus', 'item_update'));
 
-    });
-
-    /* Account settings */
-    Route::group(['prefix' => 'account-settings'], function () {
-        Route::get('/', 'AccountSettingsController@index')->name('admin.account_settings.index');
-        Route::put('/', 'AccountSettingsController@update')->name('admin.account_settings.update');
     });
 
     /* Users */

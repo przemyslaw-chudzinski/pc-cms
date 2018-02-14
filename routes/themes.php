@@ -11,4 +11,7 @@ Route::group([
     /* Load other pages */
     Route::get('/{slug}', 'ThemeController@showPage')->name('theme.show_page');
 
+    /* Load single blog */
+    Route::get('/blog/{slug}', 'ThemeController@showSingleArticle')->name('theme.show_single_article');
+
 });

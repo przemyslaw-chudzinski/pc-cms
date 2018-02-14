@@ -13,7 +13,8 @@ class MenuItem extends Model
         'url',
         'target',
         'parent_id',
-        'order'
+        'order',
+        'hook'
     ];
 
 
@@ -30,6 +31,10 @@ class MenuItem extends Model
     public static function createItem(Menu $menu)
     {
         $data = request()->all();
+
+        if (isset($data['url'])) {
+            $data['url'] = str_slug($data['url']);
+        }
 
         $validator = Validator::make($data, [
            'title' => 'required'
@@ -63,6 +68,34 @@ class MenuItem extends Model
             'type' => 'success',
             'message' => 'Item has been deleted successfully'
         ]);
+    }
+
+    public function updateItem()
+    {
+        $data = request()->all();
+
+        if (isset($data['url'])) {
+            $data['url'] = str_slug($data['url']);
+        }
+
+        $validator = Validator::make($data, [
+            'title' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return back()->with('alert', [
+                'type' => 'danger',
+                'message' => 'The title field is required'
+            ]);
+        }
+
+        $this->update($data);
+
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => 'Menu item has been updated successfully'
+        ]);
+
     }
 
 }

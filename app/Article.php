@@ -69,9 +69,9 @@ class Article extends Model
         ]);
     }
 
-    public static function getArticlesWithPagination()
+    public static function getArticlesWithPagination($perPage = 10)
     {
-        return self::paginate(10);
+        return self::paginate($perPage);
     }
 
     public function updateArticle()

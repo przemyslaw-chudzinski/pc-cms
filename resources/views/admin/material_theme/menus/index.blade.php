@@ -32,6 +32,7 @@
                         <tr>
                             <th><div class="checkbox"><label><input type="checkbox"></label></div></th>
                             <th>Menu name</th>
+                            <th>Slug</th>
                             <th>Description</th>
                             <th>Status</th>
                             <th>Created at</th>
@@ -45,6 +46,7 @@
                                 <tr>
                                     <td><div class="checkbox"><label><input type="checkbox"></label></div></td>
                                     <td>{{ $menu->name }}</td>
+                                    <td>{{ $menu->slug }}</td>
                                     <td>{{ $menu->description }}</td>
                                     <td>
                                         @if ($menu->published)

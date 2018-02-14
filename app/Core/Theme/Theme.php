@@ -2,6 +2,7 @@
 
 namespace App\Core\Theme;
 
+use App\Menu;
 use App\Setting;
 use File;
 
@@ -61,14 +62,18 @@ class Theme
         return Setting::where('key', $key)->get()->first()->value;
     }
 
-    public function getImageUrl(string $image, string $uploadDir, string $size)
+    public function menu($path = '', $menu)
     {
-//        dd(File::allFiles(base_path() . '/public/storage/' . $uploadDir)); // ???
-//        $files = File::allFiles(base_path() . '/public/storage/' . $uploadDir);
-//        foreach ($files as $file) {
-//            // sprawdzić dopasowania
-//        }
-//        return $image;
+        $menu = Menu::where([
+            ['slug', $menu],
+            ['published', true]
+        ])->get()->first();
+
+        if (!$menu) {
+            return null;
+        }
+
+        return view($path)->with('items', $menu->getItems());
     }
 
 }

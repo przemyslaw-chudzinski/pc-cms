@@ -277,7 +277,7 @@ return [
                 ],
                 'update' => [
                     'display_name' => 'Update menu action',
-                    'route_name' => 'admin.settings.update'
+                    'route_name' => 'admin.menus.update'
                 ],
                 'destroy' => [
                     'display_name' => 'Delete menu action',
@@ -290,6 +290,10 @@ return [
                 'item_destroy' => [
                     'display_name' => 'Delete menu item action',
                     'route_name' => 'admin.menus.items.destroy'
+                ],
+                'item_update' => [
+                    'display_name' => 'Update menu item action',
+                    'route_name' => 'admin.menus.items.update'
                 ],
                 'set_permissions' => [
                     'display_name' => 'Set permissions view',

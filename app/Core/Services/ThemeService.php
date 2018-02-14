@@ -2,6 +2,7 @@
 
 namespace App\Core\Services;
 
+use App\Article;
 use App\Page;
 use App\Setting;
 use File;
@@ -33,7 +34,7 @@ class ThemeService
 
         if ($page && $page->template !== null) {
 
-            return 'custom template';
+            return view('themes.' . $theme . '.page-templates.' . $page->template, ['page' => $page]);
 
         } else if ($page) {
 
@@ -79,6 +80,9 @@ class ThemeService
     public static function getPageTemplates()
     {
         $pageTemplatesDir = base_path('resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'themes' . DIRECTORY_SEPARATOR . self::getTheme() . DIRECTORY_SEPARATOR . 'page-templates');
+        if (!is_dir($pageTemplatesDir)) {
+            return [];
+        }
         $pageTemplatesFiles = File::allFiles($pageTemplatesDir);
         $templates = [];
         if (count($pageTemplatesFiles) > 0) {
@@ -87,5 +91,38 @@ class ThemeService
             }
         }
         return $templates;
+    }
+
+    public static function getSingleArticleView($slug = '')
+    {
+        if ($slug === '') {
+
+            return view('themes.index');
+
+        }
+
+        /* Theme directory name */
+        $theme = self::getTheme();
+
+        if ($theme === null || $theme === '') {
+            throw new \Exception('Theme does not exits');
+        }
+
+        $article = Article::
+            where([
+                ['published', true],
+                ['slug', $slug]
+            ])
+            ->get()
+            ->first();
+
+        if ($article) {
+
+            return view('themes.' . $theme . '.page-templates.default', ['page' => $article]);
+
+        }
+
+        return '404';
+
     }
 }
