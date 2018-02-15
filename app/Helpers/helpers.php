@@ -81,12 +81,13 @@ if (!function_exists('getModuleUploadDir')) {
 
 if (!function_exists('getImageUrl')) {
     /**
-     * @param array $image
+     * @param mixed $image
      * @param string|null $sizeName
      * @return mixed
      */
-    function getImageUrl(array $image, $sizeName)
+    function getImageUrl($image, $sizeName)
     {
+
         if ($sizeName === null) {
             return \Illuminate\Support\Facades\Storage::url($image['original']);
         }

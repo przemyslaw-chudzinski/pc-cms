@@ -19,7 +19,7 @@ class MaintenanceMode
         $maintenanceMode = Theme::getSetting('maintenance_mode');
 
         if ($maintenanceMode) {
-            return 'maintenance mode';
+            return redirect(url('/maintenance'));
         }
         return $next($request);
     }

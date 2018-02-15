@@ -52,7 +52,7 @@ class Page extends Model
         }
 
         if (isset($data['imageThumbnail'])) {
-            $data['thumbnail'] = json_encode(self::uploadImage($data, 'imageThumbnail', getModuleUploadDir('blog_categories')));
+            $data['thumbnail'] = json_encode(self::uploadImage($data, 'imageThumbnail', getModuleUploadDir('pages')));
         }
 
         self::create($data);

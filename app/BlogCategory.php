@@ -22,6 +22,11 @@ class BlogCategory extends Model
         'parent_id'
     ];
 
+    public function articles()
+    {
+        return $this->belongsToMany(Article::class, 'article_has_category', 'category_id')->withTimestamps();
+    }
+
     public static function getAllCategories()
     {
         return self::get();

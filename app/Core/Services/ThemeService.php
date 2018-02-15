@@ -3,6 +3,7 @@
 namespace App\Core\Services;
 
 use App\Article;
+use App\BlogCategory;
 use App\Page;
 use App\Setting;
 use File;
@@ -108,8 +109,8 @@ class ThemeService
             throw new \Exception('Theme does not exits');
         }
 
-        $article = Article::
-            where([
+        $article = Article::with('categories')
+            ->where([
                 ['published', true],
                 ['slug', $slug]
             ])
@@ -118,11 +119,46 @@ class ThemeService
 
         if ($article) {
 
-            return view('themes.' . $theme . '.page-templates.default', ['page' => $article]);
+            return view('themes.' . $theme . '.page-templates.blog.blog-single', ['article' => $article]);
 
         }
 
         return '404';
 
+    }
+
+    public static function showArticlesViewByCategory($slug = '')
+    {
+        if ($slug === '') {
+            return redirect('blog');
+        }
+
+        /* Theme directory name */
+        $theme = self::getTheme();
+
+        $category = BlogCategory::with('articles')
+            ->where([
+            ['published', true],
+            ['slug', $slug]
+        ])
+            ->get()
+            ->first();
+
+        return view('themes.' . $theme . '.page-templates.blog.articles-by-category', ['category' => $category]);
+    }
+
+    public static function getMaintenanceMode()
+    {
+        $maintenanceMode = Theme::getSetting('maintenance_mode');
+
+        if ($maintenanceMode) {
+
+            /* Theme directory name */
+            $theme = Theme::getSetting('theme');
+
+            return view('themes.' . $theme . '.page-templates.maintenance.maintenance');
+        }
+
+        return redirect(url('/'));
     }
 }

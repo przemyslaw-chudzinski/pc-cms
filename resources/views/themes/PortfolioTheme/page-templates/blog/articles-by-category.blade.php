@@ -1,25 +1,34 @@
 @extends('themes.PortfolioTheme.layout')
 
 @section('meta_title')
-    {!! Theme::getMetaTitle($page->meta_title) !!}
+    {!! Theme::getMetaTitle() !!}
 @endsection
 
 @section('meta_description')
-    {!! Theme::getMetaDescription($page->meta_description) !!}
+    {!! Theme::getMetaDescription() !!}
 @endsection
 
 @section('meta_robots')
-    {!! Theme::getMetaRobots($page->allow_indexed) !!}
+    {!! Theme::getMetaRobots() !!}
 @endsection
 
 @section('content')
-    @include('themes.PortfolioTheme.components.page-banner')
+    <!-- Banner -->
+    <section class="pc-banner pc-banner-page" data-image-src="{{ getImageUrl(json_decode($category->thumbnail, true), 'blog_thumbnail') }}">
+        <div class="pc-banner-content">
+            <div class="container">
+                <h3 class="text-uppercase text-center pc-banner-content-header animated slideInRight">
+                    Artykuły dla {{ $category->name }}
+                </h3>
+            </div>
+        </div>
+    </section>
 
     <section class="pc-section pc-contact-page">
         <div class="container">
             <div class="row">
-                @if (count($articles) > 0)
-                    @foreach($articles as $article)
+                @if (count($category->articles) > 0)
+                    @foreach($category->articles as $article)
                         <div class="col-md-6 col-lg-4 mb-4 pc-blog-single">
                             <div class="pc-blog-single-inner">
                                 <a href="{{ url('blog/' . $article->slug) }}">

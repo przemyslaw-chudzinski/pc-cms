@@ -7,7 +7,7 @@
                 <span class="d-block text-xs-center text-lg-right pc-section-header-2-subheader">{!! Segment::get('front-blog-subheader') !!}</span>
             </div>
             <div class="col-lg-5 text-xs-center text-lg-left">
-                <a href="#" class="btn pc-button-primary"><span>Zobacz więcej</span></a>
+                <a href="{{ url('blog') }}" class="btn pc-button-primary"><span>Zobacz więcej</span></a>
             </div>
         </div>
     </div>

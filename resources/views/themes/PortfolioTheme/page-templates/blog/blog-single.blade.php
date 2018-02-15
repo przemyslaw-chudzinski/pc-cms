@@ -1,15 +1,15 @@
 @extends('themes.PortfolioTheme.layout')
 
 @section('meta_title')
-    {!! Theme::getMetaTitle($page->meta_title) !!}
+    {!! Theme::getMetaTitle($article->meta_title) !!}
 @endsection
 
 @section('meta_description')
-    {!! Theme::getMetaDescription($page->meta_description) !!}
+    {!! Theme::getMetaDescription($article->meta_description) !!}
 @endsection
 
 @section('meta_robots')
-    {!! Theme::getMetaRobots($page->allow_indexed) !!}
+    {!! Theme::getMetaRobots($article->allow_indexed) !!}
 @endsection
 
 @section('content')
@@ -17,10 +17,9 @@
 
     <section class="pc-section pc-contact-page">
         <div class="container">
+            @include('themes.PortfolioTheme.components.article-categories', ['categories' => $article->categories->all()])
             {!! $article->content !!}
         </div>
     </section>
 
-    {{--@include('themes.components.blog')--}}
-    {{--@include('themes.components.portfolio')--}}
 @endsection
