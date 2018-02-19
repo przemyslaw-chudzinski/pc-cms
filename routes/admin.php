@@ -18,114 +18,114 @@ Route::group([
     'middleware' => ['auth.admin']
 ], function () {
 
-    Route::get('/', 'BackendController@index')->name(config('admin.modules.dashboard.actions.index.route_name'));
+    Route::get('/', 'BackendController@index')->name(getRouteName('dashboard', 'index'));
 
     /* Segments */
     Route::group(['prefix' => 'segments'], function () {
-        Route::get('/', 'SegmentsController@index')->name(config('admin.modules.segments.actions.index.route_name'));
-        Route::get('/{segment}/edit', 'SegmentsController@edit')->name(config('admin.modules.segments.actions.edit.route_name'));
-        Route::put('{segment}', 'SegmentsController@update')->name(config('admin.modules.segments.actions.update.route_name'));
-        Route::delete('{segment}', 'SegmentsController@destroy')->name(config('admin.modules.segments.actions.destroy.route_name'));
-        Route::post('/', 'SegmentsController@store')->name(config('admin.modules.segments.actions.store.route_name'));
-        Route::get('/create', 'SegmentsController@create')->name(config('admin.modules.segments.actions.create.route_name'));
+        Route::get('/', 'SegmentsController@index')->name(getRouteName('segments', 'index'));
+        Route::get('/{segment}/edit', 'SegmentsController@edit')->name(getRouteName('segments', 'edit'));
+        Route::put('{segment}', 'SegmentsController@update')->name(getRouteName('segments', 'update'));
+        Route::delete('{segment}', 'SegmentsController@destroy')->name(getRouteName('segments', 'destroy'));
+        Route::post('/', 'SegmentsController@store')->name(getRouteName('segments', 'store'));
+        Route::get('/create', 'SegmentsController@create')->name(getRouteName('segments', 'create'));
     });
 
     /* Pages */
     Route::group(['prefix' => 'pages'], function () {
-        Route::get('/', 'PagesController@index')->name(config('admin.modules.pages.actions.index.route_name'));
-        Route::get('/{page}/edit', 'PagesController@edit')->name(config('admin.modules.pages.actions.edit.route_name'));
-        Route::put('{page}', 'PagesController@update')->name(config('admin.modules.pages.actions.update.route_name'));
-        Route::delete('{page}', 'PagesController@destroy')->name(config('admin.modules.pages.actions.destroy.route_name'));
-        Route::post('/', 'PagesController@store')->name(config('admin.modules.pages.actions.store.route_name'));
-        Route::get('/create', 'PagesController@create')->name(config('admin.modules.pages.actions.create.route_name'));
+        Route::get('/', 'PagesController@index')->name(getRouteName('pages', 'index'));
+        Route::get('/{page}/edit', 'PagesController@edit')->name(getRouteName('pages', 'edit'));
+        Route::put('{page}', 'PagesController@update')->name(getRouteName('pages', 'update'));
+        Route::delete('{page}', 'PagesController@destroy')->name(getRouteName('pages', 'destroy'));
+        Route::post('/', 'PagesController@store')->name(getRouteName('pages', 'store'));
+        Route::get('/create', 'PagesController@create')->name(getRouteName('pages', 'create'));
     });
 
     /* Projects */
     Route::group(['prefix' => 'projects'], function () {
-        Route::get('/', 'ProjectsController@index')->name('admin.projects.index');
-        Route::get('/{project}/edit', 'ProjectsController@edit')->name('admin.projects.edit');
-        Route::put('{project}', 'ProjectsController@update')->name('admin.projects.update');
-        Route::delete('{project}', 'ProjectsController@destroy')->name('admin.projects.destroy');
-        Route::post('/', 'ProjectsController@store')->name('admin.projects.store');
-        Route::get('/create', 'ProjectsController@create')->name('admin.projects.create');
+        Route::get('/', 'ProjectsController@index')->name(getRouteName('projects', 'index'));
+        Route::get('/{project}/edit', 'ProjectsController@edit')->name(getRouteName('projects', 'edit'));
+        Route::put('{project}', 'ProjectsController@update')->name(getRouteName('projects', 'update'));
+        Route::delete('{project}', 'ProjectsController@destroy')->name(getRouteName('projects', 'destroy'));
+        Route::post('/', 'ProjectsController@store')->name(getRouteName('projects', 'store'));
+        Route::get('/create', 'ProjectsController@create')->name(getRouteName('projects', 'create'));
 
         /* Projects categories */
         Route::group(['prefix' => 'categories'], function () {
-            Route::get('/', 'ProjectCategoriesController@index')->name('admin.projects.categories.index');
-            Route::get('/{projectCategory}/edit', 'ProjectCategoriesController@edit')->name('admin.projects.categories.edit');
-            Route::put('{projectCategory}', 'ProjectCategoriesController@update')->name('admin.projects.categories.update');
-            Route::delete('{projectCategory}', 'ProjectCategoriesController@destroy')->name('admin.projects.categories.destroy');
-            Route::post('/', 'ProjectCategoriesController@store')->name('admin.projects.categories.store');
-            Route::get('/create', 'ProjectCategoriesController@create')->name('admin.projects.categories.create');
+            Route::get('/', 'ProjectCategoriesController@index')->name(getRouteName('project_categories', 'index'));
+            Route::get('/{projectCategory}/edit', 'ProjectCategoriesController@edit')->name(getRouteName('project_categories', 'edit'));
+            Route::put('{projectCategory}', 'ProjectCategoriesController@update')->name(getRouteName('project_categories', 'update'));
+            Route::delete('{projectCategory}', 'ProjectCategoriesController@destroy')->name(getRouteName('project_categories', 'destroy'));
+            Route::post('/', 'ProjectCategoriesController@store')->name(getRouteName('project_categories', 'store'));
+            Route::get('/create', 'ProjectCategoriesController@create')->name(getRouteName('project_categories', 'create'));
         });
     });
 
     /* Blog */
     Route::group(['prefix' => 'articles'], function () {
-       Route::get('/', 'BlogController@index')->name('admin.articles.index');
-       Route::get('/create', 'BlogController@create')->name('admin.articles.create');
-       Route::get('{article}/edit', 'BlogController@edit')->name('admin.articles.edit');
-       Route::post('/', 'BlogController@store')->name('admin.articles.store');
-       Route::put('{article}', 'BlogController@update')->name('admin.articles.update');
-       Route::delete('{article}', 'BlogController@destroy')->name('admin.articles.destroy');
+       Route::get('/', 'BlogController@index')->name(getRouteName('blog', 'index'));
+       Route::get('/create', 'BlogController@create')->name(getRouteName('blog', 'create'));
+       Route::get('{article}/edit', 'BlogController@edit')->name(getRouteName('blog', 'edit'));
+       Route::post('/', 'BlogController@store')->name(getRouteName('blog', 'store'));
+       Route::put('{article}', 'BlogController@update')->name(getRouteName('blog', 'update'));
+       Route::delete('{article}', 'BlogController@destroy')->name(getRouteName('blog', 'destroy'));
 
         /* Blog Categories */
         Route::group(['prefix' => 'categories'], function () {
-            Route::get('/', 'BlogCategoriesController@index')->name('admin.articles.categories.index');
-            Route::get('/create', 'BlogCategoriesController@create')->name('admin.articles.categories.create');
-            Route::get('{blogCategory}/edit', 'BlogCategoriesController@edit')->name('admin.articles.categories.edit');
-            Route::post('/', 'BlogCategoriesController@store')->name('admin.articles.categories.store');
-            Route::put('{blogCategory}', 'BlogCategoriesController@update')->name('admin.articles.categories.update');
-            Route::delete('{blogCategory}', 'BlogCategoriesController@destroy')->name('admin.articles.categories.destroy');
+            Route::get('/', 'BlogCategoriesController@index')->name(getRouteName('blog_categories', 'index'));
+            Route::get('/create', 'BlogCategoriesController@create')->name(getRouteName('blog_categories', 'create'));
+            Route::get('{blogCategory}/edit', 'BlogCategoriesController@edit')->name(getRouteName('blog_categories', 'edit'));
+            Route::post('/', 'BlogCategoriesController@store')->name(getRouteName('blog_categories', 'store'));
+            Route::put('{blogCategory}', 'BlogCategoriesController@update')->name(getRouteName('blog_categories', 'update'));
+            Route::delete('{blogCategory}', 'BlogCategoriesController@destroy')->name(getRouteName('blog_categories', 'destroy'));
         });
     });
 
     /* Settings */
     Route::group(['prefix' => 'settings'], function () {
-        Route::get('/', 'SettingsController@index')->name('admin.settings.index');
-        Route::post('/', 'SettingsController@store')->name('admin.settings.store');
-        Route::put('{setting}', 'SettingsController@update')->name('admin.settings.update');
-        Route::delete('{setting}', 'SettingsController@destroy')->name('admin.settings.destroy');
+        Route::get('/', 'SettingsController@index')->name(getRouteName('settings', 'index'));
+        Route::post('/', 'SettingsController@store')->name(getRouteName('settings', 'store'));
+        Route::put('{setting}', 'SettingsController@update')->name(getRouteName('settings', 'update'));
+        Route::delete('{setting}', 'SettingsController@destroy')->name(getRouteName('settings', 'destroy'));
     });
 
     /* Menus */
     Route::group(['prefix' => 'menus'], function () {
-        Route::get('/', 'MenusController@index')->name('admin.menus.index');
-        Route::get('/{menu}/edit', 'MenusController@edit')->name('admin.menus.edit');
-        Route::get('/{menu}/builder', 'MenusController@menuBuilder')->name('admin.menus.builder');
-        Route::put('{menu}', 'MenusController@update')->name('admin.menus.update');
-        Route::delete('{menu}', 'MenusController@destroy')->name('admin.menus.destroy');
-        Route::post('/', 'MenusController@store')->name('admin.menus.store');
-        Route::get('/create', 'MenusController@create')->name('admin.menus.create');
+        Route::get('/', 'MenusController@index')->name(getRouteName('menus', 'index'));
+        Route::get('/{menu}/edit', 'MenusController@edit')->name(getRouteName('menus', 'edit'));
+        Route::get('/{menu}/builder', 'MenusController@menuBuilder')->name(getRouteName('menus', 'builder'));
+        Route::put('{menu}', 'MenusController@update')->name(getRouteName('menus', 'update'));
+        Route::delete('{menu}', 'MenusController@destroy')->name(getRouteName('menus', 'destroy'));
+        Route::post('/', 'MenusController@store')->name(getRouteName('menus', 'store'));
+        Route::get('/create', 'MenusController@create')->name(getRouteName('menus', 'create'));
 
         /* Menu items */
-        Route::post('/{menu}/items/create', 'MenuItemsController@store')->name('admin.menus.items.store');
-        Route::delete('/items/{menuItem}', 'MenuItemsController@destroy')->name('admin.menus.items.destroy');
+        Route::post('/{menu}/items/create', 'MenuItemsController@store')->name(getRouteName('menus', 'item_store'));
+        Route::delete('/items/{menuItem}', 'MenuItemsController@destroy')->name(getRouteName('menus', 'item_destroy'));
         Route::put('/items/{menuItem}', 'MenuItemsController@update')->name(getRouteName('menus', 'item_update'));
 
     });
 
     /* Users */
     Route::group(['prefix' => 'users'], function () {
-        Route::get('/', 'UsersController@index')->name('admin.users.index');
-        Route::get('/{user}/edit', 'UsersController@edit')->name('admin.users.edit');
-        Route::put('{user}/reset-password', 'UsersController@resetPassword')->name(config('admin.modules.users.actions.reset_password.route_name'));
-        Route::put('{user}', 'UsersController@update')->name('admin.users.update');
+        Route::get('/', 'UsersController@index')->name(getRouteName('users', 'index'));
+        Route::get('/{user}/edit', 'UsersController@edit')->name(getRouteName('users', 'edit'));
+        Route::put('{user}/reset-password', 'UsersController@resetPassword')->name(getRouteName('users', 'reset_password'));
+        Route::put('{user}', 'UsersController@update')->name(getRouteName('users', 'update'));
         Route::put('{user}/role-update', 'UsersController@updateUserRole')->name(getRouteName('users', 'role_update'));
-        Route::delete('{user}', 'UsersController@destroy')->name('admin.users.destroy');
-        Route::post('/', 'UsersController@store')->name('admin.users.store');
-        Route::get('/create', 'UsersController@create')->name('admin.users.create');
+        Route::delete('{user}', 'UsersController@destroy')->name(getRouteName('users', 'destroy'));
+        Route::post('/', 'UsersController@store')->name(getRouteName('users', 'store'));
+        Route::get('/create', 'UsersController@create')->name(getRouteName('users', 'create'));
 
         /* Roles */
         Route::group(['prefix' => 'roles'], function () {
-            Route::get('/', 'RolesController@index')->name('admin.users.roles.index');
-            Route::post('/', 'RolesController@store')->name('admin.users.roles.store');
-            Route::get('create', 'RolesController@create')->name('admin.users.roles.create');
-            Route::put('{role}', 'RolesController@update')->name('admin.users.roles.update');
-            Route::get('{role}/edit', 'RolesController@edit')->name('admin.users.roles.edit');
-            Route::delete('{role}', 'RolesController@destroy')->name('admin.users.roles.destroy');
-            Route::get('{role}/set-permissions', 'RolesController@setPermissions')->name('admin.users.roles.setPermissions');
-            Route::put('{role}/update-permissions', 'RolesController@updatePermissions')->name('admin.users.roles.updatePermissions');
+            Route::get('/', 'RolesController@index')->name(getRouteName('roles','index'));
+            Route::post('/', 'RolesController@store')->name(getRouteName('roles', 'store'));
+            Route::get('create', 'RolesController@create')->name(getRouteName('roles', 'create'));
+            Route::put('{role}', 'RolesController@update')->name(getRouteName('roles', 'update'));
+            Route::get('{role}/edit', 'RolesController@edit')->name(getRouteName('roles', 'edit'));
+            Route::delete('{role}', 'RolesController@destroy')->name(getRouteName('roles', 'destroy'));
+            Route::get('{role}/set-permissions', 'RolesController@setPermissions')->name(getRouteName('roles', 'permission_set_permission'));
+            Route::put('{role}/update-permissions', 'RolesController@updatePermissions')->name(getRouteName('roles', 'permission_update_permission'));
 
         });
     });

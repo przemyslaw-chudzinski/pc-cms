@@ -295,8 +295,8 @@ return [
                     'display_name' => 'Update menu item action',
                     'route_name' => 'admin.menus.items.update'
                 ],
-                'set_permissions' => [
-                    'display_name' => 'Set permissions view',
+                'builder' => [
+                    'display_name' => 'Menu builder view',
                     'route_name' => 'admin.menus.builder'
                 ]
             ],
