@@ -32189,12 +32189,13 @@ __webpack_require__(52);
     var $uploadFilesInput = $('.pc-cms-upload-files-input');
     var $clearFilesBtns = $('.pc-cms-clear-files');
     var $noImageInputs = $('.pc-cms-no-image');
+    var $editFilesBtn = $('.pc-cms-edit-files');
 
     $noImageInputs.val('no');
 
     if ($clearFilesBtns.length) {
         $clearFilesBtns.on('click', function (e) {
-            onClickClearFilesInit(e, $(this));
+            onClickClearFilesInit(e, $(this), $editFilesBtn);
         });
     }
 
@@ -32206,22 +32207,24 @@ __webpack_require__(52);
         var $previewContainerId = $uploadInput.data('preview-container');
         var $previewContainer = $($previewContainerId);
         var $currentPreviewImages = $previewContainer.find('.pc-cms-single-preview-image');
-        var $clearFilesBtn = $('<a href="#" class="pc-cms-clear-files">Clear selected files</a>');
+        var $clearFilesBtn = $('<a href="#" class="btn btn-xs btn-danger pc-cms-clear-files">Clear selected files</a>');
         var $currentClearFilesBtn = $previewContainer.find('.pc-cms-clear-files');
         var $noImageInput = $previewContainer.find('.pc-cms-no-image');
+        var $previewRow = $previewContainer.find('.pc-cms-preview-row');
+        var $previewActions = $previewContainer.find('.pc-cms-files-actions');
 
         $noImageInput.val('no');
 
         if (!$currentClearFilesBtn.length) {
-            $previewContainer.append($clearFilesBtn);
+            $previewActions.append($clearFilesBtn);
         } else {
             $currentClearFilesBtn.on('click', function (e) {
-                onClickClearFilesBtn(e, $uploadInput, $(this), $previewContainer, $noImageInput);
+                onClickClearFilesBtn(e, $uploadInput, $(this), $previewContainer, $noImageInput, $editFilesBtn);
             });
         }
 
         $clearFilesBtn.on('click', function (e) {
-            onClickClearFilesBtn(e, $uploadInput, $(this), $previewContainer, $noImageInput);
+            onClickClearFilesBtn(e, $uploadInput, $(this), $previewContainer, $noImageInput, $editFilesBtn);
         });
 
         if ($currentPreviewImages.length) {
@@ -32232,7 +32235,7 @@ __webpack_require__(52);
             [].forEach.call($uploadInput[0].files, function (file) {
                 var reader = new FileReader();
                 reader.onload = function (e) {
-                    createPreviewThumbnail(e, $previewContainer);
+                    createPreviewThumbnail(e, $previewRow);
                 };
                 reader.readAsDataURL(file);
             });
@@ -32247,24 +32250,26 @@ __webpack_require__(52);
         $previewContainer.append($imageWrapper);
     }
 
-    function onClickClearFilesBtn(e, $uploadInput, $clearFilesBtn, $previewContainer, $noImageInput) {
+    function onClickClearFilesBtn(e, $uploadInput, $clearFilesBtn, $previewContainer, $noImageInput, $editFilesBtn) {
         e.preventDefault();
         e.stopPropagation();
         $uploadInput.val('');
         var $currentPreviewImages = $previewContainer.find('.pc-cms-single-preview-image');
         $currentPreviewImages.remove();
         $clearFilesBtn.remove();
+        $editFilesBtn.remove();
         $noImageInput.val('yes');
     }
 
-    function onClickClearFilesInit(e, $clearBtn) {
+    function onClickClearFilesInit(e, $clearBtn, $editFilesBtn) {
         e.preventDefault();
         e.stopPropagation();
-        var $previewContainer = $clearBtn.parent();
+        var $previewContainer = $clearBtn.closest('.pc-cms-image-preview-container');
         var $currentPreviewImages = $previewContainer.find('.pc-cms-single-preview-image');
         var $noImageInput = $previewContainer.find('.pc-cms-no-image');
         $noImageInput.val('yes');
         $currentPreviewImages.remove();
+        $editFilesBtn.remove();
         $clearBtn.remove();
     }
 })();

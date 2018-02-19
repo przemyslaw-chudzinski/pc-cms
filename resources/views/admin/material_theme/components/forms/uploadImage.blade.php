@@ -1,16 +1,23 @@
 <div class="pc-cms-image-preview-container is-fileinput" id="{{ $previewContainerId }}">
     @if ($editState)
         @if ($image)
-            <a href="#" class="pc-cms-clear-files">Clear selected files</a>
+            <div class="row pc-cms-files-actions">
+                <a href="#" class="btn btn-xs btn-danger pc-cms-clear-files">Clear selected files</a>
+                <a href="#" class="btn btn-xs btn-info pc-cms-edit-files">Edit images</a>
+            </div>
             @if($multiple)
-                @foreach(json_decode($image, true) as $img)
-                    <div class="col-xs-6 col-md-4 pc-cms-single-preview-image">
-                        <img src="{{ getImageUrl($img, 'admin_prev_medium') }}" class="img-responsive img-thumbnail">
-                    </div>
-                @endforeach
+                <div class="row pc-cms-preview-row">
+                    @foreach(json_decode($image, true) as $img)
+                        <div class="col-xs-6 col-md-4 pc-cms-single-preview-image">
+                            <img src="{{ getImageUrl($img, 'admin_prev_medium') }}" class="img-responsive img-thumbnail">
+                        </div>
+                    @endforeach
+                </div>
             @else
-                <div class="col-xs-6 col-md-4 pc-cms-single-preview-image">
-                    <img src="{{ getImageUrl(json_decode($image, true), 'admin_prev_medium') }}" class="img-responsive img-thumbnail">
+                <div class="row">
+                    <div class="col-xs-6 col-md-4 pc-cms-single-preview-image">
+                        <img src="{{ getImageUrl(json_decode($image, true), 'admin_prev_medium') }}" class="img-responsive img-thumbnail">
+                    </div>
                 </div>
             @endif
         @endif
