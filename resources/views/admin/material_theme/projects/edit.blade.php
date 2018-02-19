@@ -135,7 +135,10 @@
                                     'editState' => true,
                                     'image' => $project->images,
                                     'dir' => 'projects',
-                                    'noImageInputName' => 'noImages'
+                                    'noImageInputName' => 'noImages',
+                                    'routeName' => getRouteName('projects', 'images'),
+                                    'recordId' => $project->id,
+                                    'routeParam' => 'project'
                                 ])
                             </div>
                         </div>

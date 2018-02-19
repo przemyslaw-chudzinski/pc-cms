@@ -107,6 +107,18 @@ return [
                 'destroy' => [
                     'display_name' => 'Delete project action',
                     'route_name' => 'admin.projects.destroy'
+                ],
+                'images' => [
+                    'display_name' => 'Edit project images view',
+                    'route_name' => 'admin.projects.images'
+                ],
+                'images_destroy' => [
+                    'display_name' => 'Remove single image action',
+                    'route_name' => 'admin.projects.images.destroy'
+                ],
+                'images_add' => [
+                    'display_name' => 'Add single image action',
+                    'route_name' => 'admin.projects.images.addImage'
                 ]
             ]
         ],

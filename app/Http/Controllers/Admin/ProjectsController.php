@@ -40,4 +40,19 @@ class ProjectsController extends Controller
     {
         return $project->removeProject();
     }
+
+    public function images(Project $project)
+    {
+        return view('admin.material_theme.projects.images', ['project' => $project]);
+    }
+
+    public function removeImage(Project $project)
+    {
+        return $project->removeImage();
+    }
+
+    public function addImage(Project $project)
+    {
+        return $project->addImage();
+    }
 }

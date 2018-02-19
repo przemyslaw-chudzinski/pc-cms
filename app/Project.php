@@ -175,4 +175,61 @@ class Project extends Model
             'newStatus' => $res['data']['published']
         ]);
     }
+
+    public function removeImage()
+    {
+        $data = request()->all();
+
+        $images = json_decode($this->images, true);
+
+        foreach ($images as $key => $img) {
+            if ($img['original'] === $data['image']) {
+                unset($images[$key]);
+                break;
+            }
+        }
+
+        $this->update([
+            'images' => json_encode($images)
+        ]);
+
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => 'Image has been deleted successfully'
+        ]);
+    }
+
+    public function addImage()
+    {
+        $data = request()->all();
+
+
+        $validator = Validator::make($data, [
+            'image' => 'image|required|max:2048'
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator);
+        }
+
+        $images = json_decode($this->images, true);
+
+        if (!$images) {
+            $images = [];
+        }
+
+        if (isset($data['image'])) {
+            $images[] = self::uploadImage($data, 'image', getModuleUploadDir('projects'));
+        }
+
+        $this->update([
+            'images' => json_encode($images)
+        ]);
+
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => 'Image has been added successfully'
+        ]);
+
+    }
 }

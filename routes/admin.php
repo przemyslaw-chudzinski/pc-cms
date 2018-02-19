@@ -48,6 +48,9 @@ Route::group([
         Route::delete('{project}', 'ProjectsController@destroy')->name(getRouteName('projects', 'destroy'));
         Route::post('/', 'ProjectsController@store')->name(getRouteName('projects', 'store'));
         Route::get('/create', 'ProjectsController@create')->name(getRouteName('projects', 'create'));
+        Route::get('{project}/images', 'ProjectsController@images')->name(getRouteName('projects', 'images'));
+        Route::put('{project}/images/add', 'ProjectsController@addImage')->name(getRouteName('projects', 'images_add'));
+        Route::put('{project}/images', 'ProjectsController@removeImage')->name(getRouteName('projects', 'images_destroy'));
 
         /* Projects categories */
         Route::group(['prefix' => 'categories'], function () {
