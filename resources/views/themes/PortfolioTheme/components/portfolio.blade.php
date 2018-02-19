@@ -7,7 +7,7 @@
                 <span class="d-block pc-section-header-2-subheader">{!! Segment::get('front-portfolio-subheader') !!}</span>
             </div>
             <div class="col-lg-5 text-center text-lg-right">
-                <a href="#" class="wow bounceInRight btn pc-button-primary"><span>Zobacz moje projekty</span></a>
+                <a href="{{ url('/portfolio') }}" class="wow bounceInRight btn pc-button-primary"><span>Zobacz moje projekty</span></a>
             </div>
         </div>
     </div>

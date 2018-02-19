@@ -71,7 +71,7 @@ class Article extends Model
 
     public static function getArticlesWithPagination($perPage = 10)
     {
-        return self::paginate($perPage);
+        return self::latest()->paginate($perPage);
     }
 
     public function updateArticle()

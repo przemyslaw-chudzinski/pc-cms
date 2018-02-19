@@ -44,6 +44,7 @@
         @include('admin.material_theme.partials.footer')
     </section>
 </div>
+<script src="{{ asset('tinymce/js/tinymce/tinymce.min.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('admin/material_theme/dist/js/vendor.bundle.js') }}"></script>
 <script src="{{ asset('admin/material_theme/dist/js/app.bundle.js') }}"></script>

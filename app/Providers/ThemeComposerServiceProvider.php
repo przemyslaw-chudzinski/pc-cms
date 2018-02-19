@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Project;
 use Illuminate\Support\ServiceProvider;
 use View;
 use App\Article;
+use App\Facades\Theme;
 
 class ThemeComposerServiceProvider extends ServiceProvider
 {
@@ -16,18 +18,27 @@ class ThemeComposerServiceProvider extends ServiceProvider
     public function boot()
     {
 
+        $theme = Theme::getSetting('theme');
+
         View::composer([
-            'themes.PortfolioTheme.components.blog'
+            'themes.' . $theme . '.components.blog'
         ], function ($view) {
             $articles = Article::where('published', true)->latest()->limit(4)->get();
             $view->with('articles', $articles);
         });
 
         View::composer([
-            'themes.PortfolioTheme.page-templates.blog'
+            'themes.' . $theme . '.page-templates.blog'
         ], function ($view) {
             $articles = Article::where('published', true)->latest()->paginate(10);
             $view->with('articles', $articles);
+        });
+
+        View::composer([
+            'themes.' . $theme . '.page-templates.projects'
+        ], function ($view) {
+            $projects = Project::where('published', true)->latest()->paginate(10);
+            $view->with('projects', $projects);
         });
     }
 
