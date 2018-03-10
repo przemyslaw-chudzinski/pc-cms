@@ -9,7 +9,8 @@
                 {!! Form::open([
                  'method' => 'post',
                  'id' => 'pc-cms-menubuilder-create-item-form',
-                 'route' => [config('admin.modules.menus.actions.item_store.route_name'), $menu->id]
+                 'route' => [config('admin.modules.menus.actions.item_store.route_name'), $menu->id],
+                 'files' => true
                  ]) !!}
                 <div class="form-group">
                     {!! Form::label(null, 'Item name') !!}
@@ -25,8 +26,15 @@
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label(null,'Hook') !!}
-                    {!! Form::text('hook', null, ['class' => 'form-control']) !!}
+                    @include('admin.material_theme.components.forms.uploadImage', [
+                                    'filedName' => 'menuItemImage',
+                                    'id' => 'menuItemImage',
+                                    'label' => 'Image',
+                                    'previewContainerId' => 'menuItemImagePreview',
+                                    'placeholder' => 'Choose menu item image',
+                                    'multiple' => false,
+                                    'editState' => false
+                                ])
                 </div>
                 {!! Form::close() !!}
             </div>

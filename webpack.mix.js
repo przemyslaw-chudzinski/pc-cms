@@ -18,3 +18,4 @@ let mix = require('laravel-mix');
 /* For material_theme */
 mix.js('resources/views/admin/material_theme/assets/js/app.js', 'public/js')
     .sass('resources/views/admin/material_theme/assets/sass/app.scss', 'public/css');
+

@@ -14,14 +14,14 @@ class ThemeService
     public static function getView($slug = '')
     {
 
-        if ($slug === '') {
-
-            return view('themes.index');
-
-        }
-
         /* Theme directory name */
         $theme = self::getTheme();
+
+        if ($slug === '') {
+
+            return view('themes.'.$theme.'.index');
+
+        }
 
         if ($theme === null || $theme === '') {
             throw new \Exception('Theme does not exits');
@@ -88,7 +88,9 @@ class ThemeService
         $templates = [];
         if (count($pageTemplatesFiles) > 0) {
             foreach ($pageTemplatesFiles as $pageTemplatesFile) {
-                $templates[] = array_first(explode('.', $pageTemplatesFile->getFileName()));
+                if($pageTemplatesFile->getRelativePath() === ""){
+                    $templates[] = array_first(explode('.', $pageTemplatesFile->getFileName()));
+                }
             }
         }
         return $templates;
@@ -96,14 +98,15 @@ class ThemeService
 
     public static function getSingleArticleView($slug = '')
     {
-        if ($slug === '') {
-
-            return view('themes.index');
-
-        }
 
         /* Theme directory name */
         $theme = self::getTheme();
+
+        if ($slug === '') {
+
+            return view('themes.'.$theme.'.index');
+
+        }
 
         if ($theme === null || $theme === '') {
             throw new \Exception('Theme does not exits');

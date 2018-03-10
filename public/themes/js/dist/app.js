@@ -852,6 +852,8 @@ var Tooltip = function ($) {
   const $navigation = $('.pc-navigation');
   let bannerHeight = $banner.height();
 
+  onSWindowScroll();
+
   $(window).on('scroll', onSWindowScroll);
 
   $(window).on('resize', function (e) {

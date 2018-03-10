@@ -2,11 +2,15 @@
 
 namespace App;
 
+use App\Traits\FilesTrait;
+use App\Traits\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Validator;
 
 class MenuItem extends Model
 {
+    use ModelTrait, FilesTrait;
+
     protected $fillable = [
         'menu_id',
         'title',
@@ -14,7 +18,7 @@ class MenuItem extends Model
         'target',
         'parent_id',
         'order',
-        'hook'
+        'image'
     ];
 
 
@@ -37,15 +41,15 @@ class MenuItem extends Model
         }
 
         $validator = Validator::make($data, [
-           'title' => 'required'
+           'title' => 'required',
+           'menuItemImage' => 'image|max:2048'
         ]);
 
         if ($validator->fails()) {
-            return back()->with('alert', [
-                'type' => 'danger',
-                'message' => 'The title field is required'
-            ]);
+            return back()->withErrors($validator);
         }
+
+        $data['image'] = json_encode(self::uploadImage($data, 'menuItemImage', getModuleUploadDir('menus')));
 
         $menu->items()->create($data);
 

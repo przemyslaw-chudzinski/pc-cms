@@ -22,7 +22,10 @@
                 </h3>
             </div>
         </div>
+        <a class="pc-banner-btn" href="{{ url('/') }}"><span class="fa fa-angle-left"></span> Strona główna</a>
     </section>
+
+    @include('themes.PortfolioTheme.components.blog-categories-list')
 
     <section class="pc-section pc-contact-page">
         <div class="container">

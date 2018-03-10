@@ -1,4 +1,4 @@
-@extends('themes.PortfolioTheme.layout')
+@extends('themes.PortfolioTheme.layout-portfolio')
 
 @section('meta_title')
     {!! Theme::getMetaTitle($page->meta_title) !!}
@@ -13,13 +13,7 @@
 @endsection
 
 @section('content')
-    @include('themes.PortfolioTheme.components.page-banner')
 
-    <section class="pc-section pc-contact-page">
-        <div class="container">
-            <div class="row">
-                Strona w przygotowaniu
-            </div>
-        </div>
-    </section>
+    lista projetków z mojego portfolio
+
 @endsection

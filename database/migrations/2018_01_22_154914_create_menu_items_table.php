@@ -23,7 +23,7 @@ class CreateMenuItemsTable extends Migration
             $table->string('target')->default('_self');
             $table->integer('parent_id')->unsigned()->nullable()->default(null);
             $table->integer('order')->unsigend()->nullable()->default(1);
-            $table->string('hook')->nullable()->default(null);
+            $table->string('image')->nullable()->default(null);
             $table->timestamps();
         });
     }

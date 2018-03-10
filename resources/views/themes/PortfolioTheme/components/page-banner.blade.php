@@ -5,4 +5,5 @@
             <h3 class="text-uppercase text-center pc-banner-content-header animated slideInRight">{{ $page->title }}</h3>
         </div>
     </div>
+    <a class="pc-banner-btn" href="{{ url('/') }}"><span class="fa fa-angle-left"></span> Strona główna</a>
 </section>

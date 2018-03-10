@@ -9,7 +9,8 @@ class ThemeController extends Controller
 {
     public function index()
     {
-        return view('themes.PortfolioTheme.index');
+        $theme = ThemeService::getTheme();
+        return view('themes.'.$theme.'.index');
     }
 
     public function showPage($slug)

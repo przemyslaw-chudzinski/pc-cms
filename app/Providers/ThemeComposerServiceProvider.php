@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\BlogCategory;
 use App\Project;
 use Illuminate\Support\ServiceProvider;
 use View;
@@ -39,6 +40,13 @@ class ThemeComposerServiceProvider extends ServiceProvider
         ], function ($view) {
             $projects = Project::where('published', true)->latest()->paginate(10);
             $view->with('projects', $projects);
+        });
+
+        View::composer([
+            'themes.' . $theme . '.components.blog-categories-list'
+        ], function ($view) {
+            $categories = BlogCategory::where('published', true)->get();
+            $view->with('categories', $categories);
         });
     }
 

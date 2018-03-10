@@ -11,15 +11,12 @@
     @stack('head')
 </head>
 <body>
-@include('themes.PortfolioTheme.components.navigation')
 
 @yield('content')
 
 
-@include('themes.PortfolioTheme.components.contact-form')
-@include('themes.PortfolioTheme.components.footer')
 
-@include('themes.PortfolioTheme.components.mega-menu')
+
 
 <!-- Scripts -->
 <script src="{{ asset('themes/js/dist/app.js') }}"></script>

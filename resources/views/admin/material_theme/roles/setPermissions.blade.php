@@ -21,7 +21,7 @@
                             <hr>
                             @if (count($module['actions']) > 0)
                                 @foreach($module['actions'] as $name => $action)
-                                    <div class="form-group">
+                                    <div>
                                         <div class="checkbox">
                                             <label>
                                                 {!! Form::checkbox('', null, null, [

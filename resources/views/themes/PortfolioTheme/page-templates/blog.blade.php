@@ -14,7 +14,7 @@
 
 @section('content')
     @include('themes.PortfolioTheme.components.page-banner')
-
+    @include('themes.PortfolioTheme.components.blog-categories-list')
     <section class="pc-section pc-contact-page">
         <div class="container">
             <div class="row">
