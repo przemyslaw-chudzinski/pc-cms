@@ -25,8 +25,18 @@
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label(null,'Hook') !!}
-                    {!! Form::text('hook', $item->hook, ['class' => 'form-control']) !!}
+                    @include('admin.material_theme.components.forms.uploadImage', [
+                                    'filedName' => 'menuItemImage',
+                                    'id' => 'menuItemImage',
+                                    'label' => 'Image',
+                                    'placeholder' => 'Choose menu item image',
+                                    'previewContainerId' => 'menuItemImagePreview',
+                                    'multiple' => false,
+                                    'editState' => true,
+                                    'image' => $item->image,
+                                    'dir' => 'menus',
+                                    'noImageInputName' => 'noImage'
+                                ])
                 </div>
                 {!! Form::close() !!}
             </div>
