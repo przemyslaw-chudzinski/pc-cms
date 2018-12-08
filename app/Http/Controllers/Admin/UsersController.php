@@ -2,28 +2,27 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Role;
 use App\User;
 
-class UsersController extends Controller
+class UsersController extends BaseController
 {
     public function index()
     {
         $users = User::getUsersWithPagination();
-        return view('admin::users.index', ['users' => $users]);
+        return $this->loadView('users.index', ['users' => $users]);
     }
 
     public function create()
     {
         $roles = Role::getRoles();
-        return view('admin::users.create', ['roles' => $roles]);
+        return $this->loadView('users.create', ['roles' => $roles]);
     }
 
     public function edit(User $user)
     {
         $roles = Role::getRoles();
-        return view('admin::users.edit', ['user' => $user, 'roles' => $roles]);
+        return $this->loadView('users.edit', ['user' => $user, 'roles' => $roles]);
     }
 
     public function update(User $user)

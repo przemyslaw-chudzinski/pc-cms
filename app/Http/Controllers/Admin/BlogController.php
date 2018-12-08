@@ -6,24 +6,24 @@ use App\Article;
 use App\BlogCategory;
 use App\Http\Controllers\Controller;
 
-class BlogController extends Controller
+class BlogController extends BaseController
 {
     public function index()
     {
         $articles = Article::getArticlesWithPagination();
-        return view('admin::articles.index', ['articles' => $articles]);
+        return $this->loadView('articles.index', ['articles' => $articles]);
     }
 
     public function edit(Article $article)
     {
         $categories = BlogCategory::getAllCategories();
-        return view('admin::articles.edit', ['article' => $article, 'categories' => $categories]);
+        return $this->loadView('articles.edit', ['article' => $article, 'categories' => $categories]);
     }
 
     public function create()
     {
         $categories = BlogCategory::getAllCategories();
-        return view('admin::articles.create', ['categories' => $categories]);
+        return $this->loadView('articles.create', ['categories' => $categories]);
     }
 
     public function store()

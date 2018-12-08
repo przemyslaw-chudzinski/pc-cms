@@ -2,26 +2,24 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Core\Services\ThemeService;
-use App\Http\Controllers\Controller;
 use App\Page;
 
-class PagesController extends Controller
+class PagesController extends BaseController
 {
     public function index()
     {
         $pages = Page::getPagesWithPagination();
-        return view('admin::pages.index', ['pages' => $pages]);
+        return $this->loadView('pages.index', ['pages' => $pages]);
     }
 
     public function create()
     {
-        return view('admin::pages.create');
+        return $this->loadView('pages.create');
     }
 
     public function edit(Page $page)
     {
-        return view('admin::pages.edit', ['page' => $page]);
+        return $this->loadView('pages.edit', ['page' => $page]);
     }
 
     public function store()

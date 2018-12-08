@@ -2,28 +2,27 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Project;
 use App\ProjectCategory;
 
-class ProjectsController extends Controller
+class ProjectsController extends BaseController
 {
     public function index()
     {
         $projects = Project::getProjectsWithPagination();
-        return view('admin::projects.index', ['projects' => $projects]);
+        return $this->loadView('projects.index', ['projects' => $projects]);
     }
 
     public function create()
     {
         $categories = ProjectCategory::getCategories();
-        return view('admin::projects.create', ['categories' => $categories]);
+        return $this->loadView('projects.create', ['categories' => $categories]);
     }
 
     public function edit(Project $project)
     {
         $categories = ProjectCategory::getCategories();
-        return view('admin::projects.edit', ['project' => $project, 'categories' => $categories]);
+        return $this->loadView('projects.edit', ['project' => $project, 'categories' => $categories]);
     }
 
     public function store()
@@ -43,7 +42,7 @@ class ProjectsController extends Controller
 
     public function images(Project $project)
     {
-        return view('admin::projects.images', ['project' => $project]);
+        return $this->loadView('projects.images', ['project' => $project]);
     }
 
     public function removeImage(Project $project)

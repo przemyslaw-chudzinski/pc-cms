@@ -10,6 +10,8 @@ class AdminRouteServiceProvider extends ServiceProvider
 
     protected $namespace = 'App\Http\Controllers\Admin';
 
+    protected $routesPath = 'routes/admin-routes';
+
     /**
      * Bootstrap the application services.
      *
@@ -44,7 +46,7 @@ class AdminRouteServiceProvider extends ServiceProvider
         Route::prefix(config('admin.admin_path'))
             ->middleware('web')
             ->namespace($this->namespace)
-            ->group(base_path('admin-routes/web.php'));
+            ->group(base_path($this->routesPath . '/web.php'));
     }
 
     /**
@@ -59,6 +61,6 @@ class AdminRouteServiceProvider extends ServiceProvider
         Route::prefix('api')
             ->middleware('api')
             ->namespace($this->namespace)
-            ->group(base_path('admin-routes/api.php'));
+            ->group(base_path($this->routesPath . '/api.php'));
     }
 }

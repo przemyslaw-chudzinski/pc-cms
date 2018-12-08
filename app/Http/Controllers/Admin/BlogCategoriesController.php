@@ -3,26 +3,25 @@
 namespace App\Http\Controllers\Admin;
 
 use App\BlogCategory;
-use App\Http\Controllers\Controller;
 
-class BlogCategoriesController extends Controller
+class BlogCategoriesController extends BaseController
 {
     public function index()
     {
         $categories = BlogCategory::getCategoriesWithPagination();
-        return view('admin::blogCategories.index', ['categories' => $categories]);
+        return $this->loadView('blogCategories.index', ['categories' => $categories]);
     }
 
     public function create()
     {
         $categories = BlogCategory::getAllCategories();
-        return view('admin::blogCategories.create', ['categories' => $categories]);
+        return $this->loadView('blogCategories.create', ['categories' => $categories]);
     }
 
     public function edit(BlogCategory $blogCategory)
     {
         $categories = BlogCategory::getAllCategories();
-        return view('admin::blogCategories.edit', ['category' => $blogCategory, 'categories' => $categories]);
+        return $this->loadView('blogCategories.edit', ['category' => $blogCategory, 'categories' => $categories]);
     }
 
     public function store()

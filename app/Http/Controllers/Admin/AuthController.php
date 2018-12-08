@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 
-class AuthController extends Controller
+class AuthController extends BaseController
 {
 
     use AuthenticatesUsers;
@@ -24,7 +23,7 @@ class AuthController extends Controller
         if (Auth::user()) {
             return redirect(route(config('admin.modules.dashboard.actions.index.route_name')));
         }
-        return view('admin::auth.login');
+        return $this->loadView('auth.login');
     }
 
     public function logout()

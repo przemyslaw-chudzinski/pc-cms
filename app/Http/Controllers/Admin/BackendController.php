@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-
-class BackendController extends Controller
+class BackendController extends BaseController
 {
     public function index()
     {
-        return view('admin::backend.index');
+        return $this->loadView('backend.index');
     }
 }

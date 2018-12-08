@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Role;
 use App\User;
 
-class AccountSettingsController extends Controller
+class AccountSettingsController extends BaseController
 {
     public function index()
     {
         $roles = Role::getRoles();
-        return view('admin::accountSettings.index', ['roles' => $roles]);
+        return $this->loadView('accountSettings.index', ['roles' => $roles]);
     }
 
     public function update()

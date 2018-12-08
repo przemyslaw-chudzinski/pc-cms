@@ -2,25 +2,24 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Segment;
 
-class SegmentsController extends Controller
+class SegmentsController extends BaseController
 {
     public function index()
     {
         $segments = Segment::getSegmentsWithPagination();
-        return view('admin::segments.index', ['segments' => $segments]);
+        return $this->loadView('segments.index', ['segments' => $segments]);
     }
 
     public function create()
     {
-        return view('admin::segments.create');
+        return $this->loadView('segments.create');
     }
 
     public function edit(Segment $segment)
     {
-        return view('admin::segments.edit', ['segment' => $segment]);
+        return $this->loadView('segments.edit', ['segment' => $segment]);
     }
 
     public function store()
@@ -30,7 +29,6 @@ class SegmentsController extends Controller
 
     public function update(Segment $segment)
     {
-
         return $segment->updateSegment();
     }
 

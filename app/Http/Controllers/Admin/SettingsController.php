@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Setting;
 
-class SettingsController extends Controller
+class SettingsController extends BaseController
 {
     public function index()
     {
         $settings = Setting::getAllSettings();
-        return view('admin::settings.index', ['settings' => $settings]);
+        return $this->loadView('settings.index', ['settings' => $settings]);
     }
 
     public function store()

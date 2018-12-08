@@ -3,16 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Core\Services\ThemeService;
-use App\Http\Controllers\Controller;
-use App\Setting;
 
-class ThemesController extends Controller
+class ThemesController extends BaseController
 {
     public function index()
     {
         $themes = ThemeService::getThemesList();
         $currentTheme = ThemeService::getTheme();
-        return view('admin::themes.index', ['themes' => $themes, 'currentTheme' => $currentTheme]);
+        return $this->loadView('themes.index', ['themes' => $themes, 'currentTheme' => $currentTheme]);
     }
 
     public function update()

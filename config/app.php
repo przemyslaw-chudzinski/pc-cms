@@ -238,7 +238,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Theme' => App\Facades\Theme::class,
-        'MassActions' => App\Facades\MassActions::class,
+        'MassActions' => App\Facades\MassActions::class
     ],
 
 ];

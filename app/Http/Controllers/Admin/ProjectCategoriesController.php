@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\ProjectCategory;
 
-class ProjectCategoriesController extends Controller
+class ProjectCategoriesController extends BaseController
 {
     public function index()
     {
         $categories = ProjectCategory::getCategoriesWithPagination();
-        return view('admin::projectCategories.index', ['categories' => $categories]);
+        return $this->loadView('projectCategories.index', ['categories' => $categories]);
     }
 
     public function create()
     {
-        return view('admin::projectCategories.create');
+        return $this->loadView('projectCategories.create');
     }
 
     public function store()
@@ -25,7 +24,7 @@ class ProjectCategoriesController extends Controller
 
     public function edit(ProjectCategory $projectCategory)
     {
-        return view('admin::projectCategories.edit', ['category' => $projectCategory]);
+        return $this->loadView('projectCategories.edit', ['category' => $projectCategory]);
     }
 
     public function update(ProjectCategory $projectCategory)

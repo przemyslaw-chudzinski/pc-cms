@@ -2,30 +2,29 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Role;
 
-class RolesController extends Controller
+class RolesController extends BaseController
 {
     public function index()
     {
         $roles = Role::getRolesWithPagination();
-        return view('admin::roles.index', ['roles' => $roles]);
+        return $this->loadView('roles.index', ['roles' => $roles]);
     }
 
     public function create()
     {
-        return view('admin::roles.create');
+        return $this->loadView('roles.create');
     }
 
     public function edit(Role $role)
     {
-        return view('admin::roles.edit', ['role' => $role]);
+        return $this->loadView('roles.edit', ['role' => $role]);
     }
 
     public function setPermissions(Role $role)
     {
-        return view('admin::roles.setPermissions', ['role' => $role]);
+        return $this->loadView('roles.setPermissions', ['role' => $role]);
     }
 
     public function store()
