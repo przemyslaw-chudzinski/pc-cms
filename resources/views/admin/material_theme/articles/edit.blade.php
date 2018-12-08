@@ -6,14 +6,14 @@
 
 @section('content')
 
-    @include('admin.material_theme.components.alert')
-
-    @include('admin.material_theme.components.forms.validation')
+    <?php
+    $module_name = 'blog';
+    ?>
 
     <div class="row">
         {!! Form::open([
           'method' => 'put',
-          'route' => [config('admin.modules.blog.actions.update.route_name'), $article->id],
+          'route' => [getRouteName($module_name, 'update'), $article->id],
           'files' => true,
           'id' => 'editArticleForm',
           'novalidate' => 'novalidate'
@@ -62,6 +62,11 @@
                                 <div class="checkbox">
                                     <label>
                                         <input name="saveAndPublish" type="checkbox" checked> Save and publish
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input name="allowComments" type="checkbox" @if($article->allow_comments) checked @endif> Allow comments
                                     </label>
                                 </div>
                             </div>

@@ -11475,7 +11475,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
         })();
     }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-}(__webpack_require__(46)));
+}(__webpack_require__(45)));
 
 
 /***/ }),
@@ -11483,7 +11483,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(10);
-module.exports = __webpack_require__(53);
+module.exports = __webpack_require__(55);
 
 
 /***/ }),
@@ -32095,66 +32095,17 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 __webpack_require__(42);
 __webpack_require__(43);
 __webpack_require__(44);
-__webpack_require__(45);
+__webpack_require__(47);
 __webpack_require__(48);
 __webpack_require__(49);
 __webpack_require__(50);
 __webpack_require__(51);
 __webpack_require__(52);
+__webpack_require__(53);
+__webpack_require__(54);
 
 /***/ }),
 /* 42 */
-/***/ (function(module, exports) {
-
-(function () {
-
-        /* TinyMce editor init */
-        tinymce.init({
-                selector: '.pc-cms-editor',
-                plugins: 'code filemanager media advlist autolink link image lists charmap print preview hr anchor pagebreak searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking table contextmenu directionality emoticons paste textcolor responsivefilemanager',
-                toolbar1: "code undo redo | styleselect | bold italic | link image filemanager | alignleft aligncenter alignright alignjustify alignnone | strikethrough blockquote openlink | media | bullist numlist outdent indent",
-                toolbar2: "| link unlink anchor | forecolor backcolor | print preview | caption",
-
-                image_caption: true,
-                image_advtab: true,
-                external_filemanager_path: "/filemanager/",
-                filemanager_title: "Insert files",
-                external_plugins: { "filemanager": "/filemanager/plugin.min.js" },
-
-                visualblocks_default_state: true,
-                style_formats_autohide: true,
-                style_formats_merge: true,
-
-                relative_urls: false,
-
-                height: '400'
-
-                // file_browser_callback : function(field_name, url, type, win) {
-                //     let x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
-                //     let y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
-                //
-                //     let cmsURL = '/laravel-filemanager?field_name=' + field_name;
-                //     if (type == 'image') {
-                //         cmsURL = cmsURL + "&type=Images";
-                //     } else {
-                //         cmsURL = cmsURL + "&type=Files";
-                //     }
-                //
-                //     tinyMCE.activeEditor.windowManager.open({
-                //         file : cmsURL,
-                //         title : 'Filemanager',
-                //         width : x * 0.8,
-                //         height : y * 0.8,
-                //         resizable : "yes",
-                //         close_previous : "no"
-                //     });
-                // }
-
-        });
-})();
-
-/***/ }),
-/* 43 */
 /***/ (function(module, exports) {
 
 /* Remove item plugin */
@@ -32180,7 +32131,7 @@ __webpack_require__(52);
 })();
 
 /***/ }),
-/* 44 */
+/* 43 */
 /***/ (function(module, exports) {
 
 /* Preview image before upload files */
@@ -32275,14 +32226,14 @@ __webpack_require__(52);
 })();
 
 /***/ }),
-/* 45 */
+/* 44 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_toastr__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_toastr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_toastr__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__loaderAsyncPlugin__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__loaderAsyncPlugin__ = __webpack_require__(46);
 /* Change async status plugin */
 
 
@@ -32299,11 +32250,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         __WEBPACK_IMPORTED_MODULE_1__loaderAsyncPlugin__["a" /* default */].show({
             title: 'Data processing is in progress'
         });
+
         var url = $btn.data('url');
         var trueLabel = $btn.data('true-label');
         var falseLabel = $btn.data('false-label');
+        var trueClasses = $btn.data('true-classes');
+        var falseClasses = $btn.data('false-classes');
+
         sendRequest(url, null, 'post', function (response) {
-            prepareBtn($btn, response, trueLabel, falseLabel);
+            prepareBtn($btn, response, trueLabel, falseLabel, trueClasses, falseClasses);
             __WEBPACK_IMPORTED_MODULE_0_toastr___default.a.success(response.message);
             __WEBPACK_IMPORTED_MODULE_1__loaderAsyncPlugin__["a" /* default */].hide();
         }, function () {
@@ -32330,22 +32285,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     function prepareBtn($btn, response) {
         var trueLabel = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'Published';
         var falseLabel = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'Draft';
+        var trueClasses = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 'btn-success';
+        var falseClasses = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 'btn-warning';
 
-        var trueClassess = 'btn btn-success btn-xs pc-cms-status-btn pc-cms-toggle-status-btn';
-        var falseClassess = 'btn btn-warning btn-xs pc-cms-status-btn pc-cms-toggle-status-btn';
+        var _trueClasses = 'btn ' + trueClasses + ' btn-xs pc-cms-status-btn pc-cms-toggle-status-btn';
+        var _falseClasses = 'btn ' + falseClasses + ' btn-xs pc-cms-status-btn pc-cms-toggle-status-btn';
         $btn.removeClass();
         if (!response.newStatus) {
-            $btn.addClass(falseClassess);
+            $btn.addClass(_falseClasses);
             $btn.text(falseLabel);
         } else {
-            $btn.addClass(trueClassess);
+            $btn.addClass(_trueClasses);
             $btn.text(trueLabel);
         }
     }
 })();
 
 /***/ }),
-/* 46 */
+/* 45 */
 /***/ (function(module, exports) {
 
 module.exports = function() {
@@ -32354,7 +32311,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 47 */
+/* 46 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -32387,7 +32344,7 @@ var loaderAsync = {
 /* harmony default export */ __webpack_exports__["a"] = (loaderAsync);
 
 /***/ }),
-/* 48 */
+/* 47 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -32453,7 +32410,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 })();
 
 /***/ }),
-/* 49 */
+/* 48 */
 /***/ (function(module, exports) {
 
 (function () {
@@ -32471,7 +32428,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 })();
 
 /***/ }),
-/* 50 */
+/* 49 */
 /***/ (function(module, exports) {
 
 (function () {
@@ -32536,7 +32493,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 })();
 
 /***/ }),
-/* 51 */
+/* 50 */
 /***/ (function(module, exports) {
 
 (function () {
@@ -32561,13 +32518,160 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 })();
 
 /***/ }),
-/* 52 */
+/* 51 */
 /***/ (function(module, exports) {
 
 
 
 /***/ }),
+/* 52 */
+/***/ (function(module, exports) {
+
+/* Data table plugins */
+
+/* Selectbox plugin */
+(function ($) {
+
+    var $checkbox = $('.pc-selectable-input');
+    var $checkboxLength = $checkbox.length;
+    var $selectableRow = $('.pc-selectable-row');
+    var $checkboxSelectAll = $('.pc-selectable-input-all');
+    var $selectedCounter = $('.pc-selectable-counter');
+    var $massActions = $('.pc-cms-mass-actions');
+    var $selectedValuesInput = $('.pc-cms-selected-values-input');
+
+    $selectedCounter.hide();
+    $massActions.hide();
+    $selectedValuesInput.val('');
+
+    $checkbox.on('change', onCheckboxChangeHandler);
+    $checkboxSelectAll.on('change', onCheckboxSelectAllChangeHandler);
+
+    function onCheckboxChangeHandler(e) {
+        var $target = $(e.target);
+        if ($target[0].checked) {
+            $target.closest('tr.pc-selectable-row').addClass('highlight');
+            if (getLengthSelectedCheckboxes() === $checkboxLength) {
+                $checkboxSelectAll[0].checked = true;
+            }
+            setCounter();
+        } else {
+            $target.closest('tr.pc-selectable-row').removeClass('highlight');
+            if (getLengthSelectedCheckboxes() !== $checkboxLength) {
+                $checkboxSelectAll[0].checked = false;
+            }
+            setCounter();
+        }
+        addValueToSelectedValuesInput();
+    }
+
+    function onCheckboxSelectAllChangeHandler(e) {
+        var $target = $(e.target);
+        if ($target[0].checked) {
+            $selectableRow.addClass('highlight');
+            selectAllCheckboxes();
+            setCounter();
+        } else {
+            $selectableRow.removeClass('highlight');
+            selectAllCheckboxes(false);
+            setCounter();
+        }
+        addValueToSelectedValuesInput();
+    }
+
+    function selectAllCheckboxes() {
+        var select = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+
+        $checkbox.each(function (index, checkbox) {
+            checkbox.checked = select;
+        });
+    }
+
+    function getLengthSelectedCheckboxes() {
+        var $selectedCheckboxes = $checkbox.filter(':checked');
+        return $selectedCheckboxes.length;
+    }
+
+    function setCounter() {
+        var length = getLengthSelectedCheckboxes();
+        if (length === 0) {
+            $selectedCounter.hide();
+            $massActions.hide();
+        } else {
+            if (length === 1) {
+                $selectedCounter.text('1 item selected');
+            } else {
+                $selectedCounter.text(length + ' items selected');
+            }
+            $selectedCounter.show();
+            $massActions.show();
+        }
+    }
+
+    function addValueToSelectedValuesInput() {
+        $selectedValuesInput.val('');
+        var $selectedCheckbox = $('.pc-selectable-input').filter(':checked');
+        var selected_values = [];
+        $selectedCheckbox.each(function (index, checkbox) {
+            var itemId = parseInt(checkbox.dataset.itemId);
+            selected_values.push(itemId);
+        });
+        $selectedValuesInput.val(selected_values.toString());
+    }
+})(jQuery);
+
+/***/ }),
 /* 53 */
+/***/ (function(module, exports) {
+
+(function ($) {
+
+    var $preloader = $('.pc-cms-preloader');
+
+    $(window).on('load', function () {
+
+        $preloader.addClass('hiding');
+
+        $preloader.on('transitionend', function (e) {
+            $(this).css('display', 'none');
+        });
+    });
+})(jQuery);
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports) {
+
+(function () {
+
+            /* TinyMce editor init */
+            if ($('.pc-cms-editor').length) {
+                        tinymce.init({
+                                    selector: '.pc-cms-editor',
+                                    plugins: 'code filemanager media advlist autolink link image lists charmap print preview hr anchor pagebreak searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking table contextmenu directionality emoticons paste textcolor responsivefilemanager',
+                                    toolbar1: "code undo redo | styleselect | bold italic | link image filemanager | alignleft aligncenter alignright alignjustify alignnone | strikethrough blockquote openlink | media | bullist numlist outdent indent",
+                                    toolbar2: "| link unlink anchor | forecolor backcolor | print preview | caption",
+
+                                    image_caption: true,
+                                    image_advtab: true,
+                                    external_filemanager_path: "/filemanager/",
+                                    filemanager_title: "Insert files",
+                                    external_plugins: { "filemanager": "/filemanager/plugin.min.js" },
+
+                                    visualblocks_default_state: true,
+                                    style_formats_autohide: true,
+                                    style_formats_merge: true,
+
+                                    relative_urls: false,
+
+                                    height: '400'
+
+                        });
+            }
+})();
+
+/***/ }),
+/* 55 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

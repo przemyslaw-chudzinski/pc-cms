@@ -40,4 +40,9 @@ class BlogController extends Controller
     {
         return $article->removeArticle();
     }
+
+    public function massActions()
+    {
+        return Article::massActions();
+    }
 }

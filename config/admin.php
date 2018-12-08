@@ -76,6 +76,45 @@ return [
                 'destroy' => [
                     'display_name' => 'Delete article action',
                     'route_name' => 'admin.articles.destroy'
+                ],
+                'mass_actions' => [
+                    'display_name' => 'Mass actions',
+                    'route_name' => 'admin.articles.mass_actions'
+                ]
+            ]
+        ],
+
+        'blog_categories' => [
+            'upload_dir' => 'blogCategories',
+            'name' => 'Blog categories',
+            'actions' => [
+                'index' => [
+                    'display_name' => 'Show lists of blog categories view',
+                    'route_name' => 'admin.articles.categories.index'
+                ],
+                'create' => [
+                    'display_name' => 'Show create new blog category form view',
+                    'route_name' => 'admin.articles.categories.create'
+                ],
+                'edit' => [
+                    'display_name' => 'Show blog category edit form view',
+                    'route_name' => 'admin.articles.categories.edit'
+                ],
+                'store' => [
+                    'display_name' => 'Create new blog category action',
+                    'route_name' => 'admin.articles.categories.store'
+                ],
+                'update' => [
+                    'display_name' => 'Update blog category action',
+                    'route_name' => 'admin.articles.categories.update'
+                ],
+                'destroy' => [
+                    'display_name' => 'Delete blog category action',
+                    'route_name' => 'admin.articles.categories.destroy'
+                ],
+                'mass_actions' => [
+                    'display_name' => 'Mass actions',
+                    'route_name' => 'admin.articles.categories.mass_actions'
                 ]
             ]
         ],
@@ -119,37 +158,10 @@ return [
                 'images_add' => [
                     'display_name' => 'Add single image action',
                     'route_name' => 'admin.projects.images.addImage'
-                ]
-            ]
-        ],
-
-        'blog_categories' => [
-            'upload_dir' => 'blogCategories',
-            'name' => 'Blog categories',
-            'actions' => [
-                'index' => [
-                    'display_name' => 'Show lists of blog categories view',
-                    'route_name' => 'admin.articles.categories.index'
                 ],
-                'create' => [
-                    'display_name' => 'Show create new blog category form view',
-                    'route_name' => 'admin.articles.categories.create'
-                ],
-                'edit' => [
-                    'display_name' => 'Show blog category edit form view',
-                    'route_name' => 'admin.articles.categories.edit'
-                ],
-                'store' => [
-                    'display_name' => 'Create new blog category action',
-                    'route_name' => 'admin.articles.categories.store'
-                ],
-                'update' => [
-                    'display_name' => 'Update blog category action',
-                    'route_name' => 'admin.articles.categories.update'
-                ],
-                'destroy' => [
-                    'display_name' => 'Delete blog category action',
-                    'route_name' => 'admin.articles.categories.destroy'
+                'mass_actions' => [
+                    'display_name' => 'Mass actions',
+                    'route_name' => 'admin.projects.mass_actions'
                 ]
             ]
         ],
@@ -181,6 +193,10 @@ return [
                 'destroy' => [
                     'display_name' => 'Delete page action',
                     'route_name' => 'admin.pages.destroy'
+                ],
+                'mass_actions' => [
+                    'display_name' => 'Mass actions',
+                    'route_name' => 'admin.pages.mass_actions'
                 ]
             ]
         ],
@@ -209,6 +225,10 @@ return [
                 'destroy' => [
                     'display_name' => 'Delete project category action',
                     'route_name' => 'admin.projects.categories.destroy'
+                ],
+                'mass_actions' => [
+                    'display_name' => 'Mass actions',
+                    'route_name' => 'admin.projects.categories.mass_actions'
                 ]
             ]
         ],
@@ -256,7 +276,7 @@ return [
                     'key' => 'google_analytics_tracking_code',
                     'value' => '',
                     'type' => 'textarea',
-                    'description' => 'Google analaytics tracking code'
+                    'description' => 'Google analytics tracking code'
                 ],
                 [
                     'key' => 'maintenance_mode',
@@ -310,6 +330,10 @@ return [
                 'builder' => [
                     'display_name' => 'Menu builder view',
                     'route_name' => 'admin.menus.builder'
+                ],
+                'mass_actions' => [
+                    'display_name' => 'Mass actions',
+                    'route_name' => 'admin.menus.mass_actions'
                 ]
             ],
             'link_targets' => [
@@ -353,7 +377,11 @@ return [
                 'permission_update_permission' => [
                     'display_name' => 'Update permissions action',
                     'route_name' => 'admin.users.roles.updatePermissions'
-                ]
+                ],
+                'mass_actions' => [
+                    'display_name' => 'Mass actions',
+                    'route_name' => 'admin.users.roles.mass_actions'
+                ],
             ]
         ],
 
@@ -384,7 +412,11 @@ return [
                 'destroy' => [
                     'display_name' => 'Delete segment action',
                     'route_name' => 'admin.segments.destroy'
-                ]
+                ],
+                'mass_actions' => [
+                    'display_name' => 'Mass actions',
+                    'route_name' => 'admin.segments.mass_actions'
+                ],
             ]
         ],
 
@@ -423,6 +455,10 @@ return [
                 'role_update' => [
                     'display_name' => 'Quick user role update',
                     'route_name' => 'admin.users.role_update'
+                ],
+                'mass_actions' => [
+                    'display_name' => 'Mass actions',
+                    'route_name' => 'admin.users.mass_actions'
                 ]
             ]
         ],

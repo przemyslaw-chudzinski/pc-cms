@@ -11,4 +11,9 @@ class ArticlesController extends Controller
     {
         return $article->toggleStatusAjax();
     }
+
+    public function toggleCommentsStatus(Article $article)
+    {
+        return $article->toggleCommentsStatusAjax();
+    }
 }

@@ -6,14 +6,14 @@
 
 @section('content')
 
-    @include('admin.material_theme.components.alert')
-
-    @include('admin.material_theme.components.forms.validation')
+    <?php
+    $module_name = 'blog_categories';
+    ?>
 
     <div class="row">
         {!! Form::open([
             'method' => 'put',
-            'route' => [config('admin.modules.blog_categories.actions.update.route_name'), $category->id],
+            'route' => [getRouteName($module_name, 'update'), $category->id],
             'files' => true,
             'id' => 'editBlogCategoryForm',
             'novalidate' => 'novalidate'

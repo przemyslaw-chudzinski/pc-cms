@@ -25,6 +25,14 @@ class Article extends Model
         'allow_indexed'
     ];
 
+    protected static $sortable = [
+        'title',
+        'published',
+        'allow_comments',
+        'created_at',
+        'updated_at'
+    ];
+
     public function categories()
     {
         return $this->belongsToMany(BlogCategory::class, 'article_has_category', 'article_id', 'category_id')->withTimestamps();
@@ -40,6 +48,8 @@ class Article extends Model
         $data = request()->all();
 
         $data['published'] = self::toggleValue($data, 'saveAndPublish');
+
+        $data['allow_comments'] = self::toggleValue($data, 'allowComments');
 
         $data['slug'] = self::createSlug($data, 'title');
 
@@ -69,9 +79,9 @@ class Article extends Model
         ]);
     }
 
-    public static function getArticlesWithPagination($perPage = 10)
+    public static function getArticlesWithPagination()
     {
-        return self::latest()->paginate($perPage);
+        return self::getModelDataWithPagination();
     }
 
     public function updateArticle()
@@ -79,6 +89,8 @@ class Article extends Model
         $data = request()->all();
 
         $data['published'] = self::toggleValue($data, 'saveAndPublish');
+
+        $data['allow_comments'] = self::toggleValue($data, 'allowComments');
 
         $data['slug'] = self::generateSlugBasedOn($data, 'title');
 
@@ -130,30 +142,45 @@ class Article extends Model
         ]);
     }
 
-    private function toggleStatus()
-    {
-        $data['published'] = false;
-
-        if (!$this->published) {
-            $data['published'] = true;
-        }
-
-        $result = $this->update($data);
-
-        return [
-            'result' => $result,
-            'data' => $data
-        ];
-    }
-
     public function toggleStatusAjax()
     {
-        $res = $this->toggleStatus();
+        $res = $this->toggleModelStatus('published');
 
         return response()->json([
            'types' => 'success',
            'message' => __('messages.update_status'),
            'newStatus' => $res['data']['published']
         ]);
+    }
+
+    public function toggleCommentsStatusAjax()
+    {
+        $res = $this->toggleModelStatus('allow_comments');
+
+        return response()->json([
+            'types' => 'success',
+            'message' => __('messages.update_status'),
+            'newStatus' => $res['data']['allow_comments']
+        ]);
+
+    }
+
+    public static function massActions()
+    {
+        $data = request()->all();
+        $selected_ids = explode(',', $data['selected_values']);
+
+        switch ($data['action_name']) {
+            case 'delete':
+                return self::massActionsDelete($selected_ids);
+            case 'change_status_on_true':
+                return self::massActionsChangeStatus($selected_ids,true);
+            case 'change_status_on_false':
+                return self::massActionsChangeStatus($selected_ids, false);
+            case 'change_comment_status_true':
+                return self::massActionsChangeStatus($selected_ids, true, 'allow_comments');
+            case 'change_comment_status_false':
+                return self::massActionsChangeStatus($selected_ids, false, 'allow_comments');
+        }
     }
 }

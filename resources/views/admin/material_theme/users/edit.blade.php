@@ -6,9 +6,9 @@
 
 @section('content')
 
-    @include('admin.material_theme.components.alert')
-
-    @include('admin.material_theme.components.forms.validation')
+    <?php
+        $module_name = 'users';
+    ?>
 
     <div class="row">
         <div class="col-xs-12 col-md-6">
@@ -19,7 +19,7 @@
                 <div class="card-body">
                     {!! Form::open([
                      'method' => 'put',
-                     'route' => [config('admin.modules.users.actions.update.route_name'), $user->id],
+                     'route' => [getRouteName($module_name, 'update'), $user->id],
                      'id' => 'editUserForm',
                      'novalidate' => 'novalidate'
                      ]) !!}
@@ -53,7 +53,7 @@
                         </select>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary pc-cms-loader-btn" data-form="#editUserForm">Save</button>
                     {!! Form::close() !!}
                 </div>
             </div>
@@ -67,7 +67,7 @@
                     {!! Form::open([
                         'method' => 'put',
                         'id' => 'userResetPasswordForm',
-                        'route' => [config('admin.modules.users.actions.reset_password.route_name'), $user->id]
+                        'route' => [getRouteName($module_name, 'reset_password'), $user->id]
                     ]) !!}
                         <div class="form-group">
                             {!! Form::label(null, 'New password') !!}
@@ -77,7 +77,7 @@
                             {!! Form::label(null, 'Repeat password') !!}
                             {!! Form::password('repeatedPassword', ['class' => 'form-control', 'autocomplete' => 'off']) !!}
                         </div>
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary pc-cms-loader-btn" data-form="#userResetPasswordForm">Save</button>
                     {!! Form::close() !!}
                 </div>
             </div>

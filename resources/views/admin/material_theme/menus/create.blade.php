@@ -6,9 +6,9 @@
 
 @section('content')
 
-    @include('admin.material_theme.components.alert')
-
-    @include('admin.material_theme.components.forms.validation')
+    <?php
+        $module_name = 'menus';
+    ?>
 
     <div class="row">
         <div class="col-xs-12 col-md-6">
@@ -19,7 +19,7 @@
                 <div class="card-body">
                     {!! Form::open([
                       'method' => 'post',
-                      'route' => config('admin.modules.menus.actions.store.route_name'),
+                      'route' => getRouteName($module_name, 'store'),
                       'id' => 'createNewMenuForm'
                      ]) !!}
                         <div class="form-group">

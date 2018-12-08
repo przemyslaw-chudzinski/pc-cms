@@ -9,18 +9,24 @@
             @endif
         </div>
         @if($multiple)
+            {{-- Multiple images preview --}}
             <div class="row pc-cms-preview-row">
-                @foreach(json_decode($image, true) as $img)
-                    <div class="col-xs-6 col-md-4 pc-cms-single-preview-image">
-                        <img src="{{ getImageUrl($img, 'admin_prev_medium') }}" class="img-responsive img-thumbnail">
-                    </div>
-                @endforeach
+                @if(count(json_decode($image, true)) > 0)
+                    @foreach(json_decode($image, true) as $img)
+                        <div class="col-xs-6 col-md-4 pc-cms-single-preview-image">
+                            <img src="{{ getImageUrl($img, 'admin_prev_medium') }}" class="img-responsive img-thumbnail">
+                        </div>
+                    @endforeach
+                @endif
             </div>
         @else
+            {{-- Single image preview --}}
             <div class="row pc-cms-preview-row">
-                <div class="col-xs-6 col-md-4 pc-cms-single-preview-image">
-                    <img src="{{ getImageUrl(json_decode($image, true), 'admin_prev_medium') }}" class="img-responsive img-thumbnail">
-                </div>
+                @if (count(json_decode($image, true)) > 0)
+                    <div class="col-xs-6 col-md-4 pc-cms-single-preview-image">
+                        <img src="{{ getImageUrl(json_decode($image, true), 'admin_prev_medium') }}" class="img-responsive img-thumbnail">
+                    </div>
+                @endif
             </div>
         @endif
             <input type="hidden" class="pc-cms-no-image" name="{{ $noImageInputName }}" value="yes">

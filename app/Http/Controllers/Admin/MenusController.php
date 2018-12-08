@@ -42,4 +42,9 @@ class MenusController extends Controller
     {
         return $menu->removeMenu();
     }
+
+    public function massActions()
+    {
+        return Menu::massActions();
+    }
 }

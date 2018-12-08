@@ -50,4 +50,9 @@ class UsersController extends Controller
     {
         return $user->updateUserRole();
     }
+
+    public function massActions()
+    {
+        return User::massActions();
+    }
 }

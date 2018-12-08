@@ -6,10 +6,6 @@
 
 @section('content')
 
-    @include('admin.material_theme.components.alert')
-
-    @include('admin.material_theme.components.forms.validation')
-
     <div class="row">
         <div class="col-xs-12 col-md-8">
             <div class="card">

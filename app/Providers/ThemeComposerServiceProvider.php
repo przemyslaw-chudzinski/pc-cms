@@ -19,7 +19,9 @@ class ThemeComposerServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        $theme = Theme::getSetting('theme');
+//        $theme = Theme::getSetting('theme');
+
+        $theme = 'PortfolioTheme';
 
         View::composer([
             'themes.' . $theme . '.components.blog'

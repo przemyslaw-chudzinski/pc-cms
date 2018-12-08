@@ -17,6 +17,7 @@ class CreateSegmentsTable extends Migration
             $table->increments('id');
             $table->string('name')->unique();
             $table->text('content')->nullable()->default(null);
+            $table->text('image')->nullable()->default(null);
             $table->timestamps();
         });
     }

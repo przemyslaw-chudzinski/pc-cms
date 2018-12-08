@@ -47,4 +47,9 @@ class RolesController extends Controller
     {
         return $role->removeRole();
     }
+
+    public function massActions()
+    {
+        return Role::massActions();
+    }
 }

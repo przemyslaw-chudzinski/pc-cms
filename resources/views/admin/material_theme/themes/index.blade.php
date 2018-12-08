@@ -6,7 +6,9 @@
 
 @section('content')
 
-    @include('admin.material_theme.components.alert')
+    <?php
+    $module_name = 'themes';
+    ?>
 
     <div class="row">
         @if (count($themes) > 0)
@@ -19,15 +21,10 @@
                             <p class="m-0"><strong>Author:</strong> {{ $theme['meta']->author }}</p>
                             <p class="m-b"><strong>Version:</strong> {{ $theme['meta']->version }}</p>
                         </header>
-                        {{--<div class="card-body">--}}
-                            {{--<div class="theme-screenshot">--}}
-                                {{--<img class="img-responsive" src="http://placehold.it/400x300" alt="">--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
                         <div class="card-footer border-top">
                             {!! Form::open([
                                 'method' => 'put',
-                                'route' => getRouteName('themes', 'update'),
+                                'route' => getRouteName($module_name, 'update'),
                                 'id' => 'updateThemeForm-' . $key
                             ]) !!}
                                 {!! Form::hidden('value', $theme['dir']) !!}
@@ -39,13 +36,7 @@
                                     </a>
                                 </li>
                             </ul>
-                            <ul class="card-actions icons right-bottom">
-                                {{--<li>--}}
-                                    {{--<a href="javascript:void(0)">--}}
-                                        {{--<i class="zmdi zmdi-delete"></i>--}}
-                                    {{--</a>--}}
-                                {{--</li>--}}
-                            </ul>
+                            <ul class="card-actions icons right-bottom"></ul>
                         </div>
                     </div>
                 </div>

@@ -26,9 +26,16 @@ class Page extends Model
         'template'
     ];
 
+    protected static $sortable = [
+        'title',
+        'published',
+        'created_at',
+        'updated_at'
+    ];
+
     public static function getPagesWithPagination()
     {
-        return self::latest()->paginate(10);
+        return self::getModelDataWithPagination();
     }
 
     public static function createNewPage()
@@ -59,7 +66,7 @@ class Page extends Model
 
         return redirect(route(getRouteName('pages', 'index')))->with('alert', [
             'type' => 'success',
-            'message' => 'Page has been created successfully'
+            'message' => __('messages.item_created_success')
         ]);
     }
 
@@ -98,7 +105,7 @@ class Page extends Model
 
         return back()->with('alert', [
             'type' => 'success',
-            'message' => 'Page has been updated successfully'
+            'message' => __('messages.item_updated_success')
         ]);
 
     }
@@ -109,34 +116,33 @@ class Page extends Model
 
         return back()->with('alert', [
             'type' => 'success',
-            'message' => 'Page has been deleted successfully'
+            'message' => __('messages.item_deleted_success')
         ]);
-    }
-
-    private function toggleStatus()
-    {
-        $data['published'] = false;
-
-        if (!$this->published) {
-            $data['published'] = true;
-        }
-
-        $result = $this->update($data);
-
-        return [
-            'result' => $result,
-            'data' => $data
-        ];
     }
 
     public function toggleStatusAjax()
     {
-        $res = $this->toggleStatus();
+        $res = $this->toggleModelStatus('published');
 
         return response()->json([
             'types' => 'success',
-            'message' => 'Status has been updated successfully',
+            'message' => __('messages.update_status_success'),
             'newStatus' => $res['data']['published']
         ]);
+    }
+
+    public static function massActions()
+    {
+        $data = request()->all();
+        $selected_ids = explode(',', $data['selected_values']);
+
+        switch ($data['action_name']) {
+            case 'delete':
+                return self::massActionsDelete($selected_ids);
+            case 'change_status_on_true':
+                return self::massActionsChangeStatus($selected_ids,true);
+            case 'change_status_on_false':
+                return self::massActionsChangeStatus($selected_ids, false);
+        }
     }
 }

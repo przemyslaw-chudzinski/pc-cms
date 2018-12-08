@@ -6,9 +6,10 @@
 
 @section('content')
 
-    @include('admin.material_theme.components.alert')
-
-    @include('admin.material_theme.components.loader-async')
+    <?php
+        $module_name = 'blog_categories';
+        $count_items = count($categories);
+    ?>
 
     <div class="row">
         <div class="col-xs-12">
@@ -21,28 +22,52 @@
                                 <i class="zmdi zmdi-more-vert"></i>
                             </a>
                             <ul class="dropdown-menu btn-primary dropdown-menu-right">
-                                <li><a href="{{ route(getRouteName('blog_categories', 'create')) }}">Create new</a></li>
+                                <li><a href="{{ route(getRouteName($module_name, 'create')) }}">Create new</a></li>
                             </ul>
                         </li>
                     </ul>
                 </header>
                 <div class="card-body">
+                    <div>
+                        <div>
+                            <?php
+                            $args = [
+                                'delete' => [
+                                    'button_label' => 'Remove selected items',
+                                    'button_class' => 'btn-danger',
+                                ],
+                                'change_status_on_true' => [
+                                    'button_label' => 'Set on published',
+                                    'button_class' => 'btn-primary'
+                                ],
+                                'change_status_on_false' => [
+                                    'button_label' => 'Set on draft',
+                                    'button_class' => 'btn-primary'
+                                ]
+
+                            ];
+                            ?>
+                            {!! MassActions::setMassActions($module_name, NULL, $args) !!}
+                        </div>
+                        {{-- Search --}}
+                        <div></div>
+                    </div>
                     <table class="table table-hover pc-cms-table">
                         <thead>
                         <tr>
-                            <th><div class="checkbox"><label><input type="checkbox"></label></div></th>
-                            <th>Category name</th>
-                            <th>Status</th>
-                            <th>Created at</th>
-                            <th>Updated at</th>
+                            <th><div class="checkbox"><label><input type="checkbox" @if($count_items === 0) disabled @endif class="pc-selectable-input-all"></label></div></th>
+                            <th><a href="{{ getSortUrl('name', NULL, $module_name) }}">Category name</a></th>
+                            <th><a href="{{ getSortUrl('published', NULL, $module_name) }}">Status</a></th>
+                            <th><a href="{{ getSortUrl('created_at', NULL, $module_name) }}">Created at</a></th>
+                            <th><a href="{{ getSortUrl('updated_at', NULL, $module_name) }}">Updated at</a></th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        @if (count($categories) > 0)
+                        @if ($count_items > 0)
                             @foreach($categories as $category)
-                                <tr>
-                                    <td><div class="checkbox"><label><input type="checkbox"></label></div></td>
+                                <tr class="pc-selectable-row">
+                                    <td><div class="checkbox"><label><input type="checkbox" class="pc-selectable-input" data-item-id="{{ $category->id }}"></label></div></td>
                                     <td>{{ $category->name }}</td>
                                     <td>
                                         @if ($category->published)
@@ -60,11 +85,11 @@
                                                 <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu">
-                                                <li><a href="{{ url(config('admin.admin_path') . '/articles/categories/' . $category->id . '/edit') }}">Edit</a></li>
+                                                <li><a href="{{ url(route(getRouteName('blog_categories', 'edit'), $category->id)) }}">Edit</a></li>
                                                 <li>
                                                     {!! Form::open([
                                                         'method' => 'delete',
-                                                        'route' => [config('admin.modules.blog_categories.actions.destroy.route_name'), $category->id],
+                                                        'route' => [getRouteName($module_name, 'destroy'), $category->id],
                                                         'id' => 'blogCategoryRemoveForm-' . $category->id
                                                     ]) !!}
                                                     {!! Form::close() !!}

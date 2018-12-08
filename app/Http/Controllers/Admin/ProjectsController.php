@@ -55,4 +55,9 @@ class ProjectsController extends Controller
     {
         return $project->addImage();
     }
+
+    public function massActions()
+    {
+        return Project::massActions();
+    }
 }

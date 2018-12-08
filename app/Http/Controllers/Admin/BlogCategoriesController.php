@@ -39,4 +39,9 @@ class BlogCategoriesController extends Controller
     {
         return $blogCategory->removeCategory();
     }
+
+    public function massActions()
+    {
+        return BlogCategory::massActions();
+    }
 }

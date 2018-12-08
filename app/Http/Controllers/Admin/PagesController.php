@@ -38,4 +38,9 @@ class PagesController extends Controller
     {
         return $page->removePage();
     }
+
+    public function massActions()
+    {
+        return Page::massActions();
+    }
 }

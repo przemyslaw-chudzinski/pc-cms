@@ -6,14 +6,14 @@
 
 @section('content')
 
-    @include('admin.material_theme.components.alert')
-
-    @include('admin.material_theme.components.forms.validation')
+    <?php
+        $module_name = 'project_categories';
+    ?>
 
     <div class="row">
         {!! Form::open([
                         'method' => 'post',
-                        'route' => config('admin.modules.project_categories.actions.store.route_name'),
+                        'route' => getRouteName($module_name, 'store'),
                         'id' => 'createNewProjectCategoryForm',
                         'novalidate' => 'novalidate',
                         'files' => true

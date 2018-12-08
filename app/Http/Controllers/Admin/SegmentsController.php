@@ -38,4 +38,9 @@ class SegmentsController extends Controller
     {
         return $segment->removeSegment();
     }
+
+    public function massActions()
+    {
+        return Segment::massActions();
+    }
 }

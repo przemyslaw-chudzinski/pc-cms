@@ -6,9 +6,9 @@
 
 @section('content')
 
-    @include('admin.material_theme.components.alert')
-
-    @include('admin.material_theme.components.forms.validation')
+    <?php
+    $module_name = 'settings';
+    ?>
 
 
     <div class="row">

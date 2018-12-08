@@ -17,6 +17,7 @@
 </head>
 
 <body>
+@include('admin.material_theme.components.preloader')
 <div id="app_wrapper">
     @include('admin.material_theme.partials.top-navbar')
     @include('admin.material_theme.partials.aside-left')
@@ -35,6 +36,9 @@
             </div>
             <div id="content" class="container-fluid">
                 <div class="content-body">
+                    @include('admin.material_theme.components.alert')
+                    @include('admin.material_theme.components.forms.validation')
+                    @include('admin.material_theme.components.loader-async')
                     @yield('content')
                     <!-- ENDS $dashboard_content -->
                 </div>

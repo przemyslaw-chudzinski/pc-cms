@@ -26,6 +26,13 @@ class Project extends Model
         'meta_description'
     ];
 
+    protected static $sortable = [
+        'title',
+        'published',
+        'created_at',
+        'updated_at'
+    ];
+
     public function categories()
     {
         return $this
@@ -40,7 +47,7 @@ class Project extends Model
 
     public static function getProjectsWithPagination()
     {
-        return self::latest()->paginate(10);
+        return self::getModelDataWithPagination();
     }
 
     public static function createNewProject()
@@ -149,25 +156,9 @@ class Project extends Model
         ]);
     }
 
-    private function toggleStatus()
-    {
-        $data['published'] = false;
-
-        if (!$this->published) {
-            $data['published'] = true;
-        }
-
-        $result = $this->update($data);
-
-        return [
-            'result' => $result,
-            'data' => $data
-        ];
-    }
-
     public function toggleStatusAjax()
     {
-        $res = $this->toggleStatus();
+        $res = $this->toggleModelStatus('published');
 
         return response()->json([
             'types' => 'success',
@@ -231,5 +222,20 @@ class Project extends Model
             'message' => 'Image has been added successfully'
         ]);
 
+    }
+
+    public static function massActions()
+    {
+        $data = request()->all();
+        $selected_ids = explode(',', $data['selected_values']);
+
+        switch ($data['action_name']) {
+            case 'delete':
+                return self::massActionsDelete($selected_ids);
+            case 'change_status_on_true':
+                return self::massActionsChangeStatus($selected_ids,true);
+            case 'change_status_on_false':
+                return self::massActionsChangeStatus($selected_ids, false);
+        }
     }
 }

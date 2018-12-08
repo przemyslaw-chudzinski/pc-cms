@@ -6,9 +6,9 @@
 
 @section('content')
 
-    @include('admin.material_theme.components.alert')
-
-    @include('admin.material_theme.components.forms.validation')
+    <?php
+        $module_name = 'roles';
+    ?>
 
     <div class="row">
         <div class="col-xs-12 col-md-6">
@@ -19,7 +19,7 @@
                 <div class="card-body">
                     {!! Form::open([
                      'method' => 'put',
-                     'route' => [config('admin.modules.roles.actions.update.route_name'), $role->id],
+                     'route' => [getRouteName($module_name, 'update'), $role->id],
                      'id' => 'editRoleForm',
                      'novalidate' => 'novalidate'
                      ]) !!}

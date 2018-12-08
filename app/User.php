@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Traits\ModelTrait;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Validation\Rule;
@@ -11,7 +12,7 @@ use Auth;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, ModelTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -27,6 +28,16 @@ class User extends Authenticatable
         'last_login',
         'IP',
         'USER_AGENT'
+    ];
+
+    protected static $sortable = [
+        'first_name',
+        'last_name',
+        'email',
+        'password',
+        'role_id',
+        'created_at',
+        'updated_at'
     ];
 
     /**
@@ -45,7 +56,7 @@ class User extends Authenticatable
 
     public static function getUsersWithPagination()
     {
-        return self::with('role')->latest()->paginate(10);
+        return self::getModelDataWithPagination(false, ['role'], [(int) Auth::id()]);
     }
 
     public static function createNewUser()
@@ -57,6 +68,7 @@ class User extends Authenticatable
            'password' => 'required|min:6',
            'role_id'  => 'required'
         ]);
+
         if ($validator->fails()) {
             return back()->withErrors($validator);
         }
@@ -67,7 +79,7 @@ class User extends Authenticatable
 
         return redirect(route(getRouteName('users', 'index')))->with('alert', [
             'type' => 'success',
-            'message' => 'User has been created successfully'
+            'message' => __('messages.item_created_success')
         ]);
     }
 
@@ -90,17 +102,21 @@ class User extends Authenticatable
 
         return back()->with('alert', [
             'type' => 'success',
-            'message' => 'User has been updated successfully'
+            'message' => __('messages.item_updated_success')
         ]);
     }
 
     public function removeUser()
     {
+        if ($this->id === Auth::id()) {
+            return back();
+        }
+
         $this->delete();
 
         return back()->with('alert', [
             'type' => 'success',
-            'message' => 'User has been deleted successfully'
+            'message' => __('messages.item_deleted_success')
         ]);
     }
 
@@ -128,7 +144,7 @@ class User extends Authenticatable
 
         return back()->with('alert', [
             'type' => 'success',
-            'message' => 'Password has been updated successfully'
+            'message' => __('passwords.reset')
         ]);
     }
 
@@ -152,14 +168,14 @@ class User extends Authenticatable
 
         return back()->with('alert', [
             'type' => 'success',
-            'message' => 'Settings has been updated successfully'
+            'message' => __('messages.item_updated_success')
         ]);
     }
 
     public function updateUserAfterLogin()
     {
         $this->update([
-            'last_login' => now()->toDateTimeString(),
+            'last_login' => date("Y-m-d H:i:s", time()),
             'IP' => request()->server('REMOTE_ADDR'),
             'USER_AGENT' => request()->server('HTTP_USER_AGENT')
         ]);
@@ -175,12 +191,23 @@ class User extends Authenticatable
 
         return back()->with('alert', [
             'type' => 'success',
-            'message' => 'User role has been updated successfully'
+            'message' => __('messages.item_updated_success')
         ]);
     }
 
     public static function getLastRegisteredUsers($limit = 5)
     {
         return self::latest()->limit($limit)->get();
+    }
+
+    public static function massActions()
+    {
+        $data = request()->all();
+        $selected_ids = explode(',', $data['selected_values']);
+
+        switch ($data['action_name']) {
+            case 'delete':
+                return self::massActionsDelete($selected_ids);
+        }
     }
 }

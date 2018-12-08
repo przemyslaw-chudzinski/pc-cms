@@ -1,6 +1,9 @@
+<?php
+    $module_name = 'settings';
+?>
 {!! Form::open([
      'method' => 'put',
-     'route' => [config('admin.modules.settings.actions.update.route_name'), $setting->id],
+     'route' => [getRouteName($module_name, 'update'), $setting->id],
      'id' => 'saveSettingForm-' . $setting->id
      ]) !!}
 
@@ -38,7 +41,7 @@
 {!! Form::close() !!}
 
 {!! Form::open([
-     'route' => [config('admin.modules.settings.actions.destroy.route_name'), $setting->id],
+     'route' => [getRouteName($module_name, 'destroy'), $setting->id],
      'method' => 'delete',
      'id' => 'removeSetting-' . $setting->id]
      ) !!}

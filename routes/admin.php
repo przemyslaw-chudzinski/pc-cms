@@ -22,121 +22,140 @@ Route::group([
 
     /* Segments */
     Route::group(['prefix' => 'segments'], function () {
-        Route::get('/', 'SegmentsController@index')->name(getRouteName('segments', 'index'));
-        Route::get('/{segment}/edit', 'SegmentsController@edit')->name(getRouteName('segments', 'edit'));
-        Route::put('{segment}', 'SegmentsController@update')->name(getRouteName('segments', 'update'));
-        Route::delete('{segment}', 'SegmentsController@destroy')->name(getRouteName('segments', 'destroy'));
-        Route::post('/', 'SegmentsController@store')->name(getRouteName('segments', 'store'));
+        $module_name = 'segments';
+        Route::get('/', 'SegmentsController@index')->name(getRouteName($module_name, 'index'));
+        Route::get('/{segment}/edit', 'SegmentsController@edit')->name(getRouteName($module_name, 'edit'));
+        Route::put('{segment}', 'SegmentsController@update')->name(getRouteName($module_name, 'update'));
+        Route::delete('{segment}', 'SegmentsController@destroy')->name(getRouteName($module_name, 'destroy'));
+        Route::post('/', 'SegmentsController@store')->name(getRouteName($module_name, 'store'));
         Route::get('/create', 'SegmentsController@create')->name(getRouteName('segments', 'create'));
+        Route::post('/mass-actions', 'SegmentsController@massActions')->name(getRouteName($module_name, 'mass_actions'));
     });
 
     /* Pages */
     Route::group(['prefix' => 'pages'], function () {
-        Route::get('/', 'PagesController@index')->name(getRouteName('pages', 'index'));
-        Route::get('/{page}/edit', 'PagesController@edit')->name(getRouteName('pages', 'edit'));
-        Route::put('{page}', 'PagesController@update')->name(getRouteName('pages', 'update'));
-        Route::delete('{page}', 'PagesController@destroy')->name(getRouteName('pages', 'destroy'));
-        Route::post('/', 'PagesController@store')->name(getRouteName('pages', 'store'));
-        Route::get('/create', 'PagesController@create')->name(getRouteName('pages', 'create'));
-    });
-
-    /* Projects */
-    Route::group(['prefix' => 'projects'], function () {
-        Route::get('/', 'ProjectsController@index')->name(getRouteName('projects', 'index'));
-        Route::get('/{project}/edit', 'ProjectsController@edit')->name(getRouteName('projects', 'edit'));
-        Route::put('{project}', 'ProjectsController@update')->name(getRouteName('projects', 'update'));
-        Route::delete('{project}', 'ProjectsController@destroy')->name(getRouteName('projects', 'destroy'));
-        Route::post('/', 'ProjectsController@store')->name(getRouteName('projects', 'store'));
-        Route::get('/create', 'ProjectsController@create')->name(getRouteName('projects', 'create'));
-        Route::get('{project}/images', 'ProjectsController@images')->name(getRouteName('projects', 'images'));
-        Route::put('{project}/images/add', 'ProjectsController@addImage')->name(getRouteName('projects', 'images_add'));
-        Route::put('{project}/images', 'ProjectsController@removeImage')->name(getRouteName('projects', 'images_destroy'));
-
-        /* Projects categories */
-        Route::group(['prefix' => 'categories'], function () {
-            Route::get('/', 'ProjectCategoriesController@index')->name(getRouteName('project_categories', 'index'));
-            Route::get('/{projectCategory}/edit', 'ProjectCategoriesController@edit')->name(getRouteName('project_categories', 'edit'));
-            Route::put('{projectCategory}', 'ProjectCategoriesController@update')->name(getRouteName('project_categories', 'update'));
-            Route::delete('{projectCategory}', 'ProjectCategoriesController@destroy')->name(getRouteName('project_categories', 'destroy'));
-            Route::post('/', 'ProjectCategoriesController@store')->name(getRouteName('project_categories', 'store'));
-            Route::get('/create', 'ProjectCategoriesController@create')->name(getRouteName('project_categories', 'create'));
-        });
+        $module_name = 'pages';
+        Route::get('/', 'PagesController@index')->name(getRouteName($module_name, 'index'));
+        Route::get('{page}/edit', 'PagesController@edit')->name(getRouteName($module_name, 'edit'));
+        Route::put('{page}', 'PagesController@update')->name(getRouteName($module_name, 'update'));
+        Route::delete('{page}', 'PagesController@destroy')->name(getRouteName($module_name, 'destroy'));
+        Route::post('/', 'PagesController@store')->name(getRouteName($module_name, 'store'));
+        Route::get('create', 'PagesController@create')->name(getRouteName($module_name, 'create'));
+        Route::post('mass-actions', 'PagesController@massActions')->name(getRouteName($module_name, 'mass_actions'));
     });
 
     /* Blog */
     Route::group(['prefix' => 'articles'], function () {
-       Route::get('/', 'BlogController@index')->name(getRouteName('blog', 'index'));
-       Route::get('/create', 'BlogController@create')->name(getRouteName('blog', 'create'));
-       Route::get('{article}/edit', 'BlogController@edit')->name(getRouteName('blog', 'edit'));
-       Route::post('/', 'BlogController@store')->name(getRouteName('blog', 'store'));
-       Route::put('{article}', 'BlogController@update')->name(getRouteName('blog', 'update'));
-       Route::delete('{article}', 'BlogController@destroy')->name(getRouteName('blog', 'destroy'));
+        $module_name = 'blog';
+        Route::get('/', 'BlogController@index')->name(getRouteName($module_name, 'index'));
+        Route::get('/create', 'BlogController@create')->name(getRouteName($module_name, 'create'));
+        Route::get('{article}/edit', 'BlogController@edit')->name(getRouteName($module_name, 'edit'));
+        Route::post('/', 'BlogController@store')->name(getRouteName($module_name, 'store'));
+        Route::put('{article}', 'BlogController@update')->name(getRouteName($module_name, 'update'));
+        Route::delete('{article}', 'BlogController@destroy')->name(getRouteName($module_name, 'destroy'));
+        Route::post('mass-actions', 'BlogController@massActions')->name(getRouteName($module_name, 'mass_actions'));
 
         /* Blog Categories */
         Route::group(['prefix' => 'categories'], function () {
-            Route::get('/', 'BlogCategoriesController@index')->name(getRouteName('blog_categories', 'index'));
-            Route::get('/create', 'BlogCategoriesController@create')->name(getRouteName('blog_categories', 'create'));
-            Route::get('{blogCategory}/edit', 'BlogCategoriesController@edit')->name(getRouteName('blog_categories', 'edit'));
-            Route::post('/', 'BlogCategoriesController@store')->name(getRouteName('blog_categories', 'store'));
-            Route::put('{blogCategory}', 'BlogCategoriesController@update')->name(getRouteName('blog_categories', 'update'));
-            Route::delete('{blogCategory}', 'BlogCategoriesController@destroy')->name(getRouteName('blog_categories', 'destroy'));
+            $module_name = 'blog_categories';
+            Route::get('/', 'BlogCategoriesController@index')->name(getRouteName($module_name, 'index'));
+            Route::get('/create', 'BlogCategoriesController@create')->name(getRouteName($module_name, 'create'));
+            Route::get('{blogCategory}/edit', 'BlogCategoriesController@edit')->name(getRouteName($module_name, 'edit'));
+            Route::post('/', 'BlogCategoriesController@store')->name(getRouteName($module_name, 'store'));
+            Route::put('{blogCategory}', 'BlogCategoriesController@update')->name(getRouteName($module_name, 'update'));
+            Route::delete('{blogCategory}', 'BlogCategoriesController@destroy')->name(getRouteName($module_name, 'destroy'));
+            Route::post('mass-actions', 'BlogCategoriesController@massActions')->name(getRouteName($module_name, 'mass_actions'));
+        });
+    });
+
+    /* Projects */
+    Route::group(['prefix' => 'projects'], function () {
+        $module_name = 'projects';
+        Route::get('/', 'ProjectsController@index')->name(getRouteName($module_name, 'index'));
+        Route::get('/{project}/edit', 'ProjectsController@edit')->name(getRouteName($module_name, 'edit'));
+        Route::put('{project}', 'ProjectsController@update')->name(getRouteName($module_name, 'update'));
+        Route::delete('{project}', 'ProjectsController@destroy')->name(getRouteName($module_name, 'destroy'));
+        Route::post('/', 'ProjectsController@store')->name(getRouteName($module_name, 'store'));
+        Route::get('/create', 'ProjectsController@create')->name(getRouteName($module_name, 'create'));
+        Route::get('{project}/images', 'ProjectsController@images')->name(getRouteName($module_name, 'images'));
+        Route::put('{project}/images/add', 'ProjectsController@addImage')->name(getRouteName($module_name, 'images_add'));
+        Route::put('{project}/images', 'ProjectsController@removeImage')->name(getRouteName($module_name, 'images_destroy'));
+        Route::post('mass-actions', 'ProjectsController@massActions')->name(getRouteName($module_name, 'mass_actions'));
+
+        /* Projects categories */
+        Route::group(['prefix' => 'categories'], function () {
+            $module_name = 'project_categories';
+            Route::get('/', 'ProjectCategoriesController@index')->name(getRouteName($module_name, 'index'));
+            Route::get('/{projectCategory}/edit', 'ProjectCategoriesController@edit')->name(getRouteName($module_name, 'edit'));
+            Route::put('{projectCategory}', 'ProjectCategoriesController@update')->name(getRouteName($module_name, 'update'));
+            Route::delete('{projectCategory}', 'ProjectCategoriesController@destroy')->name(getRouteName($module_name, 'destroy'));
+            Route::post('/', 'ProjectCategoriesController@store')->name(getRouteName($module_name, 'store'));
+            Route::get('/create', 'ProjectCategoriesController@create')->name(getRouteName($module_name, 'create'));
+            Route::post('mass-actions', 'ProjectCategoriesController@massActions')->name(getRouteName($module_name, 'mass_actions'));
         });
     });
 
     /* Settings */
     Route::group(['prefix' => 'settings'], function () {
-        Route::get('/', 'SettingsController@index')->name(getRouteName('settings', 'index'));
-        Route::post('/', 'SettingsController@store')->name(getRouteName('settings', 'store'));
-        Route::put('{setting}', 'SettingsController@update')->name(getRouteName('settings', 'update'));
-        Route::delete('{setting}', 'SettingsController@destroy')->name(getRouteName('settings', 'destroy'));
+        $module_name = 'settings';
+        Route::get('/', 'SettingsController@index')->name(getRouteName($module_name, 'index'));
+        Route::post('/', 'SettingsController@store')->name(getRouteName($module_name, 'store'));
+        Route::put('{setting}', 'SettingsController@update')->name(getRouteName($module_name, 'update'));
+        Route::delete('{setting}', 'SettingsController@destroy')->name(getRouteName($module_name, 'destroy'));
     });
 
     /* Menus */
     Route::group(['prefix' => 'menus'], function () {
-        Route::get('/', 'MenusController@index')->name(getRouteName('menus', 'index'));
-        Route::get('/{menu}/edit', 'MenusController@edit')->name(getRouteName('menus', 'edit'));
-        Route::get('/{menu}/builder', 'MenusController@menuBuilder')->name(getRouteName('menus', 'builder'));
-        Route::put('{menu}', 'MenusController@update')->name(getRouteName('menus', 'update'));
-        Route::delete('{menu}', 'MenusController@destroy')->name(getRouteName('menus', 'destroy'));
-        Route::post('/', 'MenusController@store')->name(getRouteName('menus', 'store'));
-        Route::get('/create', 'MenusController@create')->name(getRouteName('menus', 'create'));
+        $module_name = 'menus';
+        Route::get('/', 'MenusController@index')->name(getRouteName($module_name, 'index'));
+        Route::get('{menu}/edit', 'MenusController@edit')->name(getRouteName($module_name, 'edit'));
+        Route::get('{menu}/builder', 'MenusController@menuBuilder')->name(getRouteName($module_name, 'builder'));
+        Route::put('{menu}', 'MenusController@update')->name(getRouteName($module_name, 'update'));
+        Route::delete('{menu}', 'MenusController@destroy')->name(getRouteName($module_name, 'destroy'));
+        Route::post('/', 'MenusController@store')->name(getRouteName($module_name, 'store'));
+        Route::get('create', 'MenusController@create')->name(getRouteName($module_name, 'create'));
+        Route::post('mass-actions', 'MenusController@massActions')->name(getRouteName($module_name, 'mass_actions'));
 
         /* Menu items */
-        Route::post('/{menu}/items/create', 'MenuItemsController@store')->name(getRouteName('menus', 'item_store'));
-        Route::delete('/items/{menuItem}', 'MenuItemsController@destroy')->name(getRouteName('menus', 'item_destroy'));
-        Route::put('/items/{menuItem}', 'MenuItemsController@update')->name(getRouteName('menus', 'item_update'));
+        Route::post('{menu}/items/create', 'MenuItemsController@store')->name(getRouteName($module_name, 'item_store'));
+        Route::delete('items/{menuItem}', 'MenuItemsController@destroy')->name(getRouteName($module_name, 'item_destroy'));
+        Route::put('items/{menuItem}', 'MenuItemsController@update')->name(getRouteName($module_name, 'item_update'));
 
     });
 
     /* Users */
     Route::group(['prefix' => 'users'], function () {
-        Route::get('/', 'UsersController@index')->name(getRouteName('users', 'index'));
-        Route::get('/{user}/edit', 'UsersController@edit')->name(getRouteName('users', 'edit'));
-        Route::put('{user}/reset-password', 'UsersController@resetPassword')->name(getRouteName('users', 'reset_password'));
-        Route::put('{user}', 'UsersController@update')->name(getRouteName('users', 'update'));
-        Route::put('{user}/role-update', 'UsersController@updateUserRole')->name(getRouteName('users', 'role_update'));
-        Route::delete('{user}', 'UsersController@destroy')->name(getRouteName('users', 'destroy'));
-        Route::post('/', 'UsersController@store')->name(getRouteName('users', 'store'));
-        Route::get('/create', 'UsersController@create')->name(getRouteName('users', 'create'));
+        $module_name = 'users';
+        Route::get('/', 'UsersController@index')->name(getRouteName($module_name, 'index'));
+        Route::get('{user}/edit', 'UsersController@edit')->name(getRouteName($module_name, 'edit'));
+        Route::put('{user}/reset-password', 'UsersController@resetPassword')->name(getRouteName($module_name, 'reset_password'));
+        Route::put('{user}', 'UsersController@update')->name(getRouteName($module_name, 'update'));
+        Route::put('{user}/role-update', 'UsersController@updateUserRole')->name(getRouteName($module_name, 'role_update'));
+        Route::delete('{user}', 'UsersController@destroy')->name(getRouteName($module_name, 'destroy'));
+        Route::post('/', 'UsersController@store')->name(getRouteName($module_name, 'store'));
+        Route::get('create', 'UsersController@create')->name(getRouteName($module_name, 'create'));
+        Route::post('mass-actions', 'UsersController@massActions')->name(getRouteName($module_name, 'mass_actions'));
 
         /* Roles */
         Route::group(['prefix' => 'roles'], function () {
-            Route::get('/', 'RolesController@index')->name(getRouteName('roles','index'));
-            Route::post('/', 'RolesController@store')->name(getRouteName('roles', 'store'));
-            Route::get('create', 'RolesController@create')->name(getRouteName('roles', 'create'));
-            Route::put('{role}', 'RolesController@update')->name(getRouteName('roles', 'update'));
-            Route::get('{role}/edit', 'RolesController@edit')->name(getRouteName('roles', 'edit'));
-            Route::delete('{role}', 'RolesController@destroy')->name(getRouteName('roles', 'destroy'));
-            Route::get('{role}/set-permissions', 'RolesController@setPermissions')->name(getRouteName('roles', 'permission_set_permission'));
-            Route::put('{role}/update-permissions', 'RolesController@updatePermissions')->name(getRouteName('roles', 'permission_update_permission'));
-
+            $module_name = 'roles';
+            Route::get('/', 'RolesController@index')->name(getRouteName($module_name,'index'));
+            Route::post('/', 'RolesController@store')->name(getRouteName($module_name, 'store'));
+            Route::get('create', 'RolesController@create')->name(getRouteName($module_name, 'create'));
+            Route::put('{role}', 'RolesController@update')->name(getRouteName($module_name, 'update'));
+            Route::get('{role}/edit', 'RolesController@edit')->name(getRouteName($module_name, 'edit'));
+            Route::delete('{role}', 'RolesController@destroy')->name(getRouteName($module_name, 'destroy'));
+            Route::get('{role}/set-permissions', 'RolesController@setPermissions')->name(getRouteName($module_name, 'permission_set_permission'));
+            Route::put('{role}/update-permissions', 'RolesController@updatePermissions')->name(getRouteName($module_name, 'permission_update_permission'));
+            Route::post('mass-actions', 'RolesController@massActions')->name(getRouteName($module_name, 'mass_actions'));
         });
     });
 
     /* Themes */
     Route::group(['prefix' => 'themes'], function () {
-       Route::get('/', 'ThemesController@index')->name(getRouteName('themes', 'index'));
-       Route::put('/', 'ThemesController@update')->name(getRouteName('themes', 'update'));
+        $module_name = 'themes';
+        Route::get('/', 'ThemesController@index')->name(getRouteName($module_name, 'index'));
+        Route::put('/', 'ThemesController@update')->name(getRouteName($module_name, 'update'));
     });
 
 });

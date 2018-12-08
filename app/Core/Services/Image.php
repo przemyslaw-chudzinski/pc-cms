@@ -13,10 +13,13 @@ class Image
 
     private $resizeQuality = 60;
 
-    public function __construct($file, $uploadDir)
+    private $mode;
+
+    public function __construct($file, $uploadDir, $mode = 'fit')
     {
         $this->file = $file;
         $this->uploadDir = $uploadDir;
+        $this->mode = $mode;
     }
 
     private function saveOriginalImage()
@@ -36,11 +39,49 @@ class Image
             foreach ($definedThumbnails as $definedThumbnail) {
                 $img = InterventionImage::make(public_path('storage/' . $this->uploadDir . '/' . $this->file->getClientOriginalName()));
                 $images[$definedThumbnail['name']] = $this->uploadDir . '/' . time() . '_' . $definedThumbnail['name'] . '_' . $this->file->getClientOriginalName();
-                $img->resize($definedThumbnail['width'], $definedThumbnail['height'])->save('storage/' . $images[$definedThumbnail['name']], $this->resizeQuality);
+
+                switch ($this->mode) {
+                    case 'fit':
+                        $this->fit($img, (int)$definedThumbnail['width'], (int)$definedThumbnail['height'], $images[$definedThumbnail['name']]);
+                        break;
+                    case 'resize':
+                        $this->resize($img, (int)$definedThumbnail['width'], (int)$definedThumbnail['height'], $images[$definedThumbnail['name']]);
+                        break;
+                    case 'crop':
+                        $this->crop($img, (int)$definedThumbnail['width'], (int)$definedThumbnail['height'], $images[$definedThumbnail['name']], null, null);
+                        break;
+                    default:
+                        $this->fit($img, (int)$definedThumbnail['width'], (int)$definedThumbnail['height'], $images[$definedThumbnail['name']]);
+                        break;
+                }
             }
         }
 
         return $images;
+    }
+
+    private function crop($img, $width, $height, $fileName, $x = null, $y = null)
+    {
+        $img->crop($width, $height, $x, $y)->save('storage/' . $fileName, $this->resizeQuality);
+    }
+
+    private function resize($img, $width = null, $height = null, $fileName)
+    {
+        if (!isset($width) || !isset($height)) {
+            $img->resize($width, $height, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })->save('storage/' . $fileName, $this->resizeQuality);
+        } else {
+            $img->resize($width, $height)->save('storage/' . $fileName, $this->resizeQuality);
+        }
+    }
+
+    private function fit($img, $width = null, $height = null, $fileName)
+    {
+        $img->fit($width, $height, function ($constraint) {
+            $constraint->upsize();
+        })->save('storage/' . $fileName, $this->resizeQuality);
     }
 
     public function upload()

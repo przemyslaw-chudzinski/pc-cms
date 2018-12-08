@@ -6,13 +6,15 @@
 
 @section('content')
 
-    @include('admin.material_theme.components.alert')
+    <?php
+        $module_name = 'roles';
+    ?>
 
     <div class="row">
         <div class="col-xs-12">
             <div class="card">
                 <header class="card-heading ">
-                    <h2 class="card-title">Set permissions for {{ $role->display_name }} role</h2>
+                    <h2 class="card-title">Set permissions for {{ $role->display_name }}</h2>
                 </header>
                 <div class="card-body">
                     @if (count(config('admin.modules')) > 0)
@@ -38,7 +40,7 @@
                     @endif
                         {!! Form::open([
                          'method' => 'put',
-                         'route' => ['admin.users.roles.updatePermissions', $role->id],
+                         'route' => [getRouteName($module_name, 'permission_update_permission'), $role->id],
                          'id' => 'savePermissionsForm'
                          ]) !!}
                         {!! Form::text('permissions', $role->permissions, ['class' => 'hidden pc-cms-permissions']) !!}

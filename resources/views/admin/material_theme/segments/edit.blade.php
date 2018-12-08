@@ -6,23 +6,24 @@
 
 @section('content')
 
-    @include('admin.material_theme.components.alert')
-
-    @include('admin.material_theme.components.forms.validation')
+    <?php
+        $module_name = 'segments';
+    ?>
 
     <div class="row">
+        {!! Form::open([
+                     'route' => [getRouteName($module_name, 'update'), $segment->id],
+                     'method' => 'put',
+                     'id' => 'editSegmentForm',
+                     'novalidate' => 'novalidate',
+                     'files' => true
+                     ]) !!}
         <div class="col-xs-12 col-md-6">
             <div class="card">
                 <header class="card-heading ">
                     <h2 class="card-title">Edit - {{ $segment->name }}</h2>
                 </header>
                 <div class="card-body">
-                    {!! Form::open([
-                    'route' => [config('admin.modules.segments.actions.update.route_name'), $segment->id],
-                     'method' => 'put',
-                     'id' => 'editSegmentForm',
-                     'novalidate' => 'novalidate'
-                     ]) !!}
 
                     <div class="form-group">
                         {!! Form::label(null, 'Segment name') !!}
@@ -35,10 +36,30 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary pc-cms-loader-btn" data-form="#editSegmentForm">Save</button>
-                    {!! Form::close() !!}
                 </div>
             </div>
         </div>
+
+        <div class="col-xs-12 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    @include('admin.material_theme.components.forms.uploadImage', [
+                                    'filedName' => 'segmentImage',
+                                    'id' => 'segmentImage',
+                                    'label' => 'Image',
+                                    'placeholder' => 'Choose additional image',
+                                    'previewContainerId' => 'segmentImagePreview',
+                                    'multiple' => false,
+                                    'editState' => true,
+                                    'image' => $segment->image,
+                                    'dir' => 'segments',
+                                    'noImageInputName' => 'noImage'
+                                ])
+                </div>
+            </div>
+        </div>
+
+        {!! Form::close() !!}
     </div>
 
 @endsection

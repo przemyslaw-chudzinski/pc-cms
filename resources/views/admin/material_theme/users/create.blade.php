@@ -6,9 +6,9 @@
 
 @section('content')
 
-    @include('admin.material_theme.components.alert')
-
-    @include('admin.material_theme.components.forms.validation')
+    <?php
+        $module_name = 'users';
+    ?>
 
     <div class="row">
         <div class="col-xs-12 col-md-6">
@@ -19,17 +19,17 @@
                 <div class="card-body">
                     {!! Form::open([
                      'method' => 'post',
-                     'route' => config('admin.modules.users.actions.store.route_name'),
+                     'route' => getRouteName($module_name, 'store'),
                      'id' => 'createNewUserForm',
                      'novalidate' => 'novalidate'
                      ]) !!}
                     <div class="form-group">
-                        {!! Form::label(null, 'User name') !!}
+                        {!! Form::label(null, 'User first name') !!}
                         {!! Form::text('first_name', null, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
                     </div>
 
                     <div class="form-group">
-                        {!! Form::label(null, 'User name') !!}
+                        {!! Form::label(null, 'User last name') !!}
                         {!! Form::text('last_name', null, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
                     </div>
 
@@ -53,7 +53,7 @@
                         </select>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary pc-cms-loader-btn" data-form="#createNewUserForm">Save</button>
                     {!! Form::close() !!}
                 </div>
             </div>

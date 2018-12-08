@@ -62,7 +62,8 @@ class ThemeService
 
     public static function getTheme()
     {
-        return Theme::getSetting('theme');
+//        return Theme::getSetting('theme');
+        return 'PortfolioTheme';
     }
 
     public static function updateTheme()

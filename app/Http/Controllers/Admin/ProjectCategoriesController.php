@@ -37,4 +37,9 @@ class ProjectCategoriesController extends Controller
     {
         return $projectCategory->removeCategory();
     }
+
+    public function massActions()
+    {
+        return ProjectCategory::massActions();
+    }
 }

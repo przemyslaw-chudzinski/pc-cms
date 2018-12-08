@@ -6,24 +6,24 @@
 
 @section('content')
 
-
-    @include('admin.material_theme.components.alert')
-
-    @include('admin.material_theme.components.forms.validation')
+    <?php
+        $module_name = 'segments';
+    ?>
 
     <div class="row">
+        {!! Form::open([
+        'route' => getRouteName($module_name, 'store'),
+        'method' => 'post',
+        'id' => 'createNewSegmentForm',
+        'novalidate' => 'novalidate',
+        'files' => true
+        ]) !!}
         <div class="col-xs-12 col-md-6">
             <div class="card">
                 <header class="card-heading">
                     <h2 class="card-title">New segment</h2>
                 </header>
                 <div class="card-body">
-                    {!! Form::open([
-                     'route' => getRouteName('segments', 'store'),
-                     'method' => 'post',
-                     'id' => 'createNewSegmentForm',
-                     'novalidate' => 'novalidate'
-                     ]) !!}
 
                         <div class="form-group">
                             {!! Form::label(null, 'Segment name') !!}
@@ -36,10 +36,27 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary pc-cms-loader-btn" data-form="#createNewSegmentForm">Save</button>
-                    {!! Form::close() !!}
                 </div>
             </div>
         </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    @include('admin.material_theme.components.forms.uploadImage', [
+                                    'filedName' => 'segmentImage',
+                                    'id' => 'segmentImage',
+                                    'label' => 'Image',
+                                    'previewContainerId' => 'segmentImagePreview',
+                                    'placeholder' => 'Choose additional image',
+                                    'multiple' => false,
+                                    'editState' => false
+                                ])
+                </div>
+            </div>
+        </div>
+
+        {!! Form::close() !!}
     </div>
 
 @endsection

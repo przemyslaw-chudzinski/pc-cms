@@ -6,9 +6,10 @@
 
 @section('content')
 
-    @include('admin.material_theme.components.alert')
-
-    @include('admin.material_theme.components.loader-async')
+    <?php
+        $module_name = 'menus';
+        $count_items = count($menus);
+    ?>
 
     <div class="row">
         <div class="col-xs-12">
@@ -21,30 +22,54 @@
                                 <i class="zmdi zmdi-more-vert"></i>
                             </a>
                             <ul class="dropdown-menu btn-primary dropdown-menu-right">
-                                <li><a href="{{ route(getRouteName('menus', 'create')) }}">Create new</a></li>
+                                <li><a href="{{ route(getRouteName($module_name, 'create')) }}">Create new</a></li>
                             </ul>
                         </li>
                     </ul>
                 </header>
                 <div class="card-body">
+                    <div>
+                        <div>
+                            <?php
+                            $args = [
+                                'delete' => [
+                                    'button_label' => 'Remove selected items',
+                                    'button_class' => 'btn-danger',
+                                ],
+                                'change_status_on_true' => [
+                                    'button_label' => 'Set on published',
+                                    'button_class' => 'btn-primary'
+                                ],
+                                'change_status_on_false' => [
+                                    'button_label' => 'Set on draft',
+                                    'button_class' => 'btn-primary'
+                                ]
+
+                            ];
+                            ?>
+                            {!! MassActions::setMassActions($module_name, NULL, $args) !!}
+                        </div>
+                        {{-- Search --}}
+                        <div></div>
+                    </div>
                     <table class="table table-hover pc-cms-table">
                         <thead>
                         <tr>
-                            <th><div class="checkbox"><label><input type="checkbox"></label></div></th>
-                            <th>Menu name</th>
+                            <th><div class="checkbox"><label><input type="checkbox" @if($count_items === 0) disabled @endif class="pc-selectable-input-all"></label></div></th>
+                            <th><a href="{{ getSortUrl('name', NULL, $module_name) }}">Menu name</a></th>
                             <th>Slug</th>
                             <th>Description</th>
-                            <th>Status</th>
-                            <th>Created at</th>
-                            <th>Updated at</th>
+                            <th><a href="{{ getSortUrl('published', NULL, $module_name) }}">Status</a></th>
+                            <th><a href="{{ getSortUrl('created_at', NULL, $module_name) }}">Created at</a></th>
+                            <th><a href="{{ getSortUrl('updated_at', NULL, $module_name) }}">Updated at</a></th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        @if (count($menus) > 0)
+                        @if ($count_items > 0)
                             @foreach($menus as $menu)
-                                <tr>
-                                    <td><div class="checkbox"><label><input type="checkbox"></label></div></td>
+                                <tr class="pc-selectable-row">
+                                    <td><div class="checkbox"><label><input type="checkbox" class="pc-selectable-input" data-item-id="{{ $menu->id }}"></label></div></td>
                                     <td>{{ $menu->name }}</td>
                                     <td>{{ $menu->slug }}</td>
                                     <td>{{ $menu->description }}</td>
@@ -64,12 +89,12 @@
                                                 <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu">
-                                                <li><a href="{{ url(config('admin.admin_path') . '/menus/' . $menu->id . '/builder' ) }}">Menu builder</a></li>
-                                                <li><a href="{{ url(config('admin.admin_path') . '/menus/' . $menu->id . '/edit') }}">Edit</a></li>
+                                                <li><a href="{{ route(getRouteName($module_name, 'builder'), $menu->id) }}">Menu builder</a></li>
+                                                <li><a href="{{ route(getRouteName($module_name, 'edit'), $menu->id) }}">Edit</a></li>
                                                 <li>
                                                     {!! Form::open([
                                                         'method' => 'delete',
-                                                        'route' => [config('admin.modules.menus.actions.destroy.route_name'), $menu->id],
+                                                        'route' => [getRouteName($module_name, 'destroy'), $menu->id],
                                                         'id' => 'menuRemoveForm-' . $menu->id
                                                     ]) !!}
                                                     {!! Form::close() !!}

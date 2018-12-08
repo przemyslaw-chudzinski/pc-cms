@@ -6,14 +6,14 @@
 
 @section('content')
 
-    @include('admin.material_theme.components.alert')
-
-    @include('admin.material_theme.components.forms.validation')
+    <?php
+        $module_name = 'projects';
+    ?>
 
     <div class="row">
         {!! Form::open([
             'method' => 'put',
-            'route' => [config('admin.modules.projects.actions.update.route_name'), $project->id],
+            'route' => [getRouteName($module_name, 'update'), $project->id],
             'id' => 'editProjectForm',
             'novalidate' => 'novalidate',
             'files' => true

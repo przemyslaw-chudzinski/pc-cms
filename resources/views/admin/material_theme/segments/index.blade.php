@@ -6,8 +6,10 @@
 
 @section('content')
 
-    @include('admin.material_theme.components.alert')
-
+    <?php
+        $module_name = 'segments';
+        $count_items = count($segments);
+    ?>
 
     <div class="row">
         <div class="col-xs-12">
@@ -20,30 +22,49 @@
                                 <i class="zmdi zmdi-more-vert"></i>
                             </a>
                             <ul class="dropdown-menu btn-primary dropdown-menu-right">
-                                <li><a href="{{ route(config('admin.modules.segments.actions.create.route_name')) }}">Create new</a></li>
+                                <li><a href="{{ route(getRouteName($module_name, 'create')) }}">Create new</a></li>
                             </ul>
                         </li>
                     </ul>
                 </header>
                 <div class="card-body">
+                    <div>
+                        <?php
+                        $args = [
+                            'delete' => [
+                                'button_label' => 'Remove selected items',
+                                'button_class' => 'btn-danger',
+                            ]
+                        ];
+                        ?>
+                        {!! MassActions::setMassActions($module_name, NULL, $args) !!}
+                            {{-- Search --}}
+                        <div></div>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-hover pc-cms-table">
                             <thead>
                             <tr>
                                 <th>
-                                    <div class="checkbox"><label><input type="checkbox"></label></div>
+                                    <div class="checkbox"><label><input @if($count_items === 0) disabled @endif class="pc-selectable-input-all" type="checkbox"></label></div>
                                 </th>
-                                <th class="sorting_asc">Segment name</th>
-                                <th>Created at</th>
-                                <th>Updated at</th>
+                                <th>
+                                    <a href="{{ getSortUrl('name', null, $module_name) }}">Segment name</a>
+                                </th>
+                                <th>
+                                    <a href="{{ getSortUrl('created_at', null, $module_name) }}">Created at</a>
+                                </th>
+                                <th>
+                                    <a href="{{ getSortUrl('updated_at', null, $module_name) }}">Updated at</a>
+                                </th>
                                 <th></th>
                             </tr>
                             </thead>
                             <tbody>
-                            @if (count($segments) > 0)
+                            @if ($count_items > 0)
                                 @foreach($segments as $segment)
-                                    <tr>
-                                        <td><div class="checkbox"><label><input type="checkbox"></label></div></td>
+                                    <tr class="pc-selectable-row">
+                                        <td><div class="checkbox"><label><input class="pc-selectable-input" type="checkbox" data-item-id="{{ $segment->id }}"></label></div></td>
                                         <td>{{ $segment->name }}</td>
                                         <td>{{ $segment->created_at }}</td>
                                         <td>{{ $segment->updated_at }}</td>

@@ -16,7 +16,9 @@ class MaintenanceMode
      */
     public function handle($request, Closure $next)
     {
-        $maintenanceMode = Theme::getSetting('maintenance_mode');
+//        $maintenanceMode = Theme::getSetting('maintenance_mode');
+
+        $maintenanceMode = false;
 
         if ($maintenanceMode) {
             return redirect(url('/maintenance'));

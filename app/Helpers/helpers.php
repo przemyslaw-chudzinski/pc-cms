@@ -98,3 +98,24 @@ if (!function_exists('getImageUrl')) {
         return \Illuminate\Support\Facades\Storage::url($res);
     }
 }
+
+if(!function_exists('getSortUrl')) {
+    function getSortUrl($order_by, $sort= false, $moduleName, $action = false)
+    {
+        $current_order_by = request()->query('order_by');
+        $current_sort = request()->query('sort', 'desc');
+        if ($current_order_by === $order_by) {
+            if ($current_sort === 'asc') {
+                $sort = 'desc';
+            } else {
+                $sort = 'asc';
+            }
+        }
+
+        if ($sort === NULL || $sort === false) $sort = 'desc';
+        if ($action === NULL || $action === false) $action = 'index';
+
+        $url = url(route(getRouteName($moduleName, $action))).'?order_by='.$order_by.'&sort='.$sort;
+        return $url;
+    }
+}

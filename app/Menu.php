@@ -19,6 +19,13 @@ class Menu extends Model
         'published'
     ];
 
+    protected static $sortable = [
+        'name',
+        'published',
+        'created_at',
+        'updated_at'
+    ];
+
     public function items()
     {
         return $this->hasMany(MenuItem::class, 'menu_id');
@@ -31,7 +38,7 @@ class Menu extends Model
 
     public static function getMenusWithPagination()
     {
-        return self::latest()->paginate(10);
+        return self::getModelDataWithPagination();
     }
 
     public static function createMenu()
@@ -87,25 +94,9 @@ class Menu extends Model
         ]);
     }
 
-    private function toggleStatus()
-    {
-        $data['published'] = false;
-
-        if (!$this->published) {
-            $data['published'] = true;
-        }
-
-        $result = $this->update($data);
-
-        return [
-            'result' => $result,
-            'data' => $data
-        ];
-    }
-
     public function toggleStatusAjax()
     {
-        $res = $this->toggleStatus();
+        $res = $this->toggleModelStatus('published');
 
         return response()->json([
             '7' => 'success',
@@ -161,5 +152,20 @@ class Menu extends Model
             'type' => 'success',
             'message' => 'Menu has been deleted successfully'
         ]);
+    }
+
+    public static function massActions()
+    {
+        $data = request()->all();
+        $selected_ids = explode(',', $data['selected_values']);
+
+        switch ($data['action_name']) {
+            case 'delete':
+                return self::massActionsDelete($selected_ids);
+            case 'change_status_on_true':
+                return self::massActionsChangeStatus($selected_ids,true);
+            case 'change_status_on_false':
+                return self::massActionsChangeStatus($selected_ids, false);
+        }
     }
 }

@@ -1,52 +1,50 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="generator" content="PC.CMS - 1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="robots" content="noindex, nofollow">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="generator" content="PC.CMS - 1.0">
     <title>PC.CMS - 1.0</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Poppins:300,400,500,600" rel="stylesheet">
+    <link rel="icon" href="{{ asset('admin/material_theme/dist/img/favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ asset('admin/material_theme/dist/css/vendor.bundle.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/material_theme/dist/css/app.bundle.css') }}">
 </head>
-<body>
+<body id="auth_wrapper" >
+<div id="login_wrapper">
 
-<section class="pc-cms-content-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-md-6 col-md-offset-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">PC.CMS 1.0 - LOGIN</div>
-                    <div class="panel-body">
-                        {!! Form::open(['route' => 'admin.login', 'method' => 'post']) !!}
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            {!! Form::label(null, 'Email') !!}
-                            {!! Form::text('email', null, ['class' => 'form-control']) !!}
-                            @if ($errors->has('email'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('email') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            {!! Form::label(null, 'Password') !!}
-                            {!! Form::password('password', ['class' => 'form-control']) !!}
-                            @if ($errors->has('password'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('password') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                        <button type="submit" class="btn btn-primary">Login</button>
-                        {!! Form::close() !!}
-                    </div>
+    <div id="login_content">
+        <div class="logo">
+            <img src="{{ asset('admin/material_theme/dist/img/logo/ml-logo.png') }}" alt="logo" class="logo-img">
+        </div>
+        <h1 class="login-title">@lang('auth.login_form_header')</h1>
+        @if ($errors->count())
+            <div class="alert alert-danger">{{ $errors->first() }}</div>
+        @endif
+        <div class="login-body">
+            {!! Form::open(['route' => 'admin.login', 'method' => 'post']) !!}
+                <div class="form-group label-floating">
+                    <label class="control-label">Email</label>
+                    {!! Form::text('email', null, ['class' => 'form-control']) !!}
                 </div>
-            </div>
+                <div class="form-group label-floating is-empty">
+                    <label class="control-label">@lang('auth.login_form_password_label')</label>
+                    {!! Form::password('password', ['class' => 'form-control']) !!}
+                </div>
+                <div class="checkbox inline-block">
+                    <label>
+                        <input type="checkbox" class="checkbox-inline" name="remember">
+                        @lang('auth.login_form_checkbox_label')
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-info btn-block m-t-40">@lang('auth.login_form_submit_button')</button>
+            {!! Form::close() !!}
         </div>
     </div>
-</section>
-
-<script src="{{ asset('js/app.js') }}"></script>
+</div>
+<script src="{{ asset('admin/material_theme/dist/js/vendor.bundle.js') }}"></script>
+<script src="{{ asset('admin/material_theme/dist/js/app.bundle.js') }}"></script>
 </body>
 </html>

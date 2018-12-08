@@ -6,15 +6,14 @@
 
 @section('content')
 
-    @include('admin.material_theme.components.alert')
-
-    @include('admin.material_theme.components.forms.validation')
-
+    <?php
+        $module_name = 'projects';
+    ?>
 
     <div class="row">
         {!! Form::open([
             'method' => 'post',
-            'route' => config('admin.modules.projects.actions.store.route_name'),
+            'route' => getRouteName($module_name, 'store'),
             'id' => 'createNewProjectForm',
             'novalidate' => 'novalidate',
             'files' => true

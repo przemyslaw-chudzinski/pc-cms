@@ -22,6 +22,7 @@ Route::group(['namespace' => 'API'], function () {
     /* Articles */
     Route::group(['prefix' => 'articles'], function () {
         Route::post('{article}/togglePublished', 'ArticlesController@togglePublished'); // potrzeban autoryzacja
+        Route::post('{article}/toggleCommentsStatus', 'ArticlesController@toggleCommentsStatus'); // potrzeban autoryzacja
         Route::post('categories/{blogCategory}/togglePublished', 'BlogCategoriesController@togglePublished'); // potrzebna autoryzacja
     });
 
@@ -29,10 +30,12 @@ Route::group(['namespace' => 'API'], function () {
     Route::post('pages/{page}/togglePublished', 'PagesController@togglePublished'); // potrzebna autoryzacja
 
     /* Menus */
-    Route::post('menus/{menu}/togglePublished', 'MenusController@togglePublished'); // potrzebna autoryzacja
-    Route::get('menus/{menu}/items', 'MenusController@getItems'); // potrzebna autoryzacja
-    Route::put('menus/{menu}/updateTree', 'MenusController@updateTree'); // potrzebna autoryzacja
-    Route::delete('menus/{menu}/items/{menuItem}', 'MenuItemsController@destroy'); // potrzebna autoryzacja
+    Route::group(['prefix' => 'menus'], function() {
+        Route::post('{menu}/togglePublished', 'MenusController@togglePublished'); // potrzebna autoryzacja
+        Route::get('{menu}/items', 'MenusController@getItems'); // potrzebna autoryzacja
+        Route::put('{menu}/updateTree', 'MenusController@updateTree'); // potrzebna autoryzacja
+        Route::delete('{menu}/items/{menuItem}', 'MenuItemsController@destroy'); // potrzebna autoryzacja
+    });
 
     /* Projects */
     Route::group(['prefix' => 'projects'], function () {

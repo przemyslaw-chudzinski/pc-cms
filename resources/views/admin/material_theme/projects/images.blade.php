@@ -6,11 +6,9 @@
 
 @section('content')
 
-    @include('admin.material_theme.components.alert')
-
-    @include('admin.material_theme.components.forms.validation')
-
-    @include('admin.material_theme.components.loader-async')
+    <?php
+        $module_name = 'projects';
+    ?>
 
     <div class="row">
         <div class="col-xs-12 col-md-8">
@@ -28,7 +26,7 @@
                                         {!! Form::open([
                                             'id' => 'remove-image-form-' .$key,
                                             'method' => 'put',
-                                            'route' => [getRouteName('projects', 'images_destroy'), $project->id]
+                                            'route' => [getRouteName($module_name, 'images_destroy'), $project->id]
                                         ]) !!}
                                         {!! Form::hidden('image', $img['original']) !!}
                                         {!! Form::close() !!}
@@ -47,7 +45,7 @@
 
                     {!! Form::open([
                         'files' => true,
-                        'route' => [getRouteName('projects', 'images_add'), $project->id],
+                        'route' => [getRouteName($module_name, 'images_add'), $project->id],
                         'method' => 'put'
                     ]) !!}
                     <div class="form-group">

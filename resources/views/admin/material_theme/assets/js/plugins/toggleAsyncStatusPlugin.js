@@ -14,11 +14,15 @@ import loaderAsync from './loaderAsyncPlugin';
         loaderAsync.show({
             title: 'Data processing is in progress',
         });
+
         const url = $btn.data('url');
         const trueLabel = $btn.data('true-label');
         const falseLabel = $btn.data('false-label');
+        const trueClasses = $btn.data('true-classes');
+        const falseClasses = $btn.data('false-classes');
+
         sendRequest(url, null, 'post', function (response) {
-            prepareBtn($btn, response, trueLabel, falseLabel);
+            prepareBtn($btn, response, trueLabel, falseLabel, trueClasses, falseClasses);
             toastr.success(response.message);
             loaderAsync.hide();
         }, function () {
@@ -38,15 +42,15 @@ import loaderAsync from './loaderAsyncPlugin';
         });
     }
 
-    function prepareBtn($btn, response, trueLabel = 'Published', falseLabel = 'Draft') {
-        const trueClassess = 'btn btn-success btn-xs pc-cms-status-btn pc-cms-toggle-status-btn';
-        const falseClassess = 'btn btn-warning btn-xs pc-cms-status-btn pc-cms-toggle-status-btn';
+    function prepareBtn($btn, response, trueLabel = 'Published', falseLabel = 'Draft', trueClasses = 'btn-success', falseClasses = 'btn-warning') {
+        const _trueClasses = 'btn '+ trueClasses +' btn-xs pc-cms-status-btn pc-cms-toggle-status-btn';
+        const _falseClasses = 'btn '+ falseClasses +' btn-xs pc-cms-status-btn pc-cms-toggle-status-btn';
         $btn.removeClass();
         if (!response.newStatus) {
-            $btn.addClass(falseClassess);
+            $btn.addClass(_falseClasses);
             $btn.text(falseLabel);
         } else {
-            $btn.addClass(trueClassess);
+            $btn.addClass(_trueClasses);
             $btn.text(trueLabel);
         }
     }

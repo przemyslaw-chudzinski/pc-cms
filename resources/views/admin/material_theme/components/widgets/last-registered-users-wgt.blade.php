@@ -9,7 +9,7 @@
                     @foreach($users as $user)
                         <a href="{{ route(getRouteName('users', 'edit'),['user' => $user->id]) }}">
                             <li class="list-group-item">
-                                <span class="pull-left"><img src="{{ asset('admin/material_theme/dist/img/profiles/07.jpg') }}" alt="" class="img-circle max-w-40 m-r-10 "></span>
+{{--                                <span class="pull-left"><img src="{{ asset('admin/material_theme/dist/img/profiles/07.jpg') }}" alt="" class="img-circle max-w-40 m-r-10 "></span>--}}
                                 <div class="list-group-item-body">
                                     <div class="list-group-item-heading">{{ $user->first_name }} {{ $user->last_name }}</div>
                                     <div class="list-group-item-text">{{ $user->email }}</div>

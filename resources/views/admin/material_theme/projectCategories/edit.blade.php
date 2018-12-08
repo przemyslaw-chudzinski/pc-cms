@@ -6,14 +6,14 @@
 
 @section('content')
 
-    @include('admin.material_theme.components.alert')
-
-    @include('admin.material_theme.components.forms.validation')
+    <?php
+    $module_name = 'project_categories';
+    ?>
 
     <div class="row">
         {!! Form::open([
                         'method' => 'put',
-                        'route' => [config('admin.modules.project_categories.actions.update.route_name'), $category->id],
+                        'route' => [getRouteName($module_name, 'update'), $category->id],
                         'id' => 'editProjectCategoryForm',
                         'novalidate' => 'novalidate',
                         'files' => true

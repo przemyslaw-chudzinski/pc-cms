@@ -7,6 +7,7 @@ use App\Core\Theme\Theme;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\Core\Segments\Segments;
+use App\Core\MassActions\MassActions;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -37,6 +38,10 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind('admin.theme', function () {
            return new Theme();
+        });
+
+        $this->app->bind('admin.mass_actions', function () {
+           return new MassActions();
         });
 
         $this->loadHelpers();
