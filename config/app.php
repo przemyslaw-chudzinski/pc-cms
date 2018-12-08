@@ -182,7 +182,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
         App\Providers\ThemeComposerServiceProvider::class,
-        App\Providers\AdminRouteServiceProvider::class
+        App\Providers\AdminProviders\AdminServiceProvider::class
 
     ],
 
