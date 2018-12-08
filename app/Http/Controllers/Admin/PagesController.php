@@ -11,17 +11,17 @@ class PagesController extends Controller
     public function index()
     {
         $pages = Page::getPagesWithPagination();
-        return view('admin.material_theme.pages.index', ['pages' => $pages]);
+        return view('admin::pages.index', ['pages' => $pages]);
     }
 
     public function create()
     {
-        return view('admin.material_theme.pages.create');
+        return view('admin::pages.create');
     }
 
     public function edit(Page $page)
     {
-        return view('admin.material_theme.pages.edit', ['page' => $page]);
+        return view('admin::pages.edit', ['page' => $page]);
     }
 
     public function store()

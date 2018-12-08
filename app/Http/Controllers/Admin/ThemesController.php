@@ -12,7 +12,7 @@ class ThemesController extends Controller
     {
         $themes = ThemeService::getThemesList();
         $currentTheme = ThemeService::getTheme();
-        return view('admin.material_theme.themes.index', ['themes' => $themes, 'currentTheme' => $currentTheme]);
+        return view('admin::themes.index', ['themes' => $themes, 'currentTheme' => $currentTheme]);
     }
 
     public function update()

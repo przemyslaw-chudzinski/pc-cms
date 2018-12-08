@@ -10,7 +10,7 @@ class SettingsController extends Controller
     public function index()
     {
         $settings = Setting::getAllSettings();
-        return view('admin.material_theme.settings.index', ['settings' => $settings]);
+        return view('admin::settings.index', ['settings' => $settings]);
     }
 
     public function store()

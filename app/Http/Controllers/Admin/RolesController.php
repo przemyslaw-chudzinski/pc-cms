@@ -10,22 +10,22 @@ class RolesController extends Controller
     public function index()
     {
         $roles = Role::getRolesWithPagination();
-        return view('admin.material_theme.roles.index', ['roles' => $roles]);
+        return view('admin::roles.index', ['roles' => $roles]);
     }
 
     public function create()
     {
-        return view('admin.material_theme.roles.create');
+        return view('admin::roles.create');
     }
 
     public function edit(Role $role)
     {
-        return view('admin.material_theme.roles.edit', ['role' => $role]);
+        return view('admin::roles.edit', ['role' => $role]);
     }
 
     public function setPermissions(Role $role)
     {
-        return view('admin.material_theme.roles.setPermissions', ['role' => $role]);
+        return view('admin::roles.setPermissions', ['role' => $role]);
     }
 
     public function store()

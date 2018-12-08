@@ -10,17 +10,17 @@ class SegmentsController extends Controller
     public function index()
     {
         $segments = Segment::getSegmentsWithPagination();
-        return view('admin.material_theme.segments.index', ['segments' => $segments]);
+        return view('admin::segments.index', ['segments' => $segments]);
     }
 
     public function create()
     {
-        return view('admin.material_theme.segments.create');
+        return view('admin::segments.create');
     }
 
     public function edit(Segment $segment)
     {
-        return view('admin.material_theme.segments.edit', ['segment' => $segment]);
+        return view('admin::segments.edit', ['segment' => $segment]);
     }
 
     public function store()

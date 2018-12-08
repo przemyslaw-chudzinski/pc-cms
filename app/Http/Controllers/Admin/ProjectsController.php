@@ -11,19 +11,19 @@ class ProjectsController extends Controller
     public function index()
     {
         $projects = Project::getProjectsWithPagination();
-        return view('admin.material_theme.projects.index', ['projects' => $projects]);
+        return view('admin::projects.index', ['projects' => $projects]);
     }
 
     public function create()
     {
         $categories = ProjectCategory::getCategories();
-        return view('admin.material_theme.projects.create', ['categories' => $categories]);
+        return view('admin::projects.create', ['categories' => $categories]);
     }
 
     public function edit(Project $project)
     {
         $categories = ProjectCategory::getCategories();
-        return view('admin.material_theme.projects.edit', ['project' => $project, 'categories' => $categories]);
+        return view('admin::projects.edit', ['project' => $project, 'categories' => $categories]);
     }
 
     public function store()
@@ -43,7 +43,7 @@ class ProjectsController extends Controller
 
     public function images(Project $project)
     {
-        return view('admin.material_theme.projects.images', ['project' => $project]);
+        return view('admin::projects.images', ['project' => $project]);
     }
 
     public function removeImage(Project $project)

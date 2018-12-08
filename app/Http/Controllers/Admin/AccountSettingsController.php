@@ -11,7 +11,7 @@ class AccountSettingsController extends Controller
     public function index()
     {
         $roles = Role::getRoles();
-        return view('admin.material_theme.accountSettings.index', ['roles' => $roles]);
+        return view('admin::accountSettings.index', ['roles' => $roles]);
     }
 
     public function update()

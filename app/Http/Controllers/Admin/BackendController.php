@@ -8,6 +8,6 @@ class BackendController extends Controller
 {
     public function index()
     {
-        return view('admin.material_theme.backend.index');
+        return view('admin::backend.index');
     }
 }

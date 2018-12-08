@@ -24,7 +24,7 @@ class AuthController extends Controller
         if (Auth::user()) {
             return redirect(route(config('admin.modules.dashboard.actions.index.route_name')));
         }
-        return view('admin.material_theme.auth.login');
+        return view('admin::auth.login');
     }
 
     public function logout()
