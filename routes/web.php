@@ -11,9 +11,5 @@
 |
 */
 
-require 'admin.php';
-
 require 'themes.php';
-
-//Auth::routes();
 

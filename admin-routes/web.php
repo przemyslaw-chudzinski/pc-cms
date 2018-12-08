@@ -1,23 +1,21 @@
 <?php
 
-Route::group(['prefix' => config('admin.admin_path'), 'namespace' => 'Admin'], function () {
-    Route::get('/login', 'AuthController@showLoginForm')->name('admin.show_login_form');
-    Route::post('/login', 'AuthController@login')->name('admin.login');
-    Route::get('/logout', 'AuthController@logout')->name('admin.logout');
-});
+/* Backend login routes */
+Route::get('/login', 'AuthController@showLoginForm')->name('admin.show_login_form');
+Route::post('/login', 'AuthController@login')->name('admin.login');
+Route::get('/logout', 'AuthController@logout')->name('admin.logout');
 
 /* Account settings */
-Route::group(['prefix' => 'account-settings', 'namespace' => 'Admin', 'middleware' => ['web']], function () {
+Route::group(['prefix' => 'account-settings'], function () {
     Route::get('/', 'AccountSettingsController@index')->name('admin.account_settings.index');
     Route::put('/', 'AccountSettingsController@update')->name('admin.account_settings.update');
 });
 
 Route::group([
-    'prefix' => config('admin.admin_path'),
-    'namespace' => 'Admin',
     'middleware' => ['auth.admin']
 ], function () {
 
+    /* Dashboard routes */
     Route::get('/', 'BackendController@index')->name(getRouteName('dashboard', 'index'));
 
     /* Segments */
