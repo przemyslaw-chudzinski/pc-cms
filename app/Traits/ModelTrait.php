@@ -2,8 +2,6 @@
 
 namespace App\Traits;
 
-use function foo\func;
-
 trait ModelTrait {
 
     /**

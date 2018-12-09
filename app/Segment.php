@@ -36,6 +36,8 @@ class Segment extends Model
 
         $data['name'] = str_slug($data['name']);
 
+//        dd(request()->files);
+
         $validator = Validator::make($data, [
             'name' => 'required|unique:segments',
             'segmentImage' => 'image|max:2048'
