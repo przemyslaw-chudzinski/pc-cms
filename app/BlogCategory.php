@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Rule;
 use Validator;
 use App\Traits\ModelTrait;
-use App\Traits\FilesTrait;
+use App\Traits\HasFiles;
 
 class BlogCategory extends Model
 {
 
-    use ModelTrait, FilesTrait;
+    use ModelTrait, HasFiles;
 
     protected $fillable = [
         'name',

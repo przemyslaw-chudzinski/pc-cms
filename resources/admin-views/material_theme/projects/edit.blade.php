@@ -1,4 +1,4 @@
-@extends('admin.material_theme.layout')
+@extends('admin::layout')
 
 @section('module_name')
     Projects
@@ -48,7 +48,7 @@
                     </div>
 
                     <div class="form-group">
-                        @include('admin.material_theme.components.forms.seo', ['allow' => $project->allow_indexed, 'meta_title' => $project->meta_title, 'meta_description' => $project->meta_description])
+                        @include('admin::components.forms.seo', ['allow' => $project->allow_indexed, 'meta_title' => $project->meta_title, 'meta_description' => $project->meta_description])
                     </div>
                 </div>
             </div>
@@ -103,7 +103,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="form-group">
-                                @include('admin.material_theme.components.forms.uploadImage', [
+                                @include('admin::components.forms.uploadImage', [
                                     'filedName' => 'imageThumbnail',
                                     'id' => 'projectThumbnail',
                                     'label' => 'Thumbnail',
@@ -125,7 +125,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="form-group">
-                                @include('admin.material_theme.components.forms.uploadImage', [
+                                @include('admin::components.forms.uploadImage', [
                                     'filedName' => 'additionalImages',
                                     'id' => 'projectImages',
                                     'label' => 'Images',

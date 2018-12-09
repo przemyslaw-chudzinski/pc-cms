@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Traits\FilesTrait;
+use App\Traits\HasFiles;
 use App\Traits\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Validator;
@@ -11,7 +11,7 @@ use Illuminate\Validation\Rule;
 class Segment extends Model
 {
 
-    use ModelTrait, FilesTrait;
+    use ModelTrait, HasFiles;
 
     protected $fillable = [
         'name',
@@ -45,7 +45,9 @@ class Segment extends Model
             return back()->withErrors($validator);
         }
 
-        $data['image'] = json_encode(self::uploadImage($data, 'segmentImage', getModuleUploadDir('segments')));
+        if (count(request()->files)) {
+            $data['image'] = json_encode(self::uploadImage($data, 'segmentImage', getModuleUploadDir('segments')));
+        }
 
         self::create($data);
 

@@ -1,4 +1,4 @@
-@extends('admin.material_theme.layout')
+@extends('admin::layout')
 
 @section('module_name')
     Segments
@@ -18,7 +18,7 @@
                      'novalidate' => 'novalidate',
                      'files' => true
                      ]) !!}
-        <div class="col-xs-12 col-md-6">
+        <div class="col-xs-12 col-md-8">
             <div class="card">
                 <header class="card-heading ">
                     <h2 class="card-title">Edit - {{ $segment->name }}</h2>
@@ -40,10 +40,10 @@
             </div>
         </div>
 
-        <div class="col-xs-12 col-md-6">
+        <div class="col-xs-12 col-md-4">
             <div class="card">
                 <div class="card-body">
-                    @include('admin.material_theme.components.forms.uploadImage', [
+                    @include('admin::components.forms.uploadImage', [
                                     'filedName' => 'segmentImage',
                                     'id' => 'segmentImage',
                                     'label' => 'Image',
@@ -51,7 +51,7 @@
                                     'previewContainerId' => 'segmentImagePreview',
                                     'multiple' => false,
                                     'editState' => true,
-                                    'image' => $segment->image,
+                                    'image' => $segment->getImage(),
                                     'dir' => 'segments',
                                     'noImageInputName' => 'noImage'
                                 ])

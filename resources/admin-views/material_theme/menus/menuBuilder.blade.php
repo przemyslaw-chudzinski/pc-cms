@@ -1,4 +1,4 @@
-@extends('admin.material_theme.layout')
+@extends('admin::layout')
 
 @section('module_name')
     Menus
@@ -14,7 +14,7 @@
                 </header>
                 <div class="card-body">
                     <div class="dd" id="menuBuilderTree" data-menu-id="{{ $menu->id }}">
-                        @include('admin.material_theme.components.menu.menuBuilderMenu', ['items' => $menu->getItems()])
+                        @include('admin::components.menu.menuBuilderMenu', ['items' => $menu->getItems()])
                     </div>
                 </div>
             </div>
@@ -31,7 +31,7 @@
     </div>
 
 
-    @include('admin.material_theme.components.forms.menuBuilderAddItemModal')
+    @include('admin::components.forms.menuBuilderAddItemModal')
 
 
 @endsection

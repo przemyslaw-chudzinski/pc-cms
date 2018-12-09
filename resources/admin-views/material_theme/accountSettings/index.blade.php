@@ -1,4 +1,4 @@
-@extends('admin.material_theme.layout')
+@extends('admin::layout')
 
 @section('module_name')
     Account settings

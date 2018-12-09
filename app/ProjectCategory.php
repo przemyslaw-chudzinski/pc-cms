@@ -5,13 +5,13 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Rule;
 use Validator;
-use App\Traits\FilesTrait;
+use App\Traits\HasFiles;
 use App\Traits\ModelTrait;
 
 class ProjectCategory extends Model
 {
 
-    use FilesTrait, ModelTrait;
+    use HasFiles, ModelTrait;
 
     protected $fillable = [
         'name',

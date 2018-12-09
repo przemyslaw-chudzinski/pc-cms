@@ -1,4 +1,4 @@
-@extends('admin.material_theme.layout')
+@extends('admin::layout')
 
 @section('module_name')
     Dashboard
@@ -7,9 +7,9 @@
 @section('content')
 
     <div class="row">
-        @include('admin.material_theme.components.widgets.hello-wgt')
-        @include('admin.material_theme.components.widgets.last-registered-users-wgt')
-        @include('admin.material_theme.components.widgets.last-login-wgt')
+        @include('admin::components.widgets.hello-wgt')
+        @include('admin::components.widgets.last-registered-users-wgt')
+        @include('admin::components.widgets.last-login-wgt')
     </div>
 
 @endsection

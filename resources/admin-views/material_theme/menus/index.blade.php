@@ -1,4 +1,4 @@
-@extends('admin.material_theme.layout')
+@extends('admin::layout')
 
 @section('module_name')
     Menus
@@ -108,7 +108,7 @@
                         @endif
                         </tbody>
                     </table>
-                    {{ $menus->links('admin.material_theme.partials.pagination') }}
+                    {{ $menus->links('admin::partials.pagination') }}
                 </div>
             </div>
         </div>

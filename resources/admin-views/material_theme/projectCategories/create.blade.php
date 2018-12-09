@@ -1,4 +1,4 @@
-@extends('admin.material_theme.layout')
+@extends('admin::layout')
 
 @section('module_name')
     Project categories
@@ -64,7 +64,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="form-group">
-                                @include('admin.material_theme.components.forms.uploadImage', [
+                                @include('admin::components.forms.uploadImage', [
                                     'filedName' => 'imageThumbnail',
                                     'id' => 'projectCategoryThumbnail',
                                     'label' => 'Thumbnail',

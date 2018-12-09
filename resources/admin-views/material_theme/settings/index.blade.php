@@ -1,4 +1,4 @@
-@extends('admin.material_theme.layout')
+@extends('admin::layout')
 
 @section('module_name')
     Settings
@@ -35,7 +35,7 @@
                                         </ul>
                                     </header>
                                     <div class="card-body">
-                                        @include('admin.material_theme.components.forms.settingsForm', [
+                                        @include('admin::components.forms.settingsForm', [
                                             'setting' => $setting
                                         ])
                                     </div>
@@ -59,7 +59,7 @@
         </div>
     </div>
 
-    @include('admin.material_theme.components.forms.createNewSettingForm')
+    @include('admin::components.forms.createNewSettingForm')
 
 @endsection
 

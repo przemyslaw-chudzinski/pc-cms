@@ -7,12 +7,12 @@ use Illuminate\Validation\Rule;
 use Validator;
 use App\Core\Services\Image;
 use App\Traits\ModelTrait;
-use App\Traits\FilesTrait;
+use App\Traits\HasFiles;
 
 class Page extends Model
 {
 
-    use ModelTrait, FilesTrait;
+    use ModelTrait, HasFiles;
 
     protected $fillable = [
         'title',

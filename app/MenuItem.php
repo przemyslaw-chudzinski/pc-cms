@@ -2,14 +2,14 @@
 
 namespace App;
 
-use App\Traits\FilesTrait;
+use App\Traits\HasFiles;
 use App\Traits\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Validator;
 
 class MenuItem extends Model
 {
-    use ModelTrait, FilesTrait;
+    use ModelTrait, HasFiles;
 
     protected $fillable = [
         'menu_id',

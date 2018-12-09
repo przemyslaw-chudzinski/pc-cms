@@ -1,4 +1,4 @@
-@extends('admin.material_theme.layout')
+@extends('admin::layout')
 
 @section('module_name')
     Pages
@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="form-group">
-                            @include('admin.material_theme.components.forms.seo', ['allow' => true, 'meta_title' => null, 'meta_description' => null])
+                            @include('admin::components.forms.seo', ['allow' => true, 'meta_title' => null, 'meta_description' => null])
                         </div>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
                     <div class="col-xs-12">
                         <div class="card">
                             <div class="card-body">
-                                @include('admin.material_theme.components.forms.uploadImage', [
+                                @include('admin::components.forms.uploadImage', [
                                     'filedName' => 'imageThumbnail',
                                     'id' => 'pageThumbnail',
                                     'label' => 'Thumbnail',

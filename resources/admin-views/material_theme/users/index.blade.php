@@ -1,4 +1,4 @@
-@extends('admin.material_theme.layout')
+@extends('admin::layout')
 
 @section('module_name')
     Users
@@ -71,7 +71,7 @@
                                             <button class="btn btn-warning btn-xs" data-toggle="modal" data-target="#changeUserRole-{{ $user->id }}">User has not any role</button>
                                         @endif
 
-                                        @include('admin.material_theme.components.forms.changeUserRoleModal')
+                                        @include('admin::components.forms.changeUserRoleModal')
 
                                     </td>
                                     <td>{{ $user->created_at }}</td>
@@ -97,7 +97,7 @@
                         @endif
                         </tbody>
                     </table>
-                    {{ $users->links('admin.material_theme.partials.pagination') }}
+                    {{ $users->links('admin::partials.pagination') }}
                 </div>
             </div>
         </div>

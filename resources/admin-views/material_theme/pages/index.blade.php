@@ -1,4 +1,4 @@
-@extends('admin.material_theme.layout')
+@extends('admin::layout')
 
 @section('module_name')
     Pages
@@ -104,7 +104,7 @@
                         @endif
                         </tbody>
                     </table>
-                    {{ $pages->links('admin.material_theme.partials.pagination') }}
+                    {{ $pages->links('admin::partials.pagination') }}
                 </div>
             </div>
         </div>

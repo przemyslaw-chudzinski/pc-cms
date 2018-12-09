@@ -5,7 +5,7 @@ namespace App\Traits;
 use App\Core\Services\Image;
 use Illuminate\Support\Facades\Storage;
 
-trait FilesTrait {
+trait HasFiles {
 
     /**
      * @param array $data
@@ -40,6 +40,12 @@ trait FilesTrait {
             }
             return $res;
         }
+    }
+
+    public function getImage($key = 'image')
+    {
+        $imageJSON = $this->{$key};
+        return isset($imageJSON) ? json_decode($imageJSON, true) : null;
     }
 
 }

@@ -17,10 +17,10 @@
 </head>
 
 <body>
-@include('admin.material_theme.components.preloader')
+@include('admin::components.preloader')
 <div id="app_wrapper">
-    @include('admin.material_theme.partials.top-navbar')
-    @include('admin.material_theme.partials.aside-left')
+    @include('admin::partials.top-navbar')
+    @include('admin::partials.aside-left')
     <section id="content_outer_wrapper">
         <div id="content_wrapper">
             <div id="header_wrapper" class="header-sm">
@@ -36,18 +36,19 @@
             </div>
             <div id="content" class="container-fluid">
                 <div class="content-body">
-                    @include('admin.material_theme.components.alert')
-                    @include('admin.material_theme.components.forms.validation')
-                    @include('admin.material_theme.components.loader-async')
+                    @include('admin::components.alert')
+                    @include('admin::components.forms.validation')
+                    @include('admin::components.loader-async')
                     @yield('content')
                     <!-- ENDS $dashboard_content -->
                 </div>
             </div>
             <!-- ENDS $content -->
         </div>
-        @include('admin.material_theme.partials.footer')
+        @include('admin::partials.footer')
     </section>
 </div>
+{{-- Scripts --}}
 <script src="{{ asset('tinymce/js/tinymce/tinymce.min.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('admin/material_theme/dist/js/vendor.bundle.js') }}"></script>

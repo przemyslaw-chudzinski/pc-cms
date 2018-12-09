@@ -1,4 +1,4 @@
-@extends('admin.material_theme.layout')
+@extends('admin::layout')
 
 @section('module_name')
     Projects
@@ -49,7 +49,7 @@
                         'method' => 'put'
                     ]) !!}
                     <div class="form-group">
-                        @include('admin.material_theme.components.forms.uploadImage', [
+                        @include('admin::components.forms.uploadImage', [
                             'filedName' => 'image',
                             'id' => 'projectImage',
                             'label' => 'Add new image',
