@@ -25,15 +25,14 @@
                 </div>
 
                 <div class="form-group">
-                    @include('admin.material_theme.components.forms.uploadImage', [
+                    @include('admin::components.forms.uploadImage', [
                                     'filedName' => 'menuItemImage',
                                     'id' => 'menuItemImage',
                                     'label' => 'Image',
                                     'placeholder' => 'Choose menu item image',
                                     'previewContainerId' => 'menuItemImagePreview',
-                                    'multiple' => false,
                                     'editState' => true,
-                                    'image' => $item->image,
+                                    'image' => $item->getImage(),
                                     'dir' => 'menus',
                                     'noImageInputName' => 'noImage'
                                 ])

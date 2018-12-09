@@ -26,16 +26,14 @@
                 <div class="card-body">
 
                         <div class="form-group">
-                            {!! Form::label(null, 'Segment name') !!}
-                            {!! Form::text('name', null, ['class' => 'form-control', 'autocomplete' => 'off', 'required']) !!}
+                            {!! Form::label(null, 'Segment key') !!}
+                            {!! Form::text('key', null, ['class' => 'form-control', 'autocomplete' => 'off', 'required']) !!}
                         </div>
 
                         <div class="form-group">
                             {!! Form::label(null, 'Segment content') !!}
                             {!! Form::textarea('content', null, ['class' => 'form-control pc-cms-editor']) !!}
                         </div>
-
-                        <button type="submit" class="btn btn-primary pc-cms-loader-btn" data-form="#createNewSegmentForm">Save</button>
                 </div>
             </div>
         </div>
@@ -43,14 +41,20 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
+
+                    <button type="submit" class="btn btn-primary pc-cms-loader-btn" data-form="#createNewSegmentForm">Save</button>
+
+                    <div class="form-group">
+                        {!! Form::label(null, 'Description') !!}
+                        {!! Form::textarea('description', null, ['class' => 'form-control', 'placeholder' => 'Write description about this segment']) !!}
+                    </div>
+
                     @include('admin::components.forms.uploadImage', [
                                     'filedName' => 'segmentImage',
                                     'id' => 'segmentImage',
                                     'label' => 'Image',
                                     'previewContainerId' => 'segmentImagePreview',
-                                    'placeholder' => 'Choose additional image',
-                                    'multiple' => false,
-                                    'editState' => false
+                                    'placeholder' => 'Choose additional image'
                                 ])
                 </div>
             </div>

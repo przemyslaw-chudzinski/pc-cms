@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\Segment\SegmentRequest;
 use App\Segment;
 
 class SegmentsController extends BaseController
@@ -22,14 +23,22 @@ class SegmentsController extends BaseController
         return $this->loadView('segments.edit', ['segment' => $segment]);
     }
 
-    public function store()
+    public function store(SegmentRequest $request)
     {
-        return Segment::createNewSegment();
+        $request->storeSegment();
+        return redirect(route(getRouteName('segments', 'index')))->with('alert', [
+            'type' => 'success',
+            'message' => 'Segment has been created successfully'
+        ]);
     }
 
-    public function update(Segment $segment)
+    public function update(SegmentRequest $request, Segment $segment)
     {
-        return $segment->updateSegment();
+        $request->updateSegment($segment);
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => 'Segment has been updated successfully'
+        ]);
     }
 
     public function destroy(Segment $segment)

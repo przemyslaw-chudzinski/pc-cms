@@ -21,13 +21,13 @@
         <div class="col-xs-12 col-md-8">
             <div class="card">
                 <header class="card-heading ">
-                    <h2 class="card-title">Edit - {{ $segment->name }}</h2>
+                    <h2 class="card-title">Edit - {{ $segment->key }}</h2>
                 </header>
                 <div class="card-body">
 
                     <div class="form-group">
-                        {!! Form::label(null, 'Segment name') !!}
-                        {!! Form::text('name', $segment->name, ['class' => 'form-control', 'autocomplete' => 'off', 'required']) !!}
+                        {!! Form::label(null, 'Segment key') !!}
+                        {!! Form::text('key', $segment->key, ['class' => 'form-control', 'autocomplete' => 'off', 'required']) !!}
                     </div>
 
                     <div class="form-group">
@@ -35,7 +35,6 @@
                         {!! Form::textarea('content', $segment->content, ['class' => 'form-control pc-cms-editor']) !!}
                     </div>
 
-                    <button type="submit" class="btn btn-primary pc-cms-loader-btn" data-form="#editSegmentForm">Save</button>
                 </div>
             </div>
         </div>
@@ -43,13 +42,20 @@
         <div class="col-xs-12 col-md-4">
             <div class="card">
                 <div class="card-body">
+
+                    <button type="submit" class="btn btn-primary pc-cms-loader-btn" data-form="#editSegmentForm">Save</button>
+
+                    <div class="form-group">
+                        {!! Form::label(null, 'Description') !!}
+                        {!! Form::textarea('description', $segment->description, ['class' => 'form-control', 'placeholder' => 'Write description about this segment']) !!}
+                    </div>
+
                     @include('admin::components.forms.uploadImage', [
                                     'filedName' => 'segmentImage',
                                     'id' => 'segmentImage',
                                     'label' => 'Image',
                                     'placeholder' => 'Choose additional image',
                                     'previewContainerId' => 'segmentImagePreview',
-                                    'multiple' => false,
                                     'editState' => true,
                                     'image' => $segment->getImage(),
                                     'dir' => 'segments',

@@ -12,6 +12,7 @@ trait HasFiles {
      * @param string $image
      * @param string $uploadDir
      * @return array
+     * @deprecated
      */
     public static function uploadImage(array $data, string $image, string $uploadDir)
     {
@@ -26,7 +27,12 @@ trait HasFiles {
         }
     }
 
-    public static function uploadImages(array $data, string $image, string $uploadDir)
+//    public function uploadFile($file, string $uploadDir)
+//    {
+//
+//    }
+
+    public function uploadImages(array $data, string $image, string $uploadDir)
     {
         $res = [];
         if (request()->hasFile($image)) {

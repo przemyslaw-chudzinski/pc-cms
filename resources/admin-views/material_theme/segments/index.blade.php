@@ -49,7 +49,7 @@
                                     <div class="checkbox"><label><input @if($count_items === 0) disabled @endif class="pc-selectable-input-all" type="checkbox"></label></div>
                                 </th>
                                 <th>
-                                    <a href="{{ getSortUrl('name', null, $module_name) }}">Segment name</a>
+                                    <a href="{{ getSortUrl('name', null, $module_name) }}">Segment key</a>
                                 </th>
                                 <th>
                                     <a href="{{ getSortUrl('created_at', null, $module_name) }}">Created at</a>
@@ -65,7 +65,7 @@
                                 @foreach($segments as $segment)
                                     <tr class="pc-selectable-row">
                                         <td><div class="checkbox"><label><input class="pc-selectable-input" type="checkbox" data-item-id="{{ $segment->id }}"></label></div></td>
-                                        <td>{{ $segment->name }}</td>
+                                        <td>{{ $segment->key }}</td>
                                         <td>{{ $segment->created_at }}</td>
                                         <td>{{ $segment->updated_at }}</td>
                                         <td>
