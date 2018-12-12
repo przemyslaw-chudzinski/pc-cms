@@ -13,9 +13,9 @@
                     </div>
                 </div>
                 @if(!$item->children->isEmpty())
-                    @include('admin.material_theme.components.menu.menuBuilderMenu', ['items' => $item->children])
+                    @include('admin::components.menu.menuBuilderMenu', ['items' => $item->children])
                 @endif
-                @include('admin.material_theme.components.forms.menuBuilderEditItemModal')
+                @include('admin::components.forms.menuBuilderEditItemModal')
             </li>
         @endforeach
     </ol>

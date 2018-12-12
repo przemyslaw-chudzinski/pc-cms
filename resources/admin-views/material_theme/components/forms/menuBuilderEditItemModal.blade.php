@@ -32,9 +32,9 @@
                                     'placeholder' => 'Choose menu item image',
                                     'previewContainerId' => 'menuItemImagePreview',
                                     'editState' => true,
-                                    'image' => $item->getImage(),
+                                    'files' => $item->getFilesFrom(),
                                     'dir' => 'menus',
-                                    'noImageInputName' => 'noImage'
+                                    'noFileInputName' => 'noImage'
                                 ])
                 </div>
                 {!! Form::close() !!}

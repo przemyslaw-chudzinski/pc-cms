@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\Menu\MenuRequest;
 use App\Menu;
 
 class MenusController extends BaseController
@@ -27,19 +28,31 @@ class MenusController extends BaseController
         return $this->loadView('menus.menuBuilder', ['menu' => $menu]);
     }
 
-    public function update(Menu $menu)
+    public function update(MenuRequest $request, Menu $menu)
     {
-        return $menu->updateMenu();
+        $request->updateMenu($menu);
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => 'Menus has been updated successfully'
+        ]);
     }
 
-    public function store()
+    public function store(MenuRequest $request)
     {
-        return Menu::createMenu();
+        $request->storeMenu();
+        return redirect(route(getRouteName('menus', 'index')))->with('alert', [
+            'type' => 'success',
+            'message' => 'Menu has been created successfully'
+        ]);
     }
 
     public function destroy(Menu $menu)
     {
-        return $menu->removeMenu();
+        $menu->delete();
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => 'Menu has been deleted successfully'
+        ]);
     }
 
     public function massActions()

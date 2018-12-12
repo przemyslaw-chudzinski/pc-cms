@@ -2,29 +2,41 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Requests\Setting\SettingRequest;
 use App\Setting;
 
 class SettingsController extends BaseController
 {
     public function index()
     {
-        $settings = Setting::getAllSettings();
+        $settings = Setting::get();
         return $this->loadView('settings.index', ['settings' => $settings]);
     }
 
-    public function store()
+    public function store(SettingRequest $request)
     {
-        return Setting::createSetting();
+        $request->storeSetting();
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => 'Setting has been created successfully'
+        ]);
     }
 
-    public function update(Setting $setting)
+    public function update(SettingRequest $request, Setting $setting)
     {
-        return $setting->updateSetting();
+        $request->updateSetting($setting);
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => 'Setting has been updated successfully'
+        ]);
     }
 
     public function destroy(Setting $setting)
     {
-        return $setting->removeSetting();
+        $setting->delete();
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => 'Setting has been deleted successfully'
+        ]);
     }
 }

@@ -2,24 +2,32 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Requests\Menu\MenuItemRequest;
 use App\Menu;
 use App\MenuItem;
 
-class MenuItemsController extends Controller
+class MenuItemsController extends BaseController
 {
-    public function store(Menu $menu)
+    public function store(MenuItemRequest $request, Menu $menu)
     {
-        return MenuItem::createItem($menu);
+        $request->storeItem($menu);
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => 'Menu item has been created successfully'
+        ]);
     }
 
-    public function update(MenuItem $menuItem)
+    public function update(MenuItemRequest $request, MenuItem $menuItem)
     {
-        return $menuItem->updateItem();
+        $request->updateItem($menuItem);
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => 'Menu item has been updated successfully'
+        ]);
     }
 
     public function destroy(MenuItem $menuItem)
     {
-        return $menuItem->removeItem();
+        $menuItem->delete();
     }
 }

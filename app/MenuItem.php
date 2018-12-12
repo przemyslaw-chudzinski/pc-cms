@@ -2,12 +2,12 @@
 
 namespace App;
 
+use App\Core\Contracts\WithFiles;
 use App\Traits\HasFiles;
 use App\Traits\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
-use Validator;
 
-class MenuItem extends Model
+class MenuItem extends Model implements WithFiles
 {
     use ModelTrait, HasFiles;
 
@@ -32,38 +32,6 @@ class MenuItem extends Model
         return $this->belongsTo(Menu::class, 'menu_id');
     }
 
-    public static function createItem(Menu $menu)
-    {
-        $data = request()->all();
-
-        if (isset($data['url'])) {
-            $data['url'] = str_slug($data['url']);
-        }
-
-        $validator = Validator::make($data, [
-           'title' => 'required',
-           'menuItemImage' => 'image|max:2048'
-        ]);
-
-        if ($validator->fails()) {
-            return back()->withErrors($validator);
-        }
-
-        $data['image'] = json_encode(self::uploadImage($data, 'menuItemImage', getModuleUploadDir('menus')));
-
-        $menu->items()->create($data);
-
-        return back()->with('alert', [
-           'type' => 'success',
-           'message' => 'Menu item has been created successfully'
-        ]);
-    }
-
-    public function removeItem()
-    {
-        $this->delete();
-    }
-
     public function removeItemAjax()
     {
         $this->removeItem();
@@ -74,32 +42,8 @@ class MenuItem extends Model
         ]);
     }
 
-    public function updateItem()
+    public static function uploadDir()
     {
-        $data = request()->all();
-
-        if (isset($data['url'])) {
-            $data['url'] = str_slug($data['url']);
-        }
-
-        $validator = Validator::make($data, [
-            'title' => 'required'
-        ]);
-
-        if ($validator->fails()) {
-            return back()->with('alert', [
-                'type' => 'danger',
-                'message' => 'The title field is required'
-            ]);
-        }
-
-        $this->update($data);
-
-        return back()->with('alert', [
-            'type' => 'success',
-            'message' => 'Menu item has been updated successfully'
-        ]);
-
+        return config('admin.modules.menus.upload_dir');
     }
-
 }

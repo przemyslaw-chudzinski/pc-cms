@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\User\UserRequest;
 use App\Role;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends BaseController
 {
@@ -25,24 +27,45 @@ class UsersController extends BaseController
         return $this->loadView('users.edit', ['user' => $user, 'roles' => $roles]);
     }
 
-    public function update(User $user)
+    public function update(UserRequest $request, User $user)
     {
-        return $user->updateUser();
+        $request->updateUser($user);
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => __('messages.item_updated_success')
+        ]);
     }
 
-    public function store()
+    public function store(UserRequest $request)
     {
-        return User::createNewUser();
+        $request->storeUser();
+        return redirect(route(getRouteName('users', 'index')))->with('alert', [
+            'type' => 'success',
+            'message' => __('messages.item_created_success')
+        ]);
     }
 
     public function destroy(User $user)
     {
-        return $user->removeUser();
+        if ($user->id === Auth::id()) {
+            return back();
+        }
+
+        $user->delete();
+
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => __('messages.item_deleted_success')
+        ]);
     }
 
-    public function resetPassword(User $user)
+    public function resetPassword(UserRequest $request, User $user)
     {
-        return $user->resetPassword();
+        $request->resetPassword($user);
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => __('passwords.reset')
+        ]);
     }
 
     public function updateUserRole(User $user)

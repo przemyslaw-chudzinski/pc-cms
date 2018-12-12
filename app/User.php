@@ -6,8 +6,6 @@ use App\Traits\ModelTrait;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Validation\Rule;
-use Validator;
-use Illuminate\Support\Facades\Hash;
 use Auth;
 
 class User extends Authenticatable
@@ -57,95 +55,6 @@ class User extends Authenticatable
     public static function getUsersWithPagination()
     {
         return self::getModelDataWithPagination(false, ['role'], [(int) Auth::id()]);
-    }
-
-    public static function createNewUser()
-    {
-        $data = request()->all();
-
-        $validator = Validator::make($data, [
-           'email' => 'required|unique:users',
-           'password' => 'required|min:6',
-           'role_id'  => 'required'
-        ]);
-
-        if ($validator->fails()) {
-            return back()->withErrors($validator);
-        }
-
-        $data['password'] = Hash::make($data['password']);
-
-        self::create($data);
-
-        return redirect(route(getRouteName('users', 'index')))->with('alert', [
-            'type' => 'success',
-            'message' => __('messages.item_created_success')
-        ]);
-    }
-
-    public function updateUser()
-    {
-        $data = request()->all();
-
-        $validator = Validator::make($data, [
-            'email' => [
-                'required',
-                Rule::unique('users')->ignore($this->email, 'email')
-            ],
-            'role_id' => 'required'
-        ]);
-
-        if ($validator->fails()) {
-            return back()->withErrors($validator);
-        }
-        $this->update($data);
-
-        return back()->with('alert', [
-            'type' => 'success',
-            'message' => __('messages.item_updated_success')
-        ]);
-    }
-
-    public function removeUser()
-    {
-        if ($this->id === Auth::id()) {
-            return back();
-        }
-
-        $this->delete();
-
-        return back()->with('alert', [
-            'type' => 'success',
-            'message' => __('messages.item_deleted_success')
-        ]);
-    }
-
-    public function resetPassword()
-    {
-        $data = request()->all();
-
-        $validator = Validator::make($data, [
-            'password' => 'required|min:6',
-            'repeatedPassword' => 'required'
-        ]);
-
-        if ($validator->fails()) {
-            return back()->withErrors($validator);
-        }
-
-        if ($data['password'] !== $data['repeatedPassword']) {
-            return back()->with('alert', [
-                'type' => 'danger',
-                'message' => 'Passwords must be the same'
-            ]);
-        }
-
-        $this->update(['password' => Hash::make($data['password'])]);
-
-        return back()->with('alert', [
-            'type' => 'success',
-            'message' => __('passwords.reset')
-        ]);
     }
 
     public static function updateLoggedUserSettings()
