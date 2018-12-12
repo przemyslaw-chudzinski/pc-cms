@@ -2,14 +2,13 @@
 
 namespace App;
 
+use App\Core\Contracts\WithFiles;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Validation\Rule;
-use Validator;
 use App\Core\Services\Image;
 use App\Traits\ModelTrait;
 use App\Traits\HasFiles;
 
-class Project extends Model
+class Project extends Model implements WithFiles
 {
 
     use ModelTrait, HasFiles;
@@ -48,102 +47,6 @@ class Project extends Model
     public static function getProjectsWithPagination()
     {
         return self::getModelDataWithPagination();
-    }
-
-    public static function createNewProject()
-    {
-        $data = request()->all();
-
-        $data['published'] = self::toggleValue($data, 'saveAndPublish');
-
-        $data['slug'] = self::createSlug($data, 'title');
-
-        $data['allow_indexed'] = self::toggleValue($data, 'allow_indexed');
-
-        $validator = Validator::make($data, [
-            'title' => 'required',
-            'slug' => 'unique:articles',
-            'imageThumbnail' => 'image|max:2048'
-        ]);
-
-        if ($validator->fails()) {
-            return back()->withErrors($validator);
-        }
-
-        if (isset($data['imageThumbnail'])) {
-            $data['thumbnail'] = json_encode(self::uploadImage($data, 'imageThumbnail', getModuleUploadDir('projects')));
-        }
-
-        if (isset($data['additionalImages'])) {
-            $data['images'] = json_encode(self::uploadImages($data, 'additionalImages', getModuleUploadDir('projects')));
-        }
-
-        $project = self::create($data);
-
-        if (!empty($data['category_ids'])) {
-            $project->categories()->sync($data['category_ids']);
-        }
-
-        return redirect(route(getRouteName('projects', 'index')))->with('alert', [
-            'type' => 'success',
-            'message' => 'Project has been created successfully'
-        ]);
-    }
-
-    public function updateProject()
-    {
-        $data = request()->all();
-
-        $data['published'] = self::toggleValue($data, 'saveAndPublish');
-
-        $data['slug'] = self::generateSlugBasedOn($data, 'title');
-
-        $data['allow_indexed'] = self::toggleValue($data, 'allow_indexed');
-
-        $validator = Validator::make($data, [
-            'title' => 'required',
-            'imageThumbnail' => 'image|max:2048',
-            'images' => 'image| max:2048',
-            'slug' => [
-                'required',
-                Rule::unique('projects')->ignore($this->slug, 'slug')
-            ],
-        ]);
-
-        if ($validator->fails()) {
-            return back()->withErrors($validator);
-        }
-
-        if (isset($data['imageThumbnail'])) {
-            $data['thumbnail'] = json_encode(self::uploadImage($data, 'imageThumbnail', getModuleUploadDir('projects')));
-        }
-
-        if (isset($data['noImage']) && $data['noImage'] === 'yes') {
-            $data['thumbnail'] = null;
-        }
-
-        if (isset($data['additionalImages'])) {
-            $data['images'] = json_encode(self::uploadImages($data, 'additionalImages', getModuleUploadDir('projects')));
-        }
-
-
-        if (isset($data['noImages']) && $data['noImages'] === 'yes') {
-            $data['images'] = '';
-        }
-
-        $this->update($data);
-
-        if (!empty($data['category_ids'])) {
-            $this->categories()->sync($data['category_ids']);
-        } else {
-            $this->categories()->detach();
-        }
-
-        return back()->with('alert', [
-            'type' => 'success',
-            'message' => 'Project has been updated successfully'
-        ]);
-
     }
 
     public function removeProject()
@@ -237,5 +140,10 @@ class Project extends Model
             case 'change_status_on_false':
                 return self::massActionsChangeStatus($selected_ids, false);
         }
+    }
+
+    public static function uploadDir()
+    {
+        return config('admin.modules.projects.upload_dir');
     }
 }

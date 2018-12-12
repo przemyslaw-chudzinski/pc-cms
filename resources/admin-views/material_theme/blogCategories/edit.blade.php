@@ -96,11 +96,9 @@
                                     'label' => 'Thumbnail',
                                     'placeholder' => 'Choose category image',
                                     'previewContainerId' => 'categoryThumbnailPreview',
-                                    'multiple' => false,
                                     'editState' => true,
-                                    'image' => $category->thumbnail,
-                                    'dir' => 'blogCategories',
-                                    'noImageInputName' => 'noImage'
+                                    'files' => $category->getFilesFrom('thumbnail'),
+                                    'noFileInputName' => 'noImage'
                                 ])
                             </div>
                         </div>

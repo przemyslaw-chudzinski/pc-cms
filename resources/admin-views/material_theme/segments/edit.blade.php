@@ -57,9 +57,9 @@
                                     'placeholder' => 'Choose additional image',
                                     'previewContainerId' => 'segmentImagePreview',
                                     'editState' => true,
-                                    'image' => $segment->getImage(),
+                                    'files' => $segment->getFilesFrom(),
                                     'dir' => 'segments',
-                                    'noImageInputName' => 'noImage'
+                                    'noFileInputName' => 'noImage'
                                 ])
                 </div>
             </div>

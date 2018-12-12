@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Article;
 use App\BlogCategory;
-use App\Http\Controllers\Controller;
+use App\Http\Requests\Blog\ArticleRequest;
 
 class BlogController extends BaseController
 {
@@ -26,14 +26,22 @@ class BlogController extends BaseController
         return $this->loadView('articles.create', ['categories' => $categories]);
     }
 
-    public function store()
+    public function store(ArticleRequest $request)
     {
-        return Article::createNewArticle();
+        $request->storeArticle();
+        return redirect(route(getRouteName('blog', 'index')))->with('alert', [
+            'type' => 'success',
+            'message' => 'Article has been created successfully'
+        ]);
     }
 
-    public function update(Article $article)
+    public function update(ArticleRequest $request, Article $article)
     {
-        return $article->updateArticle();
+        $request->updateArticle($article);
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => 'Article has been updated successfully'
+        ]);
     }
 
     public function destroy(Article $article)

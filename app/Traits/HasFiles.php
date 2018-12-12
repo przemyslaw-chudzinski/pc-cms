@@ -2,56 +2,47 @@
 
 namespace App\Traits;
 
-use App\Core\Services\Image;
+use App\Core\Image;
 use Illuminate\Support\Facades\Storage;
 
 trait HasFiles {
 
-    /**
-     * @param array $data
-     * @param string $image
-     * @param string $uploadDir
-     * @return array
-     * @deprecated
-     */
-    public static function uploadImage(array $data, string $image, string $uploadDir)
+    protected function uploadFiles($files, string $uploadDirName)
     {
-        if (request()->hasFile($image)) {
-            $file = request()->file($image);
-            $img = new Image($file, $uploadDir);
-            $images = $img->upload();
-            return [
-                'original' => $uploadDir . '/' . $file->getClientOriginalName(),
-                'sizes' => $images
-            ];
+        $result = [];
+        $uploadedFiles = [];
+        if (!isset($files) || count($files) === 0)  {
+            return null;
         }
-    }
-
-//    public function uploadFile($file, string $uploadDir)
-//    {
-//
-//    }
-
-    public function uploadImages(array $data, string $image, string $uploadDir)
-    {
-        $res = [];
-        if (request()->hasFile($image)) {
-            $files = request()->file($image);
-            foreach ($files as $key => $file) {
-                $img = new Image($file, $uploadDir);
-                $images = $img->upload();
-//                $data['_images'][$key] = $file->getClientOriginalName();
-                $res[$key]['original'] = $uploadDir . '/' . $file->getClientOriginalName();
-                $res[$key]['sizes'] = $images;
+        foreach ($files as $file) {
+            $img = new Image($file, $uploadDirName);
+            if ($img->isImageType()) {
+                $sizes = $img->save();
+                $result['sizes'] = array_map([$this, 'mapStoragePathToUrl'], $sizes);
             }
-            return $res;
+           $result['mime_type'] = $img->getOriginalFile()->getMimeType();
+           $result['size'] = $img->getOriginalFile()->getSize();
+           $result['file_name'] = $img->getOriginalFile()->getClientOriginalName();
+           $result['extension'] = $img->getOriginalFile()->getClientOriginalExtension();
+           $result['original'] = $this->mapStoragePathToUrl($uploadDirName . '/' . $img->getOriginalFile()->getClientOriginalName());
+           array_push($uploadedFiles, $result);
         }
+        return json_encode($uploadedFiles);
     }
 
-    public function getImage($key = 'image')
+    private function mapStoragePathToUrl($storageFilePath)
     {
-        $imageJSON = $this->{$key};
-        return isset($imageJSON) ? json_decode($imageJSON, true) : null;
+        return [
+            'path' => $storageFilePath,
+            'url' => Storage::url($storageFilePath)
+        ];
+    }
+
+    public function getFilesFrom($columnName = 'image')
+    {
+        if (!isset($columnName)) throw new \Exception('You must specified columnName parameter');
+        $imageJSON = $this->{$columnName};
+        return isset($imageJSON) ? json_decode($imageJSON, false) : [];
     }
 
 }

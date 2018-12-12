@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\Page\PageRequest;
 use App\Page;
 
 class PagesController extends BaseController
@@ -22,19 +23,31 @@ class PagesController extends BaseController
         return $this->loadView('pages.edit', ['page' => $page]);
     }
 
-    public function store()
+    public function store(PageRequest $request)
     {
-        return Page::createNewPage();
+        $request->storePage();
+        return redirect(route(getRouteName('pages', 'index')))->with('alert', [
+            'type' => 'success',
+            'message' => __('messages.item_created_success')
+        ]);
     }
 
-    public function update(Page $page)
+    public function update(PageRequest $request, Page $page)
     {
-        return $page->updatePage();
+        $request->updatePage($page);
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => __('messages.item_updated_success')
+        ]);
     }
 
     public function destroy(Page $page)
     {
-        return $page->removePage();
+        $page->delete();
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => __('messages.item_deleted_success')
+        ]);
     }
 
     public function massActions()

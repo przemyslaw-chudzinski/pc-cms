@@ -109,11 +109,10 @@
                                     'label' => 'Thumbnail',
                                     'placeholder' => 'Choose project image',
                                     'previewContainerId' => 'projectThumbnailPreview',
-                                    'multiple' => false,
                                     'editState' => true,
-                                    'image' => $project->thumbnail,
+                                    'files' => $project->getFilesFrom('thumbnail'),
                                     'dir' => 'projects',
-                                    'noImageInputName' => 'noImage'
+                                    'noFileInputName' => 'noImage'
                                 ])
                             </div>
                         </div>
@@ -133,9 +132,9 @@
                                     'previewContainerId' => 'projectImagesPreview',
                                     'multiple' => true,
                                     'editState' => true,
-                                    'image' => $project->images,
+                                    'files' => $project->getFilesFrom('images'),
                                     'dir' => 'projects',
-                                    'noImageInputName' => 'noImages',
+                                    'noFileInputName' => 'noImages',
                                     'routeName' => getRouteName('projects', 'images'),
                                     'recordId' => $project->id,
                                     'routeParam' => 'project'

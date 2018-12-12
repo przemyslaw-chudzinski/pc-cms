@@ -2,13 +2,13 @@
 
 namespace App;
 
+use App\Core\Contracts\WithFiles;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Validation\Rule;
 use Validator;
 use App\Traits\ModelTrait;
 use App\Traits\HasFiles;
 
-class Article extends Model
+class Article extends Model implements WithFiles
 {
 
     use ModelTrait, HasFiles;
@@ -43,93 +43,9 @@ class Article extends Model
         return $this->categories->pluck('id')->all();
     }
 
-    public static function createNewArticle()
-    {
-        $data = request()->all();
-
-        $data['published'] = self::toggleValue($data, 'saveAndPublish');
-
-        $data['allow_comments'] = self::toggleValue($data, 'allowComments');
-
-        $data['slug'] = self::createSlug($data, 'title');
-
-        $data['allow_indexed'] = self::toggleValue($data, 'allow_indexed');
-
-        $validator = Validator::make($data, [
-            'title' => 'required',
-            'slug' => 'unique:articles',
-            'imageThumbnail' => 'image|max:2048'
-        ]);
-
-        if ($validator->fails()) {
-            return back()->withErrors($validator);
-        }
-
-        $data['thumbnail'] = json_encode(self::uploadImage($data, 'imageThumbnail', getModuleUploadDir('blog')));
-
-        $article = self::create($data);
-
-        if (!empty($data['category_ids'])) {
-            $article->categories()->sync($data['category_ids']);
-        }
-
-        return redirect(route(getRouteName('blog', 'index')))->with('alert', [
-            'type' => 'success',
-            'message' => 'Article has been created successfully'
-        ]);
-    }
-
     public static function getArticlesWithPagination()
     {
         return self::getModelDataWithPagination();
-    }
-
-    public function updateArticle()
-    {
-        $data = request()->all();
-
-        $data['published'] = self::toggleValue($data, 'saveAndPublish');
-
-        $data['allow_comments'] = self::toggleValue($data, 'allowComments');
-
-        $data['slug'] = self::generateSlugBasedOn($data, 'title');
-
-        $data['allow_indexed'] = self::toggleValue($data, 'allow_indexed');
-
-        $validator = Validator::make($data, [
-            'title' => 'required',
-            'imageThumbnail' => 'image|max:2048',
-            'slug' => [
-                'required',
-                Rule::unique('articles')->ignore($this->slug, 'slug')
-            ],
-        ]);
-
-        if ($validator->fails()) {
-            return back()->withErrors($validator);
-        }
-
-        if (isset($data['imageThumbnail'])) {
-            $data['thumbnail'] = json_encode(self::uploadImage($data, 'imageThumbnail', getModuleUploadDir('blog')));
-        }
-
-        if (isset($data['noImage']) && $data['noImage'] === 'yes') {
-            $data['thumbnail'] = null;
-        }
-
-        $this->update($data);
-
-        if (!empty($data['category_ids'])) {
-            $this->categories()->sync($data['category_ids']);
-        } else {
-            $this->categories()->detach();
-        }
-
-        return back()->with('alert', [
-            'type' => 'success',
-            'message' => 'Article has been updated successfully'
-        ]);
-
     }
 
     public function removeArticle()
@@ -182,5 +98,10 @@ class Article extends Model
             case 'change_comment_status_false':
                 return self::massActionsChangeStatus($selected_ids, false, 'allow_comments');
         }
+    }
+
+    public static function uploadDir()
+    {
+        return config('admin.modules.blog.upload_dir');
     }
 }

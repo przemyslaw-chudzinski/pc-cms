@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\Project\ProjectRequest;
 use App\Project;
 use App\ProjectCategory;
 
@@ -25,15 +26,22 @@ class ProjectsController extends BaseController
         return $this->loadView('projects.edit', ['project' => $project, 'categories' => $categories]);
     }
 
-    public function store()
+    public function store(ProjectRequest $request)
     {
-        return Project::createNewProject();
+        $request->storeProject();
+        return redirect(route(getRouteName('projects', 'index')))->with('alert', [
+            'type' => 'success',
+            'message' => 'Project has been created successfully'
+        ]);
     }
 
-    public function update(Project $project)
+    public function update(ProjectRequest $request, Project $project)
     {
-        return $project->updateProject();
-    }
+        $request->updateProject($project);
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => 'Project has been updated successfully'
+        ]);    }
 
     public function destroy(Project $project)
     {

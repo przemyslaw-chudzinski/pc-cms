@@ -70,11 +70,10 @@
                                     'label' => 'Thumbnail',
                                     'placeholder' => 'Choose category image',
                                     'previewContainerId' => 'projectCategoryThumbnailPreview',
-                                    'multiple' => false,
                                     'editState' => true,
-                                    'image' => $category->thumbnail,
+                                    'files' => $category->getFilesFrom('thumbnail'),
                                     'dir' => 'projectCategories',
-                                    'noImageInputName' => 'noImage'
+                                    'noFileInputName' => 'noImage'
                                 ])
                             </div>
                         </div>

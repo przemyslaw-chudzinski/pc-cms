@@ -69,9 +69,7 @@
                                     'id' => 'projectCategoryThumbnail',
                                     'label' => 'Thumbnail',
                                     'placeholder' => 'Choose category image',
-                                    'previewContainerId' => 'projectCategoryThumbnailPreview',
-                                    'multiple' => false,
-                                    'editState' => false
+                                    'previewContainerId' => 'projectCategoryThumbnailPreview'
                                 ])
                             </div>
                         </div>

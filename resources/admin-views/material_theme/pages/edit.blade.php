@@ -80,11 +80,10 @@
                                 'label' => 'Thumbnail',
                                 'placeholder' => 'Choose page image',
                                 'previewContainerId' => 'pageThumbnailPreview',
-                                'multiple' => false,
                                 'editState' => true,
-                                'image' => $page->thumbnail,
+                                'files' => $page->getFilesFrom('thumbnail'),
                                 'dir' => 'pages',
-                                'noImageInputName' => 'noImage'
+                                'noFileInputName' => 'noImage'
                             ])
                         </div>
                     </div>

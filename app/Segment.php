@@ -2,12 +2,12 @@
 
 namespace App;
 
+use App\Core\Contracts\WithFiles;
 use App\Traits\HasFiles;
 use App\Traits\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
-use Validator;
 
-class Segment extends Model
+class Segment extends Model implements WithFiles
 {
 
     use ModelTrait, HasFiles;
@@ -25,71 +25,16 @@ class Segment extends Model
         'updated_at'
     ];
 
+    static function uploadDir()
+    {
+        $uploadDir = config('admin.modules.segments.upload_dir');
+        return isset($uploadDir) ? $uploadDir : null;
+    }
+
     public static function getSegmentsWithPagination()
     {
         return self::getModelDataWithPagination();
     }
-
-//    public static function createNewSegment()
-//    {
-//        $data = request()->all();
-//
-//        $data['name'] = str_slug($data['name']);
-//
-////        dd(request()->files);
-//
-//        $validator = Validator::make($data, [
-//            'name' => 'required|unique:segments',
-//            'segmentImage' => 'image|max:2048'
-//        ]);
-//
-//        if ($validator->fails()) {
-//            return back()->withErrors($validator);
-//        }
-//
-//        if (request()->hasFile('segmentImage')) {
-//            $data['image'] = json_encode(self::uploadImage($data, 'segmentImage', getModuleUploadDir('segments')));
-//        }
-//
-//        self::create($data);
-//
-//        return redirect(route(getRouteName('segments', 'index')))->with('alert', [
-//            'type' => 'success',
-//            'message' => 'Segment has been created successfully'
-//        ]);
-//    }
-//
-//    public function updateSegment()
-//    {
-//        $data = request()->all();
-//
-//        $validator = Validator::make($data, [
-//            'name' => [
-//                'required',
-//                Rule::unique('segments')->ignore($this->name, 'name')
-//            ],
-//            'segmentImage' => 'image|max:2048'
-//        ]);
-//
-//        if ($validator->fails()) {
-//            return back()->withErrors($validator);
-//        }
-//
-//        if (isset($data['segmentImage'])) {
-//            $data['image'] = json_encode(self::uploadImage($data, 'segmentImage', getModuleUploadDir('segments')));
-//        }
-//
-//        if (isset($data['noImage']) && $data['noImage'] === 'yes') {
-//            $data['image'] = null;
-//        }
-//
-//        $this->update($data);
-//
-//        return back()->with('alert', [
-//            'type' => 'success',
-//            'message' => 'Segment has been updated successfully'
-//        ]);
-//    }
 
     public function removeSegment()
     {

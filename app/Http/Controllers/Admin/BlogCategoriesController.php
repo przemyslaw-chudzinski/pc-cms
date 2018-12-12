@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\BlogCategory;
+use App\Http\Requests\Blog\CategoryRequest;
 
 class BlogCategoriesController extends BaseController
 {
@@ -24,14 +25,22 @@ class BlogCategoriesController extends BaseController
         return $this->loadView('blogCategories.edit', ['category' => $blogCategory, 'categories' => $categories]);
     }
 
-    public function store()
+    public function store(CategoryRequest $request)
     {
-        return BlogCategory::createNewCategory();
+        $request->storeCategory();
+        return redirect(route(getRouteName('blog_categories', 'index')))->with('alert', [
+            'type' => 'success',
+            'message' => 'Category has been created successfully'
+        ]);
     }
 
-    public function update(BlogCategory $blogCategory)
+    public function update(CategoryRequest $request, BlogCategory $blogCategory)
     {
-        return $blogCategory->updateCategory();
+        $request->updateCategory($blogCategory);
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => 'Category has been updated successfully'
+        ]);
     }
 
     public function destroy(BlogCategory $blogCategory)

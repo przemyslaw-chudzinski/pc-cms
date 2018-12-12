@@ -113,11 +113,9 @@
                                     'label' => 'Thumbnail',
                                     'placeholder' => 'Choose article thumbnail',
                                     'previewContainerId' => 'blogThumbnailPreview',
-                                    'multiple' => false,
                                     'editState' => true,
-                                    'image' => $article->getImage('thumbnail'),
-                                    'dir' => 'blog',
-                                    'noImageInputName' => 'noImage'
+                                    'files' => $article->getFilesFrom('thumbnail'),
+                                    'noFileInputName' => 'noImage'
                                 ])
                             </div>
                         </div>
