@@ -41,7 +41,8 @@ class ProjectsController extends BaseController
         return back()->with('alert', [
             'type' => 'success',
             'message' => 'Project has been updated successfully'
-        ]);    }
+        ]);
+    }
 
     public function destroy(Project $project)
     {
