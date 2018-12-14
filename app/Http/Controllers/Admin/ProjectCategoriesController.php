@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\Project\CategoryAjaxRequest;
 use App\Http\Requests\Project\CategoryRequest;
 use App\ProjectCategory;
 
@@ -49,5 +50,15 @@ class ProjectCategoriesController extends BaseController
     public function massActions()
     {
         return ProjectCategory::massActions();
+    }
+
+    public function togglePublishedAjax(CategoryAjaxRequest $request, ProjectCategory $category)
+    {
+        $updatedCategory = $request->toggle($category, 'published');
+        return response()->json([
+            'types' => 'success',
+            'message' => 'Status has been updated successfully',
+            'newStatus' => (bool)$updatedCategory->published
+        ]);
     }
 }

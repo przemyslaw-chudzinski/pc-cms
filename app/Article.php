@@ -4,7 +4,6 @@ namespace App;
 
 use App\Core\Contracts\WithFiles;
 use Illuminate\Database\Eloquent\Model;
-use Validator;
 use App\Traits\ModelTrait;
 use App\Traits\HasFiles;
 
@@ -41,29 +40,6 @@ class Article extends Model implements WithFiles
     public function getCategoryIdsAttribute()
     {
         return $this->categories->pluck('id')->all();
-    }
-
-    public function toggleStatusAjax()
-    {
-        $res = $this->toggleModelStatus('published');
-
-        return response()->json([
-           'types' => 'success',
-           'message' => __('messages.update_status'),
-           'newStatus' => $res['data']['published']
-        ]);
-    }
-
-    public function toggleCommentsStatusAjax()
-    {
-        $res = $this->toggleModelStatus('allow_comments');
-
-        return response()->json([
-            'types' => 'success',
-            'message' => __('messages.update_status'),
-            'newStatus' => $res['data']['allow_comments']
-        ]);
-
     }
 
     public static function massActions()

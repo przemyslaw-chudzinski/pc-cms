@@ -4,9 +4,6 @@ namespace App;
 
 use App\Core\Contracts\WithFiles;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Validation\Rule;
-use Validator;
-use App\Core\Services\Image;
 use App\Traits\ModelTrait;
 use App\Traits\HasFiles;
 
@@ -33,17 +30,6 @@ class Page extends Model implements WithFiles
         'created_at',
         'updated_at'
     ];
-
-    public function toggleStatusAjax()
-    {
-        $res = $this->toggleModelStatus('published');
-
-        return response()->json([
-            'types' => 'success',
-            'message' => __('messages.update_status_success'),
-            'newStatus' => $res['data']['published']
-        ]);
-    }
 
     public static function massActions()
     {

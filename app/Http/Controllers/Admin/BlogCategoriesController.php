@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\BlogCategory;
+use App\Http\Requests\Blog\CategoryAjaxRequest;
 use App\Http\Requests\Blog\CategoryRequest;
 
 class BlogCategoriesController extends BaseController
@@ -51,5 +52,15 @@ class BlogCategoriesController extends BaseController
     public function massActions()
     {
         return BlogCategory::massActions();
+    }
+
+    public function togglePublishedAjax(CategoryAjaxRequest $request, BlogCategory $category)
+    {
+        $updatedCategory = $request->toggle($category, 'published');
+        return response()->json([
+            'types' => 'success',
+            'message' => 'Status has been updated successfully',
+            'newStatus' => (bool)$updatedCategory->published
+        ]);
     }
 }

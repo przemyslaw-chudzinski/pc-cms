@@ -32,16 +32,6 @@ class MenuItem extends Model implements WithFiles
         return $this->belongsTo(Menu::class, 'menu_id');
     }
 
-    public function removeItemAjax()
-    {
-        $this->removeItem();
-
-        return response()->json([
-            'type' => 'success',
-            'message' => 'Item has been deleted successfully'
-        ]);
-    }
-
     public static function uploadDir()
     {
         return config('admin.modules.menus.upload_dir');

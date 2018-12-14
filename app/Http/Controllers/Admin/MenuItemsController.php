@@ -30,4 +30,13 @@ class MenuItemsController extends BaseController
     {
         $menuItem->delete();
     }
+
+    public function destroyAjax(MenuItem $item)
+    {
+        $item->delete();
+        return response()->json([
+            'type' => 'success',
+            'message' => 'Item has been deleted successfully'
+        ]);
+    }
 }

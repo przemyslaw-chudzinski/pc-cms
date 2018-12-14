@@ -37,17 +37,6 @@ class ProjectCategory extends Model implements WithFiles
         ]);
     }
 
-    public function toggleStatusAjax()
-    {
-        $res = $this->toggleModelStatus('published');
-
-        return response()->json([
-            'types' => 'success',
-            'message' => 'Status has been updated successfully',
-            'newStatus' => $res['data']['published']
-        ]);
-    }
-
     public static function massActions()
     {
         $data = request()->all();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Article;
 use App\BlogCategory;
+use App\Http\Requests\Blog\ArticleAjaxRequest;
 use App\Http\Requests\Blog\ArticleRequest;
 
 class BlogController extends BaseController
@@ -56,5 +57,25 @@ class BlogController extends BaseController
     public function massActions()
     {
         return Article::massActions();
+    }
+
+    public function togglePublishedAjax(ArticleAjaxRequest $request, Article $article)
+    {
+        $updatedArticle = $request->toggle($article, 'published');
+        return response()->json([
+            'types' => 'success',
+            'message' => __('messages.update_status'),
+            'newStatus' => (bool)$updatedArticle->published
+        ]);
+    }
+
+    public function toggleCommentsStatusAjax(ArticleAjaxRequest $request, Article $article)
+    {
+        $updatedArticle = $request->toggle($article, 'allow_comments');
+        return response()->json([
+            'types' => 'success',
+            'message' => __('messages.update_status'),
+            'newStatus' => (bool)$updatedArticle->allow_comments
+        ]);
     }
 }

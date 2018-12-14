@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\Menu\MenuAjaxRequest;
 use App\Http\Requests\Menu\MenuRequest;
 use App\Menu;
 
@@ -58,5 +59,34 @@ class MenusController extends BaseController
     public function massActions()
     {
         return Menu::massActions();
+    }
+
+    public function togglePublishedAjax(MenuAjaxRequest $request, Menu $menu)
+    {
+        $updatedMenu = $request->toggle($menu, 'published');
+        return response()->json([
+            'type' => 'success',
+            'message' => __('messages.update_status'),
+            'newStatus' => (bool)$updatedMenu->published
+        ]);
+    }
+
+    public function getItemsAjax(Menu $menu)
+    {
+        return $menu->getItems();
+    }
+
+    public function updateTreeAjax(MenuAjaxRequest $request)
+    {
+        $request->updateTree();
+        return response()->json([
+            'type' => 'success',
+            'message' => 'Menu has been updated successfully'
+        ]);
+    }
+
+    public function destroyAjax()
+    {
+
     }
 }

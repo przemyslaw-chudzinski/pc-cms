@@ -33,16 +33,6 @@ class BlogCategory extends Model implements WithFiles
         return $this->belongsToMany(Article::class, 'article_has_category', 'category_id')->withTimestamps();
     }
 
-    public function toggleStatusAjax()
-    {
-        $res = $this->toggleModelStatus('published');
-        return response()->json([
-            'types' => 'success',
-            'message' => 'Status has been updated successfully',
-            'newStatus' => $res['data']['published']
-        ]);
-    }
-
     public static function massActions()
     {
         $data = request()->all();

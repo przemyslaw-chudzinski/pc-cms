@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\Project\ProjectAjaxRequest;
 use App\Http\Requests\Project\ProjectRequest;
 use App\Project;
 use App\ProjectCategory;
@@ -71,5 +72,15 @@ class ProjectsController extends BaseController
     public function massActions()
     {
         return Project::massActions();
+    }
+
+    public function togglePublishedAjax(ProjectAjaxRequest $request, Project $project)
+    {
+        $updatedProject = $request->toggle($project, 'published');
+        return response()->json([
+            'types' => 'success',
+            'message' => 'Status has been updated successfully',
+            'newStatus' => (bool) $updatedProject->published
+        ]);
     }
 }

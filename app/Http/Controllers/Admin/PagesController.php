@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\Page\PageAjaxRequest;
 use App\Http\Requests\Page\PageRequest;
 use App\Page;
 
@@ -53,5 +54,15 @@ class PagesController extends BaseController
     public function massActions()
     {
         return Page::massActions();
+    }
+
+    public function togglePublishedAjax(PageAjaxRequest $request, Page $page)
+    {
+        $updatedPage = $request->toggle($page, 'published');
+        return response()->json([
+            'types' => 'success',
+            'message' => __('messages.update_status_success'),
+            'newStatus' => (bool)$updatedPage->published
+        ]);
     }
 }

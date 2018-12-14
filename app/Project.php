@@ -44,17 +44,6 @@ class Project extends Model implements WithFiles
         return $this->categories->pluck('id')->all();
     }
 
-    public function toggleStatusAjax()
-    {
-        $res = $this->toggleModelStatus('published');
-
-        return response()->json([
-            'types' => 'success',
-            'message' => 'Status has been updated successfully',
-            'newStatus' => $res['data']['published']
-        ]);
-    }
-
     public function removeImage()
     {
         $data = request()->all();
