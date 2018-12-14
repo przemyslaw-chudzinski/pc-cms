@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Core\Contracts\WithFiles;
+use App\Traits\HasMassActions;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\ModelTrait;
 use App\Traits\HasFiles;
@@ -10,7 +11,7 @@ use App\Traits\HasFiles;
 class Page extends Model implements WithFiles
 {
 
-    use ModelTrait, HasFiles;
+    use ModelTrait, HasFiles, HasMassActions;
 
     protected $fillable = [
         'title',

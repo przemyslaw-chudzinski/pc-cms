@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Core\Contracts\WithFiles;
+use App\Traits\HasMassActions;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\HasFiles;
 use App\Traits\ModelTrait;
@@ -10,7 +11,7 @@ use App\Traits\ModelTrait;
 class ProjectCategory extends Model implements WithFiles
 {
 
-    use HasFiles, ModelTrait;
+    use HasFiles, ModelTrait, HasMassActions;
 
     protected $fillable = [
         'name',

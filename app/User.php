@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Traits\HasMassActions;
 use App\Traits\ModelTrait;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,7 +11,7 @@ use Auth;
 
 class User extends Authenticatable
 {
-    use Notifiable, ModelTrait;
+    use Notifiable, ModelTrait, HasMassActions;
 
     /**
      * The attributes that are mass assignable.

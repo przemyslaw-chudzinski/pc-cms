@@ -2,13 +2,14 @@
 
 namespace App;
 
+use App\Traits\HasMassActions;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\ModelTrait;
 
 class Menu extends Model
 {
 
-    use ModelTrait;
+    use ModelTrait, HasMassActions;
 
     protected $fillable = [
         'name',

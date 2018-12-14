@@ -4,13 +4,14 @@ namespace App;
 
 use App\Core\Contracts\WithFiles;
 use App\Traits\HasFiles;
+use App\Traits\HasMassActions;
 use App\Traits\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Segment extends Model implements WithFiles
 {
 
-    use ModelTrait, HasFiles;
+    use ModelTrait, HasFiles, HasMassActions;
 
     protected $fillable = [
         'key',
