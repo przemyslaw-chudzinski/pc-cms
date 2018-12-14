@@ -9,7 +9,7 @@ class AccountSettingsController extends BaseController
 {
     public function index()
     {
-        $roles = Role::getRoles();
+        $roles = Role::get();
         return $this->loadView('accountSettings.index', ['roles' => $roles]);
     }
 

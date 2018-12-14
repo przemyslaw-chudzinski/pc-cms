@@ -10,7 +10,7 @@ class RolesController extends BaseController
 {
     public function index()
     {
-        $roles = Role::getRolesWithPagination();
+        $roles = Role::getModelDataWithPagination();
         return $this->loadView('roles.index', ['roles' => $roles]);
     }
 

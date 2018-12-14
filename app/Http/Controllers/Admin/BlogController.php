@@ -10,7 +10,7 @@ class BlogController extends BaseController
 {
     public function index()
     {
-        $articles = Article::getArticlesWithPagination();
+        $articles = Article::getModelDataWithPagination();
         return $this->loadView('articles.index', ['articles' => $articles]);
     }
 
@@ -46,7 +46,11 @@ class BlogController extends BaseController
 
     public function destroy(Article $article)
     {
-        return $article->removeArticle();
+        $article->delete();
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => 'Article has been deleted successfully'
+        ]);
     }
 
     public function massActions()

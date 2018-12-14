@@ -9,7 +9,7 @@ class PagesController extends BaseController
 {
     public function index()
     {
-        $pages = Page::getPagesWithPagination();
+        $pages = Page::getModelDataWithPagination();
         return $this->loadView('pages.index', ['pages' => $pages]);
     }
 

@@ -9,7 +9,7 @@ class SegmentsController extends BaseController
 {
     public function index()
     {
-        $segments = Segment::getSegmentsWithPagination();
+        $segments = Segment::getModelDataWithPagination();
         return $this->loadView('segments.index', ['segments' => $segments]);
     }
 
@@ -43,7 +43,11 @@ class SegmentsController extends BaseController
 
     public function destroy(Segment $segment)
     {
-        return $segment->removeSegment();
+        $segment->delete();
+        return back()->with('alert' , [
+            'type' => 'success',
+            'message' => 'Segment has been deleted successfully'
+        ]);
     }
 
     public function massActions()

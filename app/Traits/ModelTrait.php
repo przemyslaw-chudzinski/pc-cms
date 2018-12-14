@@ -68,7 +68,7 @@ trait ModelTrait {
      * @param array $with
      * @return mixed
      */
-    private static function getModelDataWithPagination($number = 10, array $with = [], array $excluded_ids = [])
+    public static function getModelDataWithPagination($number = 10, array $with = [], array $excluded_ids = [])
     {
         if ($number === false || $number === NULL ) {$number = 10;};
         $order_by = request()->query('order_by');

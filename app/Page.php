@@ -34,11 +34,6 @@ class Page extends Model implements WithFiles
         'updated_at'
     ];
 
-    public static function getPagesWithPagination()
-    {
-        return self::getModelDataWithPagination();
-    }
-
     public function toggleStatusAjax()
     {
         $res = $this->toggleModelStatus('published');

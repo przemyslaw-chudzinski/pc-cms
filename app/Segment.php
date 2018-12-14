@@ -31,21 +31,6 @@ class Segment extends Model implements WithFiles
         return isset($uploadDir) ? $uploadDir : null;
     }
 
-    public static function getSegmentsWithPagination()
-    {
-        return self::getModelDataWithPagination();
-    }
-
-    public function removeSegment()
-    {
-        $this->delete();
-
-        return back()->with('alert' , [
-            'type' => 'success',
-            'message' => 'Segment has been deleted successfully'
-        ]);
-    }
-
     public static function massActions()
     {
         $data = request()->all();

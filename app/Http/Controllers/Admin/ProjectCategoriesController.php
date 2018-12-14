@@ -9,7 +9,7 @@ class ProjectCategoriesController extends BaseController
 {
     public function index()
     {
-        $categories = ProjectCategory::getCategoriesWithPagination();
+        $categories = ProjectCategory::getModelDataWithPagination();
         return $this->loadView('projectCategories.index', ['categories' => $categories]);
     }
 

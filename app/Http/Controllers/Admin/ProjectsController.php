@@ -10,19 +10,19 @@ class ProjectsController extends BaseController
 {
     public function index()
     {
-        $projects = Project::getProjectsWithPagination();
+        $projects = Project::getModelDataWithPagination();
         return $this->loadView('projects.index', ['projects' => $projects]);
     }
 
     public function create()
     {
-        $categories = ProjectCategory::getCategories();
+        $categories = ProjectCategory::get();
         return $this->loadView('projects.create', ['categories' => $categories]);
     }
 
     public function edit(Project $project)
     {
-        $categories = ProjectCategory::getCategories();
+        $categories = ProjectCategory::get();
         return $this->loadView('projects.edit', ['project' => $project, 'categories' => $categories]);
     }
 
@@ -46,7 +46,11 @@ class ProjectsController extends BaseController
 
     public function destroy(Project $project)
     {
-        return $project->removeProject();
+        $project->delete();
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => 'Project has been deleted successfully'
+        ]);
     }
 
     public function images(Project $project)

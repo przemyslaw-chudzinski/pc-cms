@@ -43,21 +43,6 @@ class Article extends Model implements WithFiles
         return $this->categories->pluck('id')->all();
     }
 
-    public static function getArticlesWithPagination()
-    {
-        return self::getModelDataWithPagination();
-    }
-
-    public function removeArticle()
-    {
-        $this->delete();
-
-        return back()->with('alert', [
-            'type' => 'success',
-            'message' => 'Article has been deleted successfully'
-        ]);
-    }
-
     public function toggleStatusAjax()
     {
         $res = $this->toggleModelStatus('published');

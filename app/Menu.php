@@ -36,11 +36,6 @@ class Menu extends Model
         return $this->hasMany(MenuItem::class)->whereNull('parent_id');
     }
 
-    public static function getMenusWithPagination()
-    {
-        return self::getModelDataWithPagination();
-    }
-
     public function toggleStatusAjax()
     {
         $res = $this->toggleModelStatus('published');

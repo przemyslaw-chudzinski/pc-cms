@@ -34,11 +34,11 @@ class File
         return $this->file;
     }
 
-    public function isImageType()
-    {
-        // TODO: Implement checking type
-        return true;
-    }
+//    public function isImageType()
+//    {
+//        $mimeType = $this->file->getMimeType();
+//        return (bool)preg_match('/image/', $mimeType);
+//    }
 
     public function isDocumentType()
     {

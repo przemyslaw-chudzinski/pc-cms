@@ -9,7 +9,7 @@ class MenusController extends BaseController
 {
     public function index()
     {
-        $menus = Menu::getMenusWithPagination();
+        $menus = Menu::getModelDataWithPagination();
         return $this->loadView('menus.index', ['menus' => $menus]);
     }
 

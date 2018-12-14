@@ -17,13 +17,13 @@ class UsersController extends BaseController
 
     public function create()
     {
-        $roles = Role::getRoles();
+        $roles = Role::get();
         return $this->loadView('users.create', ['roles' => $roles]);
     }
 
     public function edit(User $user)
     {
-        $roles = Role::getRoles();
+        $roles = Role::get();
         return $this->loadView('users.edit', ['user' => $user, 'roles' => $roles]);
     }
 

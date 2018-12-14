@@ -27,16 +27,6 @@ class ProjectCategory extends Model implements WithFiles
         'updated_at'
     ];
 
-    public static function getCategoriesWithPagination()
-    {
-        return self::getModelDataWithPagination();
-    }
-
-    public static function getCategories()
-    {
-        return self::get();
-    }
-
     public function removeCategory()
     {
         $this->delete();

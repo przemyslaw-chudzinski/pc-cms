@@ -9,7 +9,7 @@ class BlogCategoriesController extends BaseController
 {
     public function index()
     {
-        $categories = BlogCategory::getCategoriesWithPagination();
+        $categories = BlogCategory::getModelDataWithPagination();
         return $this->loadView('blogCategories.index', ['categories' => $categories]);
     }
 
@@ -21,7 +21,7 @@ class BlogCategoriesController extends BaseController
 
     public function edit(BlogCategory $blogCategory)
     {
-        $categories = BlogCategory::getAllCategories();
+        $categories = BlogCategory::get();
         return $this->loadView('blogCategories.edit', ['category' => $blogCategory, 'categories' => $categories]);
     }
 
@@ -45,7 +45,7 @@ class BlogCategoriesController extends BaseController
 
     public function destroy(BlogCategory $blogCategory)
     {
-        return $blogCategory->removeCategory();
+        return 'todo';
     }
 
     public function massActions()

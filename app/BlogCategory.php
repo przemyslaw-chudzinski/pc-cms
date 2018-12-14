@@ -33,21 +33,6 @@ class BlogCategory extends Model implements WithFiles
         return $this->belongsToMany(Article::class, 'article_has_category', 'category_id')->withTimestamps();
     }
 
-    public static function getAllCategories()
-    {
-        return self::get();
-    }
-
-    public static function getCategoriesWithPagination()
-    {
-        return self::getModelDataWithPagination();
-    }
-
-    public function removeCategory()
-    {
-        return 'usuwam';
-    }
-
     public function toggleStatusAjax()
     {
         $res = $this->toggleModelStatus('published');

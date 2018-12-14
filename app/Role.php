@@ -24,16 +24,6 @@ class Role extends Model
         'updated_at'
     ];
 
-    public static function getRolesWithPagination()
-    {
-        return self::getModelDataWithPagination();
-    }
-
-    public static function getRoles()
-    {
-        return self::get();
-    }
-
     public static function massActions()
     {
         $data = request()->all();
