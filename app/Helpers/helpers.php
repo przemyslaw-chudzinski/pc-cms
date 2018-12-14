@@ -84,6 +84,7 @@ if (!function_exists('getImageUrl')) {
      * @param mixed $image
      * @param string|null $sizeName
      * @return mixed
+     * @deprecated
      */
     function getImageUrl($image, $sizeName)
     {
@@ -105,11 +106,7 @@ if(!function_exists('getSortUrl')) {
         $current_order_by = request()->query('order_by');
         $current_sort = request()->query('sort', 'desc');
         if ($current_order_by === $order_by) {
-            if ($current_sort === 'asc') {
-                $sort = 'desc';
-            } else {
-                $sort = 'asc';
-            }
+            $sort = $current_sort === 'asc' ? 'desc' : 'asc';
         }
 
         if ($sort === NULL || $sort === false) $sort = 'desc';

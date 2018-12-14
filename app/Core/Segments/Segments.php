@@ -7,15 +7,9 @@ use App\Segment;
 
 class Segments
 {
-    public function get($name = '')
+    public function get($name)
     {
-        if ($name === '') {
-            return null;
-        }
         $result = Segment::where('name', $name)->get();
-        if ($result && count($result) === 1) {
-            return $result->first()->content;
-        }
-        return null;
+        return $result && count($result) === 1 ? $result->first()->content : null;
     }
 }

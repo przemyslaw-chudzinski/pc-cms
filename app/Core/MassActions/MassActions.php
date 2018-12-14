@@ -2,6 +2,11 @@
 
 namespace App\Core\MassActions;
 
+/**
+ * Class MassActions
+ * @package App\Core\MassActions
+ * @deprecated
+ */
 class MassActions
 {
     public function setMassActions($module_name = '', $action_route_name = null, array $args = [])
