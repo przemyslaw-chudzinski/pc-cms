@@ -16,13 +16,13 @@ class BlogController extends BaseController
 
     public function edit(Article $article)
     {
-        $categories = BlogCategory::getAllCategories();
+        $categories = BlogCategory::get();
         return $this->loadView('articles.edit', ['article' => $article, 'categories' => $categories]);
     }
 
     public function create()
     {
-        $categories = BlogCategory::getAllCategories();
+        $categories = BlogCategory::get();
         return $this->loadView('articles.create', ['categories' => $categories]);
     }
 

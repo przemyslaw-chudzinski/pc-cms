@@ -52,11 +52,6 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class, 'role_id');
     }
 
-    public static function getUsersWithPagination()
-    {
-        return self::getModelDataWithPagination(false, ['role'], [(int) Auth::id()]);
-    }
-
     public static function updateLoggedUserSettings()
     {
         $data = request()->all();

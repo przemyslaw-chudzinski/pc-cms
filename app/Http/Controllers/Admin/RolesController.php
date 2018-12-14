@@ -40,7 +40,7 @@ class RolesController extends BaseController
 
     public function update(RoleRequest $request, Role $role)
     {
-        $request->storeRole($role);
+        $request->updateRole($role);
         return back()->with('alert', [
             'type' => 'success',
             'message' => 'Role has been updated successfully'

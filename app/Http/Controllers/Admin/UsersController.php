@@ -11,7 +11,7 @@ class UsersController extends BaseController
 {
     public function index()
     {
-        $users = User::getUsersWithPagination();
+        $users = User::getModelDataWithPagination(false, ['role'], [(int) Auth::id()]);
         return $this->loadView('users.index', ['users' => $users]);
     }
 

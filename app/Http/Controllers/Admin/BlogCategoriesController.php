@@ -15,7 +15,7 @@ class BlogCategoriesController extends BaseController
 
     public function create()
     {
-        $categories = BlogCategory::getAllCategories();
+        $categories = BlogCategory::get();
         return $this->loadView('blogCategories.create', ['categories' => $categories]);
     }
 
