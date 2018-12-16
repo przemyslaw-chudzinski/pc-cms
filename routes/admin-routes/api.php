@@ -11,7 +11,7 @@ Route::group(['prefix' => 'menus'], function() {
     Route::post('{menu}/togglePublished', 'MenusController@togglePublishedAjax');
     Route::get('{menu}/items', 'MenusController@getItemsAjax');
     Route::put('{menu}/updateTree', 'MenusController@updateTreeAjax');
-    Route::delete('{menu}/items/{menuItem}', 'MenuItemsController@destroyAjax');
+    Route::delete('{menu}/items/{item}', 'MenuItemsController@destroyAjax');
 });
 
 /* Articles ajax routes */

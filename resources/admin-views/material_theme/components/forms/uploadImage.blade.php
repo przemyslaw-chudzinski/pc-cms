@@ -8,7 +8,6 @@ $previewContainerId = isset($previewContainerId) ? $previewContainerId : '';
 $multiple = isset($multiple) ? $multiple : false;
 $editState = isset($editState) ? $editState : false;
 $files = isset($files) ? $files : [];
-//$dir = isset($dir) ? $dir : null;
 $noFileInputName = isset($noFileInputName) ? $noFileInputName : '';
 //$route = isset($route) ? $route : '';
 ?>

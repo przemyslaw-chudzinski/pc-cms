@@ -6,6 +6,7 @@ use App\Traits\HasMassActions;
 use App\Traits\ModelTrait;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Auth;
 
@@ -61,8 +62,7 @@ class User extends Authenticatable
             'email' => [
                 'required',
                 Rule::unique('users')->ignore(Auth::user()->email, 'email')
-            ],
-            'role_id' => 'required'
+            ]
         ]);
 
         if ($validator->fails()) {
@@ -70,11 +70,6 @@ class User extends Authenticatable
         }
 
         Auth::user()->update($data);
-
-        return back()->with('alert', [
-            'type' => 'success',
-            'message' => __('messages.item_updated_success')
-        ]);
     }
 
     public function updateUserAfterLogin()

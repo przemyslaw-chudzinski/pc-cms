@@ -28,9 +28,9 @@
                 <div class="form-group">
                     @include('admin::components.forms.uploadImage', [
                                     'filedName' => 'menuItemImage',
-                                    'id' => 'menuItemImage',
+                                    'id' => 'menuAddItemImage',
                                     'label' => 'Image',
-                                    'previewContainerId' => 'menuItemImagePreview',
+                                    'previewContainerId' => 'menuAddItemImagePreview',
                                     'placeholder' => 'Choose menu item image'
                                 ])
                 </div>

@@ -31,7 +31,7 @@ class MenuItemsController extends BaseController
         $menuItem->delete();
     }
 
-    public function destroyAjax(MenuItem $item)
+    public function destroyAjax(Menu $menu, MenuItem $item)
     {
         $item->delete();
         return response()->json([

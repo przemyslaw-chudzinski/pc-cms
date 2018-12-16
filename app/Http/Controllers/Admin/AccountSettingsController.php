@@ -15,6 +15,10 @@ class AccountSettingsController extends BaseController
 
     public function update()
     {
-        return User::updateLoggedUserSettings();
+        User::updateLoggedUserSettings();
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => __('messages.item_updated_success')
+        ]);
     }
 }

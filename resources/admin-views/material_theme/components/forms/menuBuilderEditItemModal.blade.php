@@ -27,13 +27,12 @@
                 <div class="form-group">
                     @include('admin::components.forms.uploadImage', [
                                     'filedName' => 'menuItemImage',
-                                    'id' => 'menuItemImage',
+                                    'id' => 'menuItemImage-'. $item->id,
                                     'label' => 'Image',
                                     'placeholder' => 'Choose menu item image',
-                                    'previewContainerId' => 'menuItemImagePreview',
+                                    'previewContainerId' => 'menuItemImagePreview-'. $item->id,
                                     'editState' => true,
                                     'files' => $item->getFilesFrom(),
-                                    'dir' => 'menus',
                                     'noFileInputName' => 'noImage'
                                 ])
                 </div>

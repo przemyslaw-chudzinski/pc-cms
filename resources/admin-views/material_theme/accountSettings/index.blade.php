@@ -34,21 +34,6 @@
                         {!! Form::email('email', $user->email, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
                     </div>
 
-                    <div class="form-group">
-                        <select class="select form-control" name="role_id" required>
-                            @if(count($roles) > 0)
-                                @foreach($roles as $role)
-                                    <option
-                                            value="{{ $role->id }}"
-                                            @if ($user->role_id === $role->id)
-                                            selected
-                                            @endif
-                                    >{{ $role->display_name }}</option>
-                                @endforeach
-                            @endif
-                        </select>
-                    </div>
-
                     <button type="submit" class="btn btn-primary pc-cms-loader-btn" data-form="#accountSettingsForm">Save</button>
                     {!! Form::close() !!}
                 </div>
