@@ -10,7 +10,10 @@ let mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
+//
+// mix.react('resources/assets/js/app.js', 'public/js')
+//    .sass('resources/assets/sass/app.scss', 'public/css');
 
-mix.react('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
-
+/* Material theme */
+mix.react('resources/admin-views/material_theme/assets/js/app', 'public/admin/material_theme/js')
+    .sass('resources/admin-views/material_theme/assets/sass/app.scss', 'public/admin/material_theme/css');

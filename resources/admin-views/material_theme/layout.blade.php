@@ -8,11 +8,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>PC.CMS - 1.0</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Poppins:300,400,500,600" rel="stylesheet">
-    <link rel="icon" href="{{ asset('admin/material_theme/dist/img/favicon.ico') }}" type="image/x-icon">
-    <link rel="stylesheet" href="{{ asset('admin/material_theme/dist/css/vendor.bundle.css') }}">
-    <link rel="stylesheet" href="{{ asset('admin/material_theme/dist/css/app.bundle.css') }}">
-    <link rel="stylesheet" href="{{ asset('admin/material_theme/dist/css/theme-h.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('admin/material_theme/css/vendor.bundle.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/material_theme/css/app.bundle.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/material_theme/css/theme-h.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/material_theme/css/app.css') }}">
+
     @stack('admin.head')
 </head>
 
@@ -50,9 +51,9 @@
 </div>
 {{-- Scripts --}}
 <script src="{{ asset('tinymce/js/tinymce/tinymce.min.js') }}"></script>
-<script src="{{ asset('js/app.js') }}"></script>
-<script src="{{ asset('admin/material_theme/dist/js/vendor.bundle.js') }}"></script>
-<script src="{{ asset('admin/material_theme/dist/js/app.bundle.js') }}"></script>
+<script src="{{ asset('admin/material_theme/js/app.js') }}"></script>
+<script src="{{ asset('admin/material_theme/js/vendor.bundle.js') }}"></script>
+<script src="{{ asset('admin/material_theme/js/app.bundle.js') }}"></script>
 @stack('admin.footer')
 </body>
 
