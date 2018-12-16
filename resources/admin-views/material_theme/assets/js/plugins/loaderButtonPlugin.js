@@ -1,5 +1,8 @@
-(function () {
-
+/**
+ * Loader button plugin
+ * Author: Przemysław Chudziński
+ */
+(function ($) {
     const $btn = $('.pc-cms-loader-btn');
 
     $btn.on('click', function () {
@@ -10,14 +13,6 @@
         const that = $(this);
 
         that.text('Loading...');
-
-        if ($form.length) {
-            $form.on('invalid-form', function () {
-                that.text(defaultLabel);
-            });
-        }
-
+        $form.length ? $form.on('invalid-form', () => that.text(defaultLabel)) : null;
     });
-
-
-})();
+})(jQuery);

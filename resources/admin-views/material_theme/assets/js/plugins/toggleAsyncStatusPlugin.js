@@ -1,13 +1,14 @@
-/* Change async status plugin */
+/*
+ * Change async status plugin
+ * Author: Przemysław Chudziński
+  * */
 import toastr from "toastr";
 import loaderAsync from './loaderAsyncPlugin';
 
-(function () {
+(function ($) {
     const $changeStatusBtn = $('.pc-cms-toggle-status-btn');
 
-    $changeStatusBtn.on('click', function (e) {
-        onClickToggleStatusBtn(e, $(this));
-    });
+    $changeStatusBtn.on('click', e => onClickToggleStatusBtn(e,  $changeStatusBtn));
 
     function onClickToggleStatusBtn(e, $btn) {
         e.preventDefault();
@@ -21,11 +22,11 @@ import loaderAsync from './loaderAsyncPlugin';
         const trueClasses = $btn.data('true-classes');
         const falseClasses = $btn.data('false-classes');
 
-        sendRequest(url, null, 'post', function (response) {
+        sendRequest(url, null, 'post', response => {
             prepareBtn($btn, response, trueLabel, falseLabel, trueClasses, falseClasses);
             toastr.success(response.message);
             loaderAsync.hide();
-        }, function () {
+        }, () => {
             toastr.error('Something went wrong!');
             loaderAsync.hide();
         });
@@ -54,4 +55,4 @@ import loaderAsync from './loaderAsyncPlugin';
             $btn.text(trueLabel);
         }
     }
-})();
+})(jQuery);

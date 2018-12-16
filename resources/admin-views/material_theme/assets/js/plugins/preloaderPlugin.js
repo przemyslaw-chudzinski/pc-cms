@@ -1,16 +1,11 @@
+/*
+* Preloader plugin
+* Author: Przemysław Chudziński
+* */
 (function ($) {
-
     const $preloader = $('.pc-cms-preloader');
-
-    $(window).on('load', function () {
-
+    $(window).on('load', () => {
         $preloader.addClass('hiding');
-
-        $preloader.on('transitionend', function (e) {
-            $(this).css('display', 'none');
-        });
-
+        $preloader.on('transitionend', () => $preloader.css('display', 'none'));
     });
-
-
 })(jQuery);

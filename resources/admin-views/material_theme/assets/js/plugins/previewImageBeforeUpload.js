@@ -1,5 +1,8 @@
-/* Preview image before upload files */
-(function () {
+/**
+ * Preview Image and files Plugin
+ * Author: Przemysław Chudziński
+ */
+(function ($) {
 
     const $uploadFilesInput = $('.pc-cms-upload-files-input');
     const $clearFilesBtns = $('.pc-cms-clear-files');
@@ -7,20 +10,10 @@
     const $editFilesBtn = $('.pc-cms-edit-files');
 
     $noImageInputs.val('no');
-
-    if ($clearFilesBtns.length) {
-        $clearFilesBtns.on('click', function (e) {
-            onClickClearFilesInit(e, $(this), $editFilesBtn);
-        });
-    }
-
-
-
+    $clearFilesBtns.length ? $clearFilesBtns.on('click', e =>  onClickClearFilesInit(e, $clearFilesBtns, $editFilesBtn)) : null;
     $uploadFilesInput.on('change', onChangeUploadFilesInput);
 
-
     function onChangeUploadFilesInput(e) {
-
         const $uploadInput = $(e.target);
         const $previewContainerId = $uploadInput.data('preview-container');
         const $previewContainer = $($previewContainerId);
@@ -33,31 +26,18 @@
 
         $noImageInput.val('no');
 
-        if (!$currentClearFilesBtn.length) {
-            $previewActions.append($clearFilesBtn);
-        } else {
-            $currentClearFilesBtn.on('click', function (e) {
-                onClickClearFilesBtn(e, $uploadInput, $(this), $previewContainer, $noImageInput, $editFilesBtn);
-            });
-        }
+        !$currentClearFilesBtn.length ?  $previewActions.append($clearFilesBtn) :
+            $currentClearFilesBtn.on('click', e => onClickClearFilesBtn(e, $uploadInput, $currentClearFilesBtn, $previewContainer, $noImageInput, $editFilesBtn));
 
-        $clearFilesBtn.on('click', function (e) {
-            onClickClearFilesBtn(e, $uploadInput, $(this), $previewContainer, $noImageInput, $editFilesBtn);
-        });
+        $clearFilesBtn.on('click', e => onClickClearFilesBtn(e, $uploadInput, $clearFilesBtn, $previewContainer, $noImageInput, $editFilesBtn));
 
-        if ($currentPreviewImages.length) {
-            $currentPreviewImages.remove();
-        }
+        $currentPreviewImages.length ? $currentPreviewImages.remove() : null;
 
-        if ($uploadInput[0].files.length) {
-            [].forEach.call($uploadInput[0].files, function (file) {
-                let reader = new FileReader();
-                reader.onload = function (e) {
-                    createPreviewThumbnail(e, $previewRow);
-                };
-                reader.readAsDataURL(file);
-            });
-        }
+        $uploadInput[0].files.length ? [].forEach.call($uploadInput[0].files, file => {
+            let reader = new FileReader();
+            reader.onload = e => createPreviewThumbnail(e, $previewRow);
+            reader.readAsDataURL(file);
+        }) : null
     }
 
     function createPreviewThumbnail(e, $previewContainer) {
@@ -91,4 +71,4 @@
         $clearBtn.remove();
     }
 
-})();
+})(jQuery);

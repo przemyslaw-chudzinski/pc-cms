@@ -1,12 +1,12 @@
-(function () {
+/**
+ * Permission Plugin
+ * Author: Przemysław Chudziński
+ */
+(function ($) {
 
     const $permissionCheckbox = $('.pc-cms-permission-checkbox');
     const $permissionsInput = $('.pc-cms-permissions');
-    let permissions = {};
-
-    if ($permissionsInput.length) {
-        permissions = $permissionsInput.val() !== "" ? JSON.parse($permissionsInput.val()) : {};
-    }
+    let permissions = $permissionsInput.length ? $permissionsInput.val() !== "" ? JSON.parse($permissionsInput.val()) : {} : null;
 
     $permissionCheckbox.on('change', setValueOnChange);
 
@@ -22,41 +22,26 @@
             allow: $checkbox.filter(':checked').length > 0
         };
         if (typeof permissions[moduleName] !== 'undefined') {
-
             const modulePermissions = permissions[moduleName].permissions;
-            const indexToUpdate = modulePermissions.findIndex(function (_permission) {
-                return _permission.route === permission.route;
-            });
-            if (indexToUpdate !== -1) {
-                permissions[moduleName].permissions[indexToUpdate] = permission;
-            } else {
-                permissions[moduleName].permissions.push(permission);
-            }
-
+            const indexToUpdate = modulePermissions.findIndex(_permission => _permission.route === permission.route);
+            indexToUpdate !== -1 ? permissions[moduleName].permissions[indexToUpdate] = permission : permissions[moduleName].permissions.push(permission);
         } else {
             permissions[moduleName] = {};
             permissions[moduleName].permissions = [];
             permissions[moduleName].permissions.push(permission);
         }
-
         $permissionsInput.val(JSON.stringify(permissions));
     }
     
     function setInitialValues() {
-        $permissionCheckbox.each(function (index, checkbox) {
+        $permissionCheckbox.each((index, checkbox) => {
             const $checkbox = $(checkbox);
             for (let moduleName in permissions) {
-                if ($checkbox.data('module-name') === moduleName) {
-                    if (permissions[moduleName].permissions && permissions[moduleName].permissions.length) {
-                        permissions[moduleName].permissions.forEach(function (per) {
-                            if ($checkbox.data('route') == per.route && per.allow) {
-                                $checkbox.attr('checked', true);
-                            }
-                        });
-                    }
-                }
+                $checkbox.data('module-name') === moduleName ? permissions[moduleName].permissions && permissions[moduleName].permissions.length ?
+                    permissions[moduleName].permissions.forEach(per => $checkbox.data('route') == per.route && per.allow ? $checkbox.attr('checked', true) : null)
+                    : null : null;
             }
         });
     }
 
-})();
+})(jQuery);

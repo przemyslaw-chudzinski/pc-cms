@@ -1,6 +1,6 @@
 import toastr from "toastr";
 
-(function () {
+(function ($) {
 
     const domenuConfig = {
         event: {
@@ -56,4 +56,4 @@ import toastr from "toastr";
         });
     }
 
-})();
+})(jQuery);

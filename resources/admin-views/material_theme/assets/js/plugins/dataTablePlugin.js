@@ -1,6 +1,7 @@
-/* Data table plugins */
-
-/* Selectbox plugin */
+/**
+ * Data tabe plugin
+ * Author: Przemysław Chudziński
+ */
 (function($) {
 
     const $checkbox = $('.pc-selectable-input');
@@ -15,22 +16,18 @@
     $massActions.hide();
     $selectedValuesInput.val('');
 
-    $checkbox.on('change', onCheckboxChangeHandler)
+    $checkbox.on('change', onCheckboxChangeHandler);
     $checkboxSelectAll.on('change', onCheckboxSelectAllChangeHandler);
 
     function onCheckboxChangeHandler(e) {
         const $target = $(e.target);
         if ($target[0].checked) {
             $target.closest('tr.pc-selectable-row').addClass('highlight');
-            if (getLengthSelectedCheckboxes() === $checkboxLength) {
-                $checkboxSelectAll[0].checked = true;
-            }
+            getLengthSelectedCheckboxes() === $checkboxLength ? $checkboxSelectAll[0].checked = true : null;
             setCounter();
         } else {
             $target.closest('tr.pc-selectable-row').removeClass('highlight');
-            if (getLengthSelectedCheckboxes() !== $checkboxLength) {
-                $checkboxSelectAll[0].checked = false;
-            }
+            getLengthSelectedCheckboxes() !== $checkboxLength ? $checkboxSelectAll[0].checked = false : null;
             setCounter();
         }
         addValueToSelectedValuesInput();
@@ -50,13 +47,9 @@
         addValueToSelectedValuesInput();
     }
 
-    function selectAllCheckboxes(select = true){
-        $checkbox.each(function(index, checkbox){
-            checkbox.checked = select;
-        });
-    }
+    const selectAllCheckboxes = (select = true) => $checkbox.each((index, checkbox) => checkbox.checked = select);
 
-    function getLengthSelectedCheckboxes(){
+    function getLengthSelectedCheckboxes() {
         const $selectedCheckboxes = $checkbox.filter(':checked');
         return $selectedCheckboxes.length;
     }
@@ -67,11 +60,7 @@
             $selectedCounter.hide();
             $massActions.hide();
         } else {
-            if (length === 1) {
-                $selectedCounter.text('1 item selected');
-            } else {
-                $selectedCounter.text(length + ' items selected');
-            }
+            length === 1 ?  $selectedCounter.text('1 item selected') : $selectedCounter.text(length + ' items selected');
             $selectedCounter.show();
             $massActions.show();
         }
@@ -81,7 +70,7 @@
         $selectedValuesInput.val('');
         const $selectedCheckbox = $('.pc-selectable-input').filter(':checked');
         const selected_values = [];
-        $selectedCheckbox.each(function(index, checkbox){
+        $selectedCheckbox.each((index, checkbox) => {
             const itemId = parseInt(checkbox.dataset.itemId);
             selected_values.push(itemId);
         });
