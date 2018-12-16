@@ -32,14 +32,6 @@
                         {!! Form::text('slug', $menu->slug, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
                     </div>
 
-                    {{--<div class="form-group">--}}
-                        {{--<div class="checkbox">--}}
-                            {{--<label>--}}
-                                {{--<input name="generateSlug" type="checkbox"> Do you want to generate new slug based on menu name?--}}
-                            {{--</label>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-
                     <div class="form-group">
                         {!! Form::label(null, 'Description') !!}
                         {!! Form::textarea('description', $menu->description, ['class' => 'form-control', 'rows' => 5]) !!}
@@ -48,7 +40,7 @@
                     <div class="form-group">
                         <div class="checkbox">
                             <label>
-                                <input name="saveAndPublish" type="checkbox" checked> Save and publish
+                                <input name="saveAndPublish" type="checkbox" @if($menu->published) checked @endif> Save and publish
                             </label>
                         </div>
                     </div>

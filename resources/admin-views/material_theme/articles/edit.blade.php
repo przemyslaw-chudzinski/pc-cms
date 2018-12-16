@@ -34,14 +34,6 @@
                         {!! Form::text('slug', $article->slug, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
                     </div>
 
-                    {{--<div class="form-group">--}}
-                        {{--<div class="checkbox">--}}
-                            {{--<label>--}}
-                                {{--<input type="checkbox" name="generateSlug"> Do you want to generate new slug based on article title?--}}
-                            {{--</label>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-
                     <div class="form-group">
                         {!! Form::label(null, 'Article content') !!}
                         {!! Form::textarea('content', $article->content, ['class' => 'form-control pc-cms-editor']) !!}
@@ -61,7 +53,7 @@
                             <div class="form-group">
                                 <div class="checkbox">
                                     <label>
-                                        <input name="saveAndPublish" type="checkbox" checked> Save and publish
+                                        <input name="saveAndPublish" type="checkbox" @if($article->published) checked @endif> Save and publish
                                     </label>
                                 </div>
                                 <div class="checkbox">

@@ -34,14 +34,6 @@
                         {!! Form::text('slug', $project->slug, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
                     </div>
 
-                    {{--<div class="form-group">--}}
-                        {{--<div class="checkbox">--}}
-                            {{--<label>--}}
-                                {{--<input type="checkbox" name="generateSlug"> Do you want to generate new slug based on project title?--}}
-                            {{--</label>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-
                     <div class="form-group">
                         {!! Form::label(null, 'Project content') !!}
                         {!! Form::textarea('content', $project->content, ['class' => 'form-control pc-cms-editor']) !!}
@@ -61,7 +53,7 @@
                             <div class="form-group">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="saveAndPublish" checked> Save and publish
+                                        <input type="checkbox" name="saveAndPublish" @if($project->published) checked @endif> Save and publish
                                     </label>
                                 </div>
                             </div>

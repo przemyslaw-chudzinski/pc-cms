@@ -34,14 +34,6 @@
                         {!! Form::text('slug', $page->slug, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
                     </div>
 
-                    {{--<div class="form-group">--}}
-                        {{--<div class="checkbox">--}}
-                            {{--<label>--}}
-                                {{--<input type="checkbox" name="generateSlug"> Do you want to generate new slug based on page title?--}}
-                            {{--</label>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-
                     <div class="form-group">
                         {!! Form::label(null, 'Page content') !!}
                         {!! Form::textarea('content', $page->content, ['class' => 'form-control pc-cms-editor']) !!}
@@ -61,7 +53,7 @@
                             <div class="form-group">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="saveAndPublish" checked> Save and publish
+                                        <input type="checkbox" name="saveAndPublish" @if($page->published) checked @endif> Save and publish
                                     </label>
                                 </div>
                             </div>
