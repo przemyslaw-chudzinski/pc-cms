@@ -34,13 +34,13 @@
                         {!! Form::text('slug', $page->slug, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
                     </div>
 
-                    <div class="form-group">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="generateSlug"> Do you want to generate new slug based on page title?
-                            </label>
-                        </div>
-                    </div>
+                    {{--<div class="form-group">--}}
+                        {{--<div class="checkbox">--}}
+                            {{--<label>--}}
+                                {{--<input type="checkbox" name="generateSlug"> Do you want to generate new slug based on page title?--}}
+                            {{--</label>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
 
                     <div class="form-group">
                         {!! Form::label(null, 'Page content') !!}

@@ -34,13 +34,13 @@
                         {!! Form::text('slug', $article->slug, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
                     </div>
 
-                    <div class="form-group">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="generateSlug"> Do you want to generate new slug based on article title?
-                            </label>
-                        </div>
-                    </div>
+                    {{--<div class="form-group">--}}
+                        {{--<div class="checkbox">--}}
+                            {{--<label>--}}
+                                {{--<input type="checkbox" name="generateSlug"> Do you want to generate new slug based on article title?--}}
+                            {{--</label>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
 
                     <div class="form-group">
                         {!! Form::label(null, 'Article content') !!}
