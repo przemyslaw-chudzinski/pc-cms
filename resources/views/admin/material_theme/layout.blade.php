@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>PC.CMS - 1.0</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Poppins:300,400,500,600" rel="stylesheet">
-    <link rel="icon" href="{{ asset('admin/material_theme/dist/img/favicon.ico') }}" type="image/x-icon">
+    {{--<link rel="icon" href="{{ asset('admin/material_theme/dist/img/favicon.ico') }}" type="image/x-icon">--}}
     <link rel="stylesheet" href="{{ asset('admin/material_theme/dist/css/vendor.bundle.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/material_theme/dist/css/app.bundle.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/material_theme/dist/css/theme-h.css') }}">
