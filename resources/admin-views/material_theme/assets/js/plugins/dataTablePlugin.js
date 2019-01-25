@@ -1,5 +1,5 @@
 /**
- * Data tabe plugin
+ * Data table plugin
  * Author: Przemysław Chudziński
  */
 (function($) {
@@ -47,7 +47,7 @@
         addValueToSelectedValuesInput();
     }
 
-    const selectAllCheckboxes = (select = true) => $checkbox.each((index, checkbox) => checkbox.checked = select);
+    const selectAllCheckboxes = (select = true) => $checkbox.prop('checked', select);
 
     function getLengthSelectedCheckboxes() {
         const $selectedCheckboxes = $checkbox.filter(':checked');

@@ -47,7 +47,7 @@
                         <select class="select form-control" name="role_id" required>
                             @if(count($roles) > 0)
                                 @foreach($roles as $role)
-                                    <option value="{{ $role->id }}">{{ $role->display_name }}</option>
+                                    <option value="{{ $role->id }}" @if($role->id === 2) selected @endif>{{ $role->display_name }}</option>
                                 @endforeach
                             @endif
                         </select>

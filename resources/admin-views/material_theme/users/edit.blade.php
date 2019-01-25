@@ -24,13 +24,13 @@
                      'novalidate' => 'novalidate'
                      ]) !!}
                     <div class="form-group">
-                        {!! Form::label(null, 'User name') !!}
+                        {!! Form::label(null, 'User first name') !!}
                         {!! Form::text('first_name', $user->first_name, ['class' => 'form-control', 'autocomplete' => 'off', 'required']) !!}
                     </div>
 
                     <div class="form-group">
-                        {!! Form::label(null, 'User name') !!}
-                        {!! Form::text('last_name', $user->first_name, ['class' => 'form-control', 'autocomplete' => 'off', 'required']) !!}
+                        {!! Form::label(null, 'User last name') !!}
+                        {!! Form::text('last_name', $user->last_name, ['class' => 'form-control', 'autocomplete' => 'off', 'required']) !!}
                     </div>
 
                     <div class="form-group">
@@ -41,6 +41,7 @@
                     <div class="form-group">
                         <select class="select form-control" name="role_id" required>
                             @if(count($roles) > 0)
+                                <option value="">No permissions</option>
                                 @foreach($roles as $role)
                                     <option
                                             value="{{ $role->id }}"

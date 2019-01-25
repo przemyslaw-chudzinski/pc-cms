@@ -16,7 +16,7 @@
                         {!! Form::label(null, 'Role') !!}
                         <select name="role_id" class="form-control select">
                             @if (count($roles) > 0)
-                                <option></option>
+                                <option value="">No permissions</option>
                                 @foreach($roles as $role)
                                     <option
                                             value="{{ $role->id }}"

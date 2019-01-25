@@ -17,15 +17,7 @@ class ThemeService
         /* Theme directory name */
         $theme = self::getTheme();
 
-        if ($slug === '') {
-
-            return view('themes.'.$theme.'.index');
-
-        }
-
-        if ($theme === null || $theme === '') {
-            throw new \Exception('Theme does not exits');
-        }
+        if ($theme === null || $theme === '') throw new \Exception('Theme does not exits');
 
         $page = Page::
             where('slug', $slug)
@@ -33,17 +25,14 @@ class ThemeService
             ->get()
             ->first();
 
-        if ($page && $page->template !== null) {
+        if ($slug === '') return view('themes.'.$theme.'.index');
+        if ($slug === config('admin.admin_path')) return view('admin::backend.index');
+        if (isset($page) && $slug === 'blog') return view('themes.'. $theme.'.page-templates.blog', ['page' => $page]);
 
-            return view('themes.' . $theme . '.page-templates.' . $page->template, ['page' => $page]);
+        if ($page && $page->template !== null) return view('themes.' . $theme . '.page-templates.' . $page->template, ['page' => $page]);
+        else if ($page) return view('themes.' . $theme . '.page-templates.default', ['page' => $page]);
 
-        } else if ($page) {
-
-            return view('themes.' . $theme . '.page-templates.default', ['page' => $page]);
-
-        }
-
-        return '404';
+        return self::get404($theme, $page);
     }
 
     public static function getThemesList()
@@ -121,13 +110,9 @@ class ThemeService
             ->get()
             ->first();
 
-        if ($article) {
+        if ($article) return view('themes.' . $theme . '.page-templates.blog.blog-single', ['article' => $article]);
 
-            return view('themes.' . $theme . '.page-templates.blog.blog-single', ['article' => $article]);
-
-        }
-
-        return '404';
+        return self::get404($theme, $article);
 
     }
 
@@ -164,5 +149,9 @@ class ThemeService
         }
 
         return redirect(url('/'));
+    }
+
+    protected static function get404($theme, $page = null) {
+        return view('themes.'. $theme.'.page-templates.404', ['page' => $page]);
     }
 }

@@ -88,7 +88,6 @@ if (!function_exists('getImageUrl')) {
      */
     function getImageUrl($image, $sizeName)
     {
-//        dd($image);
         if ($sizeName === null) {
             return \Illuminate\Support\Facades\Storage::url($image['original']);
         }

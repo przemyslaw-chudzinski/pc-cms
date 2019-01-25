@@ -32639,7 +32639,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports) {
 
 /**
- * Data tabe plugin
+ * Data table plugin
  * Author: Przemysław Chudziński
  */
 (function ($) {
@@ -32689,9 +32689,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     var selectAllCheckboxes = function selectAllCheckboxes() {
         var select = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-        return $checkbox.each(function (index, checkbox) {
-            return checkbox.checked = select;
-        });
+        return $checkbox.prop('checked', select);
     };
 
     function getLengthSelectedCheckboxes() {
