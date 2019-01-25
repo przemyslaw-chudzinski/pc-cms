@@ -2,7 +2,6 @@
 
 namespace App\Providers\AdminProviders;
 
-use App\Core\Blog\Blog;
 use App\Core\MassActions\MassActions;
 use App\Core\Segments\Segments;
 use App\Core\Services\ThemeService;
@@ -42,10 +41,6 @@ class AdminServiceProvider extends ServiceProvider
         $this->app->bind('admin.segments', function () {
             return new Segments();
         });
-
-//        $this->app->bind('admin.blog', function () {
-//            return new Blog();
-//        });
 
         $this->app->bind('admin.theme', function () {
             return new Theme();
