@@ -50,7 +50,7 @@
     </section>
 </div>
 {{-- Scripts --}}
-<script src="{{ asset('tinymce/js/tinymce/tinymce.min.js') }}"></script>
+<script src="{{ asset('tinymce/tinymce.min.js') }}"></script>
 <script src="{{ asset('admin/material_theme/js/app.js') }}"></script>
 <script src="{{ asset('admin/material_theme/js/vendor.bundle.js') }}"></script>
 <script src="{{ asset('admin/material_theme/js/app.bundle.js') }}"></script>
