@@ -15,9 +15,7 @@ const loaderAsync = {
     },
 
     hide() {
-        setTimeout(() => {
-            this.$loader.removeClass('visible');
-        }, 1000);
+        setTimeout(() => this.$loader.removeClass('visible'), 1000);
     }
 
 };

@@ -5,14 +5,13 @@
 (function ($) {
     const $btn = $('.pc-cms-loader-btn');
 
-    $btn.on('click', function () {
-
-        const formId = $(this).data('form');
+    $btn.on('click', function (e) {
+        const $target = $(e.target);
+        const formId = $target.data('form');
         const $form = $(formId);
-        const defaultLabel = $(this).text();
-        const that = $(this);
+        const defaultLabel = $target.text();
 
-        that.text('Loading...');
-        $form.length ? $form.on('invalid-form', () => that.text(defaultLabel)) : null;
+        $target.text('Loading...');
+        $form.length ? $form.on('invalid-form', () => $target.text(defaultLabel)) : null;
     });
 })(jQuery);

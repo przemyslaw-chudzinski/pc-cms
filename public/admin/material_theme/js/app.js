@@ -32365,23 +32365,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var $changeStatusBtn = $('.pc-cms-toggle-status-btn');
 
     $changeStatusBtn.on('click', function (e) {
-        return onClickToggleStatusBtn(e, $changeStatusBtn);
+        return onClickToggleStatusBtn(e);
     });
 
-    function onClickToggleStatusBtn(e, $btn) {
+    function onClickToggleStatusBtn(e) {
         e.preventDefault();
+        var $target = $(e.target);
+
         __WEBPACK_IMPORTED_MODULE_1__loaderAsyncPlugin__["a" /* default */].show({
             title: 'Data processing is in progress'
         });
 
-        var url = $btn.data('url');
-        var trueLabel = $btn.data('true-label');
-        var falseLabel = $btn.data('false-label');
-        var trueClasses = $btn.data('true-classes');
-        var falseClasses = $btn.data('false-classes');
+        var url = $target.data('url');
+        var trueLabel = $target.data('true-label');
+        var falseLabel = $target.data('false-label');
+        var trueClasses = $target.data('true-classes');
+        var falseClasses = $target.data('false-classes');
 
         sendRequest(url, null, 'post', function (response) {
-            prepareBtn($btn, response, trueLabel, falseLabel, trueClasses, falseClasses);
+            prepareBtn($target, response, trueLabel, falseLabel, trueClasses, falseClasses);
             __WEBPACK_IMPORTED_MODULE_0_toastr___default.a.success(response.message);
             __WEBPACK_IMPORTED_MODULE_1__loaderAsyncPlugin__["a" /* default */].hide();
         }, function () {
@@ -32459,7 +32461,7 @@ var loaderAsync = {
         var _this = this;
 
         setTimeout(function () {
-            _this.$loader.removeClass('visible');
+            return _this.$loader.removeClass('visible');
         }, 1000);
     }
 };
@@ -32614,16 +32616,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 (function ($) {
     var $btn = $('.pc-cms-loader-btn');
 
-    $btn.on('click', function () {
-
-        var formId = $(this).data('form');
+    $btn.on('click', function (e) {
+        var $target = $(e.target);
+        var formId = $target.data('form');
         var $form = $(formId);
-        var defaultLabel = $(this).text();
-        var that = $(this);
+        var defaultLabel = $target.text();
 
-        that.text('Loading...');
+        $target.text('Loading...');
         $form.length ? $form.on('invalid-form', function () {
-            return that.text(defaultLabel);
+            return $target.text(defaultLabel);
         }) : null;
     });
 })(jQuery);

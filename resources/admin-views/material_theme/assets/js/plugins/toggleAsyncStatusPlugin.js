@@ -8,22 +8,24 @@ import loaderAsync from './loaderAsyncPlugin';
 (function ($) {
     const $changeStatusBtn = $('.pc-cms-toggle-status-btn');
 
-    $changeStatusBtn.on('click', e => onClickToggleStatusBtn(e,  $changeStatusBtn));
+    $changeStatusBtn.on('click', e => onClickToggleStatusBtn(e));
 
-    function onClickToggleStatusBtn(e, $btn) {
+    function onClickToggleStatusBtn(e) {
         e.preventDefault();
+        const $target = $(e.target);
+
         loaderAsync.show({
             title: 'Data processing is in progress',
         });
 
-        const url = $btn.data('url');
-        const trueLabel = $btn.data('true-label');
-        const falseLabel = $btn.data('false-label');
-        const trueClasses = $btn.data('true-classes');
-        const falseClasses = $btn.data('false-classes');
+        const url = $target.data('url');
+        const trueLabel = $target.data('true-label');
+        const falseLabel = $target.data('false-label');
+        const trueClasses = $target.data('true-classes');
+        const falseClasses = $target.data('false-classes');
 
         sendRequest(url, null, 'post', response => {
-            prepareBtn($btn, response, trueLabel, falseLabel, trueClasses, falseClasses);
+            prepareBtn($target, response, trueLabel, falseLabel, trueClasses, falseClasses);
             toastr.success(response.message);
             loaderAsync.hide();
         }, () => {
