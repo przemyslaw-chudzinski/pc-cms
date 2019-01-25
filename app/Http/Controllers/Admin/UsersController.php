@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\User\ResetPasswordRequest;
 use App\Http\Requests\User\UserRequest;
 use App\Role;
 use App\User;
@@ -59,7 +60,7 @@ class UsersController extends BaseController
         ]);
     }
 
-    public function resetPassword(UserRequest $request, User $user)
+    public function resetPassword(ResetPasswordRequest $request, User $user)
     {
         $request->resetPassword($user);
         return back()->with('alert', [

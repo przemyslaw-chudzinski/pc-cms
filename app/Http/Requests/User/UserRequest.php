@@ -28,8 +28,6 @@ class UserRequest extends FormRequest
         $user = $this->route('user');
         return [
             'email' => 'required|unique:users' .(isset($user) ? ',email,' . $user->id : null),
-            'password' => 'required|min:6',
-            'role_id'  => 'required'
         ];
     }
 
@@ -49,13 +47,7 @@ class UserRequest extends FormRequest
         $user->first_name = $this->input('first_name');
         $user->last_name = $this->input('last_name');
         $user->email = $this->input('email');
-        $user->role_id = (int) $this->input('role_id');
-        $user->isDirty() ? $user->save() : null;
-    }
-
-    public function resetPassword(User $user)
-    {
-        $user->password = Hash::make($this->input('password'));
+        $user->role_id = !!(int)$this->input('role_id') ? (int)$this->input('role_id') : null;
         $user->isDirty() ? $user->save() : null;
     }
 }
