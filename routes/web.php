@@ -11,5 +11,7 @@
 |
 */
 
-require 'themes.php';
+Route::get('/', function () {
+    return view('tests.index');
+});
 

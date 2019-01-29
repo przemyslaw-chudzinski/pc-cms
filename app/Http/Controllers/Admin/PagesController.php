@@ -65,4 +65,15 @@ class PagesController extends BaseController
             'newStatus' => (bool)$updatedPage->published
         ]);
     }
+
+    public function updateSlugAjax(PageAjaxRequest $request, Page $page)
+    {
+        $newSlug = $request->updateSlug($page);
+        if (is_array($newSlug)) return $newSlug;
+        return [
+            'newSlug' => $newSlug,
+            'message' => 'Slug has been updated successfully',
+            'type' => 'success'
+        ];
+    }
 }

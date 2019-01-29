@@ -89,4 +89,15 @@ class MenusController extends BaseController
     {
 
     }
+
+    public function updateSlugAjax(MenuAjaxRequest $request, Menu $menu)
+    {
+        $newSlug = $request->updateSlug($menu);
+        if (is_array($newSlug)) return $newSlug;
+        return [
+            'newSlug' => $newSlug,
+            'message' => 'Slug has been updated successfully',
+            'type' => 'success'
+        ];
+    }
 }

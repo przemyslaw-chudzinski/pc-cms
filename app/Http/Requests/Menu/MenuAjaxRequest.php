@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests\Menu;
 
+use App\Menu;
 use App\MenuItem;
 use App\Traits\Toggleable;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Validator;
 
 class MenuAjaxRequest extends FormRequest
 {
@@ -49,5 +51,23 @@ class MenuAjaxRequest extends FormRequest
                 $this->orderMenu($menuItem->children, $item->id);
             }
         }
+    }
+
+    public function updateSlug(Menu $menu)
+    {
+        $validator = Validator::make($this->all(), [
+            'slug' => 'required|max:255|unique:menus'.(isset($menu) ? ',slug,' . $menu->id : null),
+        ]);
+
+        if ($validator->fails()) return [
+            'message' => $validator->errors()->first(),
+            'error' => true,
+            'type' => 'error'
+        ];
+
+        $slug = $this->input('slug');
+        $menu->slug = str_slug($slug);
+        $menu->isDirty() && $menu->save();
+        return $menu->slug;
     }
 }

@@ -30,8 +30,7 @@
                     </div>
 
                     <div class="form-group">
-                        {!! Form::label(null, 'Category slug') !!}
-                        {!! Form::text('slug', $category->slug, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
+                        @include('admin::components.forms.slugField', ['route' => url(route('ajax.projects.categories.updateSlug', $category->id)), 'value' => $category->slug])
                     </div>
 
                     <div class="form-group">

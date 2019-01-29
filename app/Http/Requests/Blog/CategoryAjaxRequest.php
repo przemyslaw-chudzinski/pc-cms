@@ -2,8 +2,10 @@
 
 namespace App\Http\Requests\Blog;
 
+use App\BlogCategory;
 use App\Traits\Toggleable;
 use Illuminate\Foundation\Http\FormRequest;
+use Validator;
 
 class CategoryAjaxRequest extends FormRequest
 {
@@ -28,5 +30,24 @@ class CategoryAjaxRequest extends FormRequest
         return [
             //
         ];
+    }
+
+    public function updateSlug(BlogCategory $category)
+    {
+
+        $validator = Validator::make($this->all(), [
+            'slug' => 'required|max:255|unique:blog_categories'. (isset($category) ? ',slug,' . $category->id : null),
+        ]);
+
+        if ($validator->fails()) return [
+            'message' => $validator->errors()->first(),
+            'error' => true,
+            'type' => 'error'
+        ];
+
+        $slug = $this->input('slug');
+        $category->slug = str_slug($slug);
+        $category->isDirty() && $category->save();
+        return $category->slug;
     }
 }

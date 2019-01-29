@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\MassActions;
+namespace App\Core;
 
 
 class MassActions

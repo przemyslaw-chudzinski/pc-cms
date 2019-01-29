@@ -63,4 +63,15 @@ class BlogCategoriesController extends BaseController
             'newStatus' => (bool)$updatedCategory->published
         ]);
     }
+
+    public function updateSlugAjax(CategoryAjaxRequest $request, BlogCategory $category)
+    {
+        $newSlug = $request->updateSlug($category);
+        if (is_array($newSlug)) return $newSlug;
+        return [
+            'newSlug' => $newSlug,
+            'message' => 'Slug has been updated successfully',
+            'type' => 'success'
+        ];
+    }
 }

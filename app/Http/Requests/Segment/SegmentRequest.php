@@ -47,14 +47,12 @@ class SegmentRequest extends FormRequest
 
     public function updateSegment(Segment $segment)
     {
-        if ($this->has('key') && strtolower($this->input('key')) !== $segment->key) {
-            $segment->key = str_slug(strtolower($this->input('key')));
-        }
+        if ($this->has('key') && strtolower($this->input('key')) !== $segment->key) $segment->key = str_slug(strtolower($this->input('key')));
         $segment->content = $this->input('content');
         $segment->description = $this->input('description');
-        if ($this->hasFile('segmentImage')) {
-            $segment->image = $this->uploadFiles($this->file('segmentImage'), Segment::uploadDir());
-        }
+        if ($this->hasFile('segmentImage')) $segment->image = $this->uploadFiles($this->file('segmentImage'), Segment::uploadDir());
+        else if($this->canClearImage()) $segment->image = null;
+
         $segment->isDirty() ? $segment->save() : null;
         return $segment;
     }

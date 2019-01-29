@@ -24,14 +24,10 @@
                     <h2 class="card-title">New article</h2>
                 </header>
                 <div class="card-body">
+
                     <div class="form-group">
                         {!! Form::label(null, 'Article title') !!}
                         {!! Form::text('title', null, ['class' => 'form-control', 'autocomplete' => 'off', 'required']) !!}
-                    </div>
-
-                    <div class="form-group">
-                        {!! Form::label(null, 'Article slug') !!}
-                        {!! Form::text('slug', null, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
                     </div>
 
                     <div class="form-group">

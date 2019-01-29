@@ -83,4 +83,15 @@ class ProjectsController extends BaseController
             'newStatus' => (bool) $updatedProject->published
         ]);
     }
+
+    public function updateSlugAjax(ProjectAjaxRequest $request, Project $project)
+    {
+        $newSlug = $request->updateSlug($project);
+        if (is_array($newSlug)) return $newSlug;
+        return [
+            'newSlug' => $newSlug,
+            'message' => 'Slug has been updated successfully',
+            'type' => 'success'
+        ];
+    }
 }

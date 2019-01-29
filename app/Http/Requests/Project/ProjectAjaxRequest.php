@@ -2,8 +2,10 @@
 
 namespace App\Http\Requests\Project;
 
+use App\Project;
 use App\Traits\Toggleable;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Validator;
 
 class ProjectAjaxRequest extends FormRequest
 {
@@ -28,5 +30,24 @@ class ProjectAjaxRequest extends FormRequest
         return [
             //
         ];
+    }
+
+    public function updateSlug(Project $project)
+    {
+
+        $validator = Validator::make($this->all(), [
+            'slug' => 'required|max:255|unique:projects'.(isset($project) ? ',slug,' . $project->id : null),
+        ]);
+
+        if ($validator->fails()) return [
+            'message' => $validator->errors()->first(),
+            'error' => true,
+            'type' => 'error'
+        ];
+
+        $slug = $this->input('slug');
+        $project->slug = str_slug($slug);
+        $project->isDirty() && $project->save();
+        return $project->slug;
     }
 }

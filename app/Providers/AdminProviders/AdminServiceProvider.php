@@ -2,10 +2,9 @@
 
 namespace App\Providers\AdminProviders;
 
-use App\Core\MassActions\MassActions;
-use App\Core\Segments\Segments;
-use App\Core\Services\ThemeService;
-use App\Core\Theme\Theme;
+use App\Core\MassActions;
+use App\Core\Segment;
+use App\Core\Setting;
 use App\Role;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -38,12 +37,12 @@ class AdminServiceProvider extends ServiceProvider
     {
         $this->app->register(AdminRouteServiceProvider::class);
 
-        $this->app->bind('admin.segments', function () {
-            return new Segments();
+        $this->app->bind('segment', function () {
+            return new Segment();
         });
 
-        $this->app->bind('admin.theme', function () {
-            return new Theme();
+        $this->app->bind('setting', function () {
+            return new Setting();
         });
 
         $this->app->bind('admin.mass_actions', function () {
@@ -89,14 +88,6 @@ class AdminServiceProvider extends ServiceProvider
             'admin::components.widgets.last-registered-users-wgt'
         ], function ($view) {
             $view->with('users', User::getLastRegisteredUsers());
-        });
-
-        View::composer([
-            'admin::pages.create',
-            'admin::pages.edit',
-        ], function ($view) {
-            $pageTemplates = ThemeService::getPageTemplates();
-            $view->with('pageTemplates', $pageTemplates);
         });
     }
 }

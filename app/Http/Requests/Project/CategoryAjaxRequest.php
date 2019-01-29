@@ -2,8 +2,10 @@
 
 namespace App\Http\Requests\Project;
 
+use App\ProjectCategory;
 use App\Traits\Toggleable;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryAjaxRequest extends FormRequest
 {
@@ -28,5 +30,23 @@ class CategoryAjaxRequest extends FormRequest
         return [
             //
         ];
+    }
+
+    public function updateSlug(ProjectCategory $category)
+    {
+        $validator = Validator::make($this->all(), [
+            'slug' => 'required|max:255|unique:project_categories'.(isset($category) ? ',slug,' . $category->id : null),
+        ]);
+
+        if ($validator->fails()) return [
+            'message' => $validator->errors()->first(),
+            'error' => true,
+            'type' => 'error'
+        ];
+
+        $slug = $this->input('slug');
+        $category->slug = str_slug($slug);
+        $category->isDirty() && $category->save();
+        return $category->slug;
     }
 }

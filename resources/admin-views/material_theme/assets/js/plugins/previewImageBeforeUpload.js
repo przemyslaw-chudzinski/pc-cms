@@ -10,7 +10,7 @@
     const $editFilesBtn = $('.pc-cms-edit-files');
 
     $noImageInputs.val('no');
-    $clearFilesBtns.length ? $clearFilesBtns.on('click', e =>  onClickClearFilesInit(e, $clearFilesBtns, $editFilesBtn)) : null;
+    $clearFilesBtns.length ? $clearFilesBtns.on('click', e =>  onClickClearFilesInit(e, $editFilesBtn)) : null;
     $uploadFilesInput.on('change', onChangeUploadFilesInput);
 
     function onChangeUploadFilesInput(e) {
@@ -59,16 +59,17 @@
         $noImageInput.val('yes');
     }
 
-    function onClickClearFilesInit(e, $clearBtn, $editFilesBtn) {
+    function onClickClearFilesInit(e, $editFilesBtn) {
         e.preventDefault();
         e.stopPropagation();
-        const $previewContainer = $clearBtn.closest('.pc-cms-image-preview-container');
+        const $target = $(e.target);
+        const $previewContainer = $target.closest('.pc-cms-image-preview-container');
         const $currentPreviewImages = $previewContainer.find('.pc-cms-single-preview-image');
         const $noImageInput = $previewContainer.find('.pc-cms-no-image');
         $noImageInput.val('yes');
         $currentPreviewImages.remove();
         $editFilesBtn.remove();
-        $clearBtn.remove();
+        $target.remove();
     }
 
 })(jQuery);

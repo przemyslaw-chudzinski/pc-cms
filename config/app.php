@@ -169,7 +169,6 @@ return [
          */
 
         Collective\Html\HtmlServiceProvider::class,
-//        Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 
         /*
@@ -180,8 +179,7 @@ return [
         App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\ThemeComposerServiceProvider::class,
-        App\Providers\AdminProviders\AdminServiceProvider::class
+        App\Providers\AdminProviders\AdminServiceProvider::class,
 
     ],
 
@@ -231,13 +229,13 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Segment' => App\Facades\Segments::class,
+        'Segment' => App\Facades\Segment::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Blog' => App\Facades\Blog::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
-        'Theme' => App\Facades\Theme::class,
-        'MassActions' => App\Facades\MassActions::class
+        'MassActions' => App\Facades\MassActions::class,
+        'Setting' => App\Facades\Setting::class,
     ],
 
 ];

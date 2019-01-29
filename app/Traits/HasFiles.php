@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Core\File;
 use App\Core\Image;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
@@ -26,12 +27,12 @@ trait HasFiles {
                 $f = new File($file, $uploadDirName);
                 $f->save();
             }
-           $result['mime_type'] = $f->getOriginalFile()->getMimeType();
-           $result['size'] = $f->getOriginalFile()->getSize();
-           $result['file_name'] = $f->getOriginalFile()->getClientOriginalName();
-           $result['extension'] = $f->getOriginalFile()->getClientOriginalExtension();
-           $result['original'] = $this->mapStoragePathToUrl($uploadDirName . '/' . $f->getOriginalFile()->getClientOriginalName());
-           array_push($uploadedFiles, $result);
+            $result['mime_type'] = $f->getOriginalFile()->getMimeType();
+            $result['size'] = $f->getOriginalFile()->getSize();
+            $result['file_name'] = $f->getOriginalFile()->getClientOriginalName();
+            $result['extension'] = $f->getOriginalFile()->getClientOriginalExtension();
+            $result['original'] = $this->mapStoragePathToUrl($uploadDirName . '/' . $f->getOriginalFile()->getClientOriginalName());
+            array_push($uploadedFiles, $result);
         }
         return json_encode($uploadedFiles);
     }
@@ -55,6 +56,14 @@ trait HasFiles {
     {
         $mimeType = $file->getMimeType();
         return (bool)preg_match('/image/', $mimeType);
+    }
+
+    public function canClearImage($param = 'noImage', $expectedValue = 'yes')
+    {
+        if ($this->has($param)) {
+            if ($this->input($param) === $expectedValue) return true;
+        }
+        return false;
     }
 
 }

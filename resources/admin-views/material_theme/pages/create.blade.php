@@ -30,11 +30,6 @@
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label(null, 'Page slug') !!}
-                            {!! Form::text('slug', null, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
-                        </div>
-
-                        <div class="form-group">
                             {!! Form::label(null, 'Page content') !!}
                             {!! Form::textarea('content', null, ['class' => 'form-control pc-cms-editor']) !!}
                         </div>

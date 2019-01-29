@@ -6,9 +6,9 @@ use App\Traits\HasMassActions;
 use App\Traits\ModelTrait;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use Auth;
 
 class User extends Authenticatable
 {
@@ -97,7 +97,7 @@ class User extends Authenticatable
 
     public static function getLastRegisteredUsers($limit = 5)
     {
-        return self::latest()->limit($limit)->get();
+        return self::where('id', '<>', Auth::id())->latest()->limit($limit)->get();
     }
 
     public static function massActions()

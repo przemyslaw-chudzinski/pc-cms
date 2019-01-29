@@ -4,13 +4,14 @@ namespace App\Http\Controllers\Themes;
 
 use App\Http\Controllers\Controller;
 use App\Core\Services\ThemeService;
+use App\Facades\Theme;
 
 class ThemeController extends Controller
 {
     public function index()
     {
-        $theme = ThemeService::getTheme();
-        return view('themes.'.$theme.'.index');
+//        $theme = Theme::getCurrentTheme();
+        return Theme::getHomeView();
     }
 
     public function showPage($slug)
@@ -30,6 +31,6 @@ class ThemeController extends Controller
 
     public function maintenance()
     {
-        return ThemeService::getMaintenanceMode();
+        return Theme::getMaintenanceView();
     }
 }

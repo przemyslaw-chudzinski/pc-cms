@@ -9,7 +9,8 @@
                 {!! Form::open([
                  'method' => 'put',
                  'id' => 'pc-cms-menubuilder-edit-item-form-' . $item->id,
-                 'route' => [getRouteName('menus', 'item_update'), $item->id]
+                 'route' => [getRouteName('menus', 'item_update'), $item->id],
+                 'files' => true
                  ]) !!}
                 <div class="form-group">
                     {!! Form::label(null, 'Item name') !!}

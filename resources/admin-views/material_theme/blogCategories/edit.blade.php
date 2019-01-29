@@ -30,8 +30,7 @@
                     </div>
 
                     <div class="form-group">
-                        {!! Form::label(null, 'Category slug') !!}
-                        {!! Form::text('slug', $category->slug, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
+                        @include('admin::components.forms.slugField', ['route' => url(route('ajax.articles.categories.updateSlug', $category->id)), 'value' => $category->slug])
                     </div>
 
                     <div class="form-group">
@@ -49,7 +48,7 @@
                             <div class="form-group">
                                 <div class="checkbox">
                                     <label>
-                                        <input name="saveAndPublish" type="checkbox" checked> Save and publish
+                                        <input name="saveAndPublish" type="checkbox" @if($category->published) checked @endif> Save and publish
                                     </label>
                                 </div>
                             </div>

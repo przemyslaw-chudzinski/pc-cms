@@ -78,4 +78,15 @@ class BlogController extends BaseController
             'newStatus' => (bool)$updatedArticle->allow_comments
         ]);
     }
+
+    public function updateSlugAjax(ArticleAjaxRequest $request, Article $article)
+    {
+        $newSlug = $request->updateSlug($article);
+        if (is_array($newSlug)) return $newSlug;
+        return [
+            'newSlug' => $newSlug,
+            'message' => 'Slug has been updated successfully',
+            'type' => 'success'
+        ];
+    }
 }

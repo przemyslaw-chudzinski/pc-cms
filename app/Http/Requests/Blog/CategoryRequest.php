@@ -26,10 +26,8 @@ class CategoryRequest extends FormRequest
      */
     public function rules()
     {
-        $category = $this->route('category');
         return [
             'name' => 'required|max:255',
-            'slug' => 'max:255|unique:blog_categories'. (isset($category) ? ',slug,' . $category->id : null),
             'imageThumbnail[]' => 'image|max:2048'
         ];
     }
@@ -37,10 +35,9 @@ class CategoryRequest extends FormRequest
     public function storeCategory()
     {
         $name = $this->input('name');
-        $slug = $this->input('slug');
         BlogCategory::create([
             'name' => $name,
-            'slug' => isset($slug) ? str_slug($slug) : str_slug($name),
+            'slug' => str_slug($name),
             'description' => $this->input('description'),
             'published' => $this->has('saveAndPublish'),
             'thumbnail' =>  $this->hasFile('imageThumbnail') ?  $this->uploadFiles($this->file('imageThumbnail'), BlogCategory::uploadDir()) : null,
@@ -51,11 +48,10 @@ class CategoryRequest extends FormRequest
     public function updateCategory(BlogCategory $category)
     {
         $name = $this->input('name');
-        $slug = $this->input('slug');
+        if($this->hasFile('imageThumbnail')) $category->thumbnail = $this->uploadFiles($this->file('imageThumbnail'), BlogCategory::uploadDir());
+        else if($this->canClearImage()) $category->thumbnail = null;
 
-        $this->hasFile('imageThumbnail') ?  $category->thumbnail = $this->uploadFiles($this->file('imageThumbnail'), BlogCategory::uploadDir()) : null;
         $category->name = $name;
-        $this->has('slug') && $slug !== $category->slug ? str_slug($slug) : null;
         $category->description = $this->input('description');
         $category->published = $this->has('saveAndPublish');
         $category->parent_id = (int)$this->input('parent_id');

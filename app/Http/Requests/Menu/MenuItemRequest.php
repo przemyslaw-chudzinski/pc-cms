@@ -45,9 +45,8 @@ class MenuItemRequest extends FormRequest
 
     public function updateItem(MenuItem $item)
     {
-        // TODO: Problem with update image
-        dd( $this->has('menuItemImage'));
-        $this->hasFile('menuItemImage') ? $item->image = $this->uploadFiles($this->file('menuItemImage'), MenuItem::uploadDir()) : null;
+        if($this->hasFile('menuItemImage')) $item->image = $this->uploadFiles($this->file('menuItemImage'), MenuItem::uploadDir());
+        elseif ($this->canClearImage()) $item->image = null;
         $item->title = $this->input('title');
         $item->url = $this->input('url');
         $item->target = $this->input('target');

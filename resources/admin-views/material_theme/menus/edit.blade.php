@@ -28,8 +28,7 @@
                     </div>
 
                     <div class="form-group">
-                        {!! Form::label(null, 'Menu slug') !!}
-                        {!! Form::text('slug', $menu->slug, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
+                        @include('admin::components.forms.slugField', ['route' => url(route('ajax.menus.updateSlug', $menu->id)), 'value' => $menu->slug])
                     </div>
 
                     <div class="form-group">

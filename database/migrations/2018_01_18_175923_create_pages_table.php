@@ -23,7 +23,6 @@ class CreatePagesTable extends Migration
             $table->string('meta_title')->nullable()->default(null);
             $table->string('meta_description')->nullable()->default(null);
             $table->boolean('allow_indexed')->default(true);
-            $table->string('template')->nullable()->default(null);
             $table->timestamps();
         });
     }

@@ -9,3 +9,4 @@ require('./plugins/menuBuilderModalPlugin');
 require('./plugins/dataTablePlugin');
 require('./plugins/preloaderPlugin');
 require('./plugins/tinymcePlugin');
+require('./plugins/slugFieldPlugin');

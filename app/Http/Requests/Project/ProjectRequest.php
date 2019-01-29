@@ -58,19 +58,31 @@ class ProjectRequest extends FormRequest
     public function updateProject(Project $project)
     {
         $title = $this->input('title');
-        $slug = $this->input('slug');
         $categoryIds = $this->input('category_ids');
-        $this->hasFile('imageThumbnail') ?  $project->thumbnail = $this->uploadFiles($this->file('imageThumbnail'), ProjectCategory::uploadDir()) : null;
-        $this->hasFile('additionalImages') ?  $project->images = $this->uploadFiles($this->file('additionalImages'), ProjectCategory::uploadDir()) : null;
+
+        if($this->hasFile('imageThumbnail')) $project->thumbnail = $this->uploadFiles($this->file('imageThumbnail'), ProjectCategory::uploadDir());
+        else if($this->canClearImage()) $project->thumbnail = null;
+
+        if($this->hasFile('additionalImages')) $project->images = $this->uploadFiles($this->file('additionalImages'), ProjectCategory::uploadDir());
+        else if($this->canClearImage('noImages')) $project->images = null;
+
         $project->title = $title;
-        $this->has('slug') && $slug !== $project->slug ? str_slug($slug) : null;
+
         $project->content = $this->input('content');
-        $project->published = $this->has('published');
+        $project->published = $this->has('saveAndPublish');
         $project->meta_title = $this->input('meta_title');
         $project->meta_description = $this->input('meta_description');
         $project->allow_indexed = $this->has('allow_indexed');
         $this->has('category_ids') ? $project->categories()->sync($categoryIds) : $project->categories()->detach();
         $project->isDirty() ? $project->save() : null;
         return $project;
+    }
+
+    protected function updateSlug($slug, $createFrom, $slugIndex = 'slug')
+    {
+        $slugFromRequest = $this->has($slugIndex) ? $this->input($slugIndex) : null;
+
+        if (!$slugFromRequest || ($slugFromRequest && strlen($slugFromRequest))) return str_slug($createFrom);
+        if ($slugFromRequest && $slugFromRequest !== $slug) return str_slug($slugFromRequest);
     }
 }

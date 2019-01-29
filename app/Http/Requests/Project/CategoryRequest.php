@@ -26,10 +26,9 @@ class CategoryRequest extends FormRequest
      */
     public function rules()
     {
-        $category = $this->route('category');
         return [
             'name' => 'required|max:255',
-            'slug' => 'max:255|unique:blog_categories'. (isset($category) ? ',slug,' . $category->id : null),
+            'slug' => 'max:255|unique:blog_categories',
             'imageThumbnail[]' => 'image|max:2048'
         ];
     }
@@ -37,10 +36,9 @@ class CategoryRequest extends FormRequest
     public function storeCategory()
     {
         $name = $this->input('name');
-        $slug = $this->input('slug');
         ProjectCategory::create([
             'name' => $name,
-            'slug' => isset($slug) ? str_slug($slug) : str_slug($name),
+            'slug' => str_slug($name),
             'description' => $this->input('description'),
             'published' => $this->has('saveAndPublish'),
             'thumbnail' =>  $this->hasFile('imageThumbnail') ?  $this->uploadFiles($this->file('imageThumbnail'), ProjectCategory::uploadDir()) : null
@@ -52,7 +50,9 @@ class CategoryRequest extends FormRequest
         $name = $this->input('name');
         $slug = $this->input('slug');
 
-        $this->hasFile('imageThumbnail') ?  $category->thumbnail = $this->uploadFiles($this->file('imageThumbnail'), ProjectCategory::uploadDir()) : null;
+        if($this->hasFile('imageThumbnail')) $category->thumbnail = $this->uploadFiles($this->file('imageThumbnail'), ProjectCategory::uploadDir());
+        else if($this->canClearImage()) $category->thumbnail = null;
+
         $category->name = $name;
         $this->has('slug') && $slug !== $category->slug ? str_slug($slug) : null;
         $category->description = $this->input('description');

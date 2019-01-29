@@ -461,3 +461,9 @@ table.pc-cms-table td {
   opacity: 0;
 }
 
+.pc-slug-field .pc-slug-field-link {
+  display: inline-block;
+  color: blue;
+  text-decoration: underline;
+}
+

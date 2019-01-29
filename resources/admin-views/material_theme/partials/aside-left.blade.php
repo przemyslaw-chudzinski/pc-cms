@@ -69,8 +69,6 @@
                         <li class="{{ setActiveClass([getRouteName('pages', 'create')], 'active') }}"><a href="{{ route(getRouteName('pages', 'create')) }}">New page</a></li>
                     </ul>
                 </li>
-                {{-- Themes --}}
-                <li class="{{ setActiveClassByActions([getModuleActions('themes')], 'active open') }}"><a href="{{ route(getRouteName('themes', 'index')) }}"><i class="zmdi zmdi-file"></i>Themes</a></li>            </ul>
         </div>
     </nav>
 </aside>

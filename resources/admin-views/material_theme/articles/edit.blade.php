@@ -30,8 +30,7 @@
                     </div>
 
                     <div class="form-group">
-                        {!! Form::label(null, 'Article slug') !!}
-                        {!! Form::text('slug', $article->slug, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
+                       @include('admin::components.forms.slugField', ['route' => url(route('ajax.articles.updateSlug', $article->id)), 'value' => $article->slug])
                     </div>
 
                     <div class="form-group">

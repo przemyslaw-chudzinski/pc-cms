@@ -4,10 +4,10 @@ namespace App\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class Blog extends Facade
+class Setting extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'admin.blog';
+        return 'setting';
     }
 }
