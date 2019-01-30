@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Auth;
 
 class UsersController extends BaseController
 {
+    public function __construct()
+    {
+        $this->middleware('inhibitIfAuth')->only(['edit', 'update']);
+    }
+
     public function index()
     {
         $users = User::getModelDataWithPagination(false, ['role'], [(int) Auth::id()]);

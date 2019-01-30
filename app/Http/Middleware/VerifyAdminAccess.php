@@ -23,14 +23,11 @@ class VerifyAdminAccess
             foreach ($permissions as $module_name => $permission) {
                 foreach ($permission['permissions'] as $action) {
                     if ($action['route'] === $routeName) {
-                        if ($action['allow']) {
-                            return $next($request);
-                        } else {
-                            return back()->with('alert', [
-                                'type' => 'warning',
-                                'message' => 'You haven\'t permissions to this source'
-                            ]);
-                        }
+                        if ($action['allow'])  return $next($request);
+                        return back()->with('alert', [
+                            'type' => 'warning',
+                            'message' => 'You haven\'t permissions to this source'
+                        ]);
                     }
                 }
             }
