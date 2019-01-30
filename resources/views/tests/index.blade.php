@@ -44,6 +44,12 @@
             {!! Setting::get('maintenance_mode', 'default value') !!}
         </div>
     </div>
+    <h2>Menu</h2>
+    <div class="card">
+        <div class="card-body">
+            {!! Menu::render('main-menu', 'tests.menu') !!}
+        </div>
+    </div>
 </div>
 
 

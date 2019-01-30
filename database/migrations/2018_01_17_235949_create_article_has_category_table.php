@@ -17,8 +17,8 @@ class CreateArticleHasCategoryTable extends Migration
             $table->increments('id');
             $table->integer('article_id')->unsigned();
             $table->integer('category_id')->unsigned();
-            $table->foreign('article_id')->references('id')->on('articles');
-            $table->foreign('category_id')->references('id')->on('blog_categories');
+            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('blog_categories')->onDelete('cascade');
             $table->timestamps();
         });
     }

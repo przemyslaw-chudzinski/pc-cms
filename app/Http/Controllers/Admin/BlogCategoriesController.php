@@ -46,7 +46,11 @@ class BlogCategoriesController extends BaseController
 
     public function destroy(BlogCategory $blogCategory)
     {
-        return 'todo';
+        $blogCategory->delete();
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => 'Category has been deleted successfully'
+        ]);
     }
 
     public function massActions()

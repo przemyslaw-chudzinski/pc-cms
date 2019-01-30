@@ -3,6 +3,7 @@
 namespace App\Providers\AdminProviders;
 
 use App\Core\MassActions;
+use App\Core\Menu;
 use App\Core\Segment;
 use App\Core\Setting;
 use App\Role;
@@ -47,6 +48,10 @@ class AdminServiceProvider extends ServiceProvider
 
         $this->app->bind('admin.mass_actions', function () {
             return new MassActions();
+        });
+
+        $this->app->bind('menu', function () {
+            return new Menu();
         });
 
         $this->loadHelpers();

@@ -236,6 +236,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'MassActions' => App\Facades\MassActions::class,
         'Setting' => App\Facades\Setting::class,
+        'Menu' => App\Facades\Menu::class,
     ],
 
 ];
