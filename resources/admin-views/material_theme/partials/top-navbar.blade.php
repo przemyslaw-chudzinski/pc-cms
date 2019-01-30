@@ -5,9 +5,9 @@
                 <ul>
                     <li class="logo-icon">
                         <a href="{{ route(config('admin.modules.dashboard.actions.index.route_name')) }}">
-                            <div class="logo">
-                                <img src="{{ asset('admin/material_theme/dist/img/logo/logo-icon.png') }}" alt="Logo">
-                            </div>
+                            {{--<div class="logo">--}}
+                                {{--<img src="{{ asset('admin/material_theme/dist/img/logo/logo-icon.png') }}" alt="Logo">--}}
+                            {{--</div>--}}
                             <h1 class="brand-text">PC.CMS - 1.0</h1>
                         </a>
                     </li>
@@ -26,13 +26,13 @@
                         <i class="zmdi zmdi-account"></i>
                     </a>
                 </li>
-                @include('admin.material_theme.partials.top-navbar-boxed-menu')
+                {{--@include('admin.material_theme.partials.top-navbar-boxed-menu')--}}
             </ul>
             <ul class="nav navbar-nav pull-right">
 
-                @include('admin.material_theme.partials.top-navbar-languages')
+                {{--@include('admin.material_theme.partials.top-navbar-languages')--}}
 
-                @include('admin.material_theme.partials.top-navbar-notifications')
+                {{--@include('admin.material_theme.partials.top-navbar-notifications')--}}
             </ul>
         </div>
     </nav>
