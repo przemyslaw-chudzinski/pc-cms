@@ -59,5 +59,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'auth.admin' => \App\Http\Middleware\VerifyAdminAccess::class,
         'theme.maintenance_mode' => \App\Http\Middleware\MaintenanceMode::class,
+        'inhibitIfAuth' => \App\Http\Middleware\InhibitIfAuthenticated::class,
     ];
 }

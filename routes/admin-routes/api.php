@@ -10,7 +10,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'menus'], function() {
     Route::post('{menu}/togglePublished', 'MenusController@togglePublishedAjax');
     Route::get('{menu}/items', 'MenusController@getItemsAjax');
-    Route::put('{menu}/updateTree', 'MenusController@updateTreeAjax');
+    Route::put('{menu}/update-tree', 'MenusController@updateTreeAjax');
     Route::delete('{menu}/items/{item}', 'MenuItemsController@destroyAjax');
     Route::post('{menu}/update-slug', 'MenusController@updateSlugAjax')->name('ajax.menus.updateSlug');
 });
