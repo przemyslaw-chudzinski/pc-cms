@@ -21,7 +21,7 @@ import toastr from "toastr";
     function updateMenuTree($item) {
         $.ajax({
             method: 'put',
-            url: `/api/menus/${menuId}/updateTree`,
+            url: `/api/menus/${menuId}/update-tree`,
             data: {
                 items: domenu.toJson()
             },
