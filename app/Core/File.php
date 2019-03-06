@@ -17,7 +17,7 @@ class File
 
     protected $uploadDirectoryName;
 
-    public function __construct(UploadedFile $file, string $uploadDirectoryName, $disk = 'public')
+    public function __construct(UploadedFile $file, string $uploadDirectoryName, $disk = 'pc_public')
     {
         $this->file = $file;
         $this->disk = $disk;
@@ -26,7 +26,7 @@ class File
 
     public function save()
     {
-        return $this->file->storeAs($this->uploadDirectoryName, $this->file->getClientOriginalName());
+        return $this->file->storeAs($this->uploadDirectoryName, $this->file->getClientOriginalName(), $this->disk);
     }
 
     public function getOriginalFile()

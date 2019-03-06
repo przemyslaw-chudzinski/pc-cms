@@ -478,4 +478,7 @@ return [
             ]
         ]
     ],
+
+    /* Current disk  */
+    'storage_disk' => 'pc_public'
 ];

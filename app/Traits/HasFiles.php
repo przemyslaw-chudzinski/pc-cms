@@ -4,7 +4,6 @@ namespace App\Traits;
 
 use App\Core\File;
 use App\Core\Image;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
@@ -41,7 +40,7 @@ trait HasFiles {
     {
         return [
             'path' => $storageFilePath,
-            'url' => Storage::url($storageFilePath)
+            'url' => Storage::disk(config('admin.storage_disk'))->url($storageFilePath)
         ];
     }
 
@@ -60,10 +59,7 @@ trait HasFiles {
 
     public function canClearImage($param = 'noImage', $expectedValue = 'yes')
     {
-        if ($this->has($param)) {
-            if ($this->input($param) === $expectedValue) return true;
-        }
-        return false;
+        return $this->has($param) && $this->input($param) === $expectedValue;
     }
 
 }
