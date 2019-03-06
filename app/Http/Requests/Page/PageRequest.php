@@ -45,7 +45,6 @@ class PageRequest extends FormRequest
             'allow_indexed' => $this->has('allow_indexed'),
             'published' => $this->has('saveAndPublish'),
             'thumbnail' => $this->hasFile('imageThumbnail') ?  $this->uploadFiles($this->file('imageThumbnail'), Page::uploadDir()) : null,
-            'template' => $this->input('template'),
             'meta_title' => $this->input('meta_title'),
             'meta_description' => $this->input('meta_description')
         ]);
@@ -61,7 +60,6 @@ class PageRequest extends FormRequest
         $page->content = $this->input('content');
         $page->allow_indexed = $this->has('allow_indexed');
         $page->published = $this->has('saveAndPublish');
-        $page->template = $this->input('template');
         $page->meta_title = $this->input('meta_title');
         $page->meta_description = $this->input('meta_description');
         $page->isDirty() ? $page->save() : null;

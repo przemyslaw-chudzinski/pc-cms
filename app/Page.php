@@ -21,8 +21,7 @@ class Page extends Model implements WithFiles
         'thumbnail',
         'allow_indexed',
         'meta_title',
-        'meta_description',
-        'template'
+        'meta_description'
     ];
 
     protected static $sortable = [
