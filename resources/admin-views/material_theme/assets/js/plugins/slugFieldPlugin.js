@@ -8,8 +8,7 @@ import toastr from 'toastr';
 
         const $slugField = $(slugField);
 
-        $slugField
-            .find('.pc-slug-field-link')
+        _getLink($slugField)
             .on('click', e => _handleEdit(e, $slugField))
             .end()
             .find('.pc-slug-field-edit-state')
@@ -33,8 +32,8 @@ import toastr from 'toastr';
     const _handleCancel = (event, $slugField) => {
         event.preventDefault();
         event.stopPropagation();
-        $slugField.find('.pc-slug-field-link').show();
-        $slugField.find('.pc-slug-field-edit-state').hide();
+        _getLink($slugField).show();
+        _getEditState($slugField).hide();
     };
     /**
      *
@@ -46,7 +45,7 @@ import toastr from 'toastr';
         event.preventDefault();
         event.stopPropagation();
 
-        const $input = $('.pc-slug-field-input');
+        const $input = _getInput($slugField);
         const $newSlug = $input.val();
         const url = $slugField.attr('data-url');
 
@@ -74,11 +73,10 @@ import toastr from 'toastr';
             _hideLayer($slugField);
 
             if (response && !response.error) {
-                $slugField
-                    .find('.pc-slug-field-link')
+                _getLink($slugField)
                     .show()
                     .html('<strong>' + response.newSlug  + '</strong>');
-                $slugField.find('.pc-slug-field-edit-state').hide();
+                _getEditState($slugField).hide();
                 $input.val(response.newSlug);
                 $input.css('border-color', 'inherit');
             } else {
@@ -91,9 +89,10 @@ import toastr from 'toastr';
 
     /**
      *
-     * @param response
      * @returns {*}
      * @private
+     * @param err
+     * @param $slugField
      */
     const _handleError = (err, $slugField = null) => {
         _hideLayer($slugField);
@@ -109,10 +108,10 @@ import toastr from 'toastr';
     const _handleEdit = (event, $slugField) => {
         event.preventDefault();
         event.stopPropagation();
-        const $link = $slugField.find('.pc-slug-field-link');
+        const $link = _getLink($slugField);
         $link.hide();
-        $slugField.find('.pc-slug-field-edit-state').show();
-        $('.pc-slug-field-input').val($link.find('strong').text());
+        _getEditState($slugField).show();
+        _getInput($slugField).val($link.find('strong').text());
     };
 
     /**
@@ -138,6 +137,32 @@ import toastr from 'toastr';
      * @private
      */
     const _hideLayer = $slugField => _getLayer($slugField).removeClass('visible');
+
+    /**
+     *
+     * @param $slugField
+     * @returns {*|jQuery|HTMLElement}
+     * @private
+     */
+    const _getInput = $slugField => $slugField.find('.pc-slug-field-input');
+
+    /**
+     *
+     * @param $slugFields
+     * @returns {*|jQuery|HTMLElement}
+     * @private
+     */
+    const _getEditState = $slugField => $slugField.find('.pc-slug-field-edit-state');
+
+    /**
+     *
+     * @param $slugField
+     * @returns {*}
+     * @private
+     */
+    function _getLink($slugField) {
+        return $slugField.find('.pc-slug-field-link');
+    }
 
 
 })(jQuery);
