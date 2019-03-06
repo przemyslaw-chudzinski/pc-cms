@@ -31,23 +31,31 @@
                     <div>
                         <div>
                             <?php
-                            $args = [
-                                'delete' => [
-                                    'button_label' => 'Remove selected items',
-                                    'button_class' => 'btn-danger',
-                                ],
-                                'change_status_on_true' => [
-                                    'button_label' => 'Set on published',
-                                    'button_class' => 'btn-primary'
-                                ],
-                                'change_status_on_false' => [
-                                    'button_label' => 'Set on draft',
-                                    'button_class' => 'btn-primary'
-                                ]
-
-                            ];
+//                            $args = [
+//                                'delete' => [
+//                                    'button_label' => 'Remove selected items',
+//                                    'button_class' => 'btn-danger',
+//                                ],
+//                                'change_status_on_true' => [
+//                                    'button_label' => 'Set on published',
+//                                    'button_class' => 'btn-primary'
+//                                ],
+//                                'change_status_on_false' => [
+//                                    'button_label' => 'Set on draft',
+//                                    'button_class' => 'btn-primary'
+//                                ]
+//                            ];
+                                $args = [
+                                    'remove' => [
+                                        'can' => true
+                                    ],
+                                    'change_status' => [
+                                        'can' => true
+                                    ]
+                                ];
                             ?>
-                            {!! MassActions::setMassActions($module_name, NULL, $args) !!}
+                            {!! MassActions::setHeaderActions($module_name, NULL, $args) !!}
+                            {{--{!! MassActions::setMassActions($module_name, NULL, $args) !!}--}}
                         </div>
                         {{-- Search --}}
                         <div></div>

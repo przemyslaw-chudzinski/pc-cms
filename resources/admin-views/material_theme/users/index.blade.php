@@ -31,14 +31,18 @@
                     <div>
                         <div>
                             <?php
-                            $args = [
-                                'delete' => [
-                                    'button_label' => 'Remove selected items',
-                                    'button_class' => 'btn-danger',
-                                ]
-                            ];
+//                            $args = [
+//                                'delete' => [
+//                                    'button_label' => 'Remove selected items',
+//                                    'button_class' => 'btn-danger',
+//                                ]
+//                            ];
+                                $args = [
+                                    'remove' => []
+                                ];
                             ?>
-                            {!! MassActions::setMassActions($module_name, NULL, $args) !!}
+                            {!! MassActions::setHeaderActions($module_name, null, $args) !!}
+                            {{--{!! MassActions::setMassActions($module_name, NULL, $args) !!}--}}
                         </div>
                         {{-- Search --}}
                         <div></div>

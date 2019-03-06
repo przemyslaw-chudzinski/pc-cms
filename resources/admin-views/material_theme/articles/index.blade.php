@@ -32,30 +32,39 @@
                     <div>
                         <div>
                             <?php
+//                            $args = [
+//                                'delete' => [
+//                                    'button_label' => 'Remove selected items',
+//                                    'button_class' => 'btn-danger',
+//                                ],
+//                                'change_status_on_true' => [
+//                                    'button_label' => 'Set on published',
+//                                    'button_class' => 'btn-primary'
+//                                ],
+//                                'change_status_on_false' => [
+//                                    'button_label' => 'Set on draft',
+//                                    'button_class' => 'btn-primary'
+//                                ],
+//                                'change_comment_status_true' => [
+//                                    'button_label' => 'Enable comments',
+//                                    'button_class' => 'btn-primary'
+//                                ],
+//                                'change_comment_status_false' => [
+//                                    'button_label' => 'Disable comments',
+//                                    'button_class' => 'btn-primary'
+//                                ],
+
+//                            ];
                             $args = [
-                                'delete' => [
-                                    'button_label' => 'Remove selected items',
-                                    'button_class' => 'btn-danger',
-                                ],
-                                'change_status_on_true' => [
-                                    'button_label' => 'Set on published',
-                                    'button_class' => 'btn-primary'
-                                ],
-                                'change_status_on_false' => [
-                                    'button_label' => 'Set on draft',
-                                    'button_class' => 'btn-primary'
-                                ],
-                                'change_comment_status_true' => [
-                                    'button_label' => 'Enable comments',
-                                    'button_class' => 'btn-primary'
-                                ],
-                                'change_comment_status_false' => [
-                                    'button_label' => 'Disable comments',
-                                    'button_class' => 'btn-primary'
-                                ],
+                                'remove' => [],
+
+                                'change_status' => [],
+
+                                'change_comments_status' => []
                             ];
                             ?>
-                            {!! MassActions::setMassActions($module_name, NULL, $args) !!}
+                            {!! MassActions::setHeaderActions($module_name, null, $args) !!}
+{{--                            {!! MassActions::setMassActions($module_name, NULL, $args) !!}--}}
                         </div>
                         {{-- Search --}}
                         <div></div>

@@ -30,16 +30,22 @@
                 <div class="card-body">
                     <div>
                         <?php
-                        $args = [
-                            'delete' => [
-                                'button_label' => 'Remove selected items',
-                                'button_class' => 'btn-danger',
-                            ]
-                        ];
+//                        $args = [
+//                            'delete' => [
+//                                'button_label' => 'Remove selected items',
+//                                'button_class' => 'btn-danger',
+//                            ]
+//                        ];
+
+                            // For setHeaderActions
+                            $args = [
+                                'remove' => [
+                                    'can' => true
+                                ]
+                            ];
                         ?>
-                        {!! MassActions::setMassActions($module_name, NULL, $args) !!}
-                            {{-- Search --}}
-                        <div></div>
+                        {{--{!! MassActions::setMassActions($module_name, NULL, $args) !!}--}}
+                        {!! MassActions::setHeaderActions($module_name, NULL, $args) !!}
                     </div>
                     <div class="table-responsive">
                         <table class="table table-hover pc-cms-table">
