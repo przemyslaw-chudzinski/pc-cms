@@ -32798,7 +32798,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return _handleCancel(e, $slugField);
         }).end().find('.pc-slug-field-save').on('click', function (e) {
             return _handleConfirm(e, $slugField);
-        });
+        }).end().append('<div class="pc-slug-field__layer"></div>');
     });
 
     /**
@@ -32827,6 +32827,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var $newSlug = $input.val();
         var url = $slugField.attr('data-url');
 
+        _showLayer($slugField);
+
         url && $.ajax({
             method: 'POST',
             data: { slug: $newSlug },
@@ -32834,7 +32836,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             success: function success(res) {
                 return _handleSuccess(res, $slugField, $input);
             },
-            error: _handleError
+            error: function error(err) {
+                return _handleError(err, $slugField);
+            }
         });
     };
     /**
@@ -32845,16 +32849,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
      * @private
      */
     var _handleSuccess = function _handleSuccess(response, $slugField, $input) {
-        if (response && !response.error) {
-            $slugField.find('.pc-slug-field-link').show().html('<strong>' + response.newSlug + '</strong>');
-            $slugField.find('.pc-slug-field-edit-state').hide();
-            $input.val(response.newSlug);
-            $input.css('border-color', 'inherit');
-        } else {
-            $input.css('border-color', 'red');
-        }
 
-        response && __WEBPACK_IMPORTED_MODULE_0_toastr___default.a[response.type](response.message);
+        setTimeout(function () {
+            _hideLayer($slugField);
+
+            if (response && !response.error) {
+                $slugField.find('.pc-slug-field-link').show().html('<strong>' + response.newSlug + '</strong>');
+                $slugField.find('.pc-slug-field-edit-state').hide();
+                $input.val(response.newSlug);
+                $input.css('border-color', 'inherit');
+            } else {
+                $input.css('border-color', 'red');
+            }
+
+            response && __WEBPACK_IMPORTED_MODULE_0_toastr___default.a[response.type](response.message);
+        }, 400);
     };
 
     /**
@@ -32863,8 +32872,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
      * @returns {*}
      * @private
      */
-    var _handleError = function _handleError(response) {
-        return __WEBPACK_IMPORTED_MODULE_0_toastr___default.a.error('Something went wrong', 'Error!');
+    var _handleError = function _handleError(err) {
+        var $slugField = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+        _hideLayer($slugField);
+        __WEBPACK_IMPORTED_MODULE_0_toastr___default.a.error('Something went wrong', 'Error!');
     };
 
     /**
@@ -32880,6 +32892,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         $link.hide();
         $slugField.find('.pc-slug-field-edit-state').show();
         $('.pc-slug-field-input').val($link.find('strong').text());
+    };
+
+    /**
+     *
+     * @param $slugField
+     * @returns {*}
+     * @private
+     */
+    var _getLayer = function _getLayer($slugField) {
+        return $slugField.find('.pc-slug-field__layer');
+    };
+
+    /**
+     *
+     * @param $slugField
+     * @returns {*}
+     * @private
+     */
+    var _showLayer = function _showLayer($slugField) {
+        return _getLayer($slugField).addClass('visible');
+    };
+
+    /**
+     *
+     * @param $slugField
+     * @returns {*}
+     * @private
+     */
+    var _hideLayer = function _hideLayer($slugField) {
+        return _getLayer($slugField).removeClass('visible');
     };
 })(jQuery);
 
