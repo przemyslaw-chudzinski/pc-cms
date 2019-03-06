@@ -32792,7 +32792,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         var $slugField = $(slugField);
 
-        $slugField.find('.pc-slug-field-link').on('click', function (e) {
+        _getLink($slugField).on('click', function (e) {
             return _handleEdit(e, $slugField);
         }).end().find('.pc-slug-field-edit-state').hide().find('.pc-slug-field-cancel').on('click', function (e) {
             return _handleCancel(e, $slugField);
@@ -32810,8 +32810,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var _handleCancel = function _handleCancel(event, $slugField) {
         event.preventDefault();
         event.stopPropagation();
-        $slugField.find('.pc-slug-field-link').show();
-        $slugField.find('.pc-slug-field-edit-state').hide();
+        _getLink($slugField).show();
+        _getEditState($slugField).hide();
     };
     /**
      *
@@ -32823,7 +32823,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         event.preventDefault();
         event.stopPropagation();
 
-        var $input = $('.pc-slug-field-input');
+        var $input = _getInput($slugField);
         var $newSlug = $input.val();
         var url = $slugField.attr('data-url');
 
@@ -32854,8 +32854,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _hideLayer($slugField);
 
             if (response && !response.error) {
-                $slugField.find('.pc-slug-field-link').show().html('<strong>' + response.newSlug + '</strong>');
-                $slugField.find('.pc-slug-field-edit-state').hide();
+                _getLink($slugField).show().html('<strong>' + response.newSlug + '</strong>');
+                _getEditState($slugField).hide();
                 $input.val(response.newSlug);
                 $input.css('border-color', 'inherit');
             } else {
@@ -32868,9 +32868,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     /**
      *
-     * @param response
      * @returns {*}
      * @private
+     * @param err
+     * @param $slugField
      */
     var _handleError = function _handleError(err) {
         var $slugField = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
@@ -32888,10 +32889,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var _handleEdit = function _handleEdit(event, $slugField) {
         event.preventDefault();
         event.stopPropagation();
-        var $link = $slugField.find('.pc-slug-field-link');
+        var $link = _getLink($slugField);
         $link.hide();
-        $slugField.find('.pc-slug-field-edit-state').show();
-        $('.pc-slug-field-input').val($link.find('strong').text());
+        _getEditState($slugField).show();
+        _getInput($slugField).val($link.find('strong').text());
     };
 
     /**
@@ -32923,6 +32924,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var _hideLayer = function _hideLayer($slugField) {
         return _getLayer($slugField).removeClass('visible');
     };
+
+    /**
+     *
+     * @param $slugField
+     * @returns {*|jQuery|HTMLElement}
+     * @private
+     */
+    var _getInput = function _getInput($slugField) {
+        return $slugField.find('.pc-slug-field-input');
+    };
+
+    /**
+     *
+     * @param $slugFields
+     * @returns {*|jQuery|HTMLElement}
+     * @private
+     */
+    var _getEditState = function _getEditState($slugField) {
+        return $slugField.find('.pc-slug-field-edit-state');
+    };
+
+    /**
+     *
+     * @param $slugField
+     * @returns {*}
+     * @private
+     */
+    function _getLink($slugField) {
+        return $slugField.find('.pc-slug-field-link');
+    }
 })(jQuery);
 
 /***/ }),
