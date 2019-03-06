@@ -39,7 +39,9 @@
 
                             // For setHeaderActions
                             $args = [
-                                'can_remove' => true
+                                'remove' => [
+                                    'can' => true
+                                ]
                             ];
                         ?>
                         {{--{!! MassActions::setMassActions($module_name, NULL, $args) !!}--}}

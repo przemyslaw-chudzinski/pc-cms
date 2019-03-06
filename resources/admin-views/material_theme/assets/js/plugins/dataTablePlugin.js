@@ -29,6 +29,7 @@
         selectAllCheckboxes(false);
         addValueToSelectedValuesInput();
         $selectableRow.removeClass('highlight');
+        $checkboxSelectAll[0].checked = false;
     }
 
     function onCheckboxChangeHandler(e) {
