@@ -22,13 +22,24 @@ import toastr from 'toastr';
     });
 
 
+    /**
+     *
+     * @param event
+     * @param $slugField
+     * @private
+     */
     const _handleCancel = (event, $slugField) => {
         event.preventDefault();
         event.stopPropagation();
         $slugField.find('.pc-slug-field-link').show();
         $slugField.find('.pc-slug-field-edit-state').hide();
     };
-
+    /**
+     *
+     * @param event
+     * @param $slugField
+     * @private
+     */
     const _handleConfirm = (event, $slugField) => {
         event.preventDefault();
         event.stopPropagation();
@@ -46,7 +57,13 @@ import toastr from 'toastr';
         });
 
     };
-
+    /**
+     *
+     * @param response
+     * @param $slugField
+     * @param $input
+     * @private
+     */
     const _handleSuccess = (response, $slugField, $input) => {
         if (response && !response.error) {
             $slugField
@@ -63,8 +80,20 @@ import toastr from 'toastr';
         response && toastr[response.type](response.message);
     };
 
+    /**
+     *
+     * @param response
+     * @returns {*}
+     * @private
+     */
     const _handleError = response => toastr.error('Something went wrong', 'Error!');
 
+    /**
+     *
+     * @param event
+     * @param $slugField
+     * @private
+     */
     const _handleEdit = (event, $slugField) => {
         event.preventDefault();
         event.stopPropagation();
