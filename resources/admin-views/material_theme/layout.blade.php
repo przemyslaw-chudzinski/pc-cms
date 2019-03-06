@@ -11,7 +11,7 @@
 
     <link rel="stylesheet" href="{{ asset('admin/material_theme/css/vendor.bundle.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/material_theme/css/app.bundle.css') }}">
-    <link rel="stylesheet" href="{{ asset('admin/material_theme/css/theme-h.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/material_theme/css/theme-g.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/material_theme/css/app.css') }}">
 
     @stack('admin.head')

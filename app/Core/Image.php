@@ -12,7 +12,7 @@ class Image extends File
 
     private $mode;
 
-    public function __construct(UploadedFile $file, $uploadDirectoryName, $mode = 'fit', $disk = 'public')
+    public function __construct(UploadedFile $file, $uploadDirectoryName, $mode = 'fit', $disk = 'pc_public')
     {
         parent::__construct($file, $uploadDirectoryName, $disk);
         $this->mode = $mode;
@@ -28,28 +28,33 @@ class Image extends File
                 $img = InterventionImage::make($path);
 
                 $thumbnailName = $definedThumbnail['name'].'_'.$this->file->getClientOriginalName();
-                $thumbnailStoragePath = 'app'.DIRECTORY_SEPARATOR.'public'.DIRECTORY_SEPARATOR.$this->uploadDirectoryName.DIRECTORY_SEPARATOR.$thumbnailName;
-                $thumbnailPath =  storage_path($thumbnailStoragePath);
+                $thumbnailStoragePath = 'upload'.DIRECTORY_SEPARATOR.$this->uploadDirectoryName.DIRECTORY_SEPARATOR.$thumbnailName;
+                $thumbnailPath =  public_path($thumbnailStoragePath);
                 $images[$definedThumbnail['name']] = $this->uploadDirectoryName . '/'. $thumbnailName;
 
-                switch ($this->mode) {
-                    case 'fit':
-                        $this->fit($img, $thumbnailPath, (int)$definedThumbnail['width'], (int)$definedThumbnail['height']);
-                        break;
-                    case 'resize':
-                        $this->resize($img, $thumbnailPath, (int)$definedThumbnail['width'], (int)$definedThumbnail['height']);
-                        break;
-                    case 'crop':
-                        $this->crop($img, $thumbnailPath, (int)$definedThumbnail['width'], (int)$definedThumbnail['height'], null, null);
-                        break;
-                    default:
-                        $this->fit($img, $thumbnailPath, (int)$definedThumbnail['width'], (int)$definedThumbnail['height']);
-                        break;
-                }
+                $this->useMode($this->mode, $img, $thumbnailPath, $definedThumbnail);
             }
         }
 
         return $images;
+    }
+
+    private function useMode($mode, $img, $thumbnailPath, $definedThumbnail)
+    {
+        switch ($mode) {
+            case 'fit':
+                $this->fit($img, $thumbnailPath, (int)$definedThumbnail['width'], (int)$definedThumbnail['height']);
+                break;
+            case 'resize':
+                $this->resize($img, $thumbnailPath, (int)$definedThumbnail['width'], (int)$definedThumbnail['height']);
+                break;
+            case 'crop':
+                $this->crop($img, $thumbnailPath, (int)$definedThumbnail['width'], (int)$definedThumbnail['height'], null, null);
+                break;
+            default:
+                $this->fit($img, $thumbnailPath, (int)$definedThumbnail['width'], (int)$definedThumbnail['height']);
+                break;
+        }
     }
 
     private function crop($img, $thumbnailPath, $width = null, $height = null, $x = null, $y = null)
