@@ -1,5 +1,13 @@
 .pc-slug-field {
 
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  >span {
+    margin-right: 1rem;
+  }
+
   .pc-slug-field-link {
     display: inline-block;
     color: blue;
