@@ -115,3 +115,14 @@ if(!function_exists('getSortUrl')) {
         return $url;
     }
 }
+
+if(!function_exists('isLocalEnv'))
+{
+    /**
+     * @return bool
+     */
+    function isLocalEnv(): bool
+    {
+        return env('APP_ENV') === 'local';
+    }
+}

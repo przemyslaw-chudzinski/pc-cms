@@ -50,12 +50,12 @@ return [
 
         'pc_local' => [
             'driver' => 'local',
-            'root' => public_path('upload'),
+            'root' => env('APP_ENV') === 'local' ? public_path('upload') : app_path('../../upload')
         ],
 
         'pc_public' => [
             'driver' => 'local',
-            'root' => public_path('upload'),
+            'root' => env('APP_ENV') === 'local' ? public_path('upload') : app_path('../../upload'),
             'url' => env('APP_URL').'/upload',
             'visibility' => 'public',
         ],
