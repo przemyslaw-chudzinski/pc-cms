@@ -29,7 +29,7 @@ class Image extends File
 
                 $thumbnailName = $definedThumbnail['name'].'_'.$this->file->getClientOriginalName();
                 $thumbnailStoragePath = 'upload'.DIRECTORY_SEPARATOR.$this->uploadDirectoryName.DIRECTORY_SEPARATOR.$thumbnailName;
-                $thumbnailPath =  public_path($thumbnailStoragePath);
+                $thumbnailPath =  isLocalEnv() ? public_path($thumbnailStoragePath) : app_path('../../'. $thumbnailStoragePath);
                 $images[$definedThumbnail['name']] = $this->uploadDirectoryName . '/'. $thumbnailName;
 
                 $this->useMode($this->mode, $img, $thumbnailPath, $definedThumbnail);
