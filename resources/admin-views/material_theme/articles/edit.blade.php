@@ -1,3 +1,7 @@
+@php
+    $module_name = 'blog';
+@endphp
+
 @extends('admin::layout')
 
 @section('module_name')
@@ -5,10 +9,6 @@
 @endsection
 
 @section('content')
-
-    <?php
-    $module_name = 'blog';
-    ?>
 
     <div class="row">
         {!! Form::open([
@@ -72,7 +72,7 @@
                         <div class="card-body">
                             <div class="form-group">
                                 {!! Form::label(null, 'Choose categories') !!}
-                                <select class="form-control selectpicker" multiple name="category_ids[]">
+                                <select class="form-control selectpicker" data-has-chips multiple name="category_ids[]">
                                     @if (count($categories) > 0)
                                         @foreach($categories as $category)
                                             <option

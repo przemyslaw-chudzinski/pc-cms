@@ -28,9 +28,20 @@ $noFileInputName = isset($noFileInputName) ? $noFileInputName : '';
                     @foreach($files as $file)
                     <div class="col-xs-6 col-md-4 pc-cms-single-preview-image">
                         @if (preg_match('/image/', $file->mime_type))
-                        <img src="{{ $file->sizes->admin_prev_medium->url }}" class="img-responsive img-thumbnail">
+                        {{--<img src="{{ $file->sizes->admin_prev_medium->url }}" class="img-responsive img-thumbnail">--}}
+                            <div class="card image-over-card m-t-30">
+                                <div class="card-image">
+                                    <a href="javascript:void(0)">
+                                        <img src="{{ $file->sizes->admin_prev_medium->url }}"  alt=""  class="img-responsive">
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    {{--<h4 class="card-title text-center">Image Caption</h4>--}}
+                                    {{--<h6 class="category text-gray text-center"><span class="today">03/07/2019</span></h6>--}}
+                                </div>
+                            </div>
                         @else
-                            preview file which is not image
+                            this is not an image should render differently
                         @endif
                     </div>
                     @endforeach

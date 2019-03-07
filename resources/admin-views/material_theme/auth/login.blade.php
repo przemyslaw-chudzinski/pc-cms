@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ App::getLocale() }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="robots" content="noindex, nofollow">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="generator" content="PC.CMS - 1.0">
-    <title>PC.CMS - 1.0</title>
+    <meta name="generator" content="{{ env('APP_NAME') }}">
+    <title>{{ env('APP_NAME') }}</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Poppins:300,400,500,600" rel="stylesheet">
-    <link rel="icon" href="{{ asset('admin/material_theme/dist/img/favicon.ico') }}" type="image/x-icon">
-    <link rel="stylesheet" href="{{ asset('admin/material_theme/dist/css/vendor.bundle.css') }}">
-    <link rel="stylesheet" href="{{ asset('admin/material_theme/dist/css/app.bundle.css') }}">
+    <link rel="icon" href="{{ asset('admin/material_theme/img/favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ adminAssets('css/vendor.bundle.css') }}">
+    <link rel="stylesheet" href="{{ adminAssets('css/app.bundle.css') }}">
 </head>
 <body id="auth_wrapper" >
 <div id="login_wrapper">
 
     <div id="login_content">
         <div class="logo">
-            <img src="{{ asset('admin/material_theme/dist/img/logo/ml-logo.png') }}" alt="logo" class="logo-img">
+            <img src="{{ adminAssets('img/logo/ml-logo.png') }}" alt="logo {{ env('APP_NAME') }}" class="logo-img">
         </div>
         <h1 class="login-title">@lang('auth.login_form_header')</h1>
         @if ($errors->count())
@@ -44,7 +44,8 @@
         </div>
     </div>
 </div>
-<script src="{{ asset('admin/material_theme/dist/js/vendor.bundle.js') }}"></script>
-<script src="{{ asset('admin/material_theme/dist/js/app.bundle.js') }}"></script>
+{{-- Scripts --}}
+<script src="{{ adminAssets('js/vendor.bundle.js') }}"></script>
+<script src="{{ adminAssets('js/app.bundle.js') }}"></script>
 </body>
 </html>

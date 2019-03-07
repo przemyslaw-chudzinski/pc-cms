@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ App::getLocale() }}">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="robots" content="noindex, nofollow">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>PC.CMS - 1.0</title>
+    <title>{{ env('APP_NAME') }}</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Poppins:300,400,500,600" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ asset('admin/material_theme/css/vendor.bundle.css') }}">
-    <link rel="stylesheet" href="{{ asset('admin/material_theme/css/app.bundle.css') }}">
-    <link rel="stylesheet" href="{{ asset('admin/material_theme/css/theme-g.css') }}">
-    <link rel="stylesheet" href="{{ asset('admin/material_theme/css/app.css') }}">
+    <link rel="stylesheet" href="{{ adminAssets('css/vendor.bundle.css') }}">
+    <link rel="stylesheet" href="{{ adminAssets('css/app.bundle.css') }}">
+    <link rel="stylesheet" href="{{ adminAssets('css/theme-g.css') }}">
+    <link rel="stylesheet" href="{{ adminAssets('css/app.css') }}">
 
     @stack('admin.head')
 </head>
@@ -51,9 +51,9 @@
 </div>
 {{-- Scripts --}}
 <script src="{{ asset('tinymce/tinymce.min.js') }}"></script>
-<script src="{{ asset('admin/material_theme/js/app.js') }}"></script>
-<script src="{{ asset('admin/material_theme/js/vendor.bundle.js') }}"></script>
-<script src="{{ asset('admin/material_theme/js/app.bundle.js') }}"></script>
+<script src="{{ adminAssets('js/app.js') }}"></script>
+<script src="{{ adminAssets('js/vendor.bundle.js') }}"></script>
+<script src="{{ adminAssets('js/app.bundle.js') }}"></script>
 @stack('admin.footer')
 </body>
 
