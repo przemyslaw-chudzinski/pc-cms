@@ -68,7 +68,7 @@ Route::group([
 
     /* Projects */
     Route::group(['prefix' => 'projects'], function () {
-        $module_name = 'projects';
+        $module_name = Project::getModuleName();
         Route::get('/', 'ProjectsController@index')->name(getRouteName($module_name, 'index'));
         Route::get('/{project}/edit', 'ProjectsController@edit')->name(getRouteName($module_name, 'edit'));
         Route::put('{project}', 'ProjectsController@update')->name(getRouteName($module_name, 'update'));

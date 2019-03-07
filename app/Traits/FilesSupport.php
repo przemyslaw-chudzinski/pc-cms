@@ -8,18 +8,17 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
 /**
- * Trait HasFiles
+ * Trait FilesSupport
  * @package App\Traits
- * @deprecated
  */
-trait HasFiles {
+trait FilesSupport {
 
     /**
      * @param $files
      * @param string $uploadDirName
-     * @return false|string|null
+     * @return array|null
      */
-    protected function uploadFiles($files, string $uploadDirName)
+    public function uploadFiles($files, string $uploadDirName)
     {
         $result = [];
         $uploadedFiles = [];
@@ -36,6 +35,7 @@ trait HasFiles {
                 $f = new File($file, $uploadDirName);
                 $f->save();
             }
+            $result['_id'] = time();
             $result['mime_type'] = $f->getOriginalFile()->getMimeType();
             $result['size'] = $f->getOriginalFile()->getSize();
             $result['file_name'] = $f->getOriginalFile()->getClientOriginalName();
@@ -43,14 +43,14 @@ trait HasFiles {
             $result['original'] = $this->mapStoragePathToUrl($uploadDirName . '/' . $f->getOriginalFile()->getClientOriginalName());
             array_push($uploadedFiles, $result);
         }
-        return json_encode($uploadedFiles);
+        return $uploadedFiles;
     }
 
     /**
      * @param $storageFilePath
      * @return array
      */
-    private function mapStoragePathToUrl($storageFilePath)
+    public function mapStoragePathToUrl($storageFilePath)
     {
         return [
             'path' => $storageFilePath,
@@ -68,7 +68,6 @@ trait HasFiles {
     {
         if (!isset($columnName)) throw new \Exception('You must specified columnName parameter');
         $images = $this->{$columnName};
-//        return isset($imageJSON) ? json_decode($imageJSON, false) : [];
         return isset($images) ? $images : [];
     }
 
@@ -80,16 +79,6 @@ trait HasFiles {
     {
         $mimeType = $file->getMimeType();
         return (bool)preg_match('/image/', $mimeType);
-    }
-
-    /**
-     * @param string $param
-     * @param string $expectedValue
-     * @return bool
-     */
-    public function canClearImage($param = 'noImage', $expectedValue = 'yes')
-    {
-        return $this->has($param) && $this->input($param) === $expectedValue;
     }
 
 }

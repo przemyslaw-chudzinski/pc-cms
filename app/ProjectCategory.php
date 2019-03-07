@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Core\Contracts\WithFiles;
+use App\Core\Contracts\Models\WithFiles;
 use App\Traits\HasMassActions;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\HasFiles;

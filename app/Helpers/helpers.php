@@ -12,9 +12,7 @@ if (!function_exists('setActiveClass')) {
         $currentRouteName = Route::currentRouteName();
         if (count($routeNames) > 0) {
             foreach ($routeNames as $routeName) {
-                if ($currentRouteName === $routeName) {
-                    return $activeClassName;
-                }
+                if ($currentRouteName === $routeName) return $activeClassName;
             }
         }
         return null;
@@ -34,9 +32,7 @@ if (!function_exists('setActiveClassByActions')) {
             foreach ($actionsArr as $actions) {
                 if (count($actions) > 0) {
                     foreach ($actions as $action) {
-                        if ($action['route_name'] === $currentRouteName) {
-                            return $activeClassName;
-                        }
+                        if ($action['route_name'] === $currentRouteName) return $activeClassName;
                     }
                 }
             }
@@ -54,6 +50,20 @@ if (!function_exists('getRouteName')) {
     function getRouteName(string $moduleName, string $actionName)
     {
         return config('admin.modules.' . $moduleName. '.actions.'. $actionName . '.route_name');
+    }
+}
+
+if(!function_exists('getRouteUrl'))
+{
+    /**
+     * @param string $moduleName
+     * @param string $actionName
+     * @param array $parameters
+     * @return string
+     */
+    function getRouteUrl(string $moduleName, string $actionName, array $parameters = []): string
+    {
+        return url(route(getRouteName($moduleName, $actionName), $parameters));
     }
 }
 
@@ -100,6 +110,7 @@ if (!function_exists('getImageUrl')) {
 }
 
 if(!function_exists('getSortUrl')) {
+    // TODO: Change order of parameters
     function getSortUrl($order_by, $sort= false, $moduleName, $action = false)
     {
         $current_order_by = request()->query('order_by');

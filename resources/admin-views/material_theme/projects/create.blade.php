@@ -1,3 +1,7 @@
+@php
+    $module_name = Project::getModuleName();
+@endphp
+
 @extends('admin::layout')
 
 @section('module_name')
@@ -5,10 +9,6 @@
 @endsection
 
 @section('content')
-
-    <?php
-        $module_name = 'projects';
-    ?>
 
     <div class="row">
         {!! Form::open([
@@ -32,10 +32,6 @@
                     <div class="form-group">
                         {!! Form::label(null, 'Project content') !!}
                         {!! Form::textarea('content', null, ['class' => 'form-control pc-cms-editor']) !!}
-                    </div>
-
-                    <div class="form-group">
-                        @include('admin::components.forms.seo', ['allow' => true, 'meta_title' => null, 'meta_description' => null])
                     </div>
                 </div>
             </div>
@@ -78,42 +74,47 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="form-group">
-                                @include('admin::components.forms.uploadImage', [
-                                    'filedName' => 'imageThumbnail',
-                                    'id' => 'projectThumbnail',
-                                    'label' => 'Thumbnail',
-                                    'placeholder' => 'Choose project image',
-                                    'previewContainerId' => 'projectThumbnailPreview',
-                                    'multiple' => false,
-                                    'editState' => false
-                                ])
-                            </div>
-                        </div>
-                    </div>
+                    @include('admin::components.forms.seo', ['allow' => true, 'meta_title' => null, 'meta_description' => null])
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="form-group">
-                                @include('admin::components.forms.uploadImage', [
-                                    'filedName' => 'additionalImages',
-                                    'id' => 'projectImages',
-                                    'label' => 'Images',
-                                    'placeholder' => 'Choose project additional images',
-                                    'previewContainerId' => 'projectImagesPreview',
-                                    'multiple' => true,
-                                    'editState' => false
-                                ])
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {{--<div class="row">--}}
+                {{--<div class="col-xs-12">--}}
+                    {{--<div class="card">--}}
+                        {{--<div class="card-body">--}}
+                            {{--<div class="form-group">--}}
+                                {{--@include('admin::components.forms.uploadImage', [--}}
+                                    {{--'filedName' => 'imageThumbnail',--}}
+                                    {{--'id' => 'projectThumbnail',--}}
+                                    {{--'label' => 'Thumbnail',--}}
+                                    {{--'placeholder' => 'Choose project image',--}}
+                                    {{--'previewContainerId' => 'projectThumbnailPreview',--}}
+                                    {{--'multiple' => false,--}}
+                                    {{--'editState' => false--}}
+                                {{--])--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+            {{--<div class="row">--}}
+                {{--<div class="col-xs-12">--}}
+                    {{--<div class="card">--}}
+                        {{--<div class="card-body">--}}
+                            {{--<div class="form-group">--}}
+                                {{--@include('admin::components.forms.uploadImage', [--}}
+                                    {{--'filedName' => 'additionalImages',--}}
+                                    {{--'id' => 'projectImages',--}}
+                                    {{--'label' => 'Images',--}}
+                                    {{--'placeholder' => 'Choose project additional images',--}}
+                                    {{--'previewContainerId' => 'projectImagesPreview',--}}
+                                    {{--'multiple' => true,--}}
+                                    {{--'editState' => false--}}
+                                {{--])--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</div>--}}
         </div>
         {!! Form::close() !!}
     </div>

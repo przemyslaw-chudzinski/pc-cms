@@ -2,10 +2,15 @@
 
 namespace App\Providers\AdminProviders;
 
+use App\Core\Contracts\Services\FilesService;
+use App\Core\FilesService\FilesService as FilesServiceCore;
 use App\Core\MassActions;
 use App\Core\Menu;
+use App\Core\Project;
 use App\Core\Segment;
 use App\Core\Setting;
+use App\Core\Test;
+use App\Core\TestInterface;
 use App\Role;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -37,6 +42,9 @@ class AdminServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(AdminRouteServiceProvider::class);
+        $this->app->register(AdminRepositoryProvider::class);
+
+        $this->app->bind(FilesService::class, FilesServiceCore::class);
 
         $this->app->bind('segment', function () {
             return new Segment();
@@ -52,6 +60,10 @@ class AdminServiceProvider extends ServiceProvider
 
         $this->app->bind('menu', function () {
             return new Menu();
+        });
+
+        $this->app->bind('admin.project', function () {
+            return new Project('projects');
         });
 
         $this->loadHelpers();
