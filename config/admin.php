@@ -1,6 +1,8 @@
 <?php
 return [
 
+    'admin_theme' => 'material_theme',
+
     /* Settings access to admin dashboard */
     'admin_path' => 'backend',
 

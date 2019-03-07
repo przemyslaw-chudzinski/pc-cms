@@ -126,3 +126,17 @@ if(!function_exists('isLocalEnv'))
         return env('APP_ENV') === 'local';
     }
 }
+
+if(!function_exists('adminAssets'))
+{
+    /**
+     * @param $path
+     * @param null $secure
+     * @return string
+     */
+    function adminAssets($path, $secure = null): string
+    {
+        $currentTheme = config('admin.admin_theme');
+        return asset('admin/'.$currentTheme.'/' . $path, $secure);
+    }
+}
