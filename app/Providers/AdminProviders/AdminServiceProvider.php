@@ -8,7 +8,7 @@ use App\Core\MassActions;
 use App\Core\Menu;
 use App\Core\Modules\ProjectCategory;
 use App\Core\Modules\Project;
-use App\Core\Segment;
+use App\Core\Modules\Segment;
 use App\Core\Setting;
 use App\Role;
 use App\User;
@@ -41,12 +41,12 @@ class AdminServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(AdminRouteServiceProvider::class);
-        $this->app->register(AdminRepositoryProvider::class);
+        $this->app->register(AdminRepositoryServiceProvider::class);
 
         $this->app->bind(FilesService::class, FilesServiceCore::class);
 
-        $this->app->bind('segment', function () {
-            return new Segment();
+        $this->app->bind('admin.segment', function () {
+            return new Segment('segments');
         });
 
         $this->app->bind('setting', function () {

@@ -1,3 +1,9 @@
+@php
+    $module_name = Segment::getModuleName();
+    $count_items = count($segments);
+    $args = ['remove' => []];
+@endphp
+
 @extends('admin::layout')
 
 @section('module_name')
@@ -5,11 +11,6 @@
 @endsection
 
 @section('content')
-
-    <?php
-        $module_name = 'segments';
-        $count_items = count($segments);
-    ?>
 
     <div class="row">
         <div class="col-xs-12">
@@ -28,25 +29,9 @@
                     </ul>
                 </header>
                 <div class="card-body">
-                    <div>
-                        <?php
-//                        $args = [
-//                            'delete' => [
-//                                'button_label' => 'Remove selected items',
-//                                'button_class' => 'btn-danger',
-//                            ]
-//                        ];
 
-                            // For setHeaderActions
-                            $args = [
-                                'remove' => [
-                                    'can' => true
-                                ]
-                            ];
-                        ?>
-                        {{--{!! MassActions::setMassActions($module_name, NULL, $args) !!}--}}
-                        {!! MassActions::setHeaderActions($module_name, NULL, $args) !!}
-                    </div>
+                    {!! MassActions::setHeaderActions($module_name, NULL, $args) !!}
+
                     <div class="table-responsive">
                         <table class="table table-hover pc-cms-table">
                             <thead>
@@ -81,9 +66,10 @@
                                                     <span class="caret"></span>
                                                 </button>
                                                 <ul class="dropdown-menu">
-                                                    <li><a href="{{ url(config('admin.admin_path') . '/segments/' . $segment->id . '/edit') }}">Edit</a></li>
+                                                    <li><a href="{{ getRouteUrl($module_name, 'edit', ['id' => $segment]) }}">Edit</a></li>
+                                                    <li><a href="{{ getRouteUrl($module_name, 'images', ['id' => $segment]) }}">Images</a></li>
                                                     <li>
-                                                        <form action="{{ url(config('admin.admin_path') . '/segments/' . $segment->id) }}" id="segmentRemoveForm-{{$segment->id}}" method="post">
+                                                        <form action="{{ getRouteUrl($module_name, 'destroy', ['id' => $segment]) }}" id="segmentRemoveForm-{{$segment->id}}" method="post">
                                                             {{ csrf_field() }}
                                                             {{ method_field('delete') }}
                                                         </form>

@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Core\Contracts\Models;
+namespace App\Core\Contracts;
 
 /**
  * Interface WithFiles
  * @package App\Core\Contracts\Models
- * @deprecated
  */
 interface WithFiles {
     public static function uploadDir();

@@ -1,23 +1,32 @@
-@extends('admin::layout')
+@php
+    $module_name = Segment::getModuleName();
+@endphp
+
+@extends('admin::edit-view-master')
 
 @section('module_name')
     Segments
 @endsection
 
-@section('content')
+@section('extra-navigation')
+    <div class="tabpanel">
+        <ul class="nav nav-tabs">
+            <li class="{{ setActiveClass([getRouteName($module_name, 'edit')]) }}"><a href="{{ getRouteUrl($module_name, 'edit', ['id' => $segment]) }}">Edit</a></li>
+            <li class="{{ setActiveClass([getRouteName($module_name, 'images')]) }}"><a href="{{ getRouteUrl($module_name, 'images', ['id' => $segment]) }}">Images</a></li>
+        </ul>
+    </div>
+@endsection
 
-    <?php
-        $module_name = 'segments';
-    ?>
+@section('edit-content')
 
     <div class="row">
         {!! Form::open([
-                     'route' => [getRouteName($module_name, 'update'), $segment->id],
-                     'method' => 'put',
-                     'id' => 'editSegmentForm',
-                     'novalidate' => 'novalidate',
-                     'files' => true
-                     ]) !!}
+        'route' => [getRouteName($module_name, 'update'), $segment->id],
+        'method' => 'put',
+        'id' => 'editSegmentForm',
+        'novalidate' => 'novalidate',
+        'files' => true
+        ]) !!}
         <div class="col-xs-12 col-md-8">
             <div class="card">
                 <header class="card-heading ">
@@ -50,17 +59,17 @@
                         {!! Form::textarea('description', $segment->description, ['class' => 'form-control', 'placeholder' => 'Write description about this segment']) !!}
                     </div>
 
-                    @include('admin::components.forms.uploadImage', [
-                                    'filedName' => 'segmentImage',
-                                    'id' => 'segmentImage',
-                                    'label' => 'Image',
-                                    'placeholder' => 'Choose additional image',
-                                    'previewContainerId' => 'segmentImagePreview',
-                                    'editState' => true,
-                                    'files' => $segment->getFilesFrom(),
-                                    'dir' => 'segments',
-                                    'noFileInputName' => 'noImage'
-                                ])
+                    {{--@include('admin::components.forms.uploadImage', [--}}
+                                    {{--'filedName' => 'segmentImage',--}}
+                                    {{--'id' => 'segmentImage',--}}
+                                    {{--'label' => 'Image',--}}
+                                    {{--'placeholder' => 'Choose additional image',--}}
+                                    {{--'previewContainerId' => 'segmentImagePreview',--}}
+                                    {{--'editState' => true,--}}
+                                    {{--'files' => $segment->getFilesFrom(),--}}
+                                    {{--'dir' => 'segments',--}}
+                                    {{--'noFileInputName' => 'noImage'--}}
+                                {{--])--}}
                 </div>
             </div>
         </div>

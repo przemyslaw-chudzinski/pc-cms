@@ -8,6 +8,6 @@ class Segment extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'segment';
+        return 'admin.segment';
     }
 }

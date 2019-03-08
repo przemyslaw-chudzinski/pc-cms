@@ -1,3 +1,7 @@
+@php
+    $module_name = Segment::getModuleName();
+@endphp
+
 @extends('admin::layout')
 
 @section('module_name')
@@ -5,10 +9,6 @@
 @endsection
 
 @section('content')
-
-    <?php
-        $module_name = 'segments';
-    ?>
 
     <div class="row">
         {!! Form::open([
@@ -49,13 +49,13 @@
                         {!! Form::textarea('description', null, ['class' => 'form-control', 'placeholder' => 'Write description about this segment']) !!}
                     </div>
 
-                    @include('admin::components.forms.uploadImage', [
-                                    'filedName' => 'segmentImage',
-                                    'id' => 'segmentImage',
-                                    'label' => 'Image',
-                                    'previewContainerId' => 'segmentImagePreview',
-                                    'placeholder' => 'Choose additional image'
-                                ])
+                    {{--@include('admin::components.forms.uploadImage', [--}}
+                                    {{--'filedName' => 'segmentImage',--}}
+                                    {{--'id' => 'segmentImage',--}}
+                                    {{--'label' => 'Image',--}}
+                                    {{--'previewContainerId' => 'segmentImagePreview',--}}
+                                    {{--'placeholder' => 'Choose additional image'--}}
+                                {{--])--}}
                 </div>
             </div>
         </div>

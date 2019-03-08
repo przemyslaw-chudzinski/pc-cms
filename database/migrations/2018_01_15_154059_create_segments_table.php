@@ -18,7 +18,9 @@ class CreateSegmentsTable extends Migration
             $table->string('key')->unique();
             $table->string('description')->nullable()->default(null);
             $table->text('content')->nullable()->default(null);
-            $table->text('image')->nullable()->default(null);
+            $table->longText('images')->nullable()->default(null);
+            $table->integer('author_ID')->unsigned()->nullable()->default(null);
+            $table->foreign('author_ID')->references('id')->on('users');
             $table->timestamps();
         });
     }
