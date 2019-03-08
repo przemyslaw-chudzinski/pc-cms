@@ -17,9 +17,9 @@ $noFileInputName = isset($noFileInputName) ? $noFileInputName : '';
         <div class="row pc-cms-files-actions">
             @if (count($files) > 0)
                 <a href="#" class="btn btn-xs btn-danger pc-cms-clear-files">Clear all files</a>
-                @if ($multiple)
+                {{--@if ($multiple)--}}
 {{--                    <a href="{{ url(route($routeName, [$routeParam => $recordId])) }}" class="btn btn-xs btn-info pc-cms-edit-files">Edit images</a>--}}
-                @endif
+                {{--@endif--}}
             @endif
         </div>
             {{-- Single image preview --}}

@@ -229,14 +229,18 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Segment' => App\Facades\Segment::class,
-        'Image' => Intervention\Image\Facades\Image::class,
-        'Blog' => App\Facades\Blog::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+
+
+        'Segment' => App\Facades\Segment::class,
+        'Image' => Intervention\Image\Facades\Image::class,
+//        'Blog' => App\Facades\Blog::class,
         'MassActions' => App\Facades\MassActions::class,
         'Setting' => App\Facades\Setting::class,
         'Menu' => App\Facades\Menu::class,
+        'Project' => App\Facades\Project::class,
+        'ProjectCategory' => App\Facades\ProjectCategory::class,
     ],
 
 ];

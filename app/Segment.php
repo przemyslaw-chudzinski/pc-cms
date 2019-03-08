@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Core\Contracts\WithFiles;
+use App\Core\Contracts\Models\WithFiles;
 use App\Traits\HasFiles;
 use App\Traits\HasMassActions;
 use App\Traits\ModelTrait;

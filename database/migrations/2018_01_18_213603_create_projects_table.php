@@ -19,11 +19,12 @@ class CreateProjectsTable extends Migration
             $table->string('slug')->unique();
             $table->longText('content')->nullable()->default(null);
             $table->boolean('published')->default(true);
-            $table->longText('thumbnail')->nullable()->default(null);
             $table->longText('images')->nullable()->default(null);
             $table->string('meta_title')->nullable()->default(null);
             $table->string('meta_description')->nullable()->default(null);
             $table->boolean('allow_indexed')->default(true);
+            $table->integer('author_ID')->unsigned();
+            $table->foreign('author_ID')->references('id')->on('users');
             $table->timestamps();
         });
     }

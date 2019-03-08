@@ -168,6 +168,53 @@ return [
             ]
         ],
 
+        'project_categories' => [
+            'upload_dir' => 'projectCategories',
+            'name' => 'Project categories',
+            'actions' => [
+                'index' => [
+                    'display_name' => 'Show lists of project categories view',
+                    'route_name' => 'admin.projects.categories.index'
+                ],
+                'create' => [
+                    'display_name' => 'Show create new project category form view',
+                    'route_name' => 'admin.projects.categories.create'
+                ],
+                'edit' => [
+                    'display_name' => 'Show project category edit form view',
+                    'route_name' => 'admin.projects.categories.edit'
+                ],
+                'store' => [
+                    'display_name' => 'Create new project category action',
+                    'route_name' => 'admin.projects.categories.store'
+                ],
+                'update' => [
+                    'display_name' => 'Update project category action',
+                    'route_name' => 'admin.projects.categories.update'
+                ],
+                'destroy' => [
+                    'display_name' => 'Delete project category action',
+                    'route_name' => 'admin.projects.categories.destroy'
+                ],
+                'mass_actions' => [
+                    'display_name' => 'Mass actions',
+                    'route_name' => 'admin.projects.categories.mass_actions'
+                ],
+                'images' => [
+                    'display_name' => 'Edit project category images view',
+                    'route_name' => 'admin.projects.categories.images'
+                ],
+                'images_destroy' => [
+                    'display_name' => 'Remove single image action',
+                    'route_name' => 'admin.projects.categories.images.destroy'
+                ],
+                'images_add' => [
+                    'display_name' => 'Add single image action',
+                    'route_name' => 'admin.projects.categories.images.addImage'
+                ],
+            ]
+        ],
+
         'pages' => [
             'upload_dir' => 'pages',
             'name' => 'Pages',
@@ -199,38 +246,6 @@ return [
                 'mass_actions' => [
                     'display_name' => 'Mass actions',
                     'route_name' => 'admin.pages.mass_actions'
-                ]
-            ]
-        ],
-
-        'project_categories' => [
-            'upload_dir' => 'projectCategories',
-            'name' => 'Project categories',
-            'actions' => [
-                'index' => [
-                    'display_name' => 'Show lists of project categories view',
-                    'route_name' => 'admin.projects.categories.index'                ],
-                'create' => [
-                    'display_name' => 'Show create new project category form view',
-                    'route_name' => 'admin.projects.categories.create'
-                ],
-                'edit' => [
-                    'display_name' => 'Show project category edit form view',
-                    'route_name' => 'admin.projects.categories.edit'               ],
-                'store' => [
-                    'display_name' => 'Create new project category action',
-                    'route_name' => 'admin.projects.categories.store'                ],
-                'update' => [
-                    'display_name' => 'Update project category action',
-                    'route_name' => 'admin.projects.categories.update'
-                ],
-                'destroy' => [
-                    'display_name' => 'Delete project category action',
-                    'route_name' => 'admin.projects.categories.destroy'
-                ],
-                'mass_actions' => [
-                    'display_name' => 'Mass actions',
-                    'route_name' => 'admin.projects.categories.mass_actions'
                 ]
             ]
         ],

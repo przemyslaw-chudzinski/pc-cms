@@ -2,70 +2,155 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\Project\CategoryAjaxRequest;
-use App\Http\Requests\Project\CategoryRequest;
+use App\Core\Contracts\Repositories\ProjectCategoryRepository;
+use App\Http\Requests\ProjectCategory\CategoryAjaxRequest;
+use App\Http\Requests\ProjectCategory\CategoryRequest;
 use App\ProjectCategory;
+use Illuminate\Support\Facades\Auth;
+use App\Facades\ProjectCategory as ProjectCategoryModule;
 
 class ProjectCategoriesController extends BaseController
 {
+    /**
+     * @var ProjectCategoryRepository
+     */
+    private $projectCategoryRepository;
+
+    public function __construct(ProjectCategoryRepository $projectCategoryRepository)
+    {
+        $this->projectCategoryRepository = $projectCategoryRepository;
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
-        $categories = ProjectCategory::getModelDataWithPagination();
+        $categories = $this->projectCategoryRepository->all();
         return $this->loadView('projectCategories.index', ['categories' => $categories]);
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create()
     {
         return $this->loadView('projectCategories.create');
     }
 
+    /**
+     * @param ProjectCategory $projectCategory
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function images(ProjectCategory $projectCategory)
+    {
+        return $this->loadView('projectCategories.images', ['category' => $projectCategory]);
+    }
+
+    /**
+     * @param CategoryRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(CategoryRequest $request)
     {
-        $request->storeCategory();
-        return redirect(route(getRouteName('project_categories', 'index')))->with('alert', [
+        $this->projectCategoryRepository->create($request->all(), Auth::id());
+
+        return redirect(route(getRouteName(ProjectCategoryModule::getModuleName(), 'index')))->with('alert', [
             'type' => 'success',
             'message' => 'Category has been created successfully'
         ]);
     }
 
+    /**
+     * @param ProjectCategory $projectCategory
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function edit(ProjectCategory $projectCategory)
     {
         return $this->loadView('projectCategories.edit', ['category' => $projectCategory]);
     }
 
+    /**
+     * @param CategoryRequest $request
+     * @param ProjectCategory $projectCategory
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(CategoryRequest $request, ProjectCategory $projectCategory)
     {
-        $request->updateCategory($projectCategory);
+        $this->projectCategoryRepository->update($projectCategory, $request->all());
+
         return back()->with('alert', [
             'type' => 'success',
             'message' => 'Category has been updated successfully'
         ]);
     }
 
+    /**
+     * @param ProjectCategory $projectCategory
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(ProjectCategory $projectCategory)
     {
-        return $projectCategory->removeCategory();
+        $this->projectCategoryRepository->delete($projectCategory);
+
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => 'Category has been updated successfully'
+        ]);
     }
 
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function massActions()
     {
         return ProjectCategory::massActions();
     }
 
-    public function togglePublishedAjax(CategoryAjaxRequest $request, ProjectCategory $category)
+    /**
+     * @param ProjectCategory $projectCategory
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function addImage(ProjectCategory $projectCategory)
     {
-        $updatedCategory = $request->toggle($category, 'published');
-        return response()->json([
-            'types' => 'success',
-            'message' => 'Status has been updated successfully',
-            'newStatus' => (bool)$updatedCategory->published
+        $this->projectCategoryRepository->pushImage($projectCategory, request()->all());
+
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => 'Image has been added successfully'
         ]);
     }
 
+    public function removeImage()
+    {
+
+    }
+
+    /**
+     * @param CategoryAjaxRequest $request
+     * @param ProjectCategory $category
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function togglePublishedAjax(CategoryAjaxRequest $request, ProjectCategory $category)
+    {
+        $updatedCategory = $this->projectCategoryRepository->toggle($category, 'published');
+
+        return response()->json([
+            'types' => 'success',
+            'message' => 'Status has been updated successfully',
+            'newStatus' => (bool) $updatedCategory->published
+        ]);
+    }
+
+    /**
+     * @param CategoryAjaxRequest $request
+     * @param ProjectCategory $category
+     * @return array
+     */
     public function updateSlugAjax(CategoryAjaxRequest $request, ProjectCategory $category)
     {
-        $newSlug = $request->updateSlug($category);
-        if (is_array($newSlug)) return $newSlug;
+        $newSlug = $this->projectCategoryRepository->updateSlug($category, $request->all());
+
         return [
             'newSlug' => $newSlug,
             'message' => 'Slug has been updated successfully',

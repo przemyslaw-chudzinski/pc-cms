@@ -1,3 +1,7 @@
+@php
+    $module_name = ProjectCategory::getModuleName();
+@endphp
+
 @extends('admin::layout')
 
 @section('module_name')
@@ -6,9 +10,6 @@
 
 @section('content')
 
-    <?php
-        $module_name = 'project_categories';
-    ?>
 
     <div class="row">
         {!! Form::open([
@@ -54,23 +55,23 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="form-group">
-                                @include('admin::components.forms.uploadImage', [
-                                    'filedName' => 'imageThumbnail',
-                                    'id' => 'projectCategoryThumbnail',
-                                    'label' => 'Thumbnail',
-                                    'placeholder' => 'Choose category image',
-                                    'previewContainerId' => 'projectCategoryThumbnailPreview'
-                                ])
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {{--<div class="row">--}}
+                {{--<div class="col-xs-12">--}}
+                    {{--<div class="card">--}}
+                        {{--<div class="card-body">--}}
+                            {{--<div class="form-group">--}}
+                                {{--@include('admin::components.forms.uploadImage', [--}}
+                                    {{--'filedName' => 'imageThumbnail',--}}
+                                    {{--'id' => 'projectCategoryThumbnail',--}}
+                                    {{--'label' => 'Thumbnail',--}}
+                                    {{--'placeholder' => 'Choose category image',--}}
+                                    {{--'previewContainerId' => 'projectCategoryThumbnailPreview'--}}
+                                {{--])--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</div>--}}
         </div>
         {!! Form::close() !!}
     </div>

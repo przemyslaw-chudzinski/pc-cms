@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core;
+namespace App\Core\FilesService;
 
 use Illuminate\Http\UploadedFile;
 use Intervention\Image\Facades\Image as InterventionImage;

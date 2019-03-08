@@ -2,13 +2,23 @@
 
 namespace App\Traits;
 
-use App\Core\File;
-use App\Core\Image;
+use App\Core\FilesService\File;
+use App\Core\FilesService\Image;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * Trait HasFiles
+ * @package App\Traits
+ * @deprecated
+ */
 trait HasFiles {
 
+    /**
+     * @param $files
+     * @param string $uploadDirName
+     * @return false|string|null
+     */
     protected function uploadFiles($files, string $uploadDirName)
     {
         $result = [];
@@ -36,6 +46,10 @@ trait HasFiles {
         return json_encode($uploadedFiles);
     }
 
+    /**
+     * @param $storageFilePath
+     * @return array
+     */
     private function mapStoragePathToUrl($storageFilePath)
     {
         return [
@@ -44,19 +58,35 @@ trait HasFiles {
         ];
     }
 
+    /**
+     * @param string $columnName
+     * @return array|mixed
+     * @throws \Exception
+     * @deprecated
+     */
     public function getFilesFrom($columnName = 'image')
     {
         if (!isset($columnName)) throw new \Exception('You must specified columnName parameter');
-        $imageJSON = $this->{$columnName};
-        return isset($imageJSON) ? json_decode($imageJSON, false) : [];
+        $images = $this->{$columnName};
+//        return isset($imageJSON) ? json_decode($imageJSON, false) : [];
+        return isset($images) ? $images : [];
     }
 
+    /**
+     * @param UploadedFile $file
+     * @return bool
+     */
     public function isImageType(UploadedFile $file)
     {
         $mimeType = $file->getMimeType();
         return (bool)preg_match('/image/', $mimeType);
     }
 
+    /**
+     * @param string $param
+     * @param string $expectedValue
+     * @return bool
+     */
     public function canClearImage($param = 'noImage', $expectedValue = 'yes')
     {
         return $this->has($param) && $this->input($param) === $expectedValue;

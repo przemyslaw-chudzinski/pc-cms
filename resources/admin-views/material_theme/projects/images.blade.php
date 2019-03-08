@@ -1,14 +1,24 @@
-@extends('admin::layout')
+@php
+    $module_name = Project::getModuleName();
+@endphp
+
+@extends('admin::edit-view-master')
 
 @section('module_name')
-    Projects
+    Projects - images
 @endsection
 
-@section('content')
+@section('extra-navigation')
+    <div class="tabpanel">
+        <ul class="nav nav-tabs">
+            <li class="{{ setActiveClass([getRouteName($module_name, 'edit')]) }}"><a href="{{ getRouteUrl($module_name, 'edit', ['id' => $project]) }}">Edit</a></li>
+            <li class="{{ setActiveClass([getRouteName($module_name, 'images')]) }}"><a href="{{ getRouteUrl($module_name, 'images', ['id' => $project]) }}">Images</a></li>
+            <li><a href="#tab-3">Comments</a></li>
+        </ul>
+    </div>
+@endsection
 
-    <?php
-        $module_name = 'projects';
-    ?>
+@section('edit-content')
 
     <div class="row">
         <div class="col-xs-12 col-md-8">
@@ -19,18 +29,27 @@
                 <div class="card-body">
                     @if ($project->images)
                         <div class="row">
-                            @foreach(json_decode($project->images, true) as $key => $img)
-                                <div class="col-xs-4 m-b-10">
-                                    <img class="img-responsive img-thumbnail" src="{{ getImageUrl($img, 'admin_prev_medium') }}" alt="">
-                                    <div>
-                                        {!! Form::open([
-                                            'id' => 'remove-image-form-' .$key,
+                            @foreach($project->images as $image)
+                                {!! Form::open([
+                                            'id' => 'remove-image-form-' .$project->id,
                                             'method' => 'put',
                                             'route' => [getRouteName($module_name, 'images_destroy'), $project->id]
                                         ]) !!}
-                                        {!! Form::hidden('image', $img['original']) !!}
-                                        {!! Form::close() !!}
-                                        <a href="#" class="btn btn-danger btn-xs pc-cms-send-form" data-form="#remove-image-form-{{ $key }}">Remove</a>
+                                {!! Form::hidden('imageID', $image->_id) !!}
+                                {!! Form::close() !!}
+                                <div class="col-xs-4 m-b-10">
+                                    <div class="card image-over-card m-t-30">
+                                        <div class="card-image">
+                                            <a href="javascript:void(0)">
+                                                <img src="{{ $image->sizes->admin_prev_medium->url }}" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="text-center">
+                                                <a href="javascript:void(0)" class="btn btn-danger btn-xs pc-cms-send-form" data-form="#remove-image-form-{{ $project->id }}">Remove</a>
+                                            </div>
+                                            <h4 class="card-title text-center">{{ $image->file_name }}</h4>
+                                        </div>
                                     </div>
                                 </div>
                             @endforeach
@@ -50,7 +69,7 @@
                     ]) !!}
                     <div class="form-group">
                         @include('admin::components.forms.uploadImage', [
-                            'filedName' => 'image',
+                            'filedName' => 'images',
                             'id' => 'projectImage',
                             'label' => 'Add new image',
                             'placeholder' => 'Choose project additional image',

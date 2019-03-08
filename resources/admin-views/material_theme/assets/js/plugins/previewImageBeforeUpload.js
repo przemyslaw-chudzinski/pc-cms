@@ -44,19 +44,6 @@
         const $imageWrapper = $('<div class="col-xs-6 col-md-4 pc-cms-single-preview-image"></div>');
         const $img = $('<img class="img-responsive">');
         $img.attr('src', e.target.result);
-        // const $wrapper = $(`
-        //      <div class="card image-over-card m-t-30">
-        //      <div class="card-image">
-        //                 <a href="javascript:void(0)">
-        //                  ${$img[0].outerHTML}
-        //                 </a>
-        //               </div>
-        //               <div class="card-body">
-        //                 <!--<h4 class="card-title text-center">Image Caption</h4>-->
-        //                 <!--<h6 class="category text-gray text-center"><span class="today">03/07/2019</span></h6>-->
-        //               </div>
-        //             </div>
-        // `);
         $imageWrapper.append(getPreviewImageStructure($img[0].outerHTML));
         $previewContainer.append($imageWrapper);
     }
@@ -67,9 +54,7 @@
              <div class="card-image">
                         <a href="javascript:void(0)">${$img}</a>
                       </div>
-                      <div class="card-body">
-                        <!--<h4 class="card-title text-center">Image Caption</h4>-->
-                        <!--<h6 class="category text-gray text-center"><span class="today">03/07/2019</span></h6>-->
+                      <div class="card-body">                 
                         ${$cardBody}
                       </div>
                     </div>

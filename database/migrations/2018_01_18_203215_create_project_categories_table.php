@@ -19,7 +19,9 @@ class CreateProjectCategoriesTable extends Migration
             $table->string('slug')->unique();
             $table->text('description')->nullable()->default(null);
             $table->boolean('published')->default(true);
-            $table->longText('thumbnail')->nullable()->default(null);
+            $table->integer('author_ID')->unsigned()->nullable()->default(null);
+            $table->foreign('author_ID')->references('id')->on('users');
+            $table->longText('images')->nullable()->default(null);
             $table->timestamps();
         });
     }

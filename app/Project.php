@@ -2,31 +2,32 @@
 
 namespace App;
 
-use App\Core\Contracts\WithFiles;
+use App\Core\Contracts\Models\WithSort;
 use App\Traits\HasMassActions;
+use App\Traits\Models\Sortable;
 use Illuminate\Database\Eloquent\Model;
-use App\Core\Services\Image;
-use App\Traits\ModelTrait;
-use App\Traits\HasFiles;
 
-class Project extends Model implements WithFiles
+class Project extends Model implements WithSort
 {
-
-    use ModelTrait, HasFiles, HasMassActions;
+    use HasMassActions, Sortable;
 
     protected $fillable = [
         'title',
         'slug',
         'content',
         'published',
-        'thumbnail',
         'images',
         'allow_indexed',
         'meta_title',
-        'meta_description'
+        'meta_description',
+        'author_ID'
     ];
 
-    protected static $sortable = [
+    protected $casts = [
+        'author_ID' => 'integer'
+    ];
+
+    protected $sortable = [
         'title',
         'published',
         'created_at',
@@ -45,62 +46,72 @@ class Project extends Model implements WithFiles
         return $this->categories->pluck('id')->all();
     }
 
-    public function removeImage()
+    public function getImagesAttribute($images)
     {
-        $data = request()->all();
-
-        $images = json_decode($this->images, true);
-
-        foreach ($images as $key => $img) {
-            if ($img['original'] === $data['image']) {
-                unset($images[$key]);
-                break;
-            }
-        }
-
-        $this->update([
-            'images' => json_encode($images)
-        ]);
-
-        return back()->with('alert', [
-            'type' => 'success',
-            'message' => 'Image has been deleted successfully'
-        ]);
+        return json_decode($images);
     }
 
-    public function addImage()
+    public function setImagesAttribute($images)
     {
-        $data = request()->all();
-
-
-        $validator = Validator::make($data, [
-            'image' => 'image|required|max:2048'
-        ]);
-
-        if ($validator->fails()) {
-            return back()->withErrors($validator);
-        }
-
-        $images = json_decode($this->images, true);
-
-        if (!$images) {
-            $images = [];
-        }
-
-        if (isset($data['image'])) {
-            $images[] = self::uploadImage($data, 'image', getModuleUploadDir('projects'));
-        }
-
-        $this->update([
-            'images' => json_encode($images)
-        ]);
-
-        return back()->with('alert', [
-            'type' => 'success',
-            'message' => 'Image has been added successfully'
-        ]);
-
+        $this->attributes['images'] = json_encode($images, true);
     }
+
+//    public function removeImage()
+//    {
+//        $data = request()->all();
+//
+//        $images = json_decode($this->images, true);
+//
+//        foreach ($images as $key => $img) {
+//            if ($img['original'] === $data['image']) {
+//                unset($images[$key]);
+//                break;
+//            }
+//        }
+//
+//        $this->update([
+//            'images' => json_encode($images)
+//        ]);
+//
+//        return back()->with('alert', [
+//            'type' => 'success',
+//            'message' => 'Image has been deleted successfully'
+//        ]);
+//    }
+
+//    public function addImage()
+//    {
+////        $data = request()->all();
+////
+////
+////        $validator = Validator::make($data, [
+////            'image' => 'image|required|max:2048'
+////        ]);
+////
+////        if ($validator->fails()) {
+////            return back()->withErrors($validator);
+////        }
+////
+////        $images = json_decode($this->images, true);
+////
+////        if (!$images) {
+////            $images = [];
+////        }
+////
+////        if (isset($data['image'])) {
+////            $images[] = self::uploadImage($data, 'image', getModuleUploadDir('projects'));
+////        }
+////
+////        $this->update([
+////            'images' => json_encode($images)
+////        ]);
+////
+////        return back()->with('alert', [
+////            'type' => 'success',
+////            'message' => 'Image has been added successfully'
+////        ]);
+//
+//    }
 
     public static function massActions()
     {
@@ -117,8 +128,8 @@ class Project extends Model implements WithFiles
         }
     }
 
-    public static function uploadDir()
-    {
-        return config('admin.modules.projects.upload_dir');
-    }
+//    public static function uploadDir()
+//    {
+//        return config('admin.modules.projects.upload_dir');
+//    }
 }

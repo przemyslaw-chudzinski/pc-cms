@@ -1,14 +1,24 @@
-@extends('admin::layout')
+@php
+    $module_name = Project::getModuleName();
+@endphp
+
+@extends('admin::edit-view-master')
 
 @section('module_name')
     Projects
 @endsection
 
-@section('content')
+@section('extra-navigation')
+    <div class="tabpanel">
+        <ul class="nav nav-tabs">
+            <li class="{{ setActiveClass([getRouteName($module_name, 'edit')]) }}"><a href="{{ getRouteUrl($module_name, 'edit', ['id' => $project]) }}">Edit</a></li>
+            <li class="{{ setActiveClass([getRouteName($module_name, 'images')]) }}"><a href="{{ getRouteUrl($module_name, 'images', ['id' => $project]) }}">Images</a></li>
+            <li role="presentation"><a href="#tab-3" data-toggle="tab" aria-expanded="true">Comments</a></li>
+        </ul>
+    </div>
+@endsection
 
-    <?php
-        $module_name = 'projects';
-    ?>
+@section('edit-content')
 
     <div class="row">
         {!! Form::open([
@@ -36,10 +46,6 @@
                     <div class="form-group">
                         {!! Form::label(null, 'Project content') !!}
                         {!! Form::textarea('content', $project->content, ['class' => 'form-control pc-cms-editor']) !!}
-                    </div>
-
-                    <div class="form-group">
-                        @include('admin::components.forms.seo', ['allow' => $project->allow_indexed, 'meta_title' => $project->meta_title, 'meta_description' => $project->meta_description])
                     </div>
                 </div>
             </div>
@@ -91,50 +97,55 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="form-group">
-                                @include('admin::components.forms.uploadImage', [
-                                    'filedName' => 'imageThumbnail',
-                                    'id' => 'projectThumbnail',
-                                    'label' => 'Thumbnail',
-                                    'placeholder' => 'Choose project image',
-                                    'previewContainerId' => 'projectThumbnailPreview',
-                                    'editState' => true,
-                                    'files' => $project->getFilesFrom('thumbnail'),
-                                    'dir' => 'projects',
-                                    'noFileInputName' => 'noImage'
-                                ])
-                            </div>
-                        </div>
-                    </div>
+                    @include('admin::components.forms.seo', ['allow' => $project->allow_indexed, 'meta_title' => $project->meta_title, 'meta_description' => $project->meta_description])
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="form-group">
-                                @include('admin::components.forms.uploadImage', [
-                                    'filedName' => 'additionalImages',
-                                    'id' => 'projectImages',
-                                    'label' => 'Images',
-                                    'placeholder' => 'Choose project additional images',
-                                    'previewContainerId' => 'projectImagesPreview',
-                                    'multiple' => true,
-                                    'editState' => true,
-                                    'files' => $project->getFilesFrom('images'),
-                                    'dir' => 'projects',
-                                    'noFileInputName' => 'noImages',
-                                    'routeName' => getRouteName('projects', 'images'),
-                                    'recordId' => $project->id,
-                                    'routeParam' => 'project'
-                                ])
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {{--<div class="row">--}}
+                {{--<div class="col-xs-12">--}}
+                    {{--<div class="card">--}}
+                        {{--<div class="card-body">--}}
+                            {{--<div class="form-group">--}}
+                                {{--@include('admin::components.forms.uploadImage', [--}}
+                                    {{--'filedName' => 'imageThumbnail',--}}
+                                    {{--'id' => 'projectThumbnail',--}}
+                                    {{--'label' => 'Thumbnail',--}}
+                                    {{--'placeholder' => 'Choose project image',--}}
+                                    {{--'previewContainerId' => 'projectThumbnailPreview',--}}
+                                    {{--'editState' => true,--}}
+                                    {{--'files' => $project->thumbnail,--}}
+                                    {{--'dir' => 'projects',--}}
+                                    {{--'noFileInputName' => 'noImage'--}}
+                                {{--])--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+            {{--<div class="row">--}}
+                {{--<div class="col-xs-12">--}}
+                    {{--<div class="card">--}}
+                        {{--<div class="card-body">--}}
+                            {{--<div class="form-group">--}}
+                                {{--@include('admin::components.forms.uploadImage', [--}}
+                                    {{--'filedName' => 'additionalImages',--}}
+                                    {{--'id' => 'projectImages',--}}
+                                    {{--'label' => 'Images',--}}
+                                    {{--'placeholder' => 'Choose project additional images',--}}
+                                    {{--'previewContainerId' => 'projectImagesPreview',--}}
+                                    {{--'multiple' => true,--}}
+                                    {{--'editState' => true,--}}
+                                    {{--'files' => $project->getFilesFrom('images'),--}}
+                                    {{--'dir' => 'projects',--}}
+                                    {{--'noFileInputName' => 'noImages',--}}
+                                    {{--'routeName' => getRouteName('projects', 'images'),--}}
+                                    {{--'recordId' => $project->id,--}}
+                                    {{--'routeParam' => 'project'--}}
+                                {{--])--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</div>--}}
         </div>
         {!! Form::close() !!}
     </div>
