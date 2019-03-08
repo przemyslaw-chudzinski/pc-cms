@@ -4,12 +4,13 @@ namespace App;
 
 use App\Core\Contracts\Models\WithSort;
 use App\Traits\HasMassActions;
+use App\Traits\Models\HasImages;
 use App\Traits\Models\Sortable;
 use Illuminate\Database\Eloquent\Model;
 
 class Segment extends Model implements WithSort
 {
-    use HasMassActions, Sortable;
+    use HasMassActions, Sortable, HasImages;
 
     protected $fillable = [
         'key',
@@ -24,16 +25,6 @@ class Segment extends Model implements WithSort
         'created_at',
         'updated_at'
     ];
-
-    public function getImagesAttribute($images)
-    {
-        return json_decode($images);
-    }
-
-    public function setImagesAttribute($images)
-    {
-        $this->attributes['images'] = json_encode($images, true);
-    }
 
     public static function massActions()
     {
