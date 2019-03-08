@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core;
+namespace App\Core\Modules;
 
 
 use App\Core\Contracts\AsModule;

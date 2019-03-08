@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Project;
+namespace App\Http\Requests\ProjectCategory;
 
 use App\ProjectCategory;
-use App\Traits\Toggleable;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Validator;
 
 class CategoryAjaxRequest extends FormRequest
 {
-    use Toggleable;
     /**
      * Determine if the user is authorized to make this request.
      *

@@ -2,42 +2,47 @@
 
 namespace App;
 
-use App\Core\Contracts\Models\WithFiles;
+use App\Core\Contracts\Models\WithSort;
 use App\Traits\HasMassActions;
+use App\Traits\Models\Sortable;
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\HasFiles;
-use App\Traits\ModelTrait;
 
-class ProjectCategory extends Model implements WithFiles
+class ProjectCategory extends Model implements WithSort
 {
-
-    use HasFiles, ModelTrait, HasMassActions;
+    use  HasMassActions, Sortable;
 
     protected $fillable = [
         'name',
         'slug',
         'description',
         'published',
-        'thumbnail'
+        'images'
     ];
 
-    protected static $sortable = [
+    protected $casts = [
+        'author_ID' => 'integer'
+    ];
+
+    protected $sortable = [
         'name',
         'published',
         'created_at',
         'updated_at'
     ];
 
-    public function removeCategory()
+    public function getImagesAttribute($images)
     {
-        $this->delete();
-
-        return back()->with('alert', [
-            'type' => 'success',
-            'message' => 'Category has been updated successfully'
-        ]);
+        return json_decode($images);
     }
 
+    public function setImagesAttribute($images)
+    {
+        $this->attributes['images'] = json_encode($images, true);
+    }
+
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public static function massActions()
     {
         $data = request()->all();
@@ -51,10 +56,5 @@ class ProjectCategory extends Model implements WithFiles
             case 'change_status_on_false':
                 return self::massActionsChangeStatus($selected_ids, false);
         }
-    }
-
-    public static function uploadDir()
-    {
-        return config('admin.modules.project_categories.upload_dir');
     }
 }

@@ -1,14 +1,23 @@
-@extends('admin::layout')
+@php
+    $module_name = ProjectCategory::getModuleName();
+@endphp
+
+@extends('admin::edit-view-master')
 
 @section('module_name')
     Project categories
 @endsection
 
-@section('content')
+@section('extra-navigation')
+    <div class="tabpanel">
+        <ul class="nav nav-tabs">
+            <li class="{{ setActiveClass([getRouteName($module_name, 'edit')]) }}"><a href="{{ getRouteUrl($module_name, 'edit', ['id' => $category->id]) }}">Edit</a></li>
+            <li class="{{ setActiveClass([getRouteName($module_name, 'images')]) }}"><a href="{{ getRouteUrl($module_name, 'images', ['id' => $category->id]) }}">Images</a></li>
+        </ul>
+    </div>
+@endsection
 
-    <?php
-    $module_name = 'project_categories';
-    ?>
+@section('edit-content')
 
     <div class="row">
         {!! Form::open([
@@ -54,27 +63,6 @@
                             </div>
 
                             <button type="submit" class="btn btn-primary pc-cms-loader-btn" data-form="#editProjectCategoryForm">Save</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="form-group">
-                                @include('admin::components.forms.uploadImage', [
-                                    'filedName' => 'imageThumbnail',
-                                    'id' => 'projectCategoryThumbnail',
-                                    'label' => 'Thumbnail',
-                                    'placeholder' => 'Choose category image',
-                                    'previewContainerId' => 'projectCategoryThumbnailPreview',
-                                    'editState' => true,
-                                    'files' => $category->getFilesFrom('thumbnail'),
-                                    'dir' => 'projectCategories',
-                                    'noFileInputName' => 'noImage'
-                                ])
-                            </div>
                         </div>
                     </div>
                 </div>

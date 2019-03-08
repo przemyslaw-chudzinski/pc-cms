@@ -6,11 +6,10 @@ use App\Core\Contracts\Services\FilesService;
 use App\Core\FilesService\FilesService as FilesServiceCore;
 use App\Core\MassActions;
 use App\Core\Menu;
-use App\Core\Project;
+use App\Core\Modules\ProjectCategory;
+use App\Core\Modules\Project;
 use App\Core\Segment;
 use App\Core\Setting;
-use App\Core\Test;
-use App\Core\TestInterface;
 use App\Role;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -64,6 +63,10 @@ class AdminServiceProvider extends ServiceProvider
 
         $this->app->bind('admin.project', function () {
             return new Project('projects');
+        });
+
+        $this->app->bind('admin.project_categories', function () {
+            return new ProjectCategory('project_categories');
         });
 
         $this->loadHelpers();

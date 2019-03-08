@@ -90,6 +90,7 @@
                                             </button>
                                             <ul class="dropdown-menu">
                                                 <li><a href="{{ url(route(getRouteName($module_name, 'edit'), $project->id)) }}">Edit</a></li>
+                                                <li><a href="{{ url(route(getRouteName($module_name, 'images'), $project->id)) }}">Images</a></li>
                                                 <li>
                                                     {!! Form::open([
                                                         'method' => 'delete',

@@ -23,10 +23,6 @@ class Project extends Model implements WithSort
         'author_ID'
     ];
 
-    protected $hidden = [
-        'author_ID'
-    ];
-
     protected $casts = [
         'author_ID' => 'integer'
     ];

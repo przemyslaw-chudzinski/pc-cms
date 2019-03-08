@@ -1,3 +1,12 @@
+@php
+    $module_name = ProjectCategory::getModuleName();
+    $count_items = count($categories);
+    $args = [
+        'remove' => [],
+        'change_status' => []
+    ];
+@endphp
+
 @extends('admin::layout')
 
 @section('module_name')
@@ -5,11 +14,6 @@
 @endsection
 
 @section('content')
-
-    <?php
-        $module_name = 'project_categories';
-        $count_items = count($categories);
-    ?>
 
     <div class="row">
         <div class="col-xs-12">
@@ -28,34 +32,9 @@
                     </ul>
                 </header>
                 <div class="card-body">
-                    <div>
-                        <div>
-                            <?php
-//                            $args = [
-//                                'delete' => [
-//                                    'button_label' => 'Remove selected items',
-//                                    'button_class' => 'btn-danger',
-//                                ],
-//                                'change_status_on_true' => [
-//                                    'button_label' => 'Set on published',
-//                                    'button_class' => 'btn-primary'
-//                                ],
-//                                'change_status_on_false' => [
-//                                    'button_label' => 'Set on draft',
-//                                    'button_class' => 'btn-primary'
-//                                ]
-//
-//                            ];
-                                $args = [
-                                    'remove' => [],
 
-                                    'change_status' => []
-                                ];
-                            ?>
-                            {!! MassActions::setHeaderActions($module_name, null, $args) !!}
-{{--                            {!! MassActions::setMassActions($module_name, NULL, $args) !!}--}}
-                        </div>
-                    </div>
+                    {!! MassActions::setHeaderActions($module_name, null, $args) !!}
+
                     <table class="table table-hover pc-cms-table">
                         <thead>
                         <tr>
@@ -90,6 +69,7 @@
                                             </button>
                                             <ul class="dropdown-menu">
                                                 <li><a href="{{ route(getRouteName($module_name, 'edit'), $category->id) }}">Edit</a></li>
+                                                <li><a href="{{ route(getRouteName($module_name, 'images'), $category->id) }}">Images</a></li>
                                                 <li>
                                                     {!! Form::open([
                                                         'method' => 'delete',

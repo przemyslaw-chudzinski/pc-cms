@@ -235,11 +235,12 @@ return [
 
         'Segment' => App\Facades\Segment::class,
         'Image' => Intervention\Image\Facades\Image::class,
-        'Blog' => App\Facades\Blog::class,
+//        'Blog' => App\Facades\Blog::class,
         'MassActions' => App\Facades\MassActions::class,
         'Setting' => App\Facades\Setting::class,
         'Menu' => App\Facades\Menu::class,
         'Project' => App\Facades\Project::class,
+        'ProjectCategory' => App\Facades\ProjectCategory::class,
     ],
 
 ];

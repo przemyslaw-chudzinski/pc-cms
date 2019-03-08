@@ -3,6 +3,7 @@
 namespace App\Traits\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Facades\Project as ProjectModule;
 
 /**
  * Trait CrudSupport
@@ -94,5 +95,85 @@ trait CrudSupport
     function getByAuthorID($authorID)
     {
         return $this->model->where('author_ID', $authorID)->get()->first();
+    }
+
+    /**
+     * @param Model $model
+     * @param array $attributes
+     * @param string $defaultColName
+     * @return string
+     */
+    function updateSlug(Model $model, array $attributes = [], $defaultColName = 'slug')
+    {
+        $slug = array_has($attributes, $defaultColName) ? array_get($attributes, $defaultColName) : null;
+        if ($slug) {
+            $model->{$defaultColName} = str_slug($slug);
+            $model->isDirty() && $model->save();
+        }
+        return $model->{$defaultColName};
+    }
+
+    /**
+     * @param Model $model
+     * @param $columnName
+     * @return Model
+     */
+    public function toggle(Model $model, $columnName)
+    {
+        $model->{$columnName} = !(bool) $model->{$columnName};
+        $model->isDirty() ? $model->save() : null;
+        return $model;
+    }
+
+    /**
+     * @param Model $model
+     * @param array $attributes
+     * @param string $colName
+     * @return bool|null
+     */
+    public function pushImage(Model $model, array $attributes = [], $colName = 'images')
+    {
+        $sentFiles = array_has($attributes, 'images') ? array_get($attributes, 'images') : null;
+
+        if (!isset($sentFiles)) return null;
+
+        $images = $model->{$colName};
+
+        if (!$images) $images = [];
+
+        $uploadedFiles = $this->filesService->uploadFiles($sentFiles, ProjectModule::uploadDir());
+
+        $images[] = $uploadedFiles[0];
+
+        $model->{$colName} = $images;
+
+        return $model->isDirty() ? $model->save() : null;
+    }
+
+    /**
+     * @param Model $model
+     * @param array $attributes
+     * @param string $colName
+     * @return bool|null
+     */
+    public function removeImage(Model $model, array $attributes = [], $colName = 'images')
+    {
+        $imageID = array_has($attributes, 'imageID') ? (int) array_get($attributes, 'imageID') : null;
+
+        if (!isset($imageID)) return null;
+
+        $images = $model->{$colName};
+
+        // TODO: Filter images by iageID !!!????
+//        $filteredImages = array_map(function ($image) use ($imageID) {
+//            return $imageID !== (int) $image['_id'] ? $image : false;
+//        }, $images);
+//
+//        $model->{$colName} = array_filter($filteredImages, function ($img) {
+//            return $img;
+//        });
+
+        return $model->isDirty() ? $model->save() : null;
+
     }
 }

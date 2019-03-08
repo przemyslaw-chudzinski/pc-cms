@@ -68,7 +68,9 @@ Route::group([
 
     /* Projects */
     Route::group(['prefix' => 'projects'], function () {
+
         $module_name = Project::getModuleName();
+
         Route::get('/', 'ProjectsController@index')->name(getRouteName($module_name, 'index'));
         Route::get('/{project}/edit', 'ProjectsController@edit')->name(getRouteName($module_name, 'edit'));
         Route::put('{project}', 'ProjectsController@update')->name(getRouteName($module_name, 'update'));
@@ -82,14 +84,19 @@ Route::group([
 
         /* Projects categories */
         Route::group(['prefix' => 'categories'], function () {
-            $module_name = 'project_categories';
+
+            $module_name = ProjectCategory::getModuleName();
+
             Route::get('/', 'ProjectCategoriesController@index')->name(getRouteName($module_name, 'index'));
             Route::get('/{projectCategory}/edit', 'ProjectCategoriesController@edit')->name(getRouteName($module_name, 'edit'));
             Route::put('{projectCategory}', 'ProjectCategoriesController@update')->name(getRouteName($module_name, 'update'));
+            Route::get('{projectCategory}/images', 'ProjectCategoriesController@images')->name(getRouteName($module_name, 'images'));
             Route::delete('{projectCategory}', 'ProjectCategoriesController@destroy')->name(getRouteName($module_name, 'destroy'));
             Route::post('/', 'ProjectCategoriesController@store')->name(getRouteName($module_name, 'store'));
             Route::get('/create', 'ProjectCategoriesController@create')->name(getRouteName($module_name, 'create'));
             Route::post('mass-actions', 'ProjectCategoriesController@massActions')->name(getRouteName($module_name, 'mass_actions'));
+            Route::put('{projectCategory}/images/add', 'ProjectCategoriesController@addImage')->name(getRouteName($module_name, 'images_add'));
+            Route::put('{projectCategory}/images', 'ProjectCategoriesController@removeImage')->name(getRouteName($module_name, 'images_destroy'));
         });
     });
 
