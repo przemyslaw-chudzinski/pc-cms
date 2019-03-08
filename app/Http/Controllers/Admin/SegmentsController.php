@@ -2,56 +2,139 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Core\Contracts\Repositories\SegmentRepository;
+use App\Http\Requests\RemoveImageRequest;
 use App\Http\Requests\Segment\SegmentRequest;
+use App\Http\Requests\UploadImagesRequest;
 use App\Segment;
+use Illuminate\Support\Facades\Auth;
+use App\Facades\Segment as SegmentModule;
 
 class SegmentsController extends BaseController
 {
+    /**
+     * @var SegmentRepository
+     */
+    private $segmentRepository;
+
+    public function __construct(SegmentRepository $segmentRepository)
+    {
+        $this->segmentRepository = $segmentRepository;
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
-        $segments = Segment::getModelDataWithPagination();
+        $segments = $this->segmentRepository->all();
         return $this->loadView('segments.index', ['segments' => $segments]);
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create()
     {
         return $this->loadView('segments.create');
     }
 
+    /**
+     * @param Segment $segment
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function edit(Segment $segment)
     {
         return $this->loadView('segments.edit', ['segment' => $segment]);
     }
 
+    /**
+     * @param SegmentRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(SegmentRequest $request)
     {
-        $request->storeSegment();
-        return redirect(route(getRouteName('segments', 'index')))->with('alert', [
+        $this->segmentRepository->create($request->all(), Auth::id());
+
+        return redirect(route(getRouteName(SegmentModule::getModuleName(), 'index')))->with('alert', [
             'type' => 'success',
             'message' => 'Segment has been created successfully'
         ]);
     }
 
+    /**
+     * @param SegmentRequest $request
+     * @param Segment $segment
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(SegmentRequest $request, Segment $segment)
     {
-        $request->updateSegment($segment);
+        $this->segmentRepository->update($segment, $request->all());
+
         return back()->with('alert', [
             'type' => 'success',
             'message' => 'Segment has been updated successfully'
         ]);
     }
 
+    /**
+     * @param Segment $segment
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(Segment $segment)
     {
-        $segment->delete();
+        $this->segmentRepository->delete($segment);
+
         return back()->with('alert' , [
             'type' => 'success',
             'message' => 'Segment has been deleted successfully'
         ]);
     }
 
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function massActions()
     {
         return Segment::massActions();
+    }
+
+    /**
+     * @param Segment $segment
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function images(Segment $segment)
+    {
+        return $this->loadView('segments.images', ['segment' => $segment]);
+    }
+
+    /**
+     * @param UploadImagesRequest $request
+     * @param Segment $segment
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function addImage(UploadImagesRequest $request, Segment $segment)
+    {
+        $this->segmentRepository->pushImage($segment, $request->all());
+
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => 'Image has been added successfully'
+        ]);
+    }
+
+    /**
+     * @param RemoveImageRequest $request
+     * @param Segment $segment
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function removeImage(RemoveImageRequest $request, Segment $segment)
+    {
+        $this->segmentRepository->removeImage($segment, $request->all());
+
+        return back()->with('alert', [
+            'type' => 'success',
+            'message' => 'Image has been deleted successfully'
+        ]);
     }
 }

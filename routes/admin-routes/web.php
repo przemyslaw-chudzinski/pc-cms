@@ -20,7 +20,9 @@ Route::group([
 
     /* Segments */
     Route::group(['prefix' => 'segments'], function () {
-        $module_name = 'segments';
+
+        $module_name = Segment::getModuleName();
+
         Route::get('/', 'SegmentsController@index')->name(getRouteName($module_name, 'index'));
         Route::get('/{segment}/edit', 'SegmentsController@edit')->name(getRouteName($module_name, 'edit'));
         Route::put('{segment}', 'SegmentsController@update')->name(getRouteName($module_name, 'update'));
@@ -28,6 +30,9 @@ Route::group([
         Route::post('/', 'SegmentsController@store')->name(getRouteName($module_name, 'store'));
         Route::get('/create', 'SegmentsController@create')->name(getRouteName('segments', 'create'));
         Route::post('/mass-actions', 'SegmentsController@massActions')->name(getRouteName($module_name, 'mass_actions'));
+        Route::get('{segment}/images', 'SegmentsController@images')->name(getRouteName($module_name, 'images'));
+        Route::put('{segment}/images/add', 'SegmentsController@addImage')->name(getRouteName($module_name, 'images_add'));
+        Route::put('{segment}/images', 'SegmentsController@removeImage')->name(getRouteName($module_name, 'images_destroy'));
     });
 
     /* Pages */

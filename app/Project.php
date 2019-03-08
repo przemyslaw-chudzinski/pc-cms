@@ -4,12 +4,13 @@ namespace App;
 
 use App\Core\Contracts\Models\WithSort;
 use App\Traits\HasMassActions;
+use App\Traits\Models\HasImages;
 use App\Traits\Models\Sortable;
 use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model implements WithSort
 {
-    use HasMassActions, Sortable;
+    use HasMassActions, Sortable, HasImages;
 
     protected $fillable = [
         'title',
@@ -46,73 +47,6 @@ class Project extends Model implements WithSort
         return $this->categories->pluck('id')->all();
     }
 
-    public function getImagesAttribute($images)
-    {
-        return json_decode($images);
-    }
-
-    public function setImagesAttribute($images)
-    {
-        $this->attributes['images'] = json_encode($images, true);
-    }
-
-//    public function removeImage()
-//    {
-//        $data = request()->all();
-//
-//        $images = json_decode($this->images, true);
-//
-//        foreach ($images as $key => $img) {
-//            if ($img['original'] === $data['image']) {
-//                unset($images[$key]);
-//                break;
-//            }
-//        }
-//
-//        $this->update([
-//            'images' => json_encode($images)
-//        ]);
-//
-//        return back()->with('alert', [
-//            'type' => 'success',
-//            'message' => 'Image has been deleted successfully'
-//        ]);
-//    }
-
-//    public function addImage()
-//    {
-////        $data = request()->all();
-////
-////
-////        $validator = Validator::make($data, [
-////            'image' => 'image|required|max:2048'
-////        ]);
-////
-////        if ($validator->fails()) {
-////            return back()->withErrors($validator);
-////        }
-////
-////        $images = json_decode($this->images, true);
-////
-////        if (!$images) {
-////            $images = [];
-////        }
-////
-////        if (isset($data['image'])) {
-////            $images[] = self::uploadImage($data, 'image', getModuleUploadDir('projects'));
-////        }
-////
-////        $this->update([
-////            'images' => json_encode($images)
-////        ]);
-////
-////        return back()->with('alert', [
-////            'type' => 'success',
-////            'message' => 'Image has been added successfully'
-////        ]);
-//
-//    }
-
     public static function massActions()
     {
         $data = request()->all();
@@ -127,9 +61,4 @@ class Project extends Model implements WithSort
                 return self::massActionsChangeStatus($selected_ids, false);
         }
     }
-
-//    public static function uploadDir()
-//    {
-//        return config('admin.modules.projects.upload_dir');
-//    }
 }

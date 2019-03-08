@@ -434,6 +434,18 @@ return [
                     'display_name' => 'Mass actions',
                     'route_name' => 'admin.segments.mass_actions'
                 ],
+                'images' => [
+                    'display_name' => 'Edit segment category images view',
+                    'route_name' => 'admin.segments.images'
+                ],
+                'images_destroy' => [
+                    'display_name' => 'Remove single image action',
+                    'route_name' => 'admin.segments.images.destroy'
+                ],
+                'images_add' => [
+                    'display_name' => 'Add single image action',
+                    'route_name' => 'admin.segments.images.addImage'
+                ],
             ]
         ],
 

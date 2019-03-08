@@ -2,35 +2,29 @@
 
 namespace App;
 
-use App\Core\Contracts\Models\WithFiles;
-use App\Traits\HasFiles;
+use App\Core\Contracts\Models\WithSort;
 use App\Traits\HasMassActions;
-use App\Traits\ModelTrait;
+use App\Traits\Models\HasImages;
+use App\Traits\Models\Sortable;
 use Illuminate\Database\Eloquent\Model;
 
-class Segment extends Model implements WithFiles
+class Segment extends Model implements WithSort
 {
-
-    use ModelTrait, HasFiles, HasMassActions;
+    use HasMassActions, Sortable, HasImages;
 
     protected $fillable = [
         'key',
         'description',
         'content',
-        'image'
+        'images',
+        'author_ID'
     ];
 
-    protected static $sortable = [
+    protected $sortable = [
         'key',
         'created_at',
         'updated_at'
     ];
-
-    static function uploadDir()
-    {
-        $uploadDir = config('admin.modules.segments.upload_dir');
-        return isset($uploadDir) ? $uploadDir : null;
-    }
 
     public static function massActions()
     {

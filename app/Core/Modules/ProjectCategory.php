@@ -3,7 +3,7 @@
 namespace App\Core\Modules;
 
 use App\Core\Contracts\AsModule;
-use App\Core\Contracts\Models\WithFiles;
+use App\Core\Contracts\WithFiles;
 
 /**
  * Class ProjectCategory
