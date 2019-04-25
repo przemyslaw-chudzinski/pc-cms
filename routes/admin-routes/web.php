@@ -84,7 +84,7 @@ Route::group([
         Route::get('/create', 'ProjectsController@create')->name(getRouteName($module_name, 'create'));
         Route::get('{project}/images', 'ProjectsController@images')->name(getRouteName($module_name, 'images'));
         Route::put('{project}/images/add', 'ProjectsController@addImage')->name(getRouteName($module_name, 'images_add'));
-        Route::put('{project}/images', 'ProjectsController@removeImage')->name(getRouteName($module_name, 'images_destroy'));
+//        Route::put('{project}/images', 'ProjectsController@removeImage')->name(getRouteName($module_name, 'images_destroy'));
         Route::post('mass-actions', 'ProjectsController@massActions')->name(getRouteName($module_name, 'mass_actions'));
 
         /* Projects categories */
@@ -101,7 +101,7 @@ Route::group([
             Route::get('/create', 'ProjectCategoriesController@create')->name(getRouteName($module_name, 'create'));
             Route::post('mass-actions', 'ProjectCategoriesController@massActions')->name(getRouteName($module_name, 'mass_actions'));
             Route::put('{projectCategory}/images/add', 'ProjectCategoriesController@addImage')->name(getRouteName($module_name, 'images_add'));
-            Route::put('{projectCategory}/images', 'ProjectCategoriesController@removeImage')->name(getRouteName($module_name, 'images_destroy'));
+//            Route::put('{projectCategory}/images', 'ProjectCategoriesController@removeImage')->name(getRouteName($module_name, 'images_destroy'));
         });
     });
 
@@ -135,7 +135,9 @@ Route::group([
 
     /* Users */
     Route::group(['prefix' => 'users'], function () {
-        $module_name = 'users';
+
+        $module_name = User::getModuleName();
+
         Route::get('/', 'UsersController@index')->name(getRouteName($module_name, 'index'));
         Route::get('{user}/edit', 'UsersController@edit')->name(getRouteName($module_name, 'edit'));
         Route::put('{user}/reset-password', 'UsersController@resetPassword')->name(getRouteName($module_name, 'reset_password'));

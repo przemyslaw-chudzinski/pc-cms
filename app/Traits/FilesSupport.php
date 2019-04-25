@@ -36,6 +36,7 @@ trait FilesSupport {
                 $f->save();
             }
             $result['_id'] = time();
+            $result['selected'] = false;
             $result['mime_type'] = $f->getOriginalFile()->getMimeType();
             $result['size'] = $f->getOriginalFile()->getSize();
             $result['file_name'] = $f->getOriginalFile()->getClientOriginalName();

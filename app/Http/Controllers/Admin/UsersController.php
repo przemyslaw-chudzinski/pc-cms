@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Core\Contracts\Repositories\UserRepository;
 use App\Http\Requests\User\ResetPasswordRequest;
 use App\Http\Requests\User\UserRequest;
 use App\Role;
@@ -10,14 +11,23 @@ use Illuminate\Support\Facades\Auth;
 
 class UsersController extends BaseController
 {
-    public function __construct()
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
+    public function __construct(UserRepository $userRepository)
     {
+        $this->userRepository = $userRepository;
         $this->middleware('inhibitIfAuth')->only(['edit', 'update']);
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
-        $users = User::getModelDataWithPagination(false, ['role'], [(int) Auth::id()]);
+        $users = $this->userRepository->all(10, ['role'], [(int) Auth::id()]);
         return $this->loadView('users.index', ['users' => $users]);
     }
 

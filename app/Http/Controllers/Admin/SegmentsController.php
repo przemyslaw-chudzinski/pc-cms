@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Core\Contracts\Repositories\SegmentRepository;
 use App\Http\Requests\RemoveImageRequest;
 use App\Http\Requests\Segment\SegmentRequest;
+use App\Http\Requests\UpdateImageAjaxRequest;
 use App\Http\Requests\UploadImagesRequest;
 use App\Segment;
 use Illuminate\Support\Facades\Auth;
@@ -136,5 +137,51 @@ class SegmentsController extends BaseController
             'type' => 'success',
             'message' => 'Image has been deleted successfully'
         ]);
+    }
+
+    /**
+     * @param UpdateImageAjaxRequest $request
+     * @param Segment $segment
+     * @return array|\Illuminate\Http\JsonResponse
+     */
+    public function selectImageAjax(UpdateImageAjaxRequest $request, Segment $segment)
+    {
+        $validator = $request->getValidatorInstance();
+
+        if ($validator->fails()) return response()->json([
+            'message' => $validator->errors()->first(),
+            'type' => 'error'
+        ], 422);
+
+        $this->segmentRepository->markImageAsSelected($segment, $request->getImageID());
+
+        return [
+            'message' => 'Image has been selected',
+            'type' => 'success',
+            'imageID' => (int) $request->getImageID()
+        ];
+    }
+
+    /**
+     * @param UpdateImageAjaxRequest $request
+     * @param Segment $segment
+     * @return array|\Illuminate\Http\JsonResponse
+     */
+    public function removeImageAjax(UpdateImageAjaxRequest $request, Segment $segment)
+    {
+        $validator = $request->getValidatorInstance();
+
+        if ($validator->fails()) return response()->json([
+            'message' => $validator->errors()->first(),
+            'type' => 'error'
+        ], 422);
+
+        $this->segmentRepository->removeImages($segment, $request->getImageID());
+
+        return [
+            'message' => 'Image has been removed',
+            'type' => 'success',
+            'imageID' => (int) $request->getImageID()
+        ];
     }
 }

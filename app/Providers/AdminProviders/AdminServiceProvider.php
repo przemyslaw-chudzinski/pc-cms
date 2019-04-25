@@ -15,6 +15,7 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use App\Core\Modules\User as UserModule;
 
 class AdminServiceProvider extends ServiceProvider
 {
@@ -67,6 +68,10 @@ class AdminServiceProvider extends ServiceProvider
 
         $this->app->bind('admin.project_categories', function () {
             return new ProjectCategory('project_categories');
+        });
+
+        $this->app->bind('admin.user', function () {
+            return new UserModule('user');
         });
 
         $this->loadHelpers();

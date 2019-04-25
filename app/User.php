@@ -2,17 +2,18 @@
 
 namespace App;
 
+use App\Core\Contracts\Models\WithSort;
 use App\Traits\HasMassActions;
-use App\Traits\ModelTrait;
+use App\Traits\Models\Sortable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class User extends Authenticatable
+class User extends Authenticatable implements WithSort
 {
-    use Notifiable, ModelTrait, HasMassActions;
+    use Notifiable, HasMassActions, Sortable;
 
     /**
      * The attributes that are mass assignable.
@@ -30,7 +31,7 @@ class User extends Authenticatable
         'USER_AGENT'
     ];
 
-    protected static $sortable = [
+    protected $sortable = [
         'first_name',
         'last_name',
         'email',

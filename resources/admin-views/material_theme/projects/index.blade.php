@@ -1,3 +1,8 @@
+@php
+$module_name = Project::getModuleName();
+$count_items = count($projects);
+@endphp
+
 @extends('admin::layout')
 
 @section('module_name')
@@ -6,10 +11,6 @@
 
 @section('content')
 
-    <?php
-        $module_name = 'projects';
-        $count_items = count($projects);
-    ?>
 
     <div class="row">
         <div class="col-xs-12">

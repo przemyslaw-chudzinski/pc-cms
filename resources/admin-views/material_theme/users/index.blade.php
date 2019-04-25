@@ -1,3 +1,9 @@
+@php
+    $module_name = User::getModuleName();
+    $count_items = count($users);
+    $args = ['remove' => []];
+@endphp
+
 @extends('admin::layout')
 
 @section('module_name')
@@ -5,11 +11,6 @@
 @endsection
 
 @section('content')
-
-    <?php
-        $module_name = 'users';
-        $count_items = count($users);
-    ?>
 
     <div class="row">
         <div class="col-xs-12 col-md-12">
@@ -28,25 +29,9 @@
                     </ul>
                 </header>
                 <div class="card-body">
-                    <div>
-                        <div>
-                            <?php
-//                            $args = [
-//                                'delete' => [
-//                                    'button_label' => 'Remove selected items',
-//                                    'button_class' => 'btn-danger',
-//                                ]
-//                            ];
-                                $args = [
-                                    'remove' => []
-                                ];
-                            ?>
-                            {!! MassActions::setHeaderActions($module_name, null, $args) !!}
-                            {{--{!! MassActions::setMassActions($module_name, NULL, $args) !!}--}}
-                        </div>
-                        {{-- Search --}}
-                        <div></div>
-                    </div>
+
+                    {!! MassActions::setHeaderActions($module_name, null, $args) !!}
+
                     <table class="table table-hover pc-cms-table">
                         <thead>
                         <tr>
@@ -87,7 +72,7 @@
                                                 <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu">
-                                                <li><a href="{{ url(config('admin.admin_path') . '/users/' . $user->id . '/edit') }}">Edit</a></li>
+                                                <li><a href="{{ getRouteUrl($module_name, 'edit', ['id' => $user]) }}">Edit</a></li>
                                                 <li>
                                                     {!! Form::open(['method' => 'delete', 'route' => [getRouteName($module_name, 'destroy'), $user->id], 'id' => 'userRemoveForm-' . $user->id]) !!}
                                                     {!! Form::close() !!}

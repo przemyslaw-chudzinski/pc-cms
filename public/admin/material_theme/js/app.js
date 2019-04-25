@@ -32240,6 +32240,8 @@ __webpack_require__(52);
 __webpack_require__(53);
 __webpack_require__(54);
 __webpack_require__(55);
+__webpack_require__(58);
+__webpack_require__(59);
 
 /***/ }),
 /* 42 */
@@ -32998,6 +33000,142 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 57 */,
+/* 58 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_toastr__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_toastr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_toastr__);
+
+
+(function ($) {
+
+    var $selectTriggers = $('[data-image-select]');
+    $selectTriggers.on('click', function (e) {
+        return handleClick(e, $selectTriggers);
+    });
+
+    $selectTriggers.each(function (index, trigger) {
+        return typeof $(trigger).data('image-select-selected') !== "undefined" ? markAsSelected($(trigger)) : null;
+    });
+
+    function handleClick(e, $triggers) {
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        var $target = $(e.target);
+        if (e.target.nodeName !== 'BUTTON') $target = $(e.target.parentNode);
+
+        var url = $target.data('image-select-url');
+        var imageID = $target.data('image-select-id');
+
+        if (!url || !imageID) return;
+
+        $.ajax({
+            'method': 'post',
+            url: url,
+            data: {
+                imageID: imageID
+            },
+            success: function success(response) {
+                return handleAjaxSuccess($target, response, $triggers);
+            },
+            error: function error(err) {
+                return handleAjaxError($target, err);
+            }
+        });
+    }
+
+    function handleAjaxSuccess($target, _ref, $triggers) {
+        var message = _ref.message;
+
+        resetSelection($triggers);
+        markAsSelected($target);
+        __WEBPACK_IMPORTED_MODULE_0_toastr___default.a.success(message, 'Success!');
+    }
+
+    function handleAjaxError($target, _ref2) {
+        var message = _ref2.responseJSON.message,
+            statusCode = _ref2.statusCode;
+
+        if (+statusCode === 422) return __WEBPACK_IMPORTED_MODULE_0_toastr___default.a.error(message, 'Try again');
+        __WEBPACK_IMPORTED_MODULE_0_toastr___default.a.error('Internal Server Error', 'Error!');
+    }
+
+    function resetSelection($triggers) {
+        $triggers.find('i').removeClass('zmdi-star');
+    }
+
+    function markAsSelected($target) {
+        $target.find('i').addClass('zmdi-star');
+    }
+})(jQuery);
+
+/***/ }),
+/* 59 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_toastr__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_toastr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_toastr__);
+
+
+(function ($) {
+
+    var $triggers = $('[data-image-remove]');
+
+    function handleClick(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (!confirm('Are you sure that you want to remove this image?')) return;
+
+        var $target = $(e.target);
+
+        var url = $target.data('image-remove-url');
+        var imageID = +$target.data('image-remove-id');
+
+        if (!url || !imageID) return;
+
+        $.ajax({
+            url: url,
+            method: 'delete',
+            data: { imageID: imageID },
+            success: function success(response) {
+                return handleAjaxSuccess($target, response);
+            },
+            error: function error(err) {
+                return handleAjaxError($target, err);
+            }
+        });
+    }
+
+    $triggers.on('click', function (e) {
+        return handleClick(e);
+    });
+
+    function handleAjaxError($target, _ref) {
+        var message = _ref.responseJSON.message,
+            statusCode = _ref.statusCode;
+
+        if (+statusCode === 422) return __WEBPACK_IMPORTED_MODULE_0_toastr___default.a.error(message, 'Try again');
+        __WEBPACK_IMPORTED_MODULE_0_toastr___default.a.error('Internal Server Error', 'Error!');
+    }
+
+    function handleAjaxSuccess($target, _ref2) {
+        var message = _ref2.message;
+
+        var $imageTarget = $($target.data('image-remove-target'));
+        $imageTarget.remove();
+        __WEBPACK_IMPORTED_MODULE_0_toastr___default.a.success(message, 'Success!');
+    }
+})(jQuery);
 
 /***/ })
 /******/ ]);

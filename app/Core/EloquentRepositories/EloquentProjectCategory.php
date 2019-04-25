@@ -7,6 +7,8 @@ use App\Core\Contracts\Services\FilesService;
 use App\ProjectCategory;
 use App\Repositories\EloquentAbstractRepository;
 use App\Traits\Repositories\CrudSupport;
+use App\Traits\Repositories\HasRemovableFiles;
+use App\Traits\Repositories\HasSelectableFiles;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -15,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class EloquentProjectCategory extends EloquentAbstractRepository implements ProjectCategoryRepository
 {
-    use CrudSupport;
+    use CrudSupport, HasSelectableFiles, HasRemovableFiles;
 
     /**
      * @var FilesService
@@ -59,6 +61,30 @@ class EloquentProjectCategory extends EloquentAbstractRepository implements Proj
         $model->description = array_get($attributes,'description');
         $model->published = array_has($attributes,'saveAndPublish');
         $model->isDirty() ? $model->save() : null;
+        return $model;
+    }
+
+    /**
+     * @param Model $model
+     * @param $imageID
+     * @return Model
+     */
+    public function markImageAsSelected(Model $model, $imageID)
+    {
+        $model->images = $this->markFileAsSelected($model->images, (int) $imageID);
+        $model->save();
+        return $model;
+    }
+
+    /**
+     * @param Model $model
+     * @param $imageID
+     * @return Model
+     */
+    public function removeImages(Model $model, $imageID)
+    {
+        $model->images = $this->removeFile($model->images, $imageID);
+        $model->save();
         return $model;
     }
 }

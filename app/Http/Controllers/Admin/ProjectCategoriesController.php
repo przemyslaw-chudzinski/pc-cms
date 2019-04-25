@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Core\Contracts\Repositories\ProjectCategoryRepository;
 use App\Http\Requests\ProjectCategory\CategoryAjaxRequest;
 use App\Http\Requests\ProjectCategory\CategoryRequest;
+use App\Http\Requests\UpdateImageAjaxRequest;
 use App\ProjectCategory;
 use Illuminate\Support\Facades\Auth;
 use App\Facades\ProjectCategory as ProjectCategoryModule;
@@ -154,6 +155,46 @@ class ProjectCategoriesController extends BaseController
         return [
             'newSlug' => $newSlug,
             'message' => 'Slug has been updated successfully',
+            'type' => 'success'
+        ];
+    }
+
+    /**
+     * @param UpdateImageAjaxRequest $request
+     * @param ProjectCategory $category
+     * @return array|\Illuminate\Http\JsonResponse
+     */
+    public function selectImageAjax(UpdateImageAjaxRequest $request, ProjectCategory $category)
+    {
+        $validator = $request->getValidatorInstance();
+
+        if ($validator->fails()) return response()->json([
+            'message' => $validator->errors()->first(),
+            'type' => 'error'
+        ], 422);
+
+        $this->projectCategoryRepository->markImageAsSelected($category, $request->getImageID());
+
+        return [
+            'message' => 'Image has been selected',
+            'type' => 'success',
+            'imageID' => (int) request()->input('imageID')
+        ];
+    }
+
+    public function removeImageAjax(UpdateImageAjaxRequest $request, ProjectCategory $category)
+    {
+        $validator = $request->getValidatorInstance();
+
+        if ($validator->fails()) return response()->json([
+            'message' => $validator->errors()->first(),
+            'type' => 'error'
+        ], 422);
+
+        $this->projectCategoryRepository->removeImages($category, $request->getImageID());
+
+        return [
+            'message' => 'Image has been deleted successfully',
             'type' => 'success'
         ];
     }
