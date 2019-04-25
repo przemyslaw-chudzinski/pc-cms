@@ -38,7 +38,6 @@ if (token) {
 }
 
 require('toastr/toastr.scss');
-//
 require('./libs/jquery.domenu-0.100.77');
 
 /**
