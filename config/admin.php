@@ -275,7 +275,7 @@ return [
                     'route_name' => 'admin.settings.destroy'
                 ]
             ],
-
+            // TODO: Move level up
             'defaults' => [
                 [
                     'key' => 'site_title',

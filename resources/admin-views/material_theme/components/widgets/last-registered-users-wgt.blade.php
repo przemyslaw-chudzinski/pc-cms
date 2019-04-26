@@ -1,3 +1,6 @@
+@php
+$module_name = User::getModuleName();
+@endphp
 <div class="col-lg-4">
     <div class="card ">
         <header class="card-heading app_primary_bg">
@@ -7,7 +10,7 @@
             <ul class="list-group ">
                 @if (count($users) > 0)
                     @foreach($users as $user)
-                        <a href="{{ route(getRouteName('users', 'edit'),['user' => $user->id]) }}">
+                        <a href="{{ route(getRouteName($module_name, 'edit'), ['user' => $user->id]) }}">
                             <li class="list-group-item">
 {{--                                <span class="pull-left"><img src="{{ asset('admin/material_theme/dist/img/profiles/07.jpg') }}" alt="" class="img-circle max-w-40 m-r-10 "></span>--}}
                                 <div class="list-group-item-body">
@@ -23,12 +26,12 @@
         <div class="card-footer border-top">
             <ul class="more">
                 <li>
-                    <a href="{{ route(getRouteName('users', 'index')) }}">View More</a>
+                    <a href="{{ route(getRouteName($module_name, 'index')) }}">View More</a>
                 </li>
             </ul>
             <ul class="card-actions icons right">
                 <li>
-                    {!! Form::open(['method' => 'get', 'route' => getRouteName('users', 'create'), 'id' => 'newUserWgtRedForm']) !!}{!! Form::close() !!}
+                    {!! Form::open(['method' => 'get', 'route' => getRouteName($module_name, 'create'), 'id' => 'newUserWgtRedForm']) !!}{!! Form::close() !!}
                     <button class="btn btn-primary btn-fab"><i class="zmdi zmdi-account-add pc-cms-send-form" data-form="#newUserWgtRedForm"></i></button>
                 </li>
             </ul>

@@ -71,7 +71,7 @@ class AdminServiceProvider extends ServiceProvider
         });
 
         $this->app->bind('admin.user', function () {
-            return new UserModule('user');
+            return new UserModule('users');
         });
 
         $this->loadHelpers();
