@@ -2,30 +2,32 @@
 
 namespace App;
 
-use App\Core\Contracts\Models\WithFiles;
+use App\Core\Contracts\Models\WithSort;
+use App\Core\Contracts\WithFiles;
 use App\Traits\HasMassActions;
+use App\Traits\Models\HasImages;
+use App\Traits\Models\Sortable;
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\ModelTrait;
-use App\Traits\HasFiles;
 
-class Article extends Model implements WithFiles
+
+class Article extends Model implements WithSort, WithFiles
 {
 
-    use ModelTrait, HasFiles, HasMassActions;
+    use HasMassActions, Sortable, HasImages;
 
     protected $fillable = [
         'title',
         'slug',
         'content',
         'published',
-        'thumbnail',
+        'images',
         'allow_comments',
         'meta_title',
         'meta_description',
         'allow_indexed'
     ];
 
-    protected static $sortable = [
+    protected $sortable = [
         'title',
         'published',
         'allow_comments',

@@ -22,6 +22,8 @@ Route::group(['prefix' => 'articles'], function () {
     Route::post('categories/{category}/togglePublished', 'BlogCategoriesController@togglePublishedAjax');
     Route::post('{article}/update-slug', 'BlogController@updateSlugAjax')->name('ajax.articles.updateSlug');
     Route::post('categories/{category}/update-slug', 'BlogCategoriesController@updateSlugAjax')->name('ajax.articles.categories.updateSlug');
+    Route::delete('{project}/remove-image', 'BlogController@removeImageAjax')->name('ajax.articles.removeImage');
+    Route::post('{project}/select-image', 'BlogController@selectImageAjax')->name('ajax.articles.selectImage');
 });
 
 /* Pages ajax routes */

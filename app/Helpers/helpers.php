@@ -1,6 +1,8 @@
 <?php
 
 
+use Illuminate\Support\Facades\Route;
+
 if (!function_exists('setActiveClass')) {
     /**
      * @param array $routeNames
@@ -25,14 +27,14 @@ if (!function_exists('setActiveClassByActions')) {
      * @param string $activeClassName
      * @return null|string
      */
-    function setActiveClassByActions(array $actionsArr, $activeClassName = 'active')
+    function setActiveClassByActions(array $actionsArr = [], $activeClassName = 'active')
     {
         $currentRouteName = Route::currentRouteName();
         if (count($actionsArr) > 0) {
             foreach ($actionsArr as $actions) {
                 if (count($actions) > 0) {
                     foreach ($actions as $action) {
-                        if ($action['route_name'] === $currentRouteName) return $activeClassName;
+                        if (isset($action['route_name']) && $action['route_name'] === $currentRouteName) return $activeClassName;
                     }
                 }
             }
@@ -149,5 +151,16 @@ if(!function_exists('adminAssets'))
     {
         $currentTheme = config('admin.admin_theme');
         return asset('admin/'.$currentTheme.'/' . $path, $secure);
+    }
+}
+
+if(!function_exists('getBackendPath'))
+{
+    /**
+     * @return string
+     */
+    function getBackendPath()
+    {
+        return config('admin.admin_path');
     }
 }

@@ -10,8 +10,12 @@ use App\Http\Requests\UpdateImageAjaxRequest;
 use App\Http\Requests\UploadImagesRequest;
 use App\Project;
 use App\ProjectCategory;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use App\Facades\Project as ProjectFasade;
+use Illuminate\View\View;
 
 /**
  * Class ProjectsController
@@ -30,16 +34,16 @@ class ProjectsController extends BaseController
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
-        $projects = $this->projectRepository->all();
+        $projects = $this->projectRepository->list();
         return $this->loadView('projects.index', ['projects' => $projects]);
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create()
     {
@@ -49,7 +53,7 @@ class ProjectsController extends BaseController
 
     /**
      * @param Project $project
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function edit(Project $project)
     {
@@ -59,7 +63,7 @@ class ProjectsController extends BaseController
 
     /**
      * @param ProjectRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(ProjectRequest $request)
     {
@@ -73,7 +77,7 @@ class ProjectsController extends BaseController
     /**
      * @param ProjectRequest $request
      * @param Project $project
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update(ProjectRequest $request, Project $project)
     {
@@ -86,7 +90,7 @@ class ProjectsController extends BaseController
 
     /**
      * @param Project $project
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function destroy(Project $project)
     {
@@ -100,7 +104,7 @@ class ProjectsController extends BaseController
 
     /**
      * @param Project $project
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function images(Project $project)
     {
@@ -110,7 +114,7 @@ class ProjectsController extends BaseController
     /**
      * @param RemoveImageRequest $request
      * @param Project $project
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function removeImage(RemoveImageRequest $request, Project $project)
     {
@@ -125,7 +129,7 @@ class ProjectsController extends BaseController
     /**
      * @param UploadImagesRequest $request
      * @param Project $project
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function addImage(UploadImagesRequest $request, Project $project)
     {
@@ -138,7 +142,7 @@ class ProjectsController extends BaseController
     }
 
     /**
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function massActions()
     {
@@ -147,7 +151,7 @@ class ProjectsController extends BaseController
 
     /**
      * @param Project $project
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function togglePublishedAjax(Project $project)
     {
@@ -210,7 +214,7 @@ class ProjectsController extends BaseController
     /**
      * @param UpdateImageAjaxRequest $request
      * @param Project $project
-     * @return array|\Illuminate\Http\JsonResponse
+     * @return array|JsonResponse
      */
     public function removeImageAjax(UpdateImageAjaxRequest $request, Project $project)
     {

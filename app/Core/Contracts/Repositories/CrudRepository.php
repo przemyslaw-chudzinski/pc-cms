@@ -8,7 +8,9 @@ interface CrudRepository
 {
     function update(Model $model, array $attributes = []);
 
-    function all($number = 10, array $with = [], array $excluded_ids = []);
+    function list($number = 10, array $with = [], array $excluded_ids = []);
+
+    function all(array $iwth = [], array $excluded_ids = []);
 
     function getByAuthorID($authorID);
 

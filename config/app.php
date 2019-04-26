@@ -243,6 +243,8 @@ return [
         'ProjectCategory' => App\Facades\ProjectCategory::class,
         'User' => App\Facades\User::class,
         'Role' => App\Facades\Role::class,
+        'Blog' => App\Facades\Blog::class,
+        'BlogCategory' => App\Facades\BlogCategory::class,
     ],
 
 ];

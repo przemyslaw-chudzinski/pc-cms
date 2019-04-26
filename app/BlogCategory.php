@@ -2,16 +2,16 @@
 
 namespace App;
 
-use App\Core\Contracts\Models\WithFiles;
+use App\Core\Contracts\Models\WithSort;
+use App\Core\Contracts\WithFiles;
 use App\Traits\HasMassActions;
+use App\Traits\Models\Sortable;
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\ModelTrait;
-use App\Traits\HasFiles;
 
-class BlogCategory extends Model implements WithFiles
+class BlogCategory extends Model implements WithFiles, WithSort
 {
 
-    use ModelTrait, HasFiles, HasMassActions;
+    use HasMassActions, Sortable;
 
     protected $fillable = [
         'name',
@@ -22,7 +22,7 @@ class BlogCategory extends Model implements WithFiles
         'parent_id'
     ];
 
-    protected static $sortable = [
+    protected $sortable = [
         'name',
         'published',
         'created_at',

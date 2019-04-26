@@ -17,7 +17,7 @@ trait CrudSupport
      * @param array $excluded_ids
      * @return mixed
      */
-    public function all($number = 10, array $with = [], array $excluded_ids = [])
+    public function list($number = 10, array $with = [], array $excluded_ids = [])
     {
         if ($number === false || $number === NULL ) $number = 10;
 
@@ -40,6 +40,34 @@ trait CrudSupport
         return $this->model->when($order_by, function($query) use ($order_by, $sort) {
             return $query->orderBy($order_by, $sort);
         })->paginate($number);
+    }
+
+    /**
+     * @param array $with
+     * @param array $excluded_ids
+     * @return mixed
+     */
+    public function all(array $with = [], array $excluded_ids = [])
+    {
+        $order_by = request()->query('order_by');
+        $sort = request()->query('sort');
+
+        if (!$this->validateOrderByField($order_by)) {
+            $order_by = $this->model->getSortable()[0];
+            $sort = 'asc';
+        }
+
+        if (count($with) > 0) {
+            return $this->model->with($with)->when($order_by, function($query) use ($order_by, $sort) {
+                return $query->orderBy($order_by, $sort);
+            })->when(count($excluded_ids) > 0, function ($query) use ($excluded_ids) {
+                return $query->whereNotIn('id', $excluded_ids);
+            })->get();
+        }
+
+        return $this->model->when($order_by, function($query) use ($order_by, $sort) {
+            return $query->orderBy($order_by, $sort);
+        })->get();
     }
 
     /**
@@ -131,6 +159,7 @@ trait CrudSupport
      * @param string $colName
      * @return bool|null
      */
+    // TODO: check;
     public function pushImage(Model $model, array $attributes = [], $colName = 'images')
     {
         $sentFiles = array_has($attributes, 'images') ? array_get($attributes, 'images') : null;
@@ -156,6 +185,7 @@ trait CrudSupport
      * @param string $colName
      * @return bool|null
      */
+    // TODO: check
     public function removeImage(Model $model, array $attributes = [], $colName = 'images')
     {
         $imageID = array_has($attributes, 'imageID') ? (int) array_get($attributes, 'imageID') : null;

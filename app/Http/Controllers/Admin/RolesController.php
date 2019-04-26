@@ -29,7 +29,7 @@ class RolesController extends BaseController
      */
     public function index()
     {
-        $roles = $this->roleRepository->all();
+        $roles = $this->roleRepository->list();
         return $this->loadView('roles.index', ['roles' => $roles]);
     }
 

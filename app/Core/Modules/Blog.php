@@ -6,10 +6,17 @@ namespace App\Core\Modules;
 
 use App\Core\Contracts\AsModule;
 
-class Article implements AsModule
+class Blog implements AsModule
 {
+    private $moduleName;
+
+    public function __construct($moduleName)
+    {
+        $this->moduleName = $moduleName;
+    }
+
     public function getModuleName(): string
     {
-        return ''
+        return $this->moduleName;
     }
 }

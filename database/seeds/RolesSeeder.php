@@ -18,7 +18,7 @@ class RolesSeeder extends Seeder
             $permissions_admin[$name] = [];
             foreach ($module['actions'] as $action) {
                 $permissions_admin[$name]['permissions'][] = [
-                    'route' => $action['route_name'],
+                    'route' => isset($action['route_name']) ? $action['route_name'] : [],
                     'allow' => true
                 ];
             }
@@ -35,7 +35,7 @@ class RolesSeeder extends Seeder
             $permissions_user[$name] = [];
             foreach ($module['actions'] as $action) {
                 $permissions_user[$name]['permissions'][] = [
-                    'route' => $action['route_name'],
+                    'route' => isset($action['route_name']) ? $action['route_name'] : [],
                     'allow' => false
                 ];
             }

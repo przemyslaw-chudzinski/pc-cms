@@ -3,26 +3,50 @@
 namespace App\Http\Controllers\Admin;
 
 use App\BlogCategory;
+use App\Core\Contracts\Repositories\BlogCategoryRepository;
 use App\Http\Requests\Blog\CategoryAjaxRequest;
 use App\Http\Requests\Blog\CategoryRequest;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class BlogCategoriesController extends BaseController
 {
+    /**
+     * @var BlogCategoryRepository
+     */
+    private $blogCategoryRepository;
+
+    public function __construct(BlogCategoryRepository $blogCategoryRepository)
+    {
+        $this->blogCategoryRepository = $blogCategoryRepository;
+    }
+
+    /**
+     * @return Factory|View
+     */
     public function index()
     {
-        $categories = BlogCategory::getModelDataWithPagination();
+        $categories = $this->blogCategoryRepository->list();
         return $this->loadView('blogCategories.index', ['categories' => $categories]);
     }
 
+    /**
+     * @return Factory|View
+     */
     public function create()
     {
-        $categories = BlogCategory::get();
+        $categories = $this->blogCategoryRepository->all();
         return $this->loadView('blogCategories.create', ['categories' => $categories]);
     }
 
+    /**
+     * @param BlogCategory $blogCategory
+     * @return Factory|View
+     */
     public function edit(BlogCategory $blogCategory)
     {
-        $categories = BlogCategory::get();
+        $categories = $this->blogCategoryRepository->all();
         return $this->loadView('blogCategories.edit', ['category' => $blogCategory, 'categories' => $categories]);
     }
 
@@ -44,15 +68,23 @@ class BlogCategoriesController extends BaseController
         ]);
     }
 
+    /**
+     * @param BlogCategory $blogCategory
+     * @return RedirectResponse
+     */
     public function destroy(BlogCategory $blogCategory)
     {
-        $blogCategory->delete();
+        $this->blogCategoryRepository->delete($blogCategory);
+
         return back()->with('alert', [
             'type' => 'success',
             'message' => 'Category has been deleted successfully'
         ]);
     }
 
+    /**
+     * @return RedirectResponse
+     */
     public function massActions()
     {
         return BlogCategory::massActions();

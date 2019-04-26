@@ -49,18 +49,24 @@ Route::group([
 
     /* Blog */
     Route::group(['prefix' => 'articles'], function () {
-        $module_name = 'blog';
+
+        $module_name = Blog::getModuleName();
+
         Route::get('/', 'BlogController@index')->name(getRouteName($module_name, 'index'));
         Route::get('/create', 'BlogController@create')->name(getRouteName($module_name, 'create'));
+        Route::get('{article}/images', 'BlogController@images')->name(getRouteName($module_name, 'images'));
         Route::get('{article}/edit', 'BlogController@edit')->name(getRouteName($module_name, 'edit'));
         Route::post('/', 'BlogController@store')->name(getRouteName($module_name, 'store'));
         Route::put('{article}', 'BlogController@update')->name(getRouteName($module_name, 'update'));
         Route::delete('{article}', 'BlogController@destroy')->name(getRouteName($module_name, 'destroy'));
         Route::post('mass-actions', 'BlogController@massActions')->name(getRouteName($module_name, 'mass_actions'));
+        Route::put('{project}/images/add', 'BlogController@addImage')->name(getRouteName($module_name, 'images_add'));
 
         /* Blog Categories */
         Route::group(['prefix' => 'categories'], function () {
+
             $module_name = 'blog_categories';
+
             Route::get('/', 'BlogCategoriesController@index')->name(getRouteName($module_name, 'index'));
             Route::get('/create', 'BlogCategoriesController@create')->name(getRouteName($module_name, 'create'));
             Route::get('{blogCategory}/edit', 'BlogCategoriesController@edit')->name(getRouteName($module_name, 'edit'));

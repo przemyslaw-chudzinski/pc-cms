@@ -28,7 +28,7 @@ class SegmentsController extends BaseController
      */
     public function index()
     {
-        $segments = $this->segmentRepository->all();
+        $segments = $this->segmentRepository->list();
         return $this->loadView('segments.index', ['segments' => $segments]);
     }
 

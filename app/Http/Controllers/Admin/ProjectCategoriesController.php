@@ -27,7 +27,7 @@ class ProjectCategoriesController extends BaseController
      */
     public function index()
     {
-        $categories = $this->projectCategoryRepository->all();
+        $categories = $this->projectCategoryRepository->list();
         return $this->loadView('projectCategories.index', ['categories' => $categories]);
     }
 

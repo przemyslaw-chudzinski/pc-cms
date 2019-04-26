@@ -1,3 +1,13 @@
+@php
+    $module_name = Blog::getModuleName();
+    $count_items = count($articles);
+    $args = [
+        'remove' => [],
+        'change_status' => [],
+        'change_comments_status' => []
+    ];
+@endphp
+
 @extends('admin::layout')
 
 @section('module_name')
@@ -5,12 +15,6 @@
 @endsection
 
 @section('content')
-
-    <?php
-        $module_name = 'blog';
-        $count_items = count($articles);
-    ?>
-
 
     <div class="row">
         <div class="col-xs-12">
@@ -23,52 +27,15 @@
                                 <i class="zmdi zmdi-more-vert"></i>
                             </a>
                             <ul class="dropdown-menu btn-primary dropdown-menu-right">
-                                <li><a href="{{ route(getRouteName('blog', 'create')) }}">Create new</a></li>
+                                <li><a href="{{ route(getRouteName($module_name, 'create')) }}">Create new</a></li>
                             </ul>
                         </li>
                     </ul>
                 </header>
                 <div class="card-body">
-                    <div>
-                        <div>
-                            <?php
-//                            $args = [
-//                                'delete' => [
-//                                    'button_label' => 'Remove selected items',
-//                                    'button_class' => 'btn-danger',
-//                                ],
-//                                'change_status_on_true' => [
-//                                    'button_label' => 'Set on published',
-//                                    'button_class' => 'btn-primary'
-//                                ],
-//                                'change_status_on_false' => [
-//                                    'button_label' => 'Set on draft',
-//                                    'button_class' => 'btn-primary'
-//                                ],
-//                                'change_comment_status_true' => [
-//                                    'button_label' => 'Enable comments',
-//                                    'button_class' => 'btn-primary'
-//                                ],
-//                                'change_comment_status_false' => [
-//                                    'button_label' => 'Disable comments',
-//                                    'button_class' => 'btn-primary'
-//                                ],
 
-//                            ];
-                            $args = [
-                                'remove' => [],
+                    {!! MassActions::setHeaderActions($module_name, null, $args) !!}
 
-                                'change_status' => [],
-
-                                'change_comments_status' => []
-                            ];
-                            ?>
-                            {!! MassActions::setHeaderActions($module_name, null, $args) !!}
-{{--                            {!! MassActions::setMassActions($module_name, NULL, $args) !!}--}}
-                        </div>
-                        {{-- Search --}}
-                        <div></div>
-                    </div>
                     <table class="table table-hover pc-cms-table">
                         <thead>
                         <tr>
@@ -110,7 +77,8 @@
                                                 <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu">
-                                                <li><a href="{{ url(route(getRouteName('blog', 'edit'), $article->id)) }}">Edit</a></li>
+                                                <li><a href="{{ getRouteUrl($module_name, 'edit', ['id' => $article->id]) }}">Edit</a></li>
+                                                <li><a href="{{ getRouteUrl($module_name, 'images', ['id' => $article->id]) }}">Images</a></li>
                                                 <li>
                                                     {!! Form::open([
                                                         'method' => 'delete',
