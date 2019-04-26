@@ -29,10 +29,18 @@ class PermissionRequest extends FormRequest
         ];
     }
 
-    public function updatePermissions(Role $role)
+//    public function updatePermissions(Role $role)
+//    {
+//        $role->permissions = $this->input('permissions');
+//        $role->isDirty() ? $role->save() : null;
+//        return $role;
+//    }
+
+    /**
+     * @return array|string
+     */
+    public function getPayload()
     {
-        $role->permissions = $this->input('permissions');
-        $role->isDirty() ? $role->save() : null;
-        return $role;
+        return $this->input('permissions');
     }
 }

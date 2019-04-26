@@ -242,6 +242,7 @@ return [
         'Project' => App\Facades\Project::class,
         'ProjectCategory' => App\Facades\ProjectCategory::class,
         'User' => App\Facades\User::class,
+        'Role' => App\Facades\Role::class,
     ],
 
 ];

@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Role;
 
-use App\Role;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RoleRequest extends FormRequest
@@ -30,25 +29,18 @@ class RoleRequest extends FormRequest
         ];
     }
 
-    public function storeRole()
+    /**
+     * @return array
+     */
+    public function getPayload()
     {
         $name = $this->input('name');
         $displayName = $this->input('display_name');
-        Role::create([
+
+        return  [
             'name' => $name,
             'display_name' => isset($displayName) ? ucfirst($displayName) : ucfirst($name),
             'description' => $this->input('description')
-        ]);
-    }
-
-    public function updateRole(Role $role)
-    {
-        $name = $this->input('name');
-        $displayName = $this->input('display_name');
-        $role->name = $name;
-        $role->display_name = isset($displayName) ? ucfirst($displayName) : ucfirst($name);
-        $role->description = $this->input('description');
-        $role->isDirty() ? $role->save() : null;
-        return $role;
+        ];
     }
 }

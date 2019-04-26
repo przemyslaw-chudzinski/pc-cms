@@ -2,14 +2,15 @@
 
 namespace App;
 
+use App\Core\Contracts\Models\WithSort;
 use App\Traits\HasMassActions;
-use App\Traits\ModelTrait;
+use App\Traits\Models\Sortable;
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class Role extends Model implements WithSort
 {
 
-    use ModelTrait, HasMassActions;
+    use HasMassActions, Sortable;
 
     protected $fillable = [
         'name',
@@ -19,7 +20,7 @@ class Role extends Model
         'allow_remove'
     ];
 
-    protected static $sortable = [
+    protected $sortable = [
         'name',
         'created_at',
         'updated_at'
