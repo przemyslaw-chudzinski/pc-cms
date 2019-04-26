@@ -8,9 +8,9 @@ use App\Core\MassActions;
 use App\Core\Menu;
 use App\Core\Modules\ProjectCategory;
 use App\Core\Modules\Project;
+use App\Core\Modules\Role;
 use App\Core\Modules\Segment;
 use App\Core\Setting;
-use App\Role;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -72,6 +72,10 @@ class AdminServiceProvider extends ServiceProvider
 
         $this->app->bind('admin.user', function () {
             return new UserModule('users');
+        });
+
+        $this->app->bind('admin.role', function () {
+            return new Role('roles');
         });
 
         $this->loadHelpers();
