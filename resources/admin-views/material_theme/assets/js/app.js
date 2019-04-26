@@ -13,4 +13,7 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+// Global object for CMS
+window.PCCMS = {};
+
 require('./scripts');

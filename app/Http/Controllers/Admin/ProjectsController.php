@@ -6,10 +6,10 @@ use App\Core\Contracts\Repositories\ProjectRepository;
 use App\Http\Requests\Project\ProjectAjaxRequest;
 use App\Http\Requests\Project\ProjectRequest;
 use App\Http\Requests\RemoveImageRequest;
+use App\Http\Requests\UpdateImageAjaxRequest;
 use App\Http\Requests\UploadImagesRequest;
 use App\Project;
 use App\ProjectCategory;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Facades\Project as ProjectFasade;
 
@@ -137,6 +137,9 @@ class ProjectsController extends BaseController
         ]);
     }
 
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function massActions()
     {
         return Project::massActions();
@@ -178,6 +181,52 @@ class ProjectsController extends BaseController
             'newSlug' => $newSlug,
             'message' => 'Slug has been updated successfully',
             'type' => 'success'
+        ];
+    }
+
+    /**
+     * @param UpdateImageAjaxRequest $request
+     * @param Project $project
+     * @return array
+     */
+    public function selectImageAjax(UpdateImageAjaxRequest $request, Project $project)
+    {
+        $validator = $request->getValidatorInstance();
+
+        if ($validator->fails()) return response()->json([
+            'message' => $validator->errors()->first(),
+            'type' => 'error'
+        ], 422);
+
+        $this->projectRepository->markImageAsSelected($project, $request->getImageID());
+
+        return [
+            'message' => 'Image has been selected',
+            'type' => 'success',
+            'imageID' => (int) $request->getImageID()
+        ];
+    }
+
+    /**
+     * @param UpdateImageAjaxRequest $request
+     * @param Project $project
+     * @return array|\Illuminate\Http\JsonResponse
+     */
+    public function removeImageAjax(UpdateImageAjaxRequest $request, Project $project)
+    {
+        $validator = $request->getValidatorInstance();
+
+        if ($validator->fails()) return response()->json([
+            'message' => $validator->errors()->first(),
+            'type' => 'error'
+        ], 422);
+
+        $this->projectRepository->removeImages($project, $request->getImageID());
+
+        return [
+            'message' => 'Image has been removed successfully',
+            'type' => 'success',
+            'imageID' => (int) $request->getImageID()
         ];
     }
 }

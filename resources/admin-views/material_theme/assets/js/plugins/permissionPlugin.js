@@ -32,7 +32,7 @@
         }
         $permissionsInput.val(JSON.stringify(permissions));
     }
-    
+
     function setInitialValues() {
         $permissionCheckbox.each((index, checkbox) => {
             const $checkbox = $(checkbox);

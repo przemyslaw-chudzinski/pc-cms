@@ -36,4 +36,14 @@ Route::group(['prefix' => 'projects'], function () {
     Route::post('categories/{category}/togglePublished', 'ProjectCategoriesController@togglePublishedAjax'); // potrzebna autoryzacja
     Route::post('{project}/update-slug', 'ProjectsController@updateSlugAjax')->name('ajax.projects.updateSlug');
     Route::post('categories/{category}/update-slug', 'ProjectCategoriesController@updateSlugAjax')->name('ajax.projects.categories.updateSlug');
+    Route::post('categories/{category}/select-image', 'ProjectCategoriesController@selectImageAjax')->name('ajax.projects.categories.selectImage');
+    Route::delete('category/{category}/remove-image', 'ProjectCategoriesController@removeImageAjax')->name('ajax.projects.categories.removeImage');
+    Route::delete('{project}/remove-image', 'ProjectsController@removeImageAjax')->name('ajax.projects.removeImage');
+    Route::post('{project}/select-image', 'ProjectsController@selectImageAjax')->name('ajax.projects.selectImage');
+});
+
+/* Segments ajax routes */
+Route::group(['prefix' => 'segments'], function () {
+    Route::post('{segment}/select-image', 'SegmentsController@selectImageAjax')->name('ajax.segments.selectImage');
+    Route::delete('{segment}/remove-image', 'SegmentsController@removeImageAjax')->name('ajax.segments.removeImage');
 });

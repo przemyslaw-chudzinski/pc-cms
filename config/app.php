@@ -241,6 +241,7 @@ return [
         'Menu' => App\Facades\Menu::class,
         'Project' => App\Facades\Project::class,
         'ProjectCategory' => App\Facades\ProjectCategory::class,
+        'User' => App\Facades\User::class,
     ],
 
 ];

@@ -1,13 +1,14 @@
 <?php
 
+
 namespace App\Core\Contracts\Repositories;
 
 
 use Illuminate\Database\Eloquent\Model;
 
-interface SegmentRepository extends CrudRepository
+interface ImageRepositorySupport
 {
     public function markImageAsSelected(Model $model, $imageID);
 
-    public function removeImages(Model $model, $imageID);
+    public function removeImage(Model $model, $imageID);
 }

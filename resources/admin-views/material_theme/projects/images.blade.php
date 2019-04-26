@@ -30,28 +30,11 @@
                     @if ($project->images)
                         <div class="row">
                             @foreach($project->images as $image)
-                                {!! Form::open([
-                                            'id' => 'remove-image-form-' .$project->id,
-                                            'method' => 'put',
-                                            'route' => [getRouteName($module_name, 'images_destroy'), $project->id]
-                                        ]) !!}
-                                {!! Form::hidden('imageID', $image->_id) !!}
-                                {!! Form::close() !!}
-                                <div class="col-xs-4 m-b-10">
-                                    <div class="card image-over-card m-t-30">
-                                        <div class="card-image">
-                                            <a href="javascript:void(0)">
-                                                <img src="{{ $image->sizes->admin_prev_medium->url }}" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="text-center">
-                                                <a href="javascript:void(0)" class="btn btn-danger btn-xs pc-cms-send-form" data-form="#remove-image-form-{{ $project->id }}">Remove</a>
-                                            </div>
-                                            <h4 class="card-title text-center">{{ $image->file_name }}</h4>
-                                        </div>
-                                    </div>
-                                </div>
+                                @include('admin::components.image', [
+                               'image' => $image,
+                               'removeRoute' => route('ajax.projects.removeImage', $project->id),
+                               'selectRoute' => route('ajax.projects.selectImage', $project->id),
+                               ])
                             @endforeach
                         </div>
                     @endif

@@ -10,3 +10,5 @@ require('./plugins/dataTablePlugin');
 require('./plugins/preloaderPlugin');
 require('./plugins/tinymcePlugin');
 require('./plugins/slugFieldPlugin');
+require('./plugins/markImageSelectedPlugin');
+require('./plugins/removeImageAjaxPlugin');
