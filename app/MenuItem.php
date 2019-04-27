@@ -2,15 +2,10 @@
 
 namespace App;
 
-use App\Core\Contracts\Models\WithFiles;
-use App\Traits\HasFiles;
-use App\Traits\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class MenuItem extends Model implements WithFiles
+class MenuItem extends Model
 {
-    use ModelTrait, HasFiles;
-
     protected $fillable = [
         'menu_id',
         'title',
@@ -21,7 +16,6 @@ class MenuItem extends Model implements WithFiles
         'image'
     ];
 
-
     public function children()
     {
         return $this->hasMany(MenuItem::class, 'parent_id')->with('children');
@@ -30,10 +24,5 @@ class MenuItem extends Model implements WithFiles
     public function menu()
     {
         return $this->belongsTo(Menu::class, 'menu_id');
-    }
-
-    public static function uploadDir()
-    {
-        return config('admin.modules.menus.upload_dir');
     }
 }

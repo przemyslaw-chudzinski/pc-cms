@@ -113,7 +113,6 @@ if (!function_exists('getImageUrl')) {
 }
 
 if(!function_exists('getSortUrl')) {
-    // TODO: Change order of parameters
     function getSortUrl($order_by, $sort= false, $moduleName, $action = false)
     {
         $current_order_by = request()->query('order_by');
