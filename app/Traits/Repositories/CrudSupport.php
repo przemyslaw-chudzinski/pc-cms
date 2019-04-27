@@ -3,7 +3,6 @@
 namespace App\Traits\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Facades\Project as ProjectModule;
 
 /**
  * Trait CrudSupport
@@ -17,7 +16,7 @@ trait CrudSupport
      * @param array $excluded_ids
      * @return mixed
      */
-    public function all($number = 10, array $with = [], array $excluded_ids = [])
+    public function list($number = 10, array $with = [], array $excluded_ids = [])
     {
         if ($number === false || $number === NULL ) $number = 10;
 
@@ -40,6 +39,34 @@ trait CrudSupport
         return $this->model->when($order_by, function($query) use ($order_by, $sort) {
             return $query->orderBy($order_by, $sort);
         })->paginate($number);
+    }
+
+    /**
+     * @param array $with
+     * @param array $excluded_ids
+     * @return mixed
+     */
+    public function all(array $with = [], array $excluded_ids = [])
+    {
+        $order_by = request()->query('order_by');
+        $sort = request()->query('sort');
+
+        if (!$this->validateOrderByField($order_by)) {
+            $order_by = $this->model->getSortable()[0];
+            $sort = 'asc';
+        }
+
+        if (count($with) > 0) {
+            return $this->model->with($with)->when($order_by, function($query) use ($order_by, $sort) {
+                return $query->orderBy($order_by, $sort);
+            })->when(count($excluded_ids) > 0, function ($query) use ($excluded_ids) {
+                return $query->whereNotIn('id', $excluded_ids);
+            })->get();
+        }
+
+        return $this->model->when($order_by, function($query) use ($order_by, $sort) {
+            return $query->orderBy($order_by, $sort);
+        })->get();
     }
 
     /**
@@ -128,12 +155,13 @@ trait CrudSupport
     /**
      * @param Model $model
      * @param array $attributes
+     * @param $uploadDir
      * @param string $colName
      * @return bool|null
      */
-    public function pushImage(Model $model, array $attributes = [], $colName = 'images')
+    public function pushImage(Model $model, array $attributes, $uploadDir, $colName = 'images', $attr_key = 'images')
     {
-        $sentFiles = array_has($attributes, 'images') ? array_get($attributes, 'images') : null;
+        $sentFiles = array_has($attributes, $attr_key) ? array_get($attributes, $attr_key) : null;
 
         if (!isset($sentFiles)) return null;
 
@@ -141,7 +169,7 @@ trait CrudSupport
 
         if (!$images) $images = [];
 
-        $uploadedFiles = $this->filesService->uploadFiles($sentFiles, ProjectModule::uploadDir());
+        $uploadedFiles = $this->filesService->uploadFiles($sentFiles, $uploadDir);
 
         $images[] = $uploadedFiles[0];
 
@@ -152,28 +180,27 @@ trait CrudSupport
 
     /**
      * @param Model $model
-     * @param array $attributes
+     * @param $imageID
      * @param string $colName
-     * @return bool|null
+     * @return Model
      */
-    public function removeImage(Model $model, array $attributes = [], $colName = 'images')
+    public function removeImage(Model $model, $imageID, $colName = 'images')
     {
-        $imageID = array_has($attributes, 'imageID') ? (int) array_get($attributes, 'imageID') : null;
+        $model->{$colName} = $this->removeFile($model->{$colName}, $imageID);
+        $model->save();
+        return $model;
+    }
 
-        if (!isset($imageID)) return null;
-
-        $images = $model->{$colName};
-
-        // TODO: Filter images by iageID !!!????
-//        $filteredImages = array_map(function ($image) use ($imageID) {
-//            return $imageID !== (int) $image['_id'] ? $image : false;
-//        }, $images);
-//
-//        $model->{$colName} = array_filter($filteredImages, function ($img) {
-//            return $img;
-//        });
-
-        return $model->isDirty() ? $model->save() : null;
-
+    /**
+     * @param Model $model
+     * @param $imageID
+     * @param string $colName
+     * @return Model
+     */
+    public function markImageAsSelected(Model $model, $imageID, $colName = 'images')
+    {
+        $model->{$colName} = $this->markFileAsSelected($model->{$colName}, (int) $imageID);
+        $model->save();
+        return $model;
     }
 }

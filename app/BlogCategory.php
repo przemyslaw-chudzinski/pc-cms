@@ -2,31 +2,35 @@
 
 namespace App;
 
-use App\Core\Contracts\Models\WithFiles;
+use App\Core\Contracts\Models\WithSort;
 use App\Traits\HasMassActions;
+use App\Traits\Models\HasImages;
+use App\Traits\Models\Sortable;
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\ModelTrait;
-use App\Traits\HasFiles;
 
-class BlogCategory extends Model implements WithFiles
+class BlogCategory extends Model implements WithSort
 {
 
-    use ModelTrait, HasFiles, HasMassActions;
+    use HasMassActions, Sortable, HasImages;
 
     protected $fillable = [
         'name',
         'slug',
         'description',
         'published',
-        'thumbnail',
+        'images',
         'parent_id'
     ];
 
-    protected static $sortable = [
+    protected $sortable = [
         'name',
         'published',
         'created_at',
         'updated_at'
+    ];
+
+    protected $casts = [
+        'author_ID' => 'integer'
     ];
 
     public function articles()
@@ -47,10 +51,5 @@ class BlogCategory extends Model implements WithFiles
             case 'change_status_on_false':
                 return self::massActionsChangeStatus($selected_ids, false);
         }
-    }
-
-    public static function uploadDir()
-    {
-        return config('admin.modules.blog_categories.upload_dir');
     }
 }

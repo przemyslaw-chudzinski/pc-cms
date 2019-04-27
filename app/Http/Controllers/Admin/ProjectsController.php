@@ -5,13 +5,16 @@ namespace App\Http\Controllers\Admin;
 use App\Core\Contracts\Repositories\ProjectRepository;
 use App\Http\Requests\Project\ProjectAjaxRequest;
 use App\Http\Requests\Project\ProjectRequest;
-use App\Http\Requests\RemoveImageRequest;
 use App\Http\Requests\UpdateImageAjaxRequest;
 use App\Http\Requests\UploadImagesRequest;
 use App\Project;
 use App\ProjectCategory;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use App\Facades\Project as ProjectFasade;
+use Illuminate\View\View;
 
 /**
  * Class ProjectsController
@@ -30,16 +33,16 @@ class ProjectsController extends BaseController
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
-        $projects = $this->projectRepository->all();
+        $projects = $this->projectRepository->list();
         return $this->loadView('projects.index', ['projects' => $projects]);
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create()
     {
@@ -49,7 +52,7 @@ class ProjectsController extends BaseController
 
     /**
      * @param Project $project
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function edit(Project $project)
     {
@@ -59,11 +62,12 @@ class ProjectsController extends BaseController
 
     /**
      * @param ProjectRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(ProjectRequest $request)
     {
         $this->projectRepository->create($request->all(), Auth::id());
+
         return redirect(route(getRouteName(ProjectFasade::getModuleName(), 'index')))->with('alert', [
             'type' => 'success',
             'message' => 'Project has been created successfully'
@@ -73,7 +77,7 @@ class ProjectsController extends BaseController
     /**
      * @param ProjectRequest $request
      * @param Project $project
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update(ProjectRequest $request, Project $project)
     {
@@ -86,7 +90,7 @@ class ProjectsController extends BaseController
 
     /**
      * @param Project $project
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function destroy(Project $project)
     {
@@ -100,7 +104,7 @@ class ProjectsController extends BaseController
 
     /**
      * @param Project $project
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function images(Project $project)
     {
@@ -108,28 +112,13 @@ class ProjectsController extends BaseController
     }
 
     /**
-     * @param RemoveImageRequest $request
-     * @param Project $project
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function removeImage(RemoveImageRequest $request, Project $project)
-    {
-        $this->projectRepository->removeImage($project, $request->all());
-
-        return back()->with('alert', [
-            'type' => 'success',
-            'message' => 'Image has been deleted successfully'
-        ]);
-    }
-
-    /**
      * @param UploadImagesRequest $request
      * @param Project $project
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function addImage(UploadImagesRequest $request, Project $project)
     {
-        $this->projectRepository->pushImage($project, $request->all());
+        $this->projectRepository->pushImage($project, $request->all(), ProjectFasade::uploadDir());
 
         return back()->with('alert', [
             'type' => 'success',
@@ -138,7 +127,7 @@ class ProjectsController extends BaseController
     }
 
     /**
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function massActions()
     {
@@ -147,7 +136,7 @@ class ProjectsController extends BaseController
 
     /**
      * @param Project $project
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function togglePublishedAjax(Project $project)
     {
@@ -210,7 +199,7 @@ class ProjectsController extends BaseController
     /**
      * @param UpdateImageAjaxRequest $request
      * @param Project $project
-     * @return array|\Illuminate\Http\JsonResponse
+     * @return array|JsonResponse
      */
     public function removeImageAjax(UpdateImageAjaxRequest $request, Project $project)
     {
@@ -221,7 +210,7 @@ class ProjectsController extends BaseController
             'type' => 'error'
         ], 422);
 
-        $this->projectRepository->removeImages($project, $request->getImageID());
+        $this->projectRepository->removeImage($project, $request->getImageID());
 
         return [
             'message' => 'Image has been removed successfully',

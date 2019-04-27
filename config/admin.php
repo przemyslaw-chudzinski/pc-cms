@@ -79,10 +79,19 @@ return [
                     'display_name' => 'Delete article action',
                     'route_name' => 'admin.articles.destroy'
                 ],
+                'images' => [
+                    'display_name' => 'Edit articles images view',
+                    'route_name' => 'admin.articles.images'
+                ],
+                'images_add' => [
+                    'display_name' => 'Add single image action',
+                    'route_name' => 'admin.articles.images.addImage'
+                ],
                 'mass_actions' => [
                     'display_name' => 'Mass actions',
                     'route_name' => 'admin.articles.mass_actions'
-                ]
+                ],
+                ''
             ]
         ],
 
@@ -113,6 +122,14 @@ return [
                 'destroy' => [
                     'display_name' => 'Delete blog category action',
                     'route_name' => 'admin.articles.categories.destroy'
+                ],
+                'images' => [
+                    'display_name' => 'Edit category images view',
+                    'route_name' => 'admin.articles.categories.images'
+                ],
+                'images_add' => [
+                    'display_name' => 'Add single image action',
+                    'route_name' => 'admin.articles.categories.images.addImage'
                 ],
                 'mass_actions' => [
                     'display_name' => 'Mass actions',
@@ -153,10 +170,10 @@ return [
                     'display_name' => 'Edit project images view',
                     'route_name' => 'admin.projects.images'
                 ],
-                'images_destroy' => [
-                    'display_name' => 'Remove single image action',
-                    'route_name' => 'admin.projects.images.destroy'
-                ],
+//                'images_destroy' => [
+//                    'display_name' => 'Remove single image action',
+//                    'route_name' => 'admin.projects.images.destroy'
+//                ],
                 'images_add' => [
                     'display_name' => 'Add single image action',
                     'route_name' => 'admin.projects.images.addImage'

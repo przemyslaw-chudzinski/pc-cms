@@ -1,3 +1,7 @@
+@php
+    $module_name = Role::getModuleName();
+@endphp
+
 @extends('admin::layout')
 
 @section('module_name')
@@ -5,10 +9,6 @@
 @endsection
 
 @section('content')
-
-    <?php
-        $module_name = 'roles';
-    ?>
 
     <div class="row">
         <div class="col-xs-12">

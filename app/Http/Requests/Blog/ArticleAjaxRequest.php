@@ -2,14 +2,12 @@
 
 namespace App\Http\Requests\Blog;
 
-use App\Article;
-use App\Traits\Toggleable;
 use Illuminate\Foundation\Http\FormRequest;
-use Validator;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 
 class ArticleAjaxRequest extends FormRequest
 {
-    use Toggleable;
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -27,27 +25,27 @@ class ArticleAjaxRequest extends FormRequest
      */
     public function rules()
     {
+        $article = $this->route('article');
         return [
-            //
-        ];
-    }
-
-    public function updateSlug(Article $article)
-    {
-
-        $validator = Validator::make($this->all(), [
             'slug' => 'required|max:255|unique:articles'.(isset($article) ? ',slug,' . $article->id : null),
-        ]);
-
-        if ($validator->fails()) return [
-            'message' => $validator->errors()->first(),
-            'error' => true,
-            'type' => 'error'
         ];
-
-        $slug = $this->input('slug');
-        $article->slug = str_slug($slug);
-        $article->isDirty() && $article->save();
-        return $article->slug;
     }
+
+    /**
+     * @param ValidatorContract $validator
+     * @return void|null
+     */
+    protected function failedValidation(ValidatorContract $validator)
+    {
+        return null;
+    }
+
+    /**
+     * @return ValidatorContract
+     */
+    public function getValidatorInstance()
+    {
+        return parent::getValidatorInstance();
+    }
+
 }

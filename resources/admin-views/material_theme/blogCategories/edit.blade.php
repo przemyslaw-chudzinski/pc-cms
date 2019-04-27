@@ -1,14 +1,23 @@
-@extends('admin::layout')
+@php
+    $module_name = BlogCategory::getModuleName();
+@endphp
+
+@extends('admin::edit-view-master')
 
 @section('module_name')
     Blog categories
 @endsection
 
-@section('content')
+@section('extra-navigation')
+    <div class="tabpanel">
+        <ul class="nav nav-tabs">
+            <li class="{{ setActiveClass([getRouteName($module_name, 'edit')]) }}"><a href="{{ getRouteUrl($module_name, 'edit', ['id' => $category->id]) }}">Edit</a></li>
+            <li class="{{ setActiveClass([getRouteName($module_name, 'images')]) }}"><a href="{{ getRouteUrl($module_name, 'images', ['id' => $category->id]) }}">Images</a></li>
+        </ul>
+    </div>
+@endsection
 
-    <?php
-    $module_name = 'blog_categories';
-    ?>
+@section('edit-content')
 
     <div class="row">
         {!! Form::open([
@@ -65,7 +74,7 @@
                             <div class="form-group">
                                 {!! Form::label(null, 'Parent category') !!}
                                 <select name="parent_id" class="select form-control">
-                                    <option></option>
+                                    <option>No parent category</option>
                                     @if (count($categories) > 0)
                                         @foreach($categories as $_category)
                                             @if ($category->id !== $_category->id)
@@ -79,26 +88,6 @@
                                         @endforeach
                                     @endif
                                 </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="form-group">
-                                @include('admin::components.forms.uploadImage', [
-                                    'filedName' => 'imageThumbnail',
-                                    'id' => 'categoryThumbnail',
-                                    'label' => 'Thumbnail',
-                                    'placeholder' => 'Choose category image',
-                                    'previewContainerId' => 'categoryThumbnailPreview',
-                                    'editState' => true,
-                                    'files' => $category->getFilesFrom('thumbnail'),
-                                    'noFileInputName' => 'noImage'
-                                ])
                             </div>
                         </div>
                     </div>

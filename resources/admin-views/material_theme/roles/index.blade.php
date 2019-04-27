@@ -1,3 +1,10 @@
+@php
+    $module_name = Role::getModuleName();
+    $args = [
+        'remove' => []
+    ];
+@endphp
+
 @extends('admin::layout')
 
 @section('module_name')
@@ -5,10 +12,6 @@
 @endsection
 
 @section('content')
-
-    <?php
-        $module_name = 'roles';
-    ?>
 
     <div class="row">
         <div class="col-xs-12">
@@ -26,26 +29,9 @@
                         </li>
                     </ul>
                 </header>
-                <div class="card-body">
-                    <div>
-                        <div>
-                            <?php
-//                            $args = [
-//                                'delete' => [
-//                                    'button_label' => 'Remove selected items',
-//                                    'button_class' => 'btn-danger',
-//                                ]
-//                            ];
-                                $args = [
-                                    'remove' => []
-                                ];
-                            ?>
-                            {!! MassActions::setHeaderActions($module_name, null, $args) !!}
-{{--                            {!! MassActions::setMassActions($module_name, NULL, $args) !!}--}}
-                        </div>
-                        {{-- Search --}}
-                        <div></div>
-                    </div>
+
+                    {!! MassActions::setHeaderActions($module_name, null, $args) !!}
+
                     <table class="table table-hover pc-cms-table">
                         <thead>
                         <tr>

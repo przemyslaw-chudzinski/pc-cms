@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Core\Contracts\Repositories\SegmentRepository;
-use App\Http\Requests\RemoveImageRequest;
 use App\Http\Requests\Segment\SegmentRequest;
 use App\Http\Requests\UpdateImageAjaxRequest;
 use App\Http\Requests\UploadImagesRequest;
 use App\Segment;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use App\Facades\Segment as SegmentModule;
+use Illuminate\View\View;
 
 class SegmentsController extends BaseController
 {
@@ -24,16 +27,16 @@ class SegmentsController extends BaseController
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
-        $segments = $this->segmentRepository->all();
+        $segments = $this->segmentRepository->list();
         return $this->loadView('segments.index', ['segments' => $segments]);
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create()
     {
@@ -42,7 +45,7 @@ class SegmentsController extends BaseController
 
     /**
      * @param Segment $segment
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function edit(Segment $segment)
     {
@@ -51,7 +54,7 @@ class SegmentsController extends BaseController
 
     /**
      * @param SegmentRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(SegmentRequest $request)
     {
@@ -66,7 +69,7 @@ class SegmentsController extends BaseController
     /**
      * @param SegmentRequest $request
      * @param Segment $segment
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update(SegmentRequest $request, Segment $segment)
     {
@@ -80,7 +83,7 @@ class SegmentsController extends BaseController
 
     /**
      * @param Segment $segment
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function destroy(Segment $segment)
     {
@@ -93,7 +96,7 @@ class SegmentsController extends BaseController
     }
 
     /**
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function massActions()
     {
@@ -102,7 +105,7 @@ class SegmentsController extends BaseController
 
     /**
      * @param Segment $segment
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function images(Segment $segment)
     {
@@ -112,11 +115,11 @@ class SegmentsController extends BaseController
     /**
      * @param UploadImagesRequest $request
      * @param Segment $segment
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function addImage(UploadImagesRequest $request, Segment $segment)
     {
-        $this->segmentRepository->pushImage($segment, $request->all());
+        $this->segmentRepository->pushImage($segment, $request->all(), SegmentModule::uploadDir());
 
         return back()->with('alert', [
             'type' => 'success',
@@ -125,24 +128,9 @@ class SegmentsController extends BaseController
     }
 
     /**
-     * @param RemoveImageRequest $request
-     * @param Segment $segment
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function removeImage(RemoveImageRequest $request, Segment $segment)
-    {
-        $this->segmentRepository->removeImage($segment, $request->all());
-
-        return back()->with('alert', [
-            'type' => 'success',
-            'message' => 'Image has been deleted successfully'
-        ]);
-    }
-
-    /**
      * @param UpdateImageAjaxRequest $request
      * @param Segment $segment
-     * @return array|\Illuminate\Http\JsonResponse
+     * @return array|JsonResponse
      */
     public function selectImageAjax(UpdateImageAjaxRequest $request, Segment $segment)
     {
@@ -165,7 +153,7 @@ class SegmentsController extends BaseController
     /**
      * @param UpdateImageAjaxRequest $request
      * @param Segment $segment
-     * @return array|\Illuminate\Http\JsonResponse
+     * @return array|JsonResponse
      */
     public function removeImageAjax(UpdateImageAjaxRequest $request, Segment $segment)
     {
@@ -176,7 +164,7 @@ class SegmentsController extends BaseController
             'type' => 'error'
         ], 422);
 
-        $this->segmentRepository->removeImages($segment, $request->getImageID());
+        $this->segmentRepository->removeImage($segment, $request->getImageID());
 
         return [
             'message' => 'Image has been removed',

@@ -7,8 +7,12 @@ use App\Http\Requests\ProjectCategory\CategoryAjaxRequest;
 use App\Http\Requests\ProjectCategory\CategoryRequest;
 use App\Http\Requests\UpdateImageAjaxRequest;
 use App\ProjectCategory;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use App\Facades\ProjectCategory as ProjectCategoryModule;
+use Illuminate\View\View;
 
 class ProjectCategoriesController extends BaseController
 {
@@ -23,16 +27,16 @@ class ProjectCategoriesController extends BaseController
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
-        $categories = $this->projectCategoryRepository->all();
+        $categories = $this->projectCategoryRepository->list();
         return $this->loadView('projectCategories.index', ['categories' => $categories]);
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create()
     {
@@ -41,7 +45,7 @@ class ProjectCategoriesController extends BaseController
 
     /**
      * @param ProjectCategory $projectCategory
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function images(ProjectCategory $projectCategory)
     {
@@ -50,7 +54,7 @@ class ProjectCategoriesController extends BaseController
 
     /**
      * @param CategoryRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(CategoryRequest $request)
     {
@@ -64,7 +68,7 @@ class ProjectCategoriesController extends BaseController
 
     /**
      * @param ProjectCategory $projectCategory
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function edit(ProjectCategory $projectCategory)
     {
@@ -74,7 +78,7 @@ class ProjectCategoriesController extends BaseController
     /**
      * @param CategoryRequest $request
      * @param ProjectCategory $projectCategory
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update(CategoryRequest $request, ProjectCategory $projectCategory)
     {
@@ -88,7 +92,7 @@ class ProjectCategoriesController extends BaseController
 
     /**
      * @param ProjectCategory $projectCategory
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function destroy(ProjectCategory $projectCategory)
     {
@@ -101,7 +105,7 @@ class ProjectCategoriesController extends BaseController
     }
 
     /**
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function massActions()
     {
@@ -110,11 +114,11 @@ class ProjectCategoriesController extends BaseController
 
     /**
      * @param ProjectCategory $projectCategory
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function addImage(ProjectCategory $projectCategory)
     {
-        $this->projectCategoryRepository->pushImage($projectCategory, request()->all());
+        $this->projectCategoryRepository->pushImage($projectCategory, request()->all(), ProjectCategoryModule::uploadDir());
 
         return back()->with('alert', [
             'type' => 'success',
@@ -122,15 +126,10 @@ class ProjectCategoriesController extends BaseController
         ]);
     }
 
-    public function removeImage()
-    {
-
-    }
-
     /**
      * @param CategoryAjaxRequest $request
      * @param ProjectCategory $category
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function togglePublishedAjax(CategoryAjaxRequest $request, ProjectCategory $category)
     {
@@ -162,7 +161,7 @@ class ProjectCategoriesController extends BaseController
     /**
      * @param UpdateImageAjaxRequest $request
      * @param ProjectCategory $category
-     * @return array|\Illuminate\Http\JsonResponse
+     * @return array|JsonResponse
      */
     public function selectImageAjax(UpdateImageAjaxRequest $request, ProjectCategory $category)
     {
@@ -182,6 +181,11 @@ class ProjectCategoriesController extends BaseController
         ];
     }
 
+    /**
+     * @param UpdateImageAjaxRequest $request
+     * @param ProjectCategory $category
+     * @return array|JsonResponse
+     */
     public function removeImageAjax(UpdateImageAjaxRequest $request, ProjectCategory $category)
     {
         $validator = $request->getValidatorInstance();
@@ -191,7 +195,7 @@ class ProjectCategoriesController extends BaseController
             'type' => 'error'
         ], 422);
 
-        $this->projectCategoryRepository->removeImages($category, $request->getImageID());
+        $this->projectCategoryRepository->removeImage($category, $request->getImageID());
 
         return [
             'message' => 'Image has been deleted successfully',

@@ -4,6 +4,7 @@ namespace App\Core\Modules;
 
 use App\Core\Contracts\AsModule;
 use App\Core\Contracts\WithFiles;
+use Illuminate\Config\Repository;
 
 /**
  * Class ProjectCategory
@@ -23,11 +24,11 @@ class ProjectCategory implements AsModule, WithFiles
     }
 
     /**
-     * @return \Illuminate\Config\Repository|mixed
+     * @return Repository|mixed
      */
-    public static function uploadDir()
+    public function uploadDir()
     {
-        return config('admin.modules.project_categories.upload_dir');
+        return getModuleUploadDir($this->moduleName);
     }
 
     /**

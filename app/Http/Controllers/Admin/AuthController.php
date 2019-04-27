@@ -8,14 +8,14 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends BaseController
 {
-
     use AuthenticatesUsers;
 
     protected $redirectTo;
 
     public function __construct()
     {
-        $this->redirectTo = config('admin.admin_path');
+//        $this->redirectTo = config('admin.admin_path');
+        $this->redirectTo = getBackendPath();
     }
 
     public function showLoginForm()

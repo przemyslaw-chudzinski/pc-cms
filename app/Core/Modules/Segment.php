@@ -21,7 +21,7 @@ class Segment implements AsModule, WithFiles
     /**
      * @param string $key
      * @param null $default
-     * @return |null
+     * @return mixed
      */
     public function getContent($key = '', $default = null)
     {
@@ -33,7 +33,7 @@ class Segment implements AsModule, WithFiles
     /**
      * @param string $key
      * @param null $default
-     * @return |null
+     * @return mixed
      */
     public function getDescription($key = '', $default = null)
     {
@@ -70,7 +70,7 @@ class Segment implements AsModule, WithFiles
 
     /**
      * @param string $key
-     * @return |null
+     * @return mixed
      */
     protected function getSegmentByKey($key = '')
     {
@@ -87,10 +87,10 @@ class Segment implements AsModule, WithFiles
     }
 
     /**
-     * @return \Illuminate\Config\Repository|mixed
+     * @return string
      */
-    public static function uploadDir()
+    public function uploadDir()
     {
-        return config('admin.modules.segments.upload_dir');
+        return getModuleUploadDir($this->moduleName);
     }
 }

@@ -1,3 +1,7 @@
+@php
+$module_name = Blog::getModuleName();
+@endphp
+
 @extends('admin::layout')
 
 @section('module_name')
@@ -5,10 +9,6 @@
 @endsection
 
 @section('content')
-
-    <?php
-        $module_name = 'blog';
-    ?>
 
     <div class="row">
         {!! Form::open([
@@ -33,10 +33,6 @@
                     <div class="form-group">
                         {!! Form::label(null, 'Article content') !!}
                         {!! Form::textarea('content', null, ['class' => 'form-control pc-cms-editor']) !!}
-                    </div>
-
-                    <div class="form-group">
-                        @include('admin::components.forms.seo', ['allow' => true, 'meta_title' => null, 'meta_description' => null])
                     </div>
                 </div>
             </div>
@@ -83,21 +79,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="form-group">
-                                @include('admin::components.forms.uploadImage', [
-                                    'filedName' => 'imageThumbnail',
-                                    'id' => 'articleThumbnail',
-                                    'label' => 'Thumbnail',
-                                    'previewContainerId' => 'blogThumbnailPreview',
-                                    'placeholder' => 'Choose article thumbnail',
-                                    'multiple' => false,
-                                    'editState' => false
-                                ])
-                            </div>
-                        </div>
-                    </div>
+                    @include('admin::components.forms.seo', ['allow' => true, 'meta_title' => null, 'meta_description' => null])
                 </div>
             </div>
         </div>

@@ -1,14 +1,24 @@
 @php
-    $module_name = 'blog';
+    $module_name = Blog::getModuleName();
 @endphp
 
-@extends('admin::layout')
+@extends('admin::edit-view-master')
 
 @section('module_name')
     Articles
 @endsection
 
-@section('content')
+@section('extra-navigation')
+    <div class="tabpanel">
+        <ul class="nav nav-tabs">
+            <li class="{{ setActiveClass([getRouteName($module_name, 'edit')]) }}"><a href="{{ getRouteUrl($module_name, 'edit', ['id' => $article]) }}">Edit</a></li>
+            <li class="{{ setActiveClass([getRouteName($module_name, 'images')]) }}"><a href="{{ getRouteUrl($module_name, 'images', ['id' => $article]) }}">Images</a></li>
+            <li role="presentation"><a href="#tab-3" data-toggle="tab" aria-expanded="true">Comments</a></li>
+        </ul>
+    </div>
+@endsection
+
+@section('edit-content')
 
     <div class="row">
         {!! Form::open([
@@ -38,9 +48,6 @@
                         {!! Form::textarea('content', $article->content, ['class' => 'form-control pc-cms-editor']) !!}
                     </div>
 
-                    <div class="form-group">
-                        @include('admin::components.forms.seo', ['allow' => $article->allow_indexed, 'meta_title' => $article->meta_title, 'meta_description' => $article->meta_description])
-                    </div>
                 </div>
             </div>
         </div>
@@ -95,22 +102,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="form-group">
-                                @include('admin::components.forms.uploadImage', [
-                                    'filedName' => 'imageThumbnail',
-                                    'id' => 'articleThumbnail',
-                                    'label' => 'Thumbnail',
-                                    'placeholder' => 'Choose article thumbnail',
-                                    'previewContainerId' => 'blogThumbnailPreview',
-                                    'editState' => true,
-                                    'files' => $article->getFilesFrom('thumbnail'),
-                                    'noFileInputName' => 'noImage'
-                                ])
-                            </div>
-                        </div>
-                    </div>
+                    @include('admin::components.forms.seo', ['allow' => $article->allow_indexed, 'meta_title' => $article->meta_title, 'meta_description' => $article->meta_description])
                 </div>
             </div>
         </div>

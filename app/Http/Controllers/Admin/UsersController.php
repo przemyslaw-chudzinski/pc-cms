@@ -30,7 +30,7 @@ class UsersController extends BaseController
      */
     public function index()
     {
-        $users = $this->userRepository->all(10, ['role'], [(int) Auth::id()]);
+        $users = $this->userRepository->list(10, ['role'], [(int) Auth::id()]);
         return $this->loadView('users.index', ['users' => $users]);
     }
 

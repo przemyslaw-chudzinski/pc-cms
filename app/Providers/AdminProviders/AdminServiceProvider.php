@@ -6,6 +6,8 @@ use App\Core\Contracts\Services\FilesService;
 use App\Core\FilesService\FilesService as FilesServiceCore;
 use App\Core\MassActions;
 use App\Core\Menu;
+use App\Core\Modules\Blog;
+use App\Core\Modules\BlogCategory;
 use App\Core\Modules\ProjectCategory;
 use App\Core\Modules\Project;
 use App\Core\Modules\Role;
@@ -16,6 +18,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use App\Core\Modules\User as UserModule;
+use App\Role as RoleModel;
 
 class AdminServiceProvider extends ServiceProvider
 {
@@ -78,6 +81,14 @@ class AdminServiceProvider extends ServiceProvider
             return new Role('roles');
         });
 
+        $this->app->bind('admin.blog', function () {
+            return new Blog('blog');
+        });
+
+        $this->app->bind('admin.blog_category', function () {
+            return new BlogCategory('blog_categories');
+        });
+
         $this->loadHelpers();
     }
 
@@ -109,7 +120,7 @@ class AdminServiceProvider extends ServiceProvider
         View::composer([
             'admin::components.forms.changeUserRoleModal'
         ], function ($view) {
-            $roles = Role::get();
+            $roles = RoleModel::get();
             $view->with('roles', $roles);
         });
 

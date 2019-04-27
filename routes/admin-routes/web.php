@@ -49,25 +49,34 @@ Route::group([
 
     /* Blog */
     Route::group(['prefix' => 'articles'], function () {
-        $module_name = 'blog';
+
+        $module_name = Blog::getModuleName();
+
         Route::get('/', 'BlogController@index')->name(getRouteName($module_name, 'index'));
         Route::get('/create', 'BlogController@create')->name(getRouteName($module_name, 'create'));
+        Route::get('{article}/images', 'BlogController@images')->name(getRouteName($module_name, 'images'));
         Route::get('{article}/edit', 'BlogController@edit')->name(getRouteName($module_name, 'edit'));
         Route::post('/', 'BlogController@store')->name(getRouteName($module_name, 'store'));
         Route::put('{article}', 'BlogController@update')->name(getRouteName($module_name, 'update'));
         Route::delete('{article}', 'BlogController@destroy')->name(getRouteName($module_name, 'destroy'));
         Route::post('mass-actions', 'BlogController@massActions')->name(getRouteName($module_name, 'mass_actions'));
+        Route::put('{article}/images/add', 'BlogController@addImage')->name(getRouteName($module_name, 'images_add'));
 
         /* Blog Categories */
         Route::group(['prefix' => 'categories'], function () {
-            $module_name = 'blog_categories';
+
+            $module_name = BlogCategory::getModuleName();
+
             Route::get('/', 'BlogCategoriesController@index')->name(getRouteName($module_name, 'index'));
             Route::get('/create', 'BlogCategoriesController@create')->name(getRouteName($module_name, 'create'));
-            Route::get('{blogCategory}/edit', 'BlogCategoriesController@edit')->name(getRouteName($module_name, 'edit'));
+            Route::get('{category}/edit', 'BlogCategoriesController@edit')->name(getRouteName($module_name, 'edit'));
+            Route::get('{category}/images', 'BlogCategoriesController@images')->name(getRouteName($module_name, 'images'));
             Route::post('/', 'BlogCategoriesController@store')->name(getRouteName($module_name, 'store'));
-            Route::put('{blogCategory}', 'BlogCategoriesController@update')->name(getRouteName($module_name, 'update'));
-            Route::delete('{blogCategory}', 'BlogCategoriesController@destroy')->name(getRouteName($module_name, 'destroy'));
+            Route::put('{category}', 'BlogCategoriesController@update')->name(getRouteName($module_name, 'update'));
+            Route::delete('{category}', 'BlogCategoriesController@destroy')->name(getRouteName($module_name, 'destroy'));
             Route::post('mass-actions', 'BlogCategoriesController@massActions')->name(getRouteName($module_name, 'mass_actions'));
+            Route::put('{category}/images/add', 'BlogCategoriesController@addImage')->name(getRouteName($module_name, 'images_add'));
+
         });
     });
 
