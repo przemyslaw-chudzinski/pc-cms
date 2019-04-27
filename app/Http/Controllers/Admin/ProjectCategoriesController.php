@@ -127,11 +127,10 @@ class ProjectCategoriesController extends BaseController
     }
 
     /**
-     * @param CategoryAjaxRequest $request
      * @param ProjectCategory $category
      * @return JsonResponse
      */
-    public function togglePublishedAjax(CategoryAjaxRequest $request, ProjectCategory $category)
+    public function togglePublishedAjax(ProjectCategory $category)
     {
         $updatedCategory = $this->projectCategoryRepository->toggle($category, 'published');
 
@@ -149,6 +148,14 @@ class ProjectCategoriesController extends BaseController
      */
     public function updateSlugAjax(CategoryAjaxRequest $request, ProjectCategory $category)
     {
+        $validator = $request->getValidatorInstance();
+
+        if ($validator->fails()) return [
+            'message' => $validator->errors()->first(),
+            'error' => true,
+            'type' => 'error'
+        ];
+
         $newSlug = $this->projectCategoryRepository->updateSlug($category, $request->all());
 
         return [

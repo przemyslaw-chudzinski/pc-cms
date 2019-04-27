@@ -82,6 +82,7 @@ class ProjectsController extends BaseController
     public function update(ProjectRequest $request, Project $project)
     {
         $this->projectRepository->update($project, $request->all());
+
         return back()->with('alert', [
             'type' => 'success',
             'message' => 'Project has been updated successfully'

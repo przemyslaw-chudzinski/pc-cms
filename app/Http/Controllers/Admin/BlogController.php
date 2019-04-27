@@ -10,7 +10,6 @@ use App\Http\Requests\Blog\ArticleAjaxRequest;
 use App\Http\Requests\Blog\ArticleRequest;
 use App\Http\Requests\UpdateImageAjaxRequest;
 use App\Http\Requests\UploadImagesRequest;
-use App\Project;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;

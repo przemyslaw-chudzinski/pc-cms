@@ -57,7 +57,7 @@
                             <div class="form-group">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="saveAndPublish" checked> Save and publish
+                                        <input type="checkbox" name="saveAndPublish" @if($category->published) checked @endif> Save and publish
                                     </label>
                                 </div>
                             </div>

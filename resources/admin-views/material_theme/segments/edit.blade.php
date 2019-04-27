@@ -59,17 +59,6 @@
                         {!! Form::textarea('description', $segment->description, ['class' => 'form-control', 'placeholder' => 'Write description about this segment']) !!}
                     </div>
 
-                    {{--@include('admin::components.forms.uploadImage', [--}}
-                                    {{--'filedName' => 'segmentImage',--}}
-                                    {{--'id' => 'segmentImage',--}}
-                                    {{--'label' => 'Image',--}}
-                                    {{--'placeholder' => 'Choose additional image',--}}
-                                    {{--'previewContainerId' => 'segmentImagePreview',--}}
-                                    {{--'editState' => true,--}}
-                                    {{--'files' => $segment->getFilesFrom(),--}}
-                                    {{--'dir' => 'segments',--}}
-                                    {{--'noFileInputName' => 'noImage'--}}
-                                {{--])--}}
                 </div>
             </div>
         </div>

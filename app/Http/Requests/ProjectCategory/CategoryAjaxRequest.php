@@ -2,9 +2,8 @@
 
 namespace App\Http\Requests\ProjectCategory;
 
-use App\ProjectCategory;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Contracts\Validation\Validator;
 
 class CategoryAjaxRequest extends FormRequest
 {
@@ -25,26 +24,26 @@ class CategoryAjaxRequest extends FormRequest
      */
     public function rules()
     {
+        $category = $this->route('category');
         return [
-            //
+            'slug' => 'required|max:255|unique:project_categories'.(isset($category) ? ',slug,' . $category->id : null),
         ];
     }
 
-    public function updateSlug(ProjectCategory $category)
+    /**
+     * @param Validator $validator
+     * @return void|null
+     */
+    protected function failedValidation(Validator $validator)
     {
-        $validator = Validator::make($this->all(), [
-            'slug' => 'required|max:255|unique:project_categories'.(isset($category) ? ',slug,' . $category->id : null),
-        ]);
+        return null;
+    }
 
-        if ($validator->fails()) return [
-            'message' => $validator->errors()->first(),
-            'error' => true,
-            'type' => 'error'
-        ];
-
-        $slug = $this->input('slug');
-        $category->slug = str_slug($slug);
-        $category->isDirty() && $category->save();
-        return $category->slug;
+    /**
+     * @return Validator
+     */
+    public function getValidatorInstance()
+    {
+        return parent::getValidatorInstance();
     }
 }

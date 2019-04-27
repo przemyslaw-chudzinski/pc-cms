@@ -49,13 +49,6 @@
                         {!! Form::textarea('description', null, ['class' => 'form-control', 'placeholder' => 'Write description about this segment']) !!}
                     </div>
 
-                    {{--@include('admin::components.forms.uploadImage', [--}}
-                                    {{--'filedName' => 'segmentImage',--}}
-                                    {{--'id' => 'segmentImage',--}}
-                                    {{--'label' => 'Image',--}}
-                                    {{--'previewContainerId' => 'segmentImagePreview',--}}
-                                    {{--'placeholder' => 'Choose additional image'--}}
-                                {{--])--}}
                 </div>
             </div>
         </div>
