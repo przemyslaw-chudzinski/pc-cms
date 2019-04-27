@@ -54,12 +54,9 @@ class EloquentProjectCategory extends EloquentAbstractRepository implements Proj
     public function update(Model $model, array $attributes = [])
     {
         $name = array_get($attributes,'name');
-        $slug = array_get($attributes,'slug');
-
         $model->name = $name;
-        array_has($attributes,'slug') && $slug !== $model->slug ? str_slug($slug) : null;
         $model->description = array_get($attributes,'description');
-        $model->published = array_has($attributes,'saveAndPublish');
+        $model->published = array_has($attributes, 'saveAndPublish');
         $model->isDirty() ? $model->save() : null;
         return $model;
     }
