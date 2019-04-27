@@ -16,6 +16,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View as ViewAlias;
+use App\Facades\Blog as BlogModule;
 
 class BlogController extends BaseController
 {
@@ -115,7 +116,7 @@ class BlogController extends BaseController
      */
     public function addImage(UploadImagesRequest $request, Article $article)
     {
-        $this->blogRepository->pushImage($article, $request->all());
+        $this->blogRepository->pushImage($article, $request->all(), BlogModule::uploadDir());
 
         return back()->with('alert', [
             'type' => 'success',
@@ -131,9 +132,14 @@ class BlogController extends BaseController
         return Article::massActions();
     }
 
-    public function togglePublishedAjax(ArticleAjaxRequest $request, Article $article)
+    /**
+     * @param Article $article
+     * @return JsonResponse
+     */
+    public function togglePublishedAjax(Article $article)
     {
-        $updatedArticle = $request->toggle($article, 'published');
+        $updatedArticle = $this->blogRepository->toggle($article,'published');
+
         return response()->json([
             'types' => 'success',
             'message' => __('messages.update_status'),
@@ -141,9 +147,13 @@ class BlogController extends BaseController
         ]);
     }
 
-    public function toggleCommentsStatusAjax(ArticleAjaxRequest $request, Article $article)
+    /**
+     * @param Article $article
+     * @return JsonResponse
+     */
+    public function toggleCommentsStatusAjax(Article $article)
     {
-        $updatedArticle = $request->toggle($article, 'allow_comments');
+        $updatedArticle = $this->blogRepository->toggle($article, 'allow_comments');
 
         return response()->json([
             'types' => 'success',
@@ -152,10 +162,23 @@ class BlogController extends BaseController
         ]);
     }
 
+    /**
+     * @param ArticleAjaxRequest $request
+     * @param Article $article
+     * @return array
+     */
     public function updateSlugAjax(ArticleAjaxRequest $request, Article $article)
     {
-        $newSlug = $request->updateSlug($article);
-        if (is_array($newSlug)) return $newSlug;
+        $validator = $request->getValidatorInstance();
+
+        if ($validator->fails()) return [
+            'message' => $validator->errors()->first(),
+            'error' => true,
+            'type' => 'error'
+        ];
+
+        $newSlug = $this->blogRepository->updateSlug($article, $request->all());
+
         return [
             'newSlug' => $newSlug,
             'message' => 'Slug has been updated successfully',
@@ -165,10 +188,10 @@ class BlogController extends BaseController
 
     /**
      * @param UpdateImageAjaxRequest $request
-     * @param Project $project
+     * @param Article $article
      * @return array
      */
-    public function selectImageAjax(UpdateImageAjaxRequest $request, Project $project)
+    public function selectImageAjax(UpdateImageAjaxRequest $request, Article $article)
     {
         $validator = $request->getValidatorInstance();
 
@@ -177,7 +200,7 @@ class BlogController extends BaseController
             'type' => 'error'
         ], 422);
 
-        $this->blogRepository->markImageAsSelected($project, $request->getImageID());
+        $this->blogRepository->markImageAsSelected($article, $request->getImageID());
 
         return [
             'message' => 'Image has been selected',
@@ -188,10 +211,10 @@ class BlogController extends BaseController
 
     /**
      * @param UpdateImageAjaxRequest $request
-     * @param Project $project
+     * @param Article $article
      * @return array|JsonResponse
      */
-    public function removeImageAjax(UpdateImageAjaxRequest $request, Project $project)
+    public function removeImageAjax(UpdateImageAjaxRequest $request, Article $article)
     {
         $validator = $request->getValidatorInstance();
 
@@ -200,7 +223,7 @@ class BlogController extends BaseController
             'type' => 'error'
         ], 422);
 
-        $this->blogRepository->removeImages($project, $request->getImageID());
+        $this->blogRepository->removeImage($article, $request->getImageID());
 
         return [
             'message' => 'Image has been removed successfully',

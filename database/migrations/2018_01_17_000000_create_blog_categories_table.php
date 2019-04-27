@@ -18,9 +18,11 @@ class CreateBlogCategoriesTable extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('description')->nullable()->default(null);
-            $table->longText('thumbnail')->nullable()->default(null);
+            $table->longText('images')->nullable()->default(null);
             $table->boolean('published')->default(true);
             $table->integer('parent_id')->unsigned()->nullable()->default(null);
+            $table->integer('author_ID')->unsigned()->nullable()->default(null);
+            $table->foreign('author_ID')->references('id')->on('users');
             $table->timestamps();
         });
     }

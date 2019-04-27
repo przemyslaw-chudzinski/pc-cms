@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Project;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProjectAjaxRequest extends FormRequest
@@ -30,16 +31,16 @@ class ProjectAjaxRequest extends FormRequest
     }
 
     /**
-     * @param \Illuminate\Contracts\Validation\Validator $validator
+     * @param Validator $validator
      * @return void|null
      */
-    protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
+    protected function failedValidation(Validator $validator)
     {
         return null;
     }
 
     /**
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @return Validator
      */
     public function getValidatorInstance()
     {

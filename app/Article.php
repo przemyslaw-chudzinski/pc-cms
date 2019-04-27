@@ -3,16 +3,14 @@
 namespace App;
 
 use App\Core\Contracts\Models\WithSort;
-use App\Core\Contracts\WithFiles;
 use App\Traits\HasMassActions;
 use App\Traits\Models\HasImages;
 use App\Traits\Models\Sortable;
 use Illuminate\Database\Eloquent\Model;
 
 
-class Article extends Model implements WithSort, WithFiles
+class Article extends Model implements WithSort
 {
-
     use HasMassActions, Sortable, HasImages;
 
     protected $fillable = [
@@ -33,6 +31,10 @@ class Article extends Model implements WithSort, WithFiles
         'allow_comments',
         'created_at',
         'updated_at'
+    ];
+
+    protected $casts = [
+        'author_ID' => 'integer'
     ];
 
     public function categories()
@@ -62,10 +64,5 @@ class Article extends Model implements WithSort, WithFiles
             case 'change_comment_status_false':
                 return self::massActionsChangeStatus($selected_ids, false, 'allow_comments');
         }
-    }
-
-    public static function uploadDir()
-    {
-        return config('admin.modules.blog.upload_dir');
     }
 }

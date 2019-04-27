@@ -7,5 +7,5 @@ namespace App\Core\Contracts;
  * @package App\Core\Contracts\Models
  */
 interface WithFiles {
-    public static function uploadDir();
+    public function uploadDir();
 }

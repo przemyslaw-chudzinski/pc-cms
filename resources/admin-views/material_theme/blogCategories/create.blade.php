@@ -1,3 +1,7 @@
+@php
+    $module_name = BlogCategory::getModuleName();
+@endphp
+
 @extends('admin::layout')
 
 @section('module_name')
@@ -5,10 +9,6 @@
 @endsection
 
 @section('content')
-
-    <?php
-        $module_name = 'blog_categories';
-    ?>
 
     <div class="row">
         {!! Form::open([
@@ -68,25 +68,6 @@
                                         @endforeach
                                     @endif
                                 </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="form-group">
-                                @include('admin::components.forms.uploadImage', [
-                                    'filedName' => 'imageThumbnail',
-                                    'id' => 'categoryThumbnail',
-                                    'label' => 'Thumbnail',
-                                    'placeholder' => 'Choose category image',
-                                    'previewContainerId' => 'categoryThumbnailPreview',
-                                    'multiple' => false,
-                                    'editState' => false
-                                ])
                             </div>
                         </div>
                     </div>

@@ -24,6 +24,8 @@ class CreateArticlesTable extends Migration
             $table->string('meta_title')->nullable()->default(null);
             $table->string('meta_description')->nullable()->default(null);
             $table->boolean('allow_indexed')->default(true);
+            $table->integer('author_ID')->unsigned()->nullable()->default(null);
+            $table->foreign('author_ID')->references('id')->on('users');
             $table->timestamps();
         });
     }

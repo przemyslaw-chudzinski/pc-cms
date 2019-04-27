@@ -127,6 +127,10 @@ return [
                     'display_name' => 'Edit category images view',
                     'route_name' => 'admin.articles.categories.images'
                 ],
+                'images_add' => [
+                    'display_name' => 'Add single image action',
+                    'route_name' => 'admin.articles.categories.images.addImage'
+                ],
                 'mass_actions' => [
                     'display_name' => 'Mass actions',
                     'route_name' => 'admin.articles.categories.mass_actions'

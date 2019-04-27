@@ -3,7 +3,6 @@
 namespace App\Traits\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Facades\Project as ProjectModule;
 
 /**
  * Trait CrudSupport
@@ -156,13 +155,13 @@ trait CrudSupport
     /**
      * @param Model $model
      * @param array $attributes
+     * @param $uploadDir
      * @param string $colName
      * @return bool|null
      */
-    // TODO: check;
-    public function pushImage(Model $model, array $attributes = [], $colName = 'images')
+    public function pushImage(Model $model, array $attributes, $uploadDir, $colName = 'images', $attr_key = 'images')
     {
-        $sentFiles = array_has($attributes, 'images') ? array_get($attributes, 'images') : null;
+        $sentFiles = array_has($attributes, $attr_key) ? array_get($attributes, $attr_key) : null;
 
         if (!isset($sentFiles)) return null;
 
@@ -170,7 +169,7 @@ trait CrudSupport
 
         if (!$images) $images = [];
 
-        $uploadedFiles = $this->filesService->uploadFiles($sentFiles, ProjectModule::uploadDir());
+        $uploadedFiles = $this->filesService->uploadFiles($sentFiles, $uploadDir);
 
         $images[] = $uploadedFiles[0];
 
@@ -181,29 +180,27 @@ trait CrudSupport
 
     /**
      * @param Model $model
-     * @param array $attributes
+     * @param $imageID
      * @param string $colName
-     * @return bool|null
+     * @return Model
      */
-    // TODO: check
-    public function removeImage(Model $model, array $attributes = [], $colName = 'images')
+    public function removeImage(Model $model, $imageID, $colName = 'images')
     {
-        $imageID = array_has($attributes, 'imageID') ? (int) array_get($attributes, 'imageID') : null;
+        $model->{$colName} = $this->removeFile($model->{$colName}, $imageID);
+        $model->save();
+        return $model;
+    }
 
-        if (!isset($imageID)) return null;
-
-        $images = $model->{$colName};
-
-        // TODO: Filter images by iageID !!!????
-//        $filteredImages = array_map(function ($image) use ($imageID) {
-//            return $imageID !== (int) $image['_id'] ? $image : false;
-//        }, $images);
-//
-//        $model->{$colName} = array_filter($filteredImages, function ($img) {
-//            return $img;
-//        });
-
-        return $model->isDirty() ? $model->save() : null;
-
+    /**
+     * @param Model $model
+     * @param $imageID
+     * @param string $colName
+     * @return Model
+     */
+    public function markImageAsSelected(Model $model, $imageID, $colName = 'images')
+    {
+        $model->{$colName} = $this->markFileAsSelected($model->{$colName}, (int) $imageID);
+        $model->save();
+        return $model;
     }
 }

@@ -3,7 +3,6 @@
 
 namespace App\Core\EloquentRepositories;
 
-
 use App\Article;
 use App\Core\Contracts\Repositories\BlogRepository;
 use App\Core\Contracts\Services\FilesService;
@@ -26,30 +25,6 @@ class EloquentBlog extends EloquentAbstractRepository implements BlogRepository
     {
         parent::__construct($model);
         $this->filesService = $filesService;
-    }
-
-    /**
-     * @param Article $model
-     * @param $imageID
-     * @return Article
-     */
-    public function markImageAsSelected(Article $model, $imageID)
-    {
-        $model->images = $this->markFileAsSelected($model->images, (int) $imageID);
-        $model->save();
-        return $model;
-    }
-
-    /**
-     * @param Article $model
-     * @param $imageID
-     * @return Article
-     */
-    public function removeImages(Article $model, $imageID)
-    {
-        $model->images = $this->removeFile($model->images, $imageID);
-        $model->save();
-        return $model;
     }
 
     /**

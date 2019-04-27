@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Core\Contracts\Repositories\ProjectRepository;
 use App\Http\Requests\Project\ProjectAjaxRequest;
 use App\Http\Requests\Project\ProjectRequest;
-use App\Http\Requests\RemoveImageRequest;
 use App\Http\Requests\UpdateImageAjaxRequest;
 use App\Http\Requests\UploadImagesRequest;
 use App\Project;
@@ -68,6 +67,7 @@ class ProjectsController extends BaseController
     public function store(ProjectRequest $request)
     {
         $this->projectRepository->create($request->all(), Auth::id());
+
         return redirect(route(getRouteName(ProjectFasade::getModuleName(), 'index')))->with('alert', [
             'type' => 'success',
             'message' => 'Project has been created successfully'
@@ -112,28 +112,13 @@ class ProjectsController extends BaseController
     }
 
     /**
-     * @param RemoveImageRequest $request
-     * @param Project $project
-     * @return RedirectResponse
-     */
-    public function removeImage(RemoveImageRequest $request, Project $project)
-    {
-        $this->projectRepository->removeImage($project, $request->all());
-
-        return back()->with('alert', [
-            'type' => 'success',
-            'message' => 'Image has been deleted successfully'
-        ]);
-    }
-
-    /**
      * @param UploadImagesRequest $request
      * @param Project $project
      * @return RedirectResponse
      */
     public function addImage(UploadImagesRequest $request, Project $project)
     {
-        $this->projectRepository->pushImage($project, $request->all());
+        $this->projectRepository->pushImage($project, $request->all(), ProjectFasade::uploadDir());
 
         return back()->with('alert', [
             'type' => 'success',
@@ -225,7 +210,7 @@ class ProjectsController extends BaseController
             'type' => 'error'
         ], 422);
 
-        $this->projectRepository->removeImages($project, $request->getImageID());
+        $this->projectRepository->removeImage($project, $request->getImageID());
 
         return [
             'message' => 'Image has been removed successfully',

@@ -22,8 +22,12 @@ Route::group(['prefix' => 'articles'], function () {
     Route::post('categories/{category}/togglePublished', 'BlogCategoriesController@togglePublishedAjax');
     Route::post('{article}/update-slug', 'BlogController@updateSlugAjax')->name('ajax.articles.updateSlug');
     Route::post('categories/{category}/update-slug', 'BlogCategoriesController@updateSlugAjax')->name('ajax.articles.categories.updateSlug');
-    Route::delete('{project}/remove-image', 'BlogController@removeImageAjax')->name('ajax.articles.removeImage');
-    Route::post('{project}/select-image', 'BlogController@selectImageAjax')->name('ajax.articles.selectImage');
+
+    Route::delete('{article}/remove-image', 'BlogController@removeImageAjax')->name('ajax.articles.removeImage');
+    Route::post('{article}/select-image', 'BlogController@selectImageAjax')->name('ajax.articles.selectImage');
+
+    Route::delete('categories/{category}/remove-image', 'BlogCategoriesController@removeImageAjax')->name('ajax.articles.categories.removeImage');
+    Route::post('categories/{category}/select-image', 'BlogCategoriesController@selectImageAjax')->name('ajax.articles.categories.selectImage');
 });
 
 /* Pages ajax routes */
@@ -39,7 +43,8 @@ Route::group(['prefix' => 'projects'], function () {
     Route::post('{project}/update-slug', 'ProjectsController@updateSlugAjax')->name('ajax.projects.updateSlug');
     Route::post('categories/{category}/update-slug', 'ProjectCategoriesController@updateSlugAjax')->name('ajax.projects.categories.updateSlug');
     Route::post('categories/{category}/select-image', 'ProjectCategoriesController@selectImageAjax')->name('ajax.projects.categories.selectImage');
-    Route::delete('category/{category}/remove-image', 'ProjectCategoriesController@removeImageAjax')->name('ajax.projects.categories.removeImage');
+    Route::delete('categories/{category}/remove-image', 'ProjectCategoriesController@removeImageAjax')->name('ajax.projects.categories.removeImage');
+
     Route::delete('{project}/remove-image', 'ProjectsController@removeImageAjax')->name('ajax.projects.removeImage');
     Route::post('{project}/select-image', 'ProjectsController@selectImageAjax')->name('ajax.projects.selectImage');
 });

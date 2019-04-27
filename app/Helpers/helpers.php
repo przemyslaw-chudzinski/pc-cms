@@ -1,6 +1,7 @@
 <?php
 
 
+use Illuminate\Config\Repository;
 use Illuminate\Support\Facades\Route;
 
 if (!function_exists('setActiveClass')) {
@@ -47,7 +48,7 @@ if (!function_exists('getRouteName')) {
     /**
      * @param string $moduleName
      * @param string $actionName
-     * @return \Illuminate\Config\Repository|mixed
+     * @return Repository|mixed
      */
     function getRouteName(string $moduleName, string $actionName)
     {
@@ -72,7 +73,7 @@ if(!function_exists('getRouteUrl'))
 if (!function_exists('getModuleActions')) {
     /**
      * @param string $moduleName
-     * @return \Illuminate\Config\Repository|mixed
+     * @return Repository|mixed
      */
     function getModuleActions(string $moduleName)
     {
@@ -83,7 +84,7 @@ if (!function_exists('getModuleActions')) {
 if (!function_exists('getModuleUploadDir')) {
     /**
      * @param string $moduleName
-     * @return \Illuminate\Config\Repository|mixed
+     * @return Repository|mixed
      */
     function getModuleUploadDir(string $moduleName)
     {

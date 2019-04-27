@@ -10,7 +10,7 @@ interface CrudRepository
 
     function list($number = 10, array $with = [], array $excluded_ids = []);
 
-    function all(array $iwth = [], array $excluded_ids = []);
+    function all(array $with = [], array $excluded_ids = []);
 
     function getByAuthorID($authorID);
 
@@ -22,7 +22,9 @@ interface CrudRepository
 
     public function toggle(Model $model, $columnName);
 
-    public function pushImage(Model $model, array $attributes = [], $colName = 'images');
+    public function pushImage(Model $model, array $attributes, $uploadDir, $colName = 'images');
 
-    public function removeImage(Model $model, array $attributes = [], $colName = 'images');
+    public function removeImage(Model $model, $imageID, $colName = 'images');
+
+    public function markImageAsSelected(Model $model, $imageID, $colName = 'images');
 }

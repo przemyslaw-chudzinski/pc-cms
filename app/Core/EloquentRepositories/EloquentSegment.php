@@ -10,7 +10,6 @@ use App\Segment;
 use App\Traits\Repositories\CrudSupport;
 use App\Traits\Repositories\HasRemovableFiles;
 use App\Traits\Repositories\HasSelectableFiles;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class EloquentSegment
@@ -29,29 +28,5 @@ class EloquentSegment extends EloquentAbstractRepository implements SegmentRepos
     {
         parent::__construct($model);
         $this->filesService = $filesService;
-    }
-
-    /**
-     * @param Model $model
-     * @param $imageID
-     * @return Model
-     */
-    public function markImageAsSelected(Model $model, $imageID)
-    {
-        $model->images = $this->markFileAsSelected($model->images, $imageID);
-        $model->save();
-        return $model;
-    }
-
-    /**
-     * @param Model $model
-     * @param $imageID
-     * @return Model
-     */
-    public function removeImages(Model $model, $imageID)
-    {
-        $model->images = $this->removeFile($model->images, $imageID);
-        $model->save();
-        return $model;
     }
 }

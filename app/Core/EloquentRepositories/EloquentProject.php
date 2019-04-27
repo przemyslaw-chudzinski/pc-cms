@@ -61,6 +61,7 @@ class EloquentProject extends EloquentAbstractRepository implements ProjectRepos
         $title = array_get($attributes, 'title');
         $slug = array_get($attributes, 'slug');
         $categoryIds = array_get($attributes, 'category_ids');
+
         $project = $this->model->create([
             'title' => $title,
             'slug' => isset($slug) ? str_slug($slug) : str_slug($title),
@@ -71,31 +72,7 @@ class EloquentProject extends EloquentAbstractRepository implements ProjectRepos
             'allow_indexed' => array_has($attributes, 'allow_indexed'),
             'author_ID' => $authorID
         ]);
+
         array_has($attributes, 'category_ids') ? $project->categories()->sync($categoryIds) : null;
-    }
-
-    /**
-     * @param Model $model
-     * @param $imageID
-     * @return Model
-     */
-    public function markImageAsSelected(Model $model, $imageID)
-    {
-        $imagesObjectJSON = $this->markFileAsSelected($model->images, (int) $imageID);
-        $model->images = $imagesObjectJSON;
-        $model->save();
-        return $model;
-    }
-
-    /**
-     * @param Model $model
-     * @param $imageID
-     * @return Model
-     */
-    public function removeImages(Model $model, $imageID)
-    {
-        $model->images = $this->removeFile($model->images, $imageID);
-        $model->save();
-        return $model;
     }
 }

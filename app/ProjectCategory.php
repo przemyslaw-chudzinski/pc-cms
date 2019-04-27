@@ -7,6 +7,7 @@ use App\Traits\HasMassActions;
 use App\Traits\Models\HasImages;
 use App\Traits\Models\Sortable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\RedirectResponse;
 
 class ProjectCategory extends Model implements WithSort
 {
@@ -32,7 +33,7 @@ class ProjectCategory extends Model implements WithSort
     ];
 
     /**
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public static function massActions()
     {

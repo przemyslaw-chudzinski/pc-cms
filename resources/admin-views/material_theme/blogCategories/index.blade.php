@@ -1,3 +1,16 @@
+@php
+        $module_name = 'blog_categories';
+        $count_items = count($categories);
+        $args = [
+                'remove' => [
+                'can' => true
+            ],
+                'change_status' => [
+                'can' => true
+            ]
+       ];
+@endphp
+
 @extends('admin::layout')
 
 @section('module_name')
@@ -5,11 +18,6 @@
 @endsection
 
 @section('content')
-
-    <?php
-        $module_name = 'blog_categories';
-        $count_items = count($categories);
-    ?>
 
     <div class="row">
         <div class="col-xs-12">
@@ -28,38 +36,9 @@
                     </ul>
                 </header>
                 <div class="card-body">
-                    <div>
-                        <div>
-                            <?php
-//                            $args = [
-//                                'delete' => [
-//                                    'button_label' => 'Remove selected items',
-//                                    'button_class' => 'btn-danger',
-//                                ],
-//                                'change_status_on_true' => [
-//                                    'button_label' => 'Set on published',
-//                                    'button_class' => 'btn-primary'
-//                                ],
-//                                'change_status_on_false' => [
-//                                    'button_label' => 'Set on draft',
-//                                    'button_class' => 'btn-primary'
-//                                ]
-//                            ];
-                                $args = [
-                                    'remove' => [
-                                        'can' => true
-                                    ],
-                                    'change_status' => [
-                                        'can' => true
-                                    ]
-                                ];
-                            ?>
-                            {!! MassActions::setHeaderActions($module_name, NULL, $args) !!}
-                            {{--{!! MassActions::setMassActions($module_name, NULL, $args) !!}--}}
-                        </div>
-                        {{-- Search --}}
-                        <div></div>
-                    </div>
+
+                    {!! MassActions::setHeaderActions($module_name, NULL, $args) !!}
+
                     <table class="table table-hover pc-cms-table">
                         <thead>
                         <tr>
@@ -94,6 +73,7 @@
                                             </button>
                                             <ul class="dropdown-menu">
                                                 <li><a href="{{ url(route(getRouteName('blog_categories', 'edit'), $category->id)) }}">Edit</a></li>
+                                                <li><a href="{{ route(getRouteName($module_name, 'images'), $category->id) }}">Images</a></li>
                                                 <li>
                                                     {!! Form::open([
                                                         'method' => 'delete',
