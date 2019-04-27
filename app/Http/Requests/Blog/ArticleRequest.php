@@ -45,27 +45,8 @@ class ArticleRequest extends FormRequest
             'allow_indexed' => $this->has('allow_indexed'),
             'published' => $this->has('saveAndPublish'),
             'meta_title' => $this->has('meta_title') ? $this->input('meta_title') : null,
-            'meta_description' => $this->has('meta_description') ? $this->input('meta_description') : null
+            'meta_description' => $this->has('meta_description') ? $this->input('meta_description') : null,
+            'category_ids' => $this->input('category_ids')
         ];
     }
-
-//    public function updateArticle(Article $article)
-//    {
-//        $title = $this->input('title');
-//        $categoryIds = $this->input('category_ids');
-//
-//        if($this->hasFile('imageThumbnail')) $article->thumbnail = $this->uploadFiles($this->file('imageThumbnail'), Article::uploadDir());
-//        else if($this->canClearImage()) $article->thumbnail = null;
-//
-//        $article->title = $title;
-//        $article->content = $this->input('content');
-//        $article->meta_title = $this->has('meta_title') ? $this->input('meta_title') : null;
-//        $article->meta_description = $this->has('meta_description') ? $this->input('meta_description') : null;
-//        $article->allow_comments = $this->has('allowComments');
-//        $article->allow_indexed = $this->has('allow_indexed');
-//        $article->published = $this->has('saveAndPublish');
-//        $this->has('category_ids') && count($categoryIds) > 0 ? $article->categories()->sync($categoryIds) : $article->categories()->detach();
-//        $article->isDirty() ? $article->save() : null;
-//        return $article;
-//    }
 }

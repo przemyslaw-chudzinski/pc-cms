@@ -30,13 +30,14 @@ class EloquentBlog extends EloquentAbstractRepository implements BlogRepository
     /**
      * @param array $attributes
      * @param $authorID
+     * @return mixed
      */
     public function create(array $attributes, $authorID)
     {
         $attributes['author_ID'] = $authorID;
         $categoryIds = array_get($attributes, 'category_ids');
         $article = $this->model->create($attributes);
-        array_has($attributes, 'category_ids') ? $article->categories()->sync($categoryIds) : null;
+        return array_has($attributes, 'category_ids') ? $article->categories()->sync($categoryIds) : null;
     }
 
     /**
@@ -46,16 +47,18 @@ class EloquentBlog extends EloquentAbstractRepository implements BlogRepository
      */
     function update(Model $article, array $attributes = [])
     {
-        $title = array_get($attributes, 'title');
         $categoryIds = array_get($attributes,'category_ids');
 
-        $article->title = $title;
+        $article->title = array_get($attributes, 'title');;
         $article->content = array_get($attributes,'content');
-        $article->published = array_has($attributes, 'saveAndPublish');
+        $article->published = array_get($attributes, 'published');
         $article->meta_title = array_get($attributes,'meta_title');
         $article->meta_description = array_get($attributes,'meta_description');
-        $article->allow_indexed = array_has($attributes,'allow_indexed');
+        $article->allow_indexed = array_get($attributes,'allow_indexed');
+        $article->allow_comments = array_get($attributes, 'allow_comments');
+
         array_has($attributes,'category_ids') ? $article->categories()->sync($categoryIds) : $article->categories()->detach();
+
         $article->isDirty() ? $article->save() : null;
         return $article;
     }
