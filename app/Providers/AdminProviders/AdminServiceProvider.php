@@ -12,7 +12,7 @@ use App\Core\Modules\ProjectCategory;
 use App\Core\Modules\Project;
 use App\Core\Modules\Role;
 use App\Core\Modules\Segment;
-use App\Core\Setting;
+use App\Core\Modules\Setting;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -53,8 +53,8 @@ class AdminServiceProvider extends ServiceProvider
             return new Segment('segments');
         });
 
-        $this->app->bind('setting', function () {
-            return new Setting();
+        $this->app->bind('admin.setting', function () {
+            return new Setting('settings');
         });
 
         $this->app->bind('admin.mass_actions', function () {

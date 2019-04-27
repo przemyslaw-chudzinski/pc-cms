@@ -8,6 +8,7 @@ use App\Core\Contracts\Repositories\ProjectCategoryRepository;
 use App\Core\Contracts\Repositories\ProjectRepository;
 use App\Core\Contracts\Repositories\RoleRepository;
 use App\Core\Contracts\Repositories\SegmentRepository;
+use App\Core\Contracts\Repositories\SettingRepository;
 use App\Core\Contracts\Repositories\UserRepository;
 use App\Core\EloquentRepositories\EloquentBlog;
 use App\Core\EloquentRepositories\EloquentBlogCategory;
@@ -15,6 +16,7 @@ use App\Core\EloquentRepositories\EloquentProject;
 use App\Core\EloquentRepositories\EloquentProjectCategory;
 use App\Core\EloquentRepositories\EloquentRole;
 use App\Core\EloquentRepositories\EloquentSegment;
+use App\Core\EloquentRepositories\EloquentSetting;
 use App\Core\EloquentRepositories\EloquentUser;
 use Illuminate\Support\ServiceProvider;
 
@@ -44,5 +46,6 @@ class AdminRepositoryServiceProvider extends ServiceProvider
         $this->app->singleton(RoleRepository::class, EloquentRole::class);
         $this->app->singleton(BlogRepository::class, EloquentBlog::class);
         $this->app->singleton(BlogCategoryRepository::class, EloquentBlogCategory::class);
+        $this->app->singleton(SettingRepository::class, EloquentSetting::class);
     }
 }
